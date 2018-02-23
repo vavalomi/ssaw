@@ -1,0 +1,7 @@
+
+*.pyc
+__pycache__
+dist
+tests/vcr_cassettes*
+*.egg-info
+.pytest_cache
