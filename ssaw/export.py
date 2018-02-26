@@ -14,12 +14,11 @@ class Export(object):
 			response = self.session.get(path, stream=True)
 
 			d = response.headers['content-disposition']
-			fname = re.findall("filename\*=utf-8''(.+)", d)[0]
-			print(fname)
+			fname = re.findall(r"filename\*=utf-8''(.+)", d)[0]
 			outfile = os.path.join(exportpath, fname)
 			with open(outfile, 'wb') as f:
 				for chunk in response.iter_content(chunk_size=1024): 
-					if chunk: # filter out keep-alive new chunks
+					if chunk:
 						f.write(chunk)
 		return outfile
 

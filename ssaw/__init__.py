@@ -2,6 +2,7 @@ import requests
 from .assignments import Assignments
 from .export import Export
 from .interviews import Interviews
+from .questionnaires import Questionnaires
 from .utils import *
 
 class ApiObject(object):
@@ -11,6 +12,7 @@ class ApiObject(object):
 		self._assignments = Assignments(self.url, self.session)
 		self.Export = Export(self.url, self.session)
 		self.Interviews = Interviews(self.url, self.session)
+		self.Questionnaires = Questionnaires(self.url, self.session)
 
 	def Assignments(self, id=None):
 		if id:
