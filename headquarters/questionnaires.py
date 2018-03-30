@@ -1,14 +1,18 @@
+from .utils import IncompleteQuestionnaireIdError
+
 class Questionnaires(object):
 	def __init__(self, url, session):
 		self.url = url + 'questionnaires'
 		self.session = session
 
-	def __call__(self):
-		response = self.session.get(self.url)
-		return response.json()
+	def __call__(self, id=None, version=None):
+		path = self.url
+		if id and version:
+			path = path + '/{}/{}'.format(id, version)
+		else:
+			if id or version:
+				raise IncompleteQuestionnaireIdError()
 
-	def GetOne(self, id, version):
-		path = self.url + '/{}/{}'.format(id, version)
 		response = self.session.get(path)
 		return response.json()
 

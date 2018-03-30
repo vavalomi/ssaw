@@ -3,11 +3,9 @@ class Assignments(object):
 		self.url = url + 'assignments'
 		self.session = session
 
-	def GetOne(self, id):
-		path = self.url + '/{}'.format(id)
+	def __call__(self, id=None):
+		path = self.url
+		if id:
+			path = path + '/{}'.format(id)
 		response = self.session.get(path)
-		return response.json()
-
-	def GetList(self):
-		response = self.session.get(self.url)
 		return response.json()

@@ -1,5 +1,7 @@
-from pytest import fixture
+from pytest import fixture, raises
 import vcr
+from headquarters.utils import IncompleteQuestionnaireIdError
+
 
 my_vcr = vcr.VCR(
 	serializer='yaml',
@@ -27,6 +29,22 @@ def test_questionnaire_list(session):
 	response = session.Questionnaires()
 	assert isinstance(response, dict)
 	assert 'Questionnaires' in response.keys(), "The Questionnaires should be in the response"
+
+@my_vcr.use_cassette()
+def test_questionnaire_incomplete1(session):
+	with raises(IncompleteQuestionnaireIdError):
+		response = session.Questionnaires(version=3)
+
+@my_vcr.use_cassette()
+def test_questionnaire_incomplete2(session):
+	with raises(IncompleteQuestionnaireIdError):
+		response = session.Questionnaires(id=3)
+
+@my_vcr.use_cassette(decode_compressed_response=True)
+def test_questionnaire_single(session, params):
+	response = session.Questionnaires(params['TemplateId'], params['TemplateVersion'])
+	assert isinstance(response, dict)
+
 
 @my_vcr.use_cassette(decode_compressed_response=True)
 def test_questionnaire_document(session, params):
