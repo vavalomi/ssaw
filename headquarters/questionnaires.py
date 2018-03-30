@@ -3,13 +3,13 @@ class Questionnaires(object):
 		self.url = url + 'questionnaires'
 		self.session = session
 
+	def __call__(self):
+		response = self.session.get(self.url)
+		return response.json()
+
 	def GetOne(self, id, version):
 		path = self.url + '/{}/{}'.format(id, version)
 		response = self.session.get(path)
-		return response.json()
-
-	def All(self):
-		response = self.session.get(self.url)
 		return response.json()
 
 	def Statuses(self):

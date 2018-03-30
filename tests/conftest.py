@@ -1,12 +1,12 @@
 import os
 import pytest
-import ssaw
+import headquarters
 
 @pytest.fixture(scope="module")
 def session():
 	API_USER = os.environ.get('SOLUTIONS_API_USER', None)
 	API_PASSWORD = os.environ.get('SOLUTIONS_API_PASSWORD', None)
-	ss = ssaw.init('https://demo.mysurvey.solutions/', API_USER, API_PASSWORD)
+	ss = headquarters.init('https://demo.mysurvey.solutions/', API_USER, API_PASSWORD)
 	return ss
 
 @pytest.fixture(scope="module")
