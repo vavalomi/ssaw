@@ -1,6 +1,7 @@
-from ssaw.utils import *
+from headquarters.utils import *
 import pytest
 import vcr
+import tempfile
 
 my_vcr = vcr.VCR(
 	serializer='yaml',
@@ -33,5 +34,6 @@ def test_export_start(session, params):
 
 @my_vcr.use_cassette()
 def test_export_get(session, params):
-	r = session.Export.Get(params['QuestionnaireId'], 'c:/temp', 'Tabular')
-	assert r == 'c:/temp\\Copy+of+SM_1_Tabular_All.zip'
+	tempdir = tempfile.gettempdir()
+	r = session.Export.Get(params['QuestionnaireId'], tempdir, 'Tabular')
+	assert r == tempdir + '/Copy+of+SM_1_Tabular_All.zip'

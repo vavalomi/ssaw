@@ -31,7 +31,7 @@ def test_interview_history(session, params):
 @my_vcr.use_cassette()
 def test_interview_approve(session, params):
 	r = session.Interviews.Approve(params['InterviewId'])
-	assert r == False, "did we approve something?"
+	assert r == True, "did we approve something?"
 
 @my_vcr.use_cassette()
 def test_interview_reject(session, params):

@@ -24,7 +24,7 @@ def test_interview_statuses(session, statuses):
 
 @my_vcr.use_cassette()
 def test_questionnaire_list(session):
-	response = session.Questionnaires.All()
+	response = session.Questionnaires()
 	assert isinstance(response, dict)
 	assert 'Questionnaires' in response.keys(), "The Questionnaires should be in the response"
 
