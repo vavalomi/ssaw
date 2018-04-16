@@ -5,7 +5,7 @@ class Interviews(object):
 		self.url = url + 'interviews'
 		self.session = session
 
-	def All(self):
+	def __call__(self):
 		response = self.session.get(self.url)
 		return response.json()
 

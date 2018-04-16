@@ -10,7 +10,7 @@ my_vcr = vcr.VCR(
 
 @my_vcr.use_cassette(decode_compressed_response=True)
 def test_interview_list(session):
-	r = session.Interviews.All()
+	r = session.Interviews()
 	assert isinstance(r, dict)
 	assert 'Interviews' in r.keys(), "The Interviews key should be in the response"
 
