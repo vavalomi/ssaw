@@ -1,8 +1,9 @@
 
 *.pyc
 __pycache__
+build
 dist
-tests/vcr_cassettes*
+tests/*/vcr_cassettes*
 *.egg-info
 .pytest_cache
 .vscode

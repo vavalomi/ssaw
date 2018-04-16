@@ -1,11 +1,11 @@
 from pytest import fixture, raises
 import vcr
-from headquarters.utils import IncompleteQuestionnaireIdError
+from ssaw.headquarters.utils import IncompleteQuestionnaireIdError
 
 
 my_vcr = vcr.VCR(
 	serializer='yaml',
-	cassette_library_dir='tests/vcr_cassettes',
+	cassette_library_dir='tests/headquarters/vcr_cassettes',
 	path_transformer=vcr.VCR.ensure_suffix('.yaml'),
 	record_mode='once',
 	filter_headers=[('authorization', None)]

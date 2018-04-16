@@ -1,6 +1,6 @@
 import os
 import pytest
-import headquarters
+from ssaw import headquarters
 
 @pytest.fixture(scope="module")
 def session():
