@@ -1,5 +1,6 @@
-from ssaw.headquarters.utils import *
-import pytest
+from os.path import join
+from ssaw.headquarters.exceptions import *
+from pytest import raises
 import vcr
 import tempfile
 
@@ -13,27 +14,27 @@ my_vcr = vcr.VCR(
 
 @my_vcr.use_cassette()
 def test_export_notfound(session):
-	with pytest.raises(NotFoundError):
-		r = session.Export.GetInfo('00000000-0000-0000-0000-000000000000$1', 'Tabular')
+	with raises(NotFoundError):
+		assert session.export.get_info('00000000-0000-0000-0000-000000000000$1', 'Tabular')
 
 @my_vcr.use_cassette()
 def test_export_info(session, params):
 
-	r = session.Export.GetInfo(params['QuestionnaireId'], 'Tabular')
+	r = session.export.get_info(params['QuestionnaireId'], 'Tabular')
 	assert 'HasExportedFile' in r.keys(), 'Export info response should contain HasExportedFile key'
 
 @my_vcr.use_cassette()
 def test_export_cancel(session, params):
-	r = session.Export.Cancel(params['QuestionnaireId'], 'Tabular')
+	r = session.export.cancel(params['QuestionnaireId'], 'Tabular')
 	assert r == 0
 
 @my_vcr.use_cassette()
 def test_export_start(session, params):
-	r = session.Export.Start(params['QuestionnaireId'], 'Tabular')
-	assert r == 200
+	r = session.export.start(params['QuestionnaireId'], 'Tabular')
+	assert r == True
 
 @my_vcr.use_cassette()
 def test_export_get(session, params):
 	tempdir = tempfile.gettempdir()
-	r = session.Export.Get(params['QuestionnaireId'], tempdir, 'Tabular')
-	assert r == tempdir + '/Copy+of+SM_1_Tabular_All.zip'
+	r = session.export.get(params['QuestionnaireId'], tempdir, 'Tabular')
+	assert r == join(tempdir, 'health_survey_1_Tabular_All.zip')
