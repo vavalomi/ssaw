@@ -28,7 +28,7 @@ class Export(HQBase):
 
     def start(self, id, exporttype='Tabular'):
         status = 0
-        response = self.GetInfo(id, exporttype)
+        response = self.get_info(id, exporttype)
         if response['ExportStatus'] == 'NotStarted':
             path = self.url + '/{}/{}'.format(exporttype, id) + '/start'
             status = self._make_call('post', path)
@@ -39,7 +39,7 @@ class Export(HQBase):
 
     def cancel(self, id, exporttype='Tabular'):
         status = 0
-        response = self.GetInfo(id, exporttype)
+        response = self.get_info(id, exporttype)
         if response['ExportStatus'] != 'NotStarted':
             path = self.url + '/{}/{}'.format(exporttype, id) + '/cancel'
             status = self._make_call('post', path)

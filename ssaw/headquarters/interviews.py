@@ -7,13 +7,15 @@ class Interviews(HQBase):
     def url(self):
         return self._baseurl + '/interviews'
 
-    def __call__(self, interviewid=None):
+    def __call__(self):
         """GET /api/v1/interviews
         """
 
         path = self.url
-        if interviewid:
-            path = path + '/{}'.format(interviewid)
+        return self._make_call('get', path)
+
+    def get_info(self, interviewid):
+        path = self.url + '/{}'.format(interviewid)
         return self._make_call('get', path)
 
     def delete(self, interviewid, comment=''):
