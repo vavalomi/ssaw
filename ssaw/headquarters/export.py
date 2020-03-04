@@ -1,57 +1,49 @@
-import re
-import os
-from .utils import NotFoundError
 
-class Export(object):
-	def __init__(self, url, session):
-		self.url = url + 'export'
-		self.session = session
+from .base import HQBase
+from .exceptions import NotFoundError
 
-	def Get(self, id, exportpath, exporttype='Tabular', generate=False):
-		response = self.GetInfo(id, exporttype)
-		if response['HasExportedFile'] == True:
-			path = self.url + '/{}/{}'.format(exporttype, id)
-			response = self.session.get(path, stream=True)
+class Export(HQBase):
+    @property
+    def url(self):
+        return self._baseurl + '/export'
 
-			d = response.headers['content-disposition']
-			fname = re.findall(r"filename\*=utf-8''(.+)", d)[0]
-			outfile = os.path.join(exportpath, fname)
-			with open(outfile, 'wb') as f:
-				for chunk in response.iter_content(chunk_size=1024): 
-					if chunk:
-						f.write(chunk)
-		return outfile
+    def get(self, id, exportpath='', exporttype='Tabular', generate=False):
+        """Downloads export file.
 
+        :param id: Questionnaire id in format QuestionnaireGuid$Version
+        :param exportpath: Path to save the downloaded file
+        :param exporttype: Format of the export data: ``Tabular``, ``STATA``, ``SPSS``, ``Binary``, ``DDI``, ``Paradata``
+        :param generate: `True` to trigger new file generation
+        :type generate: bool, optional
+        """
 
-	def GetInfo(self, id, exporttype='Tabular'):
-		path = self.url + '/{}/{}'.format(exporttype, id) + '/details'
-		response = self.session.get(path)
-		if response.status_code == 200:
-			return response.json()
-		else:
-			print(response.status_code)
-			raise NotFoundError('QuestionnaireId')
+        response = self.get_info(id, exporttype)
+        if response['HasExportedFile'] == True:
+            path = self.url + '/{}/{}'.format(exporttype, id)
+            return self._make_call('get', path, filepath=exportpath, stream=True)
 
-	def Start(self, id, exporttype='Tabular'):
-		status = 0
-		response = self.GetInfo(id, exporttype)
-		if response['ExportStatus'] == 'NotStarted':
-			path = self.url + '/{}/{}'.format(exporttype, id) + '/start'
-			response = self.session.post(path)
-			status = response.status_code
-		else:
-			print('Export is currently running')
+    def get_info(self, id, exporttype='Tabular'):
+        path = self.url + '/{}/{}'.format(exporttype, id) + '/details'
+        return self._make_call('get', path)
 
-		return status
+    def start(self, id, exporttype='Tabular'):
+        status = 0
+        response = self.GetInfo(id, exporttype)
+        if response['ExportStatus'] == 'NotStarted':
+            path = self.url + '/{}/{}'.format(exporttype, id) + '/start'
+            status = self._make_call('post', path)
+        else:
+            print('Export is currently running')
 
-	def Cancel(self, id, exporttype='Tabular'):
-		status = 0
-		response = self.GetInfo(id, exporttype)
-		if response['ExportStatus'] != 'NotStarted':
-			path = self.url + '/{}/{}'.format(exporttype, id) + '/cancel'
-			response = self.session.post(path)
-			status = response.status_code
-		else:
-			print('No running export process was found')
+        return status
 
-		return status
+    def cancel(self, id, exporttype='Tabular'):
+        status = 0
+        response = self.GetInfo(id, exporttype)
+        if response['ExportStatus'] != 'NotStarted':
+            path = self.url + '/{}/{}'.format(exporttype, id) + '/cancel'
+            status = self._make_call('post', path)
+        else:
+            print('No running export process was found')
+
+        return status

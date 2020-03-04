@@ -4,19 +4,26 @@ from .export import Export
 from .interviews import Interviews
 from .questionnaires import Questionnaires
 from .users import Users
-from .utils import *
+from .settings import Settings
 
-class ApiObject(object):
-	def __init__(self, url, session):
-		self.url = url + '/api/v1/'
-		self.session = session
-		self.Assignments = Assignments(self.url, self.session)
-		self.Export = Export(self.url, self.session)
-		self.Interviews = Interviews(self.url, self.session)
-		self.Questionnaires = Questionnaires(self.url, self.session)
-		self.Users = Users(self.url, self.session)
+class Headquarters(object):
+    """Initializes the API client.
 
-def init(url, api_user, api_password):
-	session = requests.Session()
-	session.auth = (api_user, api_password)
-	return ApiObject(url, session)
+    :param url: URL of the headquarters app
+    :param api_user: API user name
+    :param api_password: API user password
+    :return: :class:`Headquarters <Headquarters>` object
+    :rtype: ssaw.Headquarters
+    """
+
+    def __init__(self, url, api_user, api_password):
+        session = requests.Session()
+        session.auth = (api_user, api_password)
+        self.url = url + '/api/v1/'
+        self.session = session
+        self.assignments = Assignments(self)
+        self.export = Export(self)
+        self.interviews = Interviews(self)
+        self.questionnaires = Questionnaires(self)
+        self.users = Users(self)
+        self.settings = Settings(self)

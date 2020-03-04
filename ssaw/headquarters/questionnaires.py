@@ -1,32 +1,33 @@
-from .utils import IncompleteQuestionnaireIdError
+from .base import HQBase
+from .exceptions import IncompleteQuestionnaireIdError
 
-class Questionnaires(object):
-	def __init__(self, url, session):
-		self.url = url + 'questionnaires'
-		self.session = session
+class Questionnaires(HQBase):
 
-	def __call__(self, id=None, version=None):
-		path = self.url
-		if id and version:
-			path = path + '/{}/{}'.format(id, version)
-		else:
-			if id or version:
-				raise IncompleteQuestionnaireIdError()
+    @property
+    def url(self):
+        return self._baseurl + '/questionnaires'
 
-		response = self.session.get(path)
-		return response.json()
+    def __call__(self, id=None, version=None):
+        path = self.url
+        if id and version:
+            path = path + '/{}/{}'.format(id, version)
+        else:
+            if id or version:
+                raise IncompleteQuestionnaireIdError()
+        return self._make_call('get', path)
 
-	def Statuses(self):
-		path = self.url + '/statuses'
-		response = self.session.get(path)
-		return response.json()
+    def statuses(self):
+        path = self.url + '/statuses'
+        return self._make_call('get', path)
 
-	def Document(self, id, version):
-		path = self.url + '/{}/{}/document'.format(id, version)
-		response = self.session.get(path)
-		return response.json()
+    def document(self, id, version):
+        path = self.url + '/{}/{}/document'.format(id, version)
+        return self._make_call('get', path)
 
-	def Interviews(self, id, version):
-		path = self.url + '/{}/{}/interviews'.format(id, version)
-		response = self.session.get(path)
-		return response.json()
+    def interviews(self, id, version):
+        path = self.url + '/{}/{}/interviews'.format(id, version)
+        return self._make_call('get', path)
+
+    def update_recordaudio(self, id, version):
+        """POST /api/v1/questionnaires/{id}/{version}/recordAudio"""
+        pass

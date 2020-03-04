@@ -1,72 +1,69 @@
-from .utils import NotFoundError
+from .base import HQBase
+from .exceptions import NotFoundError
 
-class Interviews(object):
-	def __init__(self, url, session):
-		self.url = url + 'interviews'
-		self.session = session
+class Interviews(HQBase):
 
-	def __call__(self):
-		response = self.session.get(self.url)
-		return response.json()
+    @property
+    def url(self):
+        return self._baseurl + '/interviews'
 
-	def Details(self, interviewid):
-		path = self.url + '/{}'.format(interviewid) + '/details'
-		response = self.session.get(path)
-		return response.json()
+    def __call__(self, interviewid=None):
+        """GET /api/v1/interviews
+        """
 
-	def History(self, interviewid):
-		path = self.url + '/{}'.format(interviewid) + '/history'
-		response = self.session.get(path)
-		return response.json()
+        path = self.url
+        if interviewid:
+            path = path + '/{}'.format(interviewid)
+        return self._make_call('get', path)
 
-	def Assign(self, interviewid, responsibleid, responsiblename=''):
-		return self._reassign(action='assign', interviewid=interviewid, responsibleid=responsibleid, responsiblename=responsiblename)
+    def delete(self, interviewid, comment=''):
+        return self._change_status(action='delete', interviewid=interviewid, comment=comment)
 
-	def Approve(self, interviewid, comment=''):
-		return self._change_status(action='approve', interviewid=interviewid, comment=comment)
+    def answers(self, interviewid):
+        pass
 
-	def Reject(self, interviewid, comment=''):
-		return self._change_status(action='reject', interviewid=interviewid, comment=comment)
+    def approve(self, interviewid, comment=''):
+        return self._change_status(action='approve', interviewid=interviewid, comment=comment)
 
-	def HQApprove(self, interviewid, comment=''):
-		return self._change_status(action='hqapprove', interviewid=interviewid, comment=comment)
+    def assign(self, interviewid, responsibleid, responsiblename=''):
+        return self._reassign(action='assign', interviewid=interviewid, responsibleid=responsibleid, responsiblename=responsiblename)
 
-	def HQReject(self, interviewid, comment=''):
-		return self._change_status(action='hqreject', interviewid=interviewid, comment=comment)
+    def assign_supervisor(self, interviewid, responsibleid, responsiblename=''):
+        return self._reassign(action='assignsupervisor', interviewid=interviewid, responsibleid=responsibleid, responsiblename=responsiblename)
 
-	def HQUnapprove(self, interviewid, comment=''):
-		return self._change_status(action='hqunapprove', interviewid=interviewid, comment=comment)
+    def comment(self, interviewid, comment, questionid=None, variable=''):
+        pass
 
-	def Delete(self, interviewid, comment=''):
-		return self._change_status(action='delete', interviewid=interviewid, comment=comment)
+    def history(self, interviewid):
+        path = self.url + '/{}'.format(interviewid) + '/history'
+        return self._make_call('get', path)
 
-	def AssignSupervisor(self, interviewid, responsibleid, responsiblename=''):
-		return self._reassign(action='assignsupervisor', interviewid=interviewid, responsibleid=responsibleid, responsiblename=responsiblename)
+    def hqapprove(self, interviewid, comment=''):
+        return self._change_status(action='hqapprove', interviewid=interviewid, comment=comment)
 
-	def _change_status(self, interviewid, action, comment=''):
-		path = self.url + '/{}'.format(action)
-		payload = {'Id': interviewid, 'Comment': comment}
-		r = self.session.post(path, json = payload)
-		if r.status_code == 404:
-			raise NotFoundError('address not found')
-		else:
-			if r.status_code == 406:
-				print(r.json()['Message'])
-				return False
-		return True
+    def hqreject(self, interviewid, comment=''):
+        return self._change_status(action='hqreject', interviewid=interviewid, comment=comment)
 
-	def _reassign(self, interviewid, action, responsibleid, responsiblename=''):
-		path = self.url + '/{}'.format(action)
-		payload = {
-			'Id': interviewid,
-			'ResponsibleId': responsibleid,
-			'ResponsibleName': responsiblename
-		}
-		r = self.session.post(path, json = payload)
-		if r.status_code == 404:
-			raise NotFoundError('address not found')
-		else:
-			if r.status_code == 406:
-				print(r.json()['Message'])
-				return False
-		return True
+    def hqunapprove(self, interviewid, comment=''):
+        return self._change_status(action='hqunapprove', interviewid=interviewid, comment=comment)
+
+    def reject(self, interviewid, comment=''):
+        return self._change_status(action='reject', interviewid=interviewid, comment=comment)
+
+    def stats(self, interviewid):
+        pass
+
+    def _change_status(self, interviewid, action, comment=''):
+        path = self.url + '/{}/{}?comment={}'.format(interviewid, action, comment)
+        return self._make_call('patch', path)
+
+    def _reassign(self, interviewid, action, responsibleid, responsiblename=''):
+        path = self.url + '/{}'.format(action)
+        payload = {
+            'Id': interviewid,
+            'ResponsibleId': responsibleid,
+            'ResponsibleName': responsiblename
+        }
+        r = self._make_call('post', path, json = payload)
+        r = self.session.post(path, json = payload)
+        return True

@@ -1,41 +1,41 @@
-from .utils import NotFoundError
+from .base import HQBase
+from .exceptions import NotFoundError
 
-class Users(object):
-	def __init__(self, url, session):
-		self.url = url
-		self.session = session
+class Users(HQBase):
+    def get_info(self, id):
+        path = self._url_users + '/{}'.format(id)
+        return self._make_call('get', path)
 
-	def GetInfo(self, id):
-		path = self._url_users() + '/{}'.format(id)
-		response = self.session.get(path)
-		if response.status_code == 200:
-			return response.json()
-		else:
-			print(response.status_code)
-			raise NotFoundError('Id')
+    def get_actions_log(self, id):
+        path = self._url_interviewers + '/{}/actions-log'.format(id)
+        return self._make_call('get', path)
 
-	def AllSupervisors(self):
-		path = self._url_supervisors()
-		response = self.session.get(path)
-		return response.json()
+    def list_supervisors(self):
+        path = self._url_supervisors
+        return self._make_call('get', path)
 
-	def AllInterviewers(self, id):
-		path = self._url_supervisors() + '/{}/interviewers'.format(id)
-		response = self.session.get(path)
-		return response.json()
+    def list_interviewers(self, id):
+        path = self._url_supervisors + '/{}/interviewers'.format(id)
+        return self._make_call('get', path)
 
-	def Unarchive(self, id):
-		path = self._url_users() + '/{}/archive'.format(id)
-		response = self.session.patch(path)
-		return response.status_code
+    def unarchive(self, id):
+        path = self._url_users + '/{}/unarchive'.format(id)
+        response = self._make_call('patch', path)
+        return response
 
-	def Archive(self, id):
-		path = self._url_users() + '/{}/unarchive'.format(id)
-		response = self.session.patch(path)
-		return response.status_code
+    def archive(self, id):
+        path = self._url_users + '/{}/archive'.format(id)
+        response = self._make_call('patch', path)
+        return response
 
-	def _url_users(self):
-		return self.url + '/users'
+    @property
+    def _url_users(self):
+        return self.url + '/users'
 
-	def _url_supervisors(self):
-		return self.url + '/supervisors'
+    @property
+    def _url_supervisors(self):
+        return self.url + '/supervisors'
+
+    @property
+    def _url_interviewers(self):
+        return self.url + '/interviewers'
