@@ -3,7 +3,7 @@ import re
 import os
 import urllib
 from .exceptions import NotFoundError, NotAcceptableError
-from ssaw.models import Assignment
+from .models import Assignment, Questionnaire
 
 class HQBase(object):
     def __init__(self, hq):
@@ -12,10 +12,18 @@ class HQBase(object):
 
     def _decode_object(self, o):
         if 'Assignments' in o:
-            # Assignments list
+            typestr = 'Assignments'
+            ccls = Assignment
+        elif 'Questionnaires' in o:
+            typestr = 'Questionnaires'
+            ccls = Questionnaire
+        else:
+            typestr = None
+        
+        if typestr:
             ret = []
-            for item in o['Assignments']:
-                obj = Assignment(item)
+            for item in o[typestr]:
+                obj = ccls(item)
                 ret.append(obj)
             return ret
         else:

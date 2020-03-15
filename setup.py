@@ -4,7 +4,6 @@ from setuptools import setup
 
 packages = [
     'ssaw.headquarters',
-    'ssaw.models',
 ]
 
 requires = [

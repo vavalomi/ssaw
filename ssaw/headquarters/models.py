@@ -13,3 +13,11 @@ class Assignment(object):
         self.password = dict['Password']
         self.webmode = dict['WebMode']
 
+class Questionnaire(object):
+    def __init__(self, dict):
+        self.questionnaire_identity = dict['QuestionnaireIdentity']
+        self.questionnaire_id = dict['QuestionnaireId']
+        self.version = dict['Version']
+        self.title = dict['Title']
+        self.variable = dict['Variable']
+        self.last_entry_date = dict['LastEntryDate']
