@@ -14,7 +14,10 @@ class Questionnaires(HQBase):
         else:
             if id or version:
                 raise IncompleteQuestionnaireIdError()
-        return self._make_call('get', path)
+        ret = self._make_call('get', path)
+        if id and version:
+            ret = ret[0]
+        return ret
 
     def statuses(self):
         path = self.url + '/statuses'

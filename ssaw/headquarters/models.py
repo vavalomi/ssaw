@@ -12,6 +12,10 @@ class Assignment(object):
         self.email = dict['Email']
         self.password = dict['Password']
         self.webmode = dict['WebMode']
+        if 'IsAudioRecordingEnabled' in dict:
+            self.audio_recording_enabled = dict['IsAudioRecordingEnabled']
+        else:
+            self.audio_recording_enabled = False
 
 class Questionnaire(object):
     def __init__(self, dict):

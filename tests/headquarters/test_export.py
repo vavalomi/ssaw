@@ -1,16 +1,9 @@
 from os.path import join
 from ssaw.headquarters.exceptions import *
 from pytest import raises
-import vcr
+from . import my_vcr
 import tempfile
 
-my_vcr = vcr.VCR(
-	serializer='yaml',
-	cassette_library_dir='tests/headquarters/vcr_cassettes',
-	path_transformer=vcr.VCR.ensure_suffix('.yaml'),
-	record_mode='once',
-	filter_headers=[('authorization', None)]
-)
 
 @my_vcr.use_cassette()
 def test_export_notfound(session):

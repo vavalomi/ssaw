@@ -1,14 +1,7 @@
-import vcr
 from pytest import raises
 from ssaw.headquarters.exceptions import NotAcceptableError, NotFoundError
+from . import my_vcr
 
-my_vcr = vcr.VCR(
-    serializer='yaml',
-    cassette_library_dir='tests/headquarters/vcr_cassettes',
-    path_transformer=vcr.VCR.ensure_suffix('.yaml'),
-    record_mode='once',
-    filter_headers=[('authorization', None)]
-)
 
 @my_vcr.use_cassette(decode_compressed_response=True)
 def test_interview_list(session):

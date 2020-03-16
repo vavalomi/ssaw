@@ -1,15 +1,7 @@
 from pytest import fixture, raises
-import vcr
-from ssaw.models import Assignment
+from ssaw.headquarters.models import Assignment
 from ssaw.headquarters.exceptions import NotFoundError
-
-my_vcr = vcr.VCR(
-    serializer='yaml',
-    cassette_library_dir='tests/headquarters/vcr_cassettes',
-    path_transformer=vcr.VCR.ensure_suffix('.yaml'),
-    record_mode='all',
-    filter_headers=[('authorization', None)]
-)
+from . import my_vcr
 
 @fixture
 def assignment_keys():
