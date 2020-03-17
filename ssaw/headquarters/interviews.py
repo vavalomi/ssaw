@@ -60,12 +60,10 @@ class Interviews(HQBase):
         return self._make_call('patch', path)
 
     def _reassign(self, interviewid, action, responsibleid, responsiblename=''):
-        path = self.url + '/{}'.format(action)
+        path = self.url + '/{}/{}'.format(interviewid, action)
         payload = {
-            'Id': interviewid,
             'ResponsibleId': responsibleid,
             'ResponsibleName': responsiblename
         }
-        r = self._make_call('post', path, json = payload)
-        r = self.session.post(path, json = payload)
+        r = self._make_call('patch', path, json = payload)
         return True

@@ -52,5 +52,5 @@ def test_interview_hqunapprove(session, params):
 
 @my_vcr.use_cassette()
 def test_interview_assign(session, params):
-    with raises(NotFoundError):
+    with raises(NotAcceptableError):
         assert session.interviews.assign(params['InterviewId'], '00000000-0000-0000-0000-000000000000')

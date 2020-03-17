@@ -23,7 +23,7 @@ class HQBase(object):
         if typestr:
             ret = []
             for item in o[typestr]:
-                obj = ccls(item)
+                obj = ccls.from_dict(item)
                 ret.append(obj)
             return ret
         else:
@@ -60,7 +60,7 @@ class HQBase(object):
             else:
                 return True
         elif rc == 404:
-            raise NotFoundError('address not found')
+            raise NotFoundError(response.text)
         elif rc == 406:
             raise NotAcceptableError(response.json()['Message'])
         else:
