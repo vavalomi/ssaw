@@ -1,2 +1,7 @@
 requests>=2.23.0
+
+# testing requirements
+pylint
+pytest
+pytest-cov
 vcrpy>=4.0.2

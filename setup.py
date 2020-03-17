@@ -12,6 +12,7 @@ requires = [
 
 test_requirements = [
     'pytest',
+    'pytest-cov',
     'vcr',
 ]
 
