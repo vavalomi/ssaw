@@ -5,5 +5,8 @@ build
 dist
 tests/*/vcr_cassettes*
 *.egg-info
+.coverage
 .pytest_cache
 .vscode
+venv
+docs

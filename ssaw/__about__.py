@@ -1,5 +1,5 @@
 __title__ = 'ssaw'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __description__ = 'Wrapper for Survey Solutions API'
 __url__ = 'https://github.com/vavalomi/ssaw'
 __author__ = 'Zurab Sajaia'
