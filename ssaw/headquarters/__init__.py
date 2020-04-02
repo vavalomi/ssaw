@@ -9,14 +9,13 @@ from .settings import Settings
 class Headquarters(object):
     """Initializes the API client.
 
-    :param url: URL of the headquarters app
-    :param api_user: API user name
-    :param api_password: API user password
-    :return: :class:`Headquarters <Headquarters>` object
-    :rtype: ssaw.Headquarters
+    Args:
+        url: URL of the headquarters app
+        api_user: API user name
+        api_password: API user password
     """
 
-    def __init__(self, url, api_user, api_password):
+    def __init__(self, url: str, api_user: str, api_password: str):
         session = requests.Session()
         session.auth = (api_user, api_password)
         self.url = url + '/api/v1/'

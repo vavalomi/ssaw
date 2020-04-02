@@ -1,11 +1,14 @@
 from .base import HQBase
 from .exceptions import NotFoundError
 
-class Assignments(HQBase):
 
+class Assignments(HQBase):
+    """Assignments-related calls.
+
+    """
     @property
     def _url(self):
-        return self._baseurl + '/assignments'
+        return self._baseurl + "/assignments"
 
     def __call__(self):
         """GET /api/v1/assignments
@@ -14,14 +17,23 @@ class Assignments(HQBase):
         """
 
         path = self._url
-        return self._make_call('get', path)
+        return self._make_call("get", path)
 
     def create(self, assignment):
-        pass
+        """Calls POST /api/v1/assignments to create new assignment.
+
+        Args:
+            assignment: `ssaw.models.Assignment` object
+        
+        Returns:
+            True
+        """
+        path = self._url
+        return self._make_call("post", path, data=assignment.to_json())
 
     def get_info(self, id):
-        path = self._url + '/{}'.format(id)
-        return self._make_call('get', path)
+        path = self._url + "/{}".format(id)
+        return self._make_call("get", path)
 
     def archive(self, id):
         pass
