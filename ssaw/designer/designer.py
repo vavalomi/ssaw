@@ -233,7 +233,7 @@ def create_object(objtype, *args, **kwargs):
         raise AttributeError
 
 
-def questionnaire(title, defaultsection=False):
+def create_questionnaire(title, defaultsection=False):
     return create_object(
         "QuestionnaireDocument", title=title, defaultsection=defaultsection
     )
@@ -274,7 +274,7 @@ class BaseClass(object):
         return ret
 
 
-class QuestionnaireFactory(BaseClass):
+class Questionnaire(BaseClass):
     def __init__(self):
         self._Type = "QuestionnaireDocument"
         self.PublicKey = ""
@@ -608,7 +608,7 @@ CLASS_DICT = {
     "Attachment": Attachment,
     "AudioQuestion": QuestionFactory,
     "Question": QuestionFactory,
-    "QuestionnaireDocument": QuestionnaireFactory,
+    "QuestionnaireDocument": Questionnaire,
     "QuestionProperties": QuestionProperties,
     "StaticText": StaticText,
     "DateTimeQuestion": QuestionFactory,

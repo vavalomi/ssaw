@@ -1,5 +1,6 @@
 from .base import HQBase
 from .exceptions import IncompleteQuestionnaireIdError
+from ..designer import import_questionnaire_json
 
 class Questionnaires(HQBase):
 
@@ -25,7 +26,7 @@ class Questionnaires(HQBase):
 
     def document(self, id, version):
         path = self.url + '/{}/{}/document'.format(id, version)
-        return self._make_call('get', path)
+        return self._make_call('get', path, parser=import_questionnaire_json)
 
     def interviews(self, id, version):
         path = self.url + '/{}/{}/interviews'.format(id, version)

@@ -4,6 +4,7 @@ import os
 import urllib
 from .exceptions import NotFoundError, NotAcceptableError
 from .models import Assignment, Questionnaire
+from ..designer import import_questionnaire_json
 
 class HQBase(object):
     def __init__(self, hq):
@@ -33,13 +34,16 @@ class HQBase(object):
     def url(self):
         return self._baseurl
 
-    def _make_call(self, method, path, filepath = None, **kwargs):
+    def _make_call(self, method, path, filepath = None, parser=None, **kwargs):
         response = self._hq.session.request(method = method, url = path, **kwargs)
         rc = response.status_code
         if rc == 200:
             if method == 'get':
                 if 'application/json' in response.headers['Content-Type']:
-                    return json.loads(response.content, object_hook=self._decode_object)
+                    if parser:
+                        return parser(response.content)
+                    else:
+                        return json.loads(response.content, object_hook=self._decode_object)
 
                 elif 'application/zip' in response.headers['Content-Type']:
                     d = response.headers['content-disposition']
