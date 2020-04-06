@@ -1,5 +1,6 @@
+import types
 from pytest import fixture, raises
-from ssaw.headquarters.models import Questionnaire
+from ssaw.headquarters.models import QuestionnaireListItem
 from ssaw.headquarters.exceptions import IncompleteQuestionnaireIdError
 from . import my_vcr
 
@@ -19,25 +20,9 @@ def test_interview_statuses(session, statuses):
 
 @my_vcr.use_cassette()
 def test_questionnaire_list(session):
-	response = session.questionnaires()
-	assert isinstance(response, list)
-	assert isinstance(response[0], Questionnaire), "Should be list of Questionnaire objects"
-
-@my_vcr.use_cassette()
-def test_questionnaire_incomplete1(session):
-	with raises(IncompleteQuestionnaireIdError):
-		_ = session.questionnaires(version=3)
-
-@my_vcr.use_cassette()
-def test_questionnaire_incomplete2(session):
-	with raises(IncompleteQuestionnaireIdError):
-		_ = session.questionnaires(id=3)
-
-@my_vcr.use_cassette(decode_compressed_response=True)
-def test_questionnaire_single(session, params):
-	response = session.questionnaires(params['TemplateId'], params['TemplateVersion'])
-	assert response.questionnaire_id == params['TemplateId']
-
+	response = session.questionnaires.get_list()
+	assert isinstance(response, types.GeneratorType)
+	assert isinstance(next(response), QuestionnaireListItem), "Should be list of Questionnaire objects"
 
 @my_vcr.use_cassette(decode_compressed_response=True)
 def test_questionnaire_document(session, params):

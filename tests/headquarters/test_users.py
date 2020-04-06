@@ -1,3 +1,4 @@
+import types
 from pytest import fixture
 from . import my_vcr
 
@@ -5,15 +6,13 @@ from . import my_vcr
 @my_vcr.use_cassette()
 def test_supervisor_list(session):
     response = session.users.list_supervisors()
-    assert isinstance(response, dict)
-    assert 'Users' in response.keys(), "The Users should be in the response"
+    assert isinstance(response, types.GeneratorType)
+    assert 'UserName' in next(response).keys(), "The UserName should be in the response"
 
 @my_vcr.use_cassette()
 def test_interviewer_list(session, params):
     response = session.users.list_interviewers(params['SupervisorId'])
-    assert isinstance(response, dict)
-    assert 'Users' in response.keys(), "The Users should be in the response"
-
+    assert 'UserName' in next(response).keys(), "The UserName should be in the response"
 
 @my_vcr.use_cassette()
 def test_user_info(session, params):

@@ -12,11 +12,11 @@ class Users(HQBase):
 
     def list_supervisors(self):
         path = self._url_supervisors
-        return self._make_call('get', path)
+        return self._list_users(path)
 
     def list_interviewers(self, id):
         path = self._url_supervisors + '/{}/interviewers'.format(id)
-        return self._make_call('get', path)
+        return self._list_users(path)
 
     def unarchive(self, id):
         path = self._url_users + '/{}/unarchive'.format(id)
@@ -27,7 +27,23 @@ class Users(HQBase):
         path = self._url_users + '/{}/archive'.format(id)
         response = self._make_call('patch', path)
         return response
-
+    
+    def _list_users(self, path):
+        page_size = 10
+        page = 1
+        total_count = 11
+        params = {
+            'offset': page,
+            'limit': page_size
+        }
+        while page * page_size < total_count:
+            params['offset'] = page
+            r = self._make_call('get', path, params=params)
+            total_count = r['TotalCount']
+            for item in r['Users']:
+                yield item
+            page += 1
+        
     @property
     def _url_users(self):
         return self.url + '/users'

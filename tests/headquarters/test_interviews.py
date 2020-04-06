@@ -1,13 +1,15 @@
+import types
 from pytest import raises
 from ssaw.headquarters.exceptions import NotAcceptableError, NotFoundError
+from ssaw.headquarters.models import InterviewListItem
 from . import my_vcr
 
 
 @my_vcr.use_cassette(decode_compressed_response=True)
 def test_interview_list(session):
-    r = session.interviews()
-    assert isinstance(r, dict)
-    assert 'Interviews' in r.keys(), "The Interviews key should be in the response"
+    r = session.interviews.get_list()
+    assert isinstance(r, types.GeneratorType)
+    assert isinstance(next(r), InterviewListItem), "There should be a list of InterviewListItem objects"
 
 @my_vcr.use_cassette()
 def test_interview_details(session, params):

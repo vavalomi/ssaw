@@ -45,7 +45,7 @@ class Assignment(object):
                 "Comments": self.comments
             }
 
-class Questionnaire(object):
+class QuestionnaireListItem(object):
     def __init__(self, dict):
         self.questionnaire_identity = dict['QuestionnaireIdentity']
         self.questionnaire_id = dict['QuestionnaireId']
@@ -54,6 +54,27 @@ class Questionnaire(object):
         self.variable = dict['Variable']
         self.last_entry_date = dict['LastEntryDate']
 
+    def __str__(self):
+        return(str(self.__dict__))
+
     @classmethod
     def from_dict(cls, dict):
-        return cls(dict) 
+        return cls(dict)
+
+class InterviewListItem(object):
+    def __init__(self, dict):
+        self.interview_id = dict['InterviewId']
+        self.questionnaire_id = dict['QuestionnaireId']
+        self.questionnaire_version = dict['QuestionnaireVersion']
+        self.assignment_id = dict['AssignmentId']
+        self.responsible = dict['ResponsibleName']
+        self.error_count = dict['ErrorsCount']
+        self.status = dict['Status']
+        self.last_entry_date = dict['LastEntryDate']
+
+    def __str__(self):
+        return(str(self.__dict__))
+
+    @classmethod
+    def from_dict(cls, dict):
+        return cls(dict)

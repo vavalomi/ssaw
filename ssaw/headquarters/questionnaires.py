@@ -1,5 +1,6 @@
 from .base import HQBase
 from .exceptions import IncompleteQuestionnaireIdError
+from .models import QuestionnaireListItem
 from ..designer import import_questionnaire_json
 
 class Questionnaires(HQBase):
@@ -8,17 +9,22 @@ class Questionnaires(HQBase):
     def url(self):
         return self._baseurl + '/questionnaires'
 
-    def __call__(self, id=None, version=None):
+    def get_list(self):
         path = self.url
-        if id and version:
-            path = path + '/{}/{}'.format(id, version)
-        else:
-            if id or version:
-                raise IncompleteQuestionnaireIdError()
-        ret = self._make_call('get', path)
-        if id and version:
-            ret = ret[0]
-        return ret
+        page_size = 10
+        page = 1
+        total_count = 11
+        params = {
+            'offset': page,
+            'limit': page_size
+        }
+        while page * page_size < total_count:
+            params['page'] = page
+            r = self._make_call('get', path, params=params)
+            total_count = r['TotalCount']
+            for item in r['Questionnaires']:
+                yield QuestionnaireListItem.from_dict(item)
+            page += 1
 
     def statuses(self):
         path = self.url + '/statuses'

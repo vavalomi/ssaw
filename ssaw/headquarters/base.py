@@ -2,33 +2,14 @@ import json
 import re
 import os
 import urllib
+import uuid
 from .exceptions import NotFoundError, NotAcceptableError
-from .models import Assignment, Questionnaire
 from ..designer import import_questionnaire_json
 
 class HQBase(object):
     def __init__(self, hq):
         self._hq = hq
         self._baseurl = hq.url
-
-    def _decode_object(self, o):
-        if 'Assignments' in o:
-            typestr = 'Assignments'
-            ccls = Assignment
-        elif 'Questionnaires' in o:
-            typestr = 'Questionnaires'
-            ccls = Questionnaire
-        else:
-            typestr = None
-        
-        if typestr:
-            ret = []
-            for item in o[typestr]:
-                obj = ccls.from_dict(item)
-                ret.append(obj)
-            return ret
-        else:
-            return o
 
     @property
     def url(self):
@@ -43,7 +24,7 @@ class HQBase(object):
                     if parser:
                         return parser(response.content)
                     else:
-                        return json.loads(response.content, object_hook=self._decode_object)
+                        return json.loads(response.content)
 
                 elif 'application/zip' in response.headers['Content-Type']:
                     d = response.headers['content-disposition']
@@ -69,3 +50,6 @@ class HQBase(object):
             raise NotAcceptableError(response.json()['Message'])
         else:
             response.raise_for_status
+
+def to_qidentity(q_id, q_version):
+    return "{}${}".format(uuid.UUID(q_id).hex, q_version)

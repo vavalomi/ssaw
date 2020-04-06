@@ -1,5 +1,6 @@
 from .base import HQBase
 from .exceptions import NotFoundError
+from .models import InterviewListItem
 
 class Interviews(HQBase):
 
@@ -7,12 +8,24 @@ class Interviews(HQBase):
     def url(self):
         return self._baseurl + '/interviews'
 
-    def __call__(self):
-        """GET /api/v1/interviews
-        """
-
+    def get_list(self, questionnaire_id = None, questionnaire_version = None):
         path = self.url
-        return self._make_call('get', path)
+        page_size = 10
+        page = 1
+        total_count = 11
+        params = {
+            'page': page,
+            'pageSize': page_size,
+            'questionnaireId': questionnaire_id,
+            'questionnaireVersion': questionnaire_version
+        }
+        while page * page_size < total_count:
+            params['page'] = page
+            r = self._make_call('get', path, params=params)
+            total_count = r['TotalCount']
+            for item in r['Interviews']:
+                yield InterviewListItem.from_dict(item)
+            page += 1
 
     def get_info(self, interviewid):
         path = self.url + '/{}'.format(interviewid)

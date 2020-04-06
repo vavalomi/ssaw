@@ -1,23 +1,39 @@
-from .base import HQBase
+from .base import HQBase, to_qidentity
 from .exceptions import NotFoundError
-
+from .models import Assignment
 
 class Assignments(HQBase):
     """Assignments-related calls.
 
     """
     @property
-    def _url(self):
+    def url(self):
         return self._baseurl + "/assignments"
 
-    def __call__(self):
-        """GET /api/v1/assignments
+    def get_list(self, questionnaire_id = None, questionnaire_version = None):
+        path = self.url
+        limit = 10
+        offset = 1
+        total_count = 11
+        params = {
+            'offset': offset,
+            'limit': limit
+        }
+        if questionnaire_id and questionnaire_version:
+            params['questionnaireId'] = to_qidentity(questionnaire_id, questionnaire_version) 
 
-        Get list of all assignments.
-        """
+        while offset < total_count:
+            params['offset'] = offset
+            r = self._make_call('get', path, params=params)
+            total_count = r['TotalCount']
+            for item in r['Assignments']:
+                yield Assignment.from_dict(item)
+            offset += limit
 
-        path = self._url
-        return self._make_call("get", path)
+    def get_info(self, id):
+        path = self.url + "/{}".format(id)
+        item = self._make_call("get", path)
+        return Assignment.from_dict(item)
 
     def create(self, assignment):
         """Calls POST /api/v1/assignments to create new assignment.
@@ -30,10 +46,6 @@ class Assignments(HQBase):
         """
         path = self._url
         return self._make_call("post", path, data=assignment.to_json())
-
-    def get_info(self, id):
-        path = self._url + "/{}".format(id)
-        return self._make_call("get", path)
 
     def archive(self, id):
         pass
