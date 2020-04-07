@@ -2,6 +2,8 @@ from .base import HQBase
 from .exceptions import NotFoundError
 
 class Users(HQBase):
+    _apiprefix = "/api/v1"
+
     def get_info(self, id):
         path = self._url_users + '/{}'.format(id)
         return self._make_call('get', path)

@@ -4,10 +4,7 @@ from .models import QuestionnaireListItem
 from ..designer import import_questionnaire_json
 
 class Questionnaires(HQBase):
-
-    @property
-    def url(self):
-        return self._baseurl + '/questionnaires'
+    _apiprefix = "/api/v1/questionnaires"
 
     def get_list(self):
         path = self.url

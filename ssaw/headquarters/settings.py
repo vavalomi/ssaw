@@ -2,10 +2,7 @@ from .base import HQBase
 from .exceptions import NotFoundError
 
 class Settings(HQBase):
-
-    @property
-    def url(self):
-        return self._baseurl + '/settings'
+    _apiprefix = "/api/v1/settings"
 
     def get_globalnotice(self):
         """GET /api/v1/settings/globalnotice"""

@@ -3,10 +3,7 @@ from .exceptions import NotFoundError
 from .models import InterviewListItem
 
 class Interviews(HQBase):
-
-    @property
-    def url(self):
-        return self._baseurl + '/interviews'
+    _apiprefix = "/api/v1/interviews"
 
     def get_list(self, questionnaire_id = None, questionnaire_version = None):
         path = self.url

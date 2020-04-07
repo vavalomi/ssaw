@@ -7,13 +7,14 @@ from .exceptions import NotFoundError, NotAcceptableError
 from ..designer import import_questionnaire_json
 
 class HQBase(object):
+    _apiprefix = ""
+
     def __init__(self, hq):
         self._hq = hq
-        self._baseurl = hq.url
 
     @property
     def url(self):
-        return self._baseurl
+        return self._hq.baseurl + self._apiprefix
 
     def _make_call(self, method, path, filepath = None, parser=None, **kwargs):
         response = self._hq.session.request(method = method, url = path, **kwargs)

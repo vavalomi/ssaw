@@ -3,12 +3,7 @@ from .exceptions import NotFoundError
 from .models import Assignment
 
 class Assignments(HQBase):
-    """Assignments-related calls.
-
-    """
-    @property
-    def url(self):
-        return self._baseurl + "/assignments"
+    _apiprefix = "/api/v1/assignments"
 
     def get_list(self, questionnaire_id = None, questionnaire_version = None):
         path = self.url

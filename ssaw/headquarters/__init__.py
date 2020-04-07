@@ -18,7 +18,7 @@ class Headquarters(object):
     def __init__(self, url: str, api_user: str, api_password: str):
         session = requests.Session()
         session.auth = (api_user, api_password)
-        self.url = url + '/api/v1/'
+        self.baseurl = url.rstrip("/")
         self.session = session
         self.assignments = Assignments(self)
         self.export = Export(self)

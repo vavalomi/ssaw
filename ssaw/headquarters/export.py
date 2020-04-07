@@ -3,9 +3,7 @@ from .base import HQBase
 from .exceptions import NotFoundError
 
 class Export(HQBase):
-    @property
-    def url(self):
-        return self._baseurl + '/export'
+    _apiprefix = "/api/v1/export"
 
     def get(self, id, exportpath='', exporttype='Tabular', generate=False):
         """Downloads export file.
