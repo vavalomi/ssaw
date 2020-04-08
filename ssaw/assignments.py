@@ -1,8 +1,9 @@
-from .base import HQBase, to_qidentity
+from .base import HQBase
+from .utils import to_qidentity
 from .exceptions import NotFoundError
 from .models import Assignment
 
-class Assignments(HQBase):
+class AssignmentsApi(HQBase):
     _apiprefix = "/api/v1/assignments"
 
     def get_list(self, questionnaire_id = None, questionnaire_version = None):
@@ -39,8 +40,8 @@ class Assignments(HQBase):
         Returns:
             True
         """
-        path = self._url
-        return self._make_call("post", path, data=assignment.to_json())
+        path = self.url
+        return self._make_call("post", path, json=assignment.to_json())
 
     def archive(self, id):
         pass

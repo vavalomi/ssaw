@@ -1,7 +1,7 @@
 from .base import HQBase
 from .exceptions import NotFoundError
 
-class Users(HQBase):
+class UsersApi(HQBase):
     _apiprefix = "/api/v1"
 
     def get_info(self, id):

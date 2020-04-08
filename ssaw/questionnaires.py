@@ -1,9 +1,9 @@
 from .base import HQBase
 from .exceptions import IncompleteQuestionnaireIdError
 from .models import QuestionnaireListItem
-from ..designer import import_questionnaire_json
+from .designer import import_questionnaire_json
 
-class Questionnaires(HQBase):
+class QuestionnairesApi(HQBase):
     _apiprefix = "/api/v1/questionnaires"
 
     def get_list(self):

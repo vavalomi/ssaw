@@ -2,9 +2,8 @@ import json
 import re
 import os
 import urllib
-import uuid
 from .exceptions import NotFoundError, NotAcceptableError
-from ..designer import import_questionnaire_json
+from .designer import import_questionnaire_json
 
 class HQBase(object):
     _apiprefix = ""
@@ -19,7 +18,7 @@ class HQBase(object):
     def _make_call(self, method, path, filepath = None, parser=None, **kwargs):
         response = self._hq.session.request(method = method, url = path, **kwargs)
         rc = response.status_code
-        if rc == 200:
+        if rc < 300:
             if method == 'get':
                 if 'application/json' in response.headers['Content-Type']:
                     if parser:
@@ -44,13 +43,13 @@ class HQBase(object):
                 else:
                     return response.content
             else:
-                return True
+                if response.content:
+                    return json.loads(response.content)
+                else:
+                    return True
         elif rc == 404:
             raise NotFoundError(response.text)
         elif rc == 406:
             raise NotAcceptableError(response.json()['Message'])
         else:
             response.raise_for_status
-
-def to_qidentity(q_id, q_version):
-    return "{}${}".format(uuid.UUID(q_id).hex, q_version)

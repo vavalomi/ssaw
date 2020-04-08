@@ -2,7 +2,7 @@
 from .base import HQBase
 from .exceptions import NotFoundError
 
-class Export(HQBase):
+class ExportApi(HQBase):
     _apiprefix = "/api/v1/export"
 
     def get(self, id, exportpath='', exporttype='Tabular', generate=False):

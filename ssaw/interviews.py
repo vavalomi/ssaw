@@ -2,7 +2,7 @@ from .base import HQBase
 from .exceptions import NotFoundError
 from .models import InterviewListItem
 
-class Interviews(HQBase):
+class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     def get_list(self, questionnaire_id = None, questionnaire_version = None):

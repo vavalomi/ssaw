@@ -1,3 +1,5 @@
+from .utils import to_qidentity
+
 class Assignment(object):
     def __init__(self, responsible, quantity, questionnaire_id,
         email='', password='', webmode=False,
@@ -78,3 +80,66 @@ class InterviewListItem(object):
     @classmethod
     def from_dict(cls, dict):
         return cls(dict)
+
+class ExportJob(object):
+    def __init__(self,
+        questionnaire_identity,
+        export_type='Tabular',
+        interview_status='All',
+        from_date=None,
+        to_date=None,
+        access_token=None,
+        storage_type=None):
+
+        if type(questionnaire_identity) is tuple:
+            (questionnaire_id, questionnaire_version) = questionnaire_identity 
+            questionnaire_identity = to_qidentity(questionnaire_id, questionnaire_version)
+
+        self.questionnaire_identity = questionnaire_identity
+        self.export_type = export_type
+        self.interview_status = interview_status
+        self.from_date = from_date
+        self.to_date = to_date
+        self.access_token = access_token
+        self.storage_type = storage_type
+
+    def __str__(self):
+        return(str(self.__dict__))
+
+    @classmethod
+    def from_dict(cls, dict):
+        obj = cls(
+            export_type = dict['exportType'],
+            questionnaire_identity = dict['questionnaireId'],
+            interview_status = dict['interviewStatus'],
+            from_date = dict['from'],
+            to_date = dict['to'],
+            access_token = dict['accessToken'],
+            storage_type = dict['storageType']
+        )
+        setattr(obj, 'job_id', dict['jobId'])
+        setattr(obj, 'export_status', dict['exportStatus'])
+        setattr(obj, 'start_date', dict['startDate'])
+        setattr(obj, 'complete_date', dict['completeDate'])
+        setattr(obj, 'progress', dict['progress'])
+        if 'eta' in dict:
+            setattr(obj, 'eta', dict['eeta'])
+        if 'links' in dict:
+            if 'cancel' in dict['links']:
+                setattr(obj, 'eta', dict['links']['cancel'])
+            if 'download' in dict['links']:
+                setattr(obj, 'eta', dict['links']['download'])
+        setattr(obj, 'has_export_file', dict['hasExportFile'])
+        return obj
+
+    def to_json(self):
+        ret = {
+                "exportType": self.export_type,
+                "questionnaireId": self.questionnaire_identity,
+                "interviewStatus": self.interview_status,
+                "from": self.from_date,
+                "to": self.to_date,
+                "accessToken": self.access_token,
+                "storageType": self.storage_type,
+            }
+        return {k: v for k, v in ret.items() if v is not None}

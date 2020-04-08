@@ -1,7 +1,7 @@
 from .base import HQBase
 from .exceptions import NotFoundError
 
-class Settings(HQBase):
+class SettingsApi(HQBase):
     _apiprefix = "/api/v1/settings"
 
     def get_globalnotice(self):
