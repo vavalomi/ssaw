@@ -3,7 +3,7 @@ import os
 from setuptools import setup
 
 packages = [
-    'ssaw.headquarters',
+    'ssaw',
     'ssaw.designer',
 ]
 
