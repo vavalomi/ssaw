@@ -1,12 +1,21 @@
 language: python
 python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
+- '3.6'
+- '3.7'
+- '3.8'
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 script:
-  - pytest --cov=ssaw
-
+- pytest --cov=ssaw
 after_success:
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+- bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage
+  reports"
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: ZxDx1Sz866v2WbjGUxzkGM6M82tOJ0hRZOl2RNiOWxbn/x+Qrav7NpfvgsaY0ootyU6bLKDOyxOoxf+E9KOvejSkWmbjw91becFQkUCLgny+nDZw+vYjjX6rY1ZcuAA9cHCBMbS8TcfRug2QL31lXSWOugkmESomjeeHZIfJAkhSRK9NznFtjaKydw/fTyEuwULcUyUOq5ryki7c1Hzls1f2+bmGxuBq5XDFwuSe5LWsnLNTmsJQI2MKxiSndwF3u3LuRWWUIE+h9qtNHLlgCLy835pPei4AzenHyy1KPMKpHKA18E7WRTGi9oFXZvfhp/M6B+iGG7cVG4HE5z7k93YuwZBXDOrvK6aVs4T0VLY4SlFJ7p3MRApP9/3B6ECdsaHqq+USw88kLvSX8ouGX4XzLk7jrF3Ami3zl/gRSZ/FZE0o1iBh50dT6wEuXqLSfz0IZ/NXQNNlasxc1qTIZdQgQ/3J+WtGuCJzVeKKpr3NMT215k7H9bxhSpX4Z5C+PwB4SALcdyedzNbgxj7jQkkStMeuPPfRbK9Cl4vgjyPRtClT8Ek4PrPOsuLqKwlOGjFFLogzV5yjxdnJvQy3wmmmcZDFfVponaE4Zbwg/YAfL1QGLlI066Q9Z+M0G7eMn6uIwiyIJvHdr2WbTsoQZ4BGOwtqSnisJGxtb0czb0U=
+  true:
+    tags: true
+  skip_existing: true
+  distributions: sdist bdist_wheel
