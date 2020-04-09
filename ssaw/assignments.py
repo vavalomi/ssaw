@@ -7,6 +7,19 @@ class AssignmentsApi(HQBase):
     _apiprefix = "/api/v1/assignments"
 
     def get_list(self, questionnaire_id = None, questionnaire_version = None):
+        """Get list of assignments
+        
+        Parameters
+        ----------
+        questionnaire_id : str, optional
+            Filter by specific questionnaire id
+        questionnaire_version : int, optional
+            Filter by specific version number
+        
+        Yields
+        -------
+        list of :class:`~ssaw.models.Assignment` objects
+        """
         path = self.url
         limit = 10
         offset = 1
@@ -26,22 +39,37 @@ class AssignmentsApi(HQBase):
                 yield Assignment.from_dict(item)
             offset += limit
 
-    def get_info(self, id):
+    def get_info(self, id: int) -> Assignment:
+        """[summary]
+        
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        
+        Returns
+        -------
+            :class:`ssaw.models.Assignment` object
+        """
         path = self.url + "/{}".format(id)
         item = self._make_call("get", path)
         return Assignment.from_dict(item)
 
-    def create(self, assignment):
-        """Calls POST /api/v1/assignments to create new assignment.
-
-        Args:
-            assignment: `ssaw.models.Assignment` object
+    def create(self, obj : Assignment):
+        """[summary]
         
-        Returns:
-            True
+        Parameters
+        ----------
+        obj : Assignment
+            Assignment object to be created
+        
+        Returns
+        -------
+        [type]
+            [description]
         """
         path = self.url
-        return self._make_call("post", path, json=assignment.to_json())
+        return self._make_call("post", path, json=obj.to_json())
 
     def archive(self, id):
         pass

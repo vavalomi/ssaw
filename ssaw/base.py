@@ -8,8 +8,8 @@ from .designer import import_questionnaire_json
 class HQBase(object):
     _apiprefix = ""
 
-    def __init__(self, hq):
-        self._hq = hq
+    def __init__(self, client):
+        self._hq = client
 
     @property
     def url(self):

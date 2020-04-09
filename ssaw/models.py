@@ -2,25 +2,51 @@ from .utils import to_qidentity
 
 class Assignment(object):
     def __init__(self, responsible, quantity, questionnaire_id,
-        email='', password='', webmode=False,
+        identifying_data=None, email='', password='', webmode=False,
         audio_recording_enabled=False, comments=''):
+        """[summary]
+        
+        Parameters
+        ----------
+        responsible : [type]
+            [description]
+        quantity : [type]
+            [description]
+        questionnaire_id : [type]
+            [description]
+        email : str, optional
+            [description], by default ''
+        password : str, optional
+            [description], by default ''
+        webmode : bool, optional
+            [description], by default False
+        audio_recording_enabled : bool, optional
+            [description], by default False
+        comments : str, optional
+            [description], by default ''
+        """
 
         self.responsible = responsible
         self.quantity = quantity
         self.questionnaire_id = questionnaire_id
+        self.identifying_data = identifying_data
         self.email = email
         self.password = password
         self.webmode = webmode
         self.audio_recording_enabled = audio_recording_enabled
-        self.identifying_data = []
         self.comments = comments
+
+    def __str__(self):
+        return(str(self.__dict__))
 
     @classmethod
     def from_dict(cls, dict):
+        print(dict)
         obj = cls(
             responsible = dict['ResponsibleName'],
             quantity = dict['Quantity'], 
             questionnaire_id = dict['QuestionnaireId'],
+            identifying_data=dict['IdentifyingData'] if 'IdentifyingData' in dict else [],
             email = dict['Email'],
             password = dict['Password'],
             webmode = dict['WebMode']
@@ -90,6 +116,25 @@ class ExportJob(object):
         to_date=None,
         access_token=None,
         storage_type=None):
+        """[summary]
+        
+        Parameters
+        ----------
+        questionnaire_identity : [type]
+            [description]
+        export_type : str, optional
+            [description], by default 'Tabular'
+        interview_status : str, optional
+            [description], by default 'All'
+        from_date : [type], optional
+            [description], by default None
+        to_date : [type], optional
+            [description], by default None
+        access_token : [type], optional
+            [description], by default None
+        storage_type : [type], optional
+            [description], by default None
+        """
 
         if type(questionnaire_identity) is tuple:
             (questionnaire_id, questionnaire_version) = questionnaire_identity 
