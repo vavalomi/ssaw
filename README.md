@@ -13,7 +13,7 @@ Details on API at <https://demo.mysurvey.solutions/apidocs/index>
 Install SSAW:
 
 ```shell
-pip install apistar
+pip install ssaw
 ```
 
 Initialize connection with the server:
