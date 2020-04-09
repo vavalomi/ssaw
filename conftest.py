@@ -1,17 +1,18 @@
 import os
 import pytest
-from ssaw.headquarters import Headquarters
+from ssaw import Client
 
 @pytest.fixture(scope="module")
 def session():
     API_USER = os.environ.get('SOLUTIONS_API_USER', None)
     API_PASSWORD = os.environ.get('SOLUTIONS_API_PASSWORD', None)
-    ss = Headquarters('https://apitest.mysurvey.solutions/', API_USER, API_PASSWORD)
+    ss = Client('https://apitest.mysurvey.solutions/', API_USER, API_PASSWORD)
     return ss
 
 @pytest.fixture(scope="module")
 def params():
     return {
+        'JobId': 2756,
         'QuestionnaireId': 'ecb715a3-e856-48d7-9f81-35dc3bb6a301$1',
         'TemplateId': 'ecb715a3-e856-48d7-9f81-35dc3bb6a301',
         'TemplateVersion': 1,

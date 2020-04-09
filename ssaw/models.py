@@ -157,10 +157,10 @@ class ExportJob(object):
             export_type = dict['exportType'],
             questionnaire_identity = dict['questionnaireId'],
             interview_status = dict['interviewStatus'],
-            from_date = dict['from'],
-            to_date = dict['to'],
-            access_token = dict['accessToken'],
-            storage_type = dict['storageType']
+            from_date = dict['from'] if 'from' in dict else None,
+            to_date = dict['to'] if 'to' in dict else None,
+            access_token = dict['accessToken'] if 'accessToken' in dict else None,
+            storage_type = dict['storageType'] if 'storageType' in dict else None
         )
         setattr(obj, 'job_id', dict['jobId'])
         setattr(obj, 'export_status', dict['exportStatus'])
@@ -171,9 +171,9 @@ class ExportJob(object):
             setattr(obj, 'eta', dict['eeta'])
         if 'links' in dict:
             if 'cancel' in dict['links']:
-                setattr(obj, 'eta', dict['links']['cancel'])
+                setattr(obj, 'cancel_link', dict['links']['cancel'])
             if 'download' in dict['links']:
-                setattr(obj, 'eta', dict['links']['download'])
+                setattr(obj, 'download_link', dict['links']['download'])
         setattr(obj, 'has_export_file', dict['hasExportFile'])
         return obj
 

@@ -1,6 +1,7 @@
 from os.path import join
 from ssaw import ExportApi
 from ssaw.exceptions import *
+from ssaw.models import ExportJob
 from pytest import raises
 from . import my_vcr
 import tempfile
@@ -9,23 +10,25 @@ import tempfile
 @my_vcr.use_cassette()
 def test_export_notfound(session):
 	with raises(NotFoundError):
-		assert ExportApi(session).get_info('00000000-0000-0000-0000-000000000000$1', 'Tabular')
+		assert ExportApi(session).get_info(123)
 
 @my_vcr.use_cassette()
 def test_export_info(session, params):
 
-	r = ExportApi(session).get_info(params['QuestionnaireId'], 'Tabular')
-	assert 'HasExportedFile' in r.keys(), 'Export info response should contain HasExportedFile key'
+	r = ExportApi(session).get_info(params['JobId'])
+	assert isinstance(r, ExportJob), 'Should get back an ExportJob object'
+	assert r.job_id == params['JobId'], "Should get back the same job id"
 
 @my_vcr.use_cassette()
 def test_export_cancel(session, params):
-	r = ExportApi(session).cancel(params['QuestionnaireId'], 'Tabular')
-	assert r == 0
+	r = ExportApi(session).cancel(params['JobId'])
+	assert r == None, 'Does not return anything'
 
 @my_vcr.use_cassette()
 def test_export_start(session, params):
-	r = ExportApi(session).start(params['QuestionnaireId'], 'Tabular')
-	assert r == True
+	job = ExportJob(params['QuestionnaireId'])
+	r = ExportApi(session).start(job)
+	assert isinstance(r, ExportJob), "Should get back the created job"
 
 @my_vcr.use_cassette()
 def test_export_get(session, params):
