@@ -154,37 +154,37 @@ class ExportJob(object):
     @classmethod
     def from_dict(cls, dict):
         obj = cls(
-            export_type = dict['exportType'],
-            questionnaire_identity = dict['questionnaireId'],
-            interview_status = dict['interviewStatus'],
-            from_date = dict['from'] if 'from' in dict else None,
-            to_date = dict['to'] if 'to' in dict else None,
-            access_token = dict['accessToken'] if 'accessToken' in dict else None,
-            storage_type = dict['storageType'] if 'storageType' in dict else None
+            export_type = dict['ExportType'],
+            questionnaire_identity = dict['QuestionnaireId'],
+            interview_status = dict['InterviewStatus'],
+            from_date = dict['From'] if 'From' in dict else None,
+            to_date = dict['To'] if 'To' in dict else None,
+            access_token = dict['AccessToken'] if 'AccessToken' in dict else None,
+            storage_type = dict['StorageType'] if 'StorageType' in dict else None
         )
-        setattr(obj, 'job_id', dict['jobId'])
-        setattr(obj, 'export_status', dict['exportStatus'])
-        setattr(obj, 'start_date', dict['startDate'])
-        setattr(obj, 'complete_date', dict['completeDate'])
-        setattr(obj, 'progress', dict['progress'])
-        if 'eta' in dict:
-            setattr(obj, 'eta', dict['eeta'])
-        if 'links' in dict:
-            if 'cancel' in dict['links']:
-                setattr(obj, 'cancel_link', dict['links']['cancel'])
-            if 'download' in dict['links']:
-                setattr(obj, 'download_link', dict['links']['download'])
-        setattr(obj, 'has_export_file', dict['hasExportFile'])
+        setattr(obj, 'job_id', dict['JobId'])
+        setattr(obj, 'export_status', dict['ExportStatus'])
+        setattr(obj, 'start_date', dict['StartDate'])
+        setattr(obj, 'complete_date', dict['CompleteDate'])
+        setattr(obj, 'progress', dict['Progress'])
+        if 'ETA' in dict:
+            setattr(obj, 'eta', dict['ETA'])
+        if 'Links' in dict:
+            if 'Cancel' in dict['Links']:
+                setattr(obj, 'cancel_link', dict['Links']['Cancel'])
+            if 'Download' in dict['Links']:
+                setattr(obj, 'download_link', dict['Links']['Download'])
+        setattr(obj, 'has_export_file', dict['HasExportFile'])
         return obj
 
     def to_json(self):
         ret = {
-                "exportType": self.export_type,
-                "questionnaireId": self.questionnaire_identity,
-                "interviewStatus": self.interview_status,
-                "from": self.from_date,
-                "to": self.to_date,
-                "accessToken": self.access_token,
-                "storageType": self.storage_type,
+                "ExportType": self.export_type,
+                "QuestionnaireId": self.questionnaire_identity,
+                "InterviewStatus": self.interview_status,
+                "From": self.from_date,
+                "To": self.to_date,
+                "AccessToken": self.access_token,
+                "StorageType": self.storage_type,
             }
         return {k: v for k, v in ret.items() if v is not None}
