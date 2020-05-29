@@ -1,0 +1,34 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.23.0
+    method: PATCH
+    uri: https://apitest.mysurvey.solutions/api/v1/users/b252a359-00e6-4605-b642-a4094d8db8d7/archive
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Date:
+      - Fri, 29 May 2020 21:14:21 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+version: 1

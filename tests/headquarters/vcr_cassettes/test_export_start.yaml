@@ -1,0 +1,51 @@
+interactions:
+- request:
+    body: '{"ExportType": "Tabular", "QuestionnaireId": "ecb715a3-e856-48d7-9f81-35dc3bb6a301$1",
+      "InterviewStatus": "All"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '112'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.23.0
+    method: POST
+    uri: https://apitest.mysurvey.solutions/api/v2/export
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACp2Qz27CMAyH3yXasdCmpaT0hvijMe2wjb5A2hqoCEnluDCEePe5Q53Edbf4i/Oz
+        893Emys3tcjjbKYCsfpuHdKWNHVe5GKBoAlqEQhGSEsumMZRHI2idBTPiljmcpJLNVaZmijFjQt3
+        ag0QPHptZ0wgPtDtETwnRjyimA98hehwKN4be+SOm1hoW4HhOQei1udhqNuGwNP4dPUdnuE69s50
+        1Djr+6vwHIfwu3bY/4FXWLqLNU7X/40Id40BcQ/Eq/YPIese5IQdDIqKa9urKHTZGY089LPjfA60
+        ukHohQqoSiVTnUCWTidZrWa7TCZpXSVlOdVJJF8kP9tYAjw3cPlzPjeG+RrdaTBTuOE0ryrWWLgj
+        2AF9wY7VHp7YlhzqPTx27NH9Bx0JWsDnAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 29 May 2020 21:14:17 GMT
+      Location:
+      - https://apitest.mysurvey.solutions/api/v2/export/2897
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 201
+      message: Created
+version: 1

@@ -1,0 +1,43 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.23.0
+    method: PATCH
+    uri: https://apitest.mysurvey.solutions/api/v1/interviews/fdd62d6c-c8a3-4737-ac76-26125f0b9d82/hqreject?comment=
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACj2MOw7CMBBErzJKHXEAuoQ01JwgwpNgyXhX3nVMbs9HKN3oPb3prtlZtsgG89mr
+        IRoOxjKYxTUznDBWh2RCFviDWCQlaTGv/46GNhv4Ut6d4YyLPDXxM3sMqkU2hnG/Vf0+m5QeE3+6
+        ewPDTbHPgwAAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 29 May 2020 21:14:20 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 406
+      message: Not Acceptable
+version: 1

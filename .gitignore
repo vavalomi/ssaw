@@ -3,7 +3,6 @@
 __pycache__
 build
 dist
-tests/*/vcr_cassettes*
 *.egg-info
 .coverage
 .pytest_cache

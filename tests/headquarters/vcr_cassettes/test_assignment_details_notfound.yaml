@@ -1,0 +1,32 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://apitest.mysurvey.solutions/api/v1/assignments/7373
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Date:
+      - Fri, 29 May 2020 21:14:16 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 404
+      message: Not Found
+version: 1
