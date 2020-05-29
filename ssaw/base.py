@@ -50,6 +50,6 @@ class HQBase(object):
         elif rc == 404:
             raise NotFoundError(response.text)
         elif rc == 406:
-            raise NotAcceptableError(response.json()['Message'])
+            raise NotAcceptableError(response.text)
         else:
-            response.raise_for_status
+            response.raise_for_status()
