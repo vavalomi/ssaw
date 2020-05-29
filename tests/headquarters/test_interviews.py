@@ -7,8 +7,8 @@ from . import my_vcr
 
 
 @my_vcr.use_cassette(decode_compressed_response=True)
-def test_interview_list(session):
-    r = InterviewsApi(session).get_list()
+def test_interview_list(session, params):
+    r = InterviewsApi(session).get_list(params['TemplateId'])
     assert isinstance(r, types.GeneratorType)
     assert isinstance(next(r), InterviewListItem), "There should be a list of InterviewListItem objects"
 
