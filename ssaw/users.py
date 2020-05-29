@@ -42,8 +42,11 @@ class UsersApi(HQBase):
             params['offset'] = page
             r = self._make_call('get', path, params=params)
             total_count = r['TotalCount']
-            for item in r['Users']:
-                yield item
+            if total_count > 0:
+                for item in r['Users']:
+                    yield item
+            else:
+                yield from ()
             page += 1
         
     @property

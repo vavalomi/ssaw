@@ -18,9 +18,12 @@ class QuestionnairesApi(HQBase):
         while page * page_size < total_count:
             params['page'] = page
             r = self._make_call('get', path, params=params)
-            total_count = r['TotalCount']
-            for item in r['Questionnaires']:
-                yield QuestionnaireListItem.from_dict(item)
+            if 'TotalCount' in r:
+                total_count = r['TotalCount']
+                for item in r['Questionnaires']:
+                    yield QuestionnaireListItem.from_dict(item)
+            else:
+                yield from ()
             page += 1
 
     def statuses(self):
