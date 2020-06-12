@@ -15,7 +15,7 @@ requires = [
 test_requirements = [
     'pytest',
     'pytest-cov',
-    'vcr',
+    'vcrpy',
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
