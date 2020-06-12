@@ -1,13 +1,15 @@
 from .base import HQBase
 from .exceptions import NotFoundError, GraphQLError
 from .headquarters_schema import headquarters_schema, InterviewFilter, Interview
+from .utils import fix_qid
 from sgqlc.operation import Operation
 from typing import Generator
 
 class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
-    def get_list(self, fields: list= (), **kwargs) -> Generator[Interview, None, None]:
+    @fix_qid(expects='hex', param_name='questionnaire_id')
+    def get_list(self, fields: list = (), **kwargs) -> Generator[Interview, None, None]:
         where = InterviewFilter(**kwargs)
         take = 20
         skip = 0

@@ -1,4 +1,20 @@
+from functools import wraps
 import uuid
+
+def fix_qid(expects='hex', param_name='questionnaire_id'):
+    def wrapper_outer(func):
+        @wraps(func)
+        def wrapper_inner(*args, **kwargs):
+            if param_name in kwargs:
+                if expects == 'hex':
+                    kwargs[param_name] = uuid.UUID(kwargs[param_name]).hex
+                elif expects == 'string':
+                    kwargs[param_name] = str(uuid.UUID(kwargs[param_name]))
+                else:
+                    raise ValueError('expects should be either hex or string')
+            return func(*args, **kwargs)
+        return wrapper_inner
+    return wrapper_outer
 
 def to_hex(q_id):
     return uuid.UUID(q_id).hex
