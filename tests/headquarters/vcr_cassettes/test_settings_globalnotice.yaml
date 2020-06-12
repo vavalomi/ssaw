@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.23.0
+      - python-ssaw/0.0.6
     method: PUT
     uri: https://apitest.mysurvey.solutions/api/v1/settings/globalnotice
   response:
@@ -21,7 +21,7 @@ interactions:
       string: ''
     headers:
       Date:
-      - Fri, 29 May 2020 21:14:21 GMT
+      - Fri, 12 Jun 2020 18:31:36 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:
@@ -41,7 +41,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.23.0
+      - python-ssaw/0.0.6
     method: GET
     uri: https://apitest.mysurvey.solutions/api/v1/settings/globalnotice
   response:
@@ -54,7 +54,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 29 May 2020 21:14:21 GMT
+      - Fri, 12 Jun 2020 18:31:36 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:

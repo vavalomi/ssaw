@@ -9,25 +9,25 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.23.0
+      - python-ssaw/0.0.6
     method: GET
     uri: https://apitest.mysurvey.solutions/api/v2/export/2756
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACnWQy27CMBBF/8XqEhLnnXiHoKhUXbQlP+AkA0QYOxo7UIT4906KXKmL7sbHdx73
-        3tiraTYdE3GR5TP2/DUYdFsn3WiZYEtzGhQ46NiMEUS3kg6Ixzzmc57OeVXzVESpyHgQ5XlVliT0
-        Tf9q04BXvIgr0r6j2SNY2hXT8nrBhB6VohLRoH+89fpIihtbSt2C8nhlLloZSbezg3ODFWEoh96B
-        dcHpakc8wzWwRo2uN9pOX+E5DuHHYDi5DXe9AnafsRdpH77XExAOR/BJ1Ndh8lDLZlQS6eCPkebT
-        QC17hCk3Bm1TRJlMoMzytOyKaldGSda1SdPkMuHRU0RtG+0Azz1cfqNdKEV8jebk/dTGV4u2pUxq
-        cwTt0SfsKKfDH7Z1BuUeHjdO6P4NSz4sd84BAAA=
+        H4sIAAAAAAAACnWQy27CMBBF/8XqEhLnnXiHoKhUXbQlP+AkA0QYOxo7UIT4947bplIX3Y2P53Hv
+        vbFn02w6JuIiy2fs8WMw6LZOutEywZbmNChw0LEZI4huJR0Qj3nM5zyd86rmqYhSkfEgyvOqLKlx
+        Gvq3Nw14xYu4ot5XNHsES7diOl4vmNCjUlQiGpweL70+UseNLaVuQU14ZS5aGUna2cG5wYowlEPv
+        wLrgdLUjnuEaWKNG1xtt/Vd4jkP4Mhh6t+GuV8DuM/Yk7bfvtQfC4QhTEvV18B5q2YxKIgl+G2k/
+        LdSyR/C5MWibIspkAmWWp2VXVLsySrKuTZomlwmPHiIa22gHeO7h8hvtQiniazSnyU9tpmrRtpRJ
+        bY6gJ/QOO8rp8IdtnUG5h2+NPztQaqukV+jFeXj/BBTyLmjjAQAA
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 29 May 2020 21:14:16 GMT
+      - Fri, 12 Jun 2020 18:31:30 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:

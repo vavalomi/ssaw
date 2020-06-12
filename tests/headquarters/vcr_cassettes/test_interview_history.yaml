@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.23.0
+      - python-ssaw/0.0.6
     method: GET
     uri: https://apitest.mysurvey.solutions/api/v1/interviews/fdd62d6c-c8a3-4737-ac76-26125f0b9d82/history
   response:
@@ -41,7 +41,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 29 May 2020 21:14:20 GMT
+      - Fri, 12 Jun 2020 18:31:35 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:

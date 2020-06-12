@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.23.0
+      - python-ssaw/0.0.6
     method: GET
     uri: https://apitest.mysurvey.solutions/api/v1/assignments/7373
   response:
@@ -19,7 +19,7 @@ interactions:
       Content-Length:
       - '0'
       Date:
-      - Fri, 29 May 2020 21:14:16 GMT
+      - Fri, 12 Jun 2020 18:31:27 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:

@@ -15,7 +15,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-requests/2.23.0
+      - python-ssaw/0.0.6
     method: POST
     uri: https://apitest.mysurvey.solutions/graphql
   response:
@@ -25,7 +25,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 12 Jun 2020 02:12:31 GMT
+      - Fri, 12 Jun 2020 18:31:32 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:
