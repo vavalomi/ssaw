@@ -1,28 +1,42 @@
 from .base import HQBase
-from .exceptions import NotFoundError
-from .models import InterviewListItem
+from .exceptions import NotFoundError, GraphQLError
+from .headquarters_schema import headquarters_schema, InterviewFilter, Interview
+from sgqlc.operation import Operation
+from typing import Generator
 
 class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
-    def get_list(self, questionnaire_id = None, questionnaire_version = None):
-        path = self.url
-        page_size = 10
-        page = 1
-        total_count = 11
-        params = {
-            'page': page,
-            'pageSize': page_size,
-            'questionnaireId': questionnaire_id,
-            'questionnaireVersion': questionnaire_version
-        }
-        while page * page_size < total_count:
-            params['page'] = page
-            r = self._make_call('get', path, params=params)
-            total_count = r['TotalCount']
-            for item in r['Interviews']:
-                yield InterviewListItem.from_dict(item)
-            page += 1
+    def get_list(self, fields: list= (), **kwargs) -> Generator[Interview, None, None]:
+        where = InterviewFilter(**kwargs)
+        take = 20
+        skip = 0
+        filtered_count = 21
+        if not fields:
+            fields = (
+                'id',
+                'questionnaire_id',
+                'questionnaire_version',
+                'assignment_id',
+                'responsible_id',
+                'errors_count',
+                'status',
+            )
+        while skip < filtered_count:  
+            op = Operation(headquarters_schema.HeadquartersQuery)  
+            q = op.interviews(take=take, skip=skip, where=where)
+            q.__fields__('filtered_count')
+            q.nodes.__fields__(*fields)
+            print(op)
+            cont = self.endpoint(op)
+            errors = cont.get('errors')
+            if errors:
+                raise GraphQLError(errors[0]['message'])
+            res = (op + cont).interviews
+
+            filtered_count = res.filtered_count
+            yield from res.nodes
+            skip += take
 
     def get_info(self, interviewid):
         path = self.url + '/{}'.format(interviewid)

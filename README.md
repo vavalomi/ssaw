@@ -56,3 +56,13 @@ newobj = Assignment(
 res = AssignmentsApi(client).create(newobj)
 print(res.id)
 ```
+
+Get list of interviews that were updated during last 15 minutes (using GraphQL)
+```python
+import datetime
+from ssaw import InterviewApi
+
+timestamp = datetime.datetime.now() - datetime.timedelta(minutes=15)
+for i in InterviewsApi(client).get_list(update_date_gt=timestamp):
+    print(i)
+```

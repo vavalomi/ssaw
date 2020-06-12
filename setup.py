@@ -9,6 +9,7 @@ packages = [
 
 requires = [
     'requests',
+    'sgqlc',
 ]
 
 test_requirements = [

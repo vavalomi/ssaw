@@ -1,15 +1,16 @@
 import json
 import re
 import os
-import urllib
 from .exceptions import NotFoundError, NotAcceptableError
-from .designer import import_questionnaire_json
+from sgqlc.endpoint.requests import RequestsEndpoint
+
 
 class HQBase(object):
     _apiprefix = ""
 
     def __init__(self, client):
         self._hq = client
+        self.endpoint = RequestsEndpoint(client.baseurl +'/graphql', session=client.session)
 
     @property
     def url(self):

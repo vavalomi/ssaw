@@ -17,3 +17,8 @@ class NotAcceptableError(Exception):
 	def __init__(self, message):
 		self.expression = 'Not Acceptable'
 		self.message = message
+
+class GraphQLError(Exception):
+	def __init__(self, message):
+		self.expression = 'GraphQL Error'
+		self.message = message

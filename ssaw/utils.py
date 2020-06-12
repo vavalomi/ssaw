@@ -1,7 +1,10 @@
 import uuid
 
+def to_hex(q_id):
+    return uuid.UUID(q_id).hex
+
 def to_qidentity(q_id, q_version):
-    return "{}${}".format(uuid.UUID(q_id).hex, q_version)
+    return "{}${}".format(to_hex(q_id), q_version)
 
 def parse_qidentity(q_identity):
     if type(q_identity) is tuple:
