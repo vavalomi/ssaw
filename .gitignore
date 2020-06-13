@@ -8,4 +8,4 @@ dist
 .pytest_cache
 .vscode
 venv
-docs
+docs/_build

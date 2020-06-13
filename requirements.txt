@@ -3,6 +3,6 @@ sgqlc @ https://github.com/profusion/sgqlc/archive/433f41389af0208aa6c2744877b33
 
 # testing requirements
 pylint
-pytest
-pytest-cov
+pytest>=5.3.5
+pytest-cov>=2.8.1
 vcrpy>=4.0.2
