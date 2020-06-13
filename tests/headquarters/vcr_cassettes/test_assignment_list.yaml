@@ -11,24 +11,26 @@ interactions:
       User-Agent:
       - python-ssaw/0.0.6
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments?offset=1&limit=10
+    uri: https://apitest.mysurvey.solutions/api/v1/assignments?offset=1&limit=10&questionnaireId=ecb715a3e85648d79f8135dc3bb6a301%241
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACq2TX2vCMBTFv0vYYyNJ2sTaNyc+CNvcnGMPYw9Jc+sCNZUkVUT87kvxDxubIGwQ
-        CknPPffm/NodGnpvFnYJNnhUvO3QRKMiTdAM/Kqx3qgauhOkGGcy5QNMCAicCcKxEhnDMiODTOda
-        5bqPvpU9yCXEwud2BU53DxrfP7Xgg2mslcYdjKFUfcplCjkXWTQZVDlNuS5TpYRMCb3pyiY2gFsb
-        2PhR09qACtJZSRtM2KKCJmjoyg+zhmhYydpDgkYOZAA9DC+hjF0YYQSTFFMxJ7zI4sp7vC/yrHN/
-        WemrteOlNDUqbFvXCXqU3m8ap0/7V1D3jYbzEDMooZvqdjuXMZFw7HAQT/yw1aaJmuhg7GJsO83p
-        BvvkgIL9RFEKIoiMM9JcEpxRmkcUFcGCk1KUrA+VEr+iOKf4vyzoVxb4ahgMMzpnrIgZM9qjPKUD
-        dgnGBe11MIJr/8jiPUFTp8Gd5HdmaeLFWfwK502Q9TGI+NtMq8pDl8n+E9UcDGhaAwAA
+        H4sIAAAAAAAACt2WzWrcMBSF30V0OTL6t6zdNGQRaJs2ndBF6UK2rlOBRx4sOSGEvHtlnKQZ2mGm
+        lAxtNsIy5x5fnU8WukPLGP1VWENIEZmvd+jMIVMu0AXETR+irzuY3qBGEUUsI5hqS7CgVONatQQr
+        SRrVsBLaWqGtsg92DbnwLCQYrj3cwECz4NMIMfk+BOuH2RmauqTSctBSCe3KqtWUS9fwulaWE/pm
+        KntyiSf9GBIyZLKyIfl0i4xcoOXQfPfXkA1b20VYoJMBbAK3TJepyV9hJPdOFKZ8Rbhh3AhZaM2V
+        ZNn9cuMO1p6ure+yKD9+tDHe9IObZ1+gft87eGrgAhqYOnp7u7I5jvTgHsauy+uJy9H5PmtyvQ9X
+        p2HSPHZ/v5g5qFfPgRlBCso1qeheDtvaY3KQr54DMUwXpa6o2IthS3pMCuI/o0AOpcAxVSsijdBG
+        0EIQJvUeDMxIYgQvaMWEesZhjvMniXn+Aiz4ryxqJpnlssKEgMJCEZlZCIatIJVw2tU5xd+y+Dxu
+        YHDT8GIo6B+jkJlGIUulxc6DaYf22CjYv/9b0Ocs8MEwGGZ0lY/9nDGjBZU8b/ddMHZoD4ORhvEv
+        WXxboPPBwfAof+fXPi+c5V246pPtHoLIF6vzto0wZXL/A1uXjo58CQAA
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 12 Jun 2020 18:31:27 GMT
+      - Sat, 13 Jun 2020 03:34:12 GMT
       Server:
       - Kestrel
       Strict-Transport-Security:

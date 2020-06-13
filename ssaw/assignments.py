@@ -2,11 +2,12 @@ from .base import HQBase
 from .utils import to_qidentity
 from .exceptions import NotFoundError
 from .models import Assignment
+from typing import Iterator
 
 class AssignmentsApi(HQBase):
     _apiprefix = "/api/v1/assignments"
 
-    def get_list(self, questionnaire_id = None, questionnaire_version = None):
+    def get_list(self, questionnaire_id: str = None, questionnaire_version: int = None) -> Iterator[Assignment]:
         """Get list of assignments
         
         Parameters
@@ -18,7 +19,7 @@ class AssignmentsApi(HQBase):
         
         Yields
         -------
-        list of :class:`~ssaw.models.Assignment` objects
+        list of :class:`ssaw.models.Assignment` objects
         """
         path = self.url
         limit = 10
@@ -35,12 +36,12 @@ class AssignmentsApi(HQBase):
             params['offset'] = offset
             r = self._make_call('get', path, params=params)
             total_count = r['TotalCount']
+            offset += limit
             for item in r['Assignments']:
                 yield Assignment.from_dict(item)
-            offset += limit
 
     def get_info(self, id: int) -> Assignment:
-        """[summary]
+        """Get single assignment details
         
         Parameters
         ----------
@@ -55,8 +56,8 @@ class AssignmentsApi(HQBase):
         item = self._make_call("get", path)
         return Assignment.from_dict(item)
 
-    def create(self, obj : Assignment):
-        """[summary]
+    def create(self, obj: Assignment) -> Assignment:
+        """Create new assignment
         
         Parameters
         ----------
@@ -65,35 +66,146 @@ class AssignmentsApi(HQBase):
         
         Returns
         -------
-        [type]
-            [description]
+            :class:`ssaw.models.Assignment` object
         """
         path = self.url
-        return self._make_call("post", path, json=obj.to_json())
+        res = self._make_call("post", path, json=obj.to_json())
+        return Assignment.from_dict(res['Assignment'])
 
-    def archive(self, id):
-        pass
+    def archive(self, id: int):
+        """Archive assignment
 
-    def assign(self, id, responsible):
-        pass
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        """
+        path = self.url + "/{}/archive".format(id)
+        self._make_call("patch", path)
 
-    def get_quantity_settings(self, id):
-        pass
+    def unarchive(self, id: int):
+        """Unarchive assignment
 
-    def update_quantity(self, id, quantity):
-        pass
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        """
+        path = self.url + "/{}/unarchive".format(id)
+        self._make_call("patch", path)
 
-    def close(self, id):
-        pass
+    def assign(self, id: int, responsible: str) -> Assignment:
+        """Assign new responsible person for assignment
 
-    def history(self, id):
-        pass
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        responsible : str
+            Username of the new responsible
 
-    def get_recordaudio(self, id):
-        pass
+        Returns
+        -------
+            Modified :class:`ssaw.models.Assignment` object
+        """
+        path = self.url + "/{}/assign".format(id)
+        res = self._make_call("patch", path, json={"Responsible": responsible})
+        return Assignment.from_dict(res)
 
-    def update_recordaudio(self, id):
-        pass
+    def get_quantity_settings(self, id: int) -> bool:
+        """Checi if quantity may be edited for the assignment
 
-    def unarchive(self, id):
-        pass
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+
+        Returns
+        -------
+        bool
+            `True` if quantity can be edited, `False` otherwise
+        """
+        path = self.url + "/{}/assignmentQuantitySettings".format(id)
+        res = self._make_call("get", path)
+        return res['CanChangeQuantity']
+
+    def update_quantity(self, id: int, quantity: int) -> Assignment:
+        """Change maximum quantity of interviews to be created
+
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        quantity : int
+            new quantity of interviews to be collected
+
+        Returns
+        -------
+            Modified :class:`ssaw.models.Assignment` object
+
+        """
+        if not isinstance(quantity, int):
+            raise TypeError('quantity must be a number')
+        path = self.url + "/{}/changequantity".format(id)
+        headers = {"Content-Type": "application/json-patch+json"}
+        res = self._make_call("patch", path, data=str(quantity), headers=headers)
+        return Assignment.from_dict(res)
+
+    def close(self, id: int):
+        """Close assignment by setting Size to the number of collected interviews
+
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        """
+        path = self.url + "/{}/close".format(id)
+        self._make_call("post", path)
+
+    def get_history(self, id: int) -> Iterator[dict]:
+        page_size = 10
+        start = 1
+        total_count = 11
+        params = {
+            'start': start,
+            'length': page_size
+        }
+        path = self.url + "/{}/history".format(id)
+        while start < total_count:
+            params['start'] = start
+            r = self._make_call('get', path, params=params)
+            total_count = r['RecordsFiltered']
+            start += page_size
+            yield from r['History']
+
+    def get_recordaudio(self, id: int) -> bool:
+        """Get status of audio recording for the assignment
+
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+
+        Returns
+        -------
+        bool
+            True if audio recording is enabled, False otherwise
+        """
+        path = self.url + "/{}/recordAudio".format(id)
+        res = self._make_call("get", path)
+        return res['Enabled']
+
+    def update_recordaudio(self, id: int, enabled: bool):
+        """Turn recording of audio for the assignment
+
+        Parameters
+        ----------
+        id : int
+            Assignment Id
+        enabled : bool
+            True to turn audio recording on, False to turn it off
+        """
+        if not isinstance(enabled, bool):
+            raise TypeError('enabled must be either True or False')
+        path = self.url + "/{}/recordAudio".format(id)
+        self._make_call("patch", path, json={'Enabled': enabled})

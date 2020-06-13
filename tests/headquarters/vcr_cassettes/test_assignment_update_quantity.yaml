@@ -1,0 +1,132 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.0.6
+    method: GET
+    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACmWRsU7DMBCG38ViTKpzYjvGWygdOoCgasWAGBznApZSp4qdVhXi3bmoBQkx+vTd
+        9/+2P1kd4gnHyMzrW8bWLYbku7MP7/c22Z8hMyJjG4yHIUTf9DhPmFOgwBaQc20hF5zrvFEd5EqC
+        U66osGsU+7P2aPdIi+uQcDx6pFhOwPOEMfkhBOvHixldU3FpS9RSCd1Wt53mpWxd2TTKlsBv5rVf
+        S1wOU0jMwKyyVD+dmZEZq0f34Y9Iws72ETO2HNEmbOu0S45SCqDuUOZcbUEaoY3gCwGF1ILsu0P7
+        n1U5L7dQGAlGFAvgAnhF7Gpvfc9MmPo+Y082xtMwUurl/ILNw9DSta8lNuhwbnV33lp6knRNuMDr
+        WE+tH4ghA/3BKswMudI44dc3QtSK9awBAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 13 Jun 2020 02:50:41 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '6'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1'
+      Content-Type:
+      - application/json-patch+json
+      User-Agent:
+      - python-ssaw/0.0.6
+    method: PATCH
+    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/changequantity
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACmWRy07DMBBF/8VimVTjxHaCd6V00QUIqlYsEAs/JmApdarYaVUh/p2JipAQS4/O
+        PXNtf7KNx5hDdwnx/d5kw/TrW0FDpkXBtpiOQ0zB9jhPmFOgwFRQ8tZAKThvS6s6KJUEp1zVYGcV
+        +xN7NAek4CZmHE8BzzhyAp4nTDkMMZowXs3obMOlqbGVSrS+ue1aXkvvamuVqYHfzLFfS1oNU8xM
+        w6wyVD9fmFYFW47uI5yQhJ3pExZsNaLJ6Jd5nx1tqYC6Q11ytQOpRasFXwioZCvIvj/6/6wqeb2D
+        SkvQoloAF8AbYtcHE3qm49T3BXsyKZ2HkbZezy9oHwZP1/4psUWHc6u7y87Qk+SfDVd4k5aTDwMx
+        ZKA/WMeZIVceJ/z6BreCxlSfAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 13 Jun 2020 02:50:41 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.0.6
+    method: GET
+    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACmWRwU7DMBBE/8XimFRrx3FT30LpoQcQVK04IA62swFLqVPFTqsK8e9s1IKEetzV
+        zJux94vVIZ5wiEy/vWds3WBIvj378PFgkvldMi0ztsF46EP0tsNpw5wCBUZAzisDueS8yq1qIVcl
+        OOXEHFur2D/bk9kjGdch4XD0SLGcBC8jxuT7EIwfLmR0ds5LU2BVKlk180Vb8aJsXGGtMgXwu8n2
+        R4nLfgyJaZhQhuqnM9MqY/XgPv0RCdiaLmLGlgOahE2ddslRigDqDkXO1RZKLSst+UyCKCtJ9N2h
+        udWqnBdbELoELcWs4FwspiarvfEd02Hsuow9mxhP/UCpl/kV7WPf0LOvJTbocGp1f94a+pJ0TbiI
+        17EeG9+Thgh0g1WYNMRKw4jfP+9gbxCsAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 13 Jun 2020 02:50:41 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+version: 1
