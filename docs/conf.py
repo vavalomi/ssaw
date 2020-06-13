@@ -37,7 +37,6 @@ release = about['__version__']
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxcontrib.restbuilder',
     'sphinx.ext.napoleon',
 ]
 
