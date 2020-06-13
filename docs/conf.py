@@ -13,13 +13,13 @@
 import os
 import sys
 
-src = os.path.abspath('../ssaw')
+src = os.path.abspath('..')
 sys.path.insert(0, src)
 
 
 
 about = {}
-with open(os.path.join(src, '__about__.py'), 'r', encoding='utf-8') as f:
+with open(os.path.join(src, 'ssaw', '__about__.py'), 'r', encoding='utf-8') as f:
     exec(f.read(), about)
 
 # -- Project information -----------------------------------------------------
