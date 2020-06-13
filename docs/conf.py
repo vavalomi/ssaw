@@ -71,6 +71,7 @@ html_theme_options = {
     'touch_icon': 'logo-small.png',
     'github_user': 'vavalomi',
     'github_repo': 'ssaw',
+    'analytics_id':'UA-129284684-2',
     'github_button': True,
     'fixed_sidebar': True,
     'extra_nav_links': {'Survey Solutions Documentation': 'https://support.mysurvey.solutions'}
