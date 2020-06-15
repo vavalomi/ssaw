@@ -6,6 +6,7 @@ dist
 *.egg-info
 .coverage
 coverage.xml
+.env
 .pytest_cache
 .vscode
 venv

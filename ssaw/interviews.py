@@ -9,13 +9,13 @@ class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects='hex', param_name='questionnaire_id')
-    def get_list(self, fields: list = (), **kwargs) -> Generator[Interview, None, None]:
+    def get_list(self, fields: list = [], **kwargs) -> Generator[Interview, None, None]:
         where = InterviewFilter(**kwargs)
         take = 20
         skip = 0
         filtered_count = 21
         if not fields:
-            fields = (
+            fields = [
                 'id',
                 'questionnaire_id',
                 'questionnaire_version',
@@ -23,7 +23,7 @@ class InterviewsApi(HQBase):
                 'responsible_id',
                 'errors_count',
                 'status',
-            )
+            ]
         while skip < filtered_count:  
             op = Operation(headquarters_schema.HeadquartersQuery)  
             q = op.interviews(take=take, skip=skip, where=where)
@@ -91,5 +91,5 @@ class InterviewsApi(HQBase):
             'ResponsibleId': responsibleid,
             'ResponsibleName': responsiblename
         }
-        r = self._make_call('patch', path, json = payload)
+        _ = self._make_call('patch', path, json = payload)
         return True

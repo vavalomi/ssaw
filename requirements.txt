@@ -5,4 +5,5 @@ sgqlc @ https://github.com/profusion/sgqlc/archive/433f41389af0208aa6c2744877b33
 pylint
 pytest>=5.3.5
 pytest-cov>=2.8.1
+python-env>=1.0.0
 vcrpy>=4.0.2

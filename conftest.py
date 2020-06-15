@@ -1,9 +1,11 @@
 import os
 import pytest
+import dotenv
 from ssaw import Client
 
 @pytest.fixture(scope="module")
 def session():
+    dotenv.load()
     API_USER = os.environ.get('SOLUTIONS_API_USER', None)
     API_PASSWORD = os.environ.get('SOLUTIONS_API_PASSWORD', None)
     return Client('https://apitest.mysurvey.solutions/', API_USER, API_PASSWORD)
