@@ -6,8 +6,7 @@ from ssaw import Client
 def session():
     API_USER = os.environ.get('SOLUTIONS_API_USER', None)
     API_PASSWORD = os.environ.get('SOLUTIONS_API_PASSWORD', None)
-    ss = Client('https://apitest.mysurvey.solutions/', API_USER, API_PASSWORD)
-    return ss
+    return Client('https://apitest.mysurvey.solutions/', API_USER, API_PASSWORD)
 
 @pytest.fixture(scope="module")
 def params():

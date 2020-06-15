@@ -22,13 +22,11 @@ class UsersApi(HQBase):
 
     def unarchive(self, id):
         path = self._url_users + '/{}/unarchive'.format(id)
-        response = self._make_call('patch', path)
-        return response
+        return self._make_call('patch', path)
 
     def archive(self, id):
         path = self._url_users + '/{}/archive'.format(id)
-        response = self._make_call('patch', path)
-        return response
+        return self._make_call('patch', path)
     
     def _list_users(self, path):
         page_size = 10
@@ -43,8 +41,7 @@ class UsersApi(HQBase):
             r = self._make_call('get', path, params=params)
             total_count = r['TotalCount']
             if total_count > 0:
-                for item in r['Users']:
-                    yield item
+                yield from r['Users']
             else:
                 yield from ()
             page += 1

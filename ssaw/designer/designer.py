@@ -32,8 +32,7 @@ def export_questionnaire(obj, outfolder):
 
 
 def import_questionnaire_json(jsonstring):
-    ret = json.loads(jsonstring, object_hook=decode_object)
-    return ret
+    return json.loads(jsonstring, object_hook=decode_object)
 
 
 def import_questionnaire(archive):
@@ -69,7 +68,7 @@ def clean_string(candidate):
 
 class MacrosCache:
     def __init__(self):
-        self._list = dict()
+        self._list = {}
 
     def add(self, name, value):
         self._list[name] = value
@@ -91,7 +90,7 @@ def collect_expressions(obj, id="", evaluate_macros=False, macros_cache=None):
                 show_structure(obj)
             except Exception as e:
                 print(obj)
-        if evaluate_macros and (macros_cache == None):
+        if evaluate_macros and macros_cache is None:
             macros_cache = MacrosCache()
 
     if hasattr(obj, "Macros"):
@@ -101,10 +100,7 @@ def collect_expressions(obj, id="", evaluate_macros=False, macros_cache=None):
                 if "Content" in m:
                     cont = clean_string(m["Content"])
                     if cont:
-                        if "Name" in m:
-                            name = m["Name"]
-                        else:
-                            name = "no_name"
+                        name = m["Name"] if "Name" in m else "no_name"
                         if evaluate_macros:
                             macros_cache.add(name, cont)
                         else:
@@ -113,10 +109,7 @@ def collect_expressions(obj, id="", evaluate_macros=False, macros_cache=None):
     if hasattr(obj, "StataExportCaption"):
         variablename = obj.StataExportCaption
     else:
-        if hasattr(obj, "Name"):
-            variablename = obj.Name
-        else:
-            variablename = ""
+        variablename = obj.Name if hasattr(obj, "Name") else ""
     if hasattr(obj, "ConditionExpression"):
         cont = clean_string(obj.ConditionExpression)
         if cont:
@@ -187,7 +180,7 @@ def decode_object(o):
             "SharedPersons",
             "UsesCSharp",
         ]
-        if any([i in o for i in questionnaire_keys]):
+        if any(i in o for i in questionnaire_keys):
             typevalue = "QuestionnaireDocument"
         else:
             # extra info that we don't need
@@ -196,9 +189,7 @@ def decode_object(o):
                 "DependencyGraph",
                 "ValidationDependencyGraph",
             ]
-            if any([i in o for i in extra_keys]):
-                pass
-            else:
+            if all(i not in o for i in extra_keys):
                 return o
 
     if typevalue in CLASS_DICT:
