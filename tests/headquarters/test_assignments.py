@@ -59,7 +59,7 @@ def test_assignment_close(session):
 def test_assignment_update_recordaudio(session):
     status = AssignmentsApi(session).get_recordaudio(4)
     AssignmentsApi(session).update_recordaudio(4, enabled = not status)
-    assert not status == AssignmentsApi(session).get_recordaudio(4)
+    assert status != AssignmentsApi(session).get_recordaudio(4)
     with raises(TypeError):
         AssignmentsApi(session).update_recordaudio(4, 'enabled')
 

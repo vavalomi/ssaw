@@ -22,7 +22,7 @@ def test_export_info(session, params):
 @my_vcr.use_cassette()
 def test_export_cancel(session, params):
 	r = ExportApi(session).cancel(params['JobId'])
-	assert r == None, 'Does not return anything'
+	assert r is None, 'Does not return anything'
 
 @my_vcr.use_cassette()
 def test_export_start(session, params):
