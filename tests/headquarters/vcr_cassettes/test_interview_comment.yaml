@@ -1,0 +1,34 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.0.7
+    method: POST
+    uri: https://apitest.mysurvey.solutions/api/v1/interviews/fdd62d6c-c8a3-4737-ac76-26125f0b9d82/comment-by-variable/Q01?comment=aaa
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Date:
+      - Mon, 29 Jun 2020 20:06:52 GMT
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=2592000
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+version: 1

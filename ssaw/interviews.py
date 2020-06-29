@@ -1,14 +1,16 @@
 from .base import HQBase
 from .exceptions import NotFoundError, GraphQLError
 from .headquarters_schema import headquarters_schema, InterviewFilter, Interview
+from .models import InterviewAnswers
 from .utils import fix_qid
 from sgqlc.operation import Operation
 from typing import Generator
+from html import escape
 
 class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
-    @fix_qid(expects='hex', param_name='questionnaire_id')
+    @fix_qid(expects={'questionnaire_id': 'hex'})
     def get_list(self, fields: list = [], **kwargs) -> Generator[Interview, None, None]:
         where = InterviewFilter(**kwargs)
         take = 20
@@ -40,15 +42,14 @@ class InterviewsApi(HQBase):
             yield from res.nodes
             skip += take
 
-    def get_info(self, interviewid):
-        path = self.url + '/{}'.format(interviewid)
-        return self._make_call('get', path)
+    def get_info(self, interview_id: str) -> list:
+        path = self.url + '/{}'.format(interview_id)
+        ret = self._make_call('get', path)
+        if "Answers" in ret:
+            return InterviewAnswers(ret)
 
     def delete(self, interviewid, comment=''):
         return self._change_status(action='delete', interviewid=interviewid, comment=comment)
-
-    def answers(self, interviewid):
-        pass
 
     def approve(self, interviewid, comment=''):
         return self._change_status(action='approve', interviewid=interviewid, comment=comment)
@@ -59,11 +60,25 @@ class InterviewsApi(HQBase):
     def assign_supervisor(self, interviewid, responsibleid, responsiblename=''):
         return self._reassign(action='assignsupervisor', interviewid=interviewid, responsibleid=responsibleid, responsiblename=responsiblename)
 
-    def comment(self, interviewid, comment, questionid=None, variable=''):
-        pass
+    @fix_qid(expects={'interview_id': 'string', 'question_id': 'hex'})
+    def comment(self, interview_id, comment, question_id: str = None, variable: str = None, roster_vector: list = []):
+        params = {'comment': escape(comment)}
+        if roster_vector:
+            params['rosterVector'] = roster_vector
 
-    def history(self, interviewid):
-        path = self.url + '/{}'.format(interviewid) + '/history'
+        if variable:
+            path = self.url + '/{}/comment-by-variable/{}'.format(interview_id, variable)
+        else:
+            if question_id:
+                path = self.url + '/{}/comment/{}'.format(interview_id, question_id)
+            else:
+                raise TypeError("comment() either 'variable' or 'question_id' argument is required")
+  
+        self._make_call('post', path, params=params)
+
+    @fix_qid(expects={'interview_id': 'string'})
+    def history(self, interview_id):
+        path = self.url + '/{}/history'.format(interview_id)
         return self._make_call('get', path)
 
     def hqapprove(self, interviewid, comment=''):
@@ -82,8 +97,8 @@ class InterviewsApi(HQBase):
         pass
 
     def _change_status(self, interviewid, action, comment=''):
-        path = self.url + '/{}/{}?comment={}'.format(interviewid, action, comment)
-        return self._make_call('patch', path)
+        path = self.url + '/{}/{}'.format(interviewid, action)
+        return self._make_call('patch', path, params={'comment': escape(comment)})
 
     def _reassign(self, interviewid, action, responsibleid, responsiblename=''):
         path = self.url + '/{}/{}'.format(interviewid, action)

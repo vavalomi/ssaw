@@ -18,7 +18,7 @@ def test_interview_details(session, params):
     """Tests an API call to get an interview details"""
 
     r = InterviewsApi(session).get_info(params['InterviewId'])
-    assert 'Answers' in r.keys(), "The Answers key should be in the response"
+    assert r.get_answer("Q01") == "Yes"
 
 @my_vcr.use_cassette()
 def test_interview_history(session, params):
@@ -57,4 +57,12 @@ def test_interview_hqunapprove(session, params):
 @my_vcr.use_cassette()
 def test_interview_assign(session, params):
     with raises(NotAcceptableError):
-        assert InterviewsApi(session).assign(params['InterviewId'], '00000000-0000-0000-0000-000000000000')
+        InterviewsApi(session).assign(params['InterviewId'], '00000000-0000-0000-0000-000000000000')
+
+@my_vcr.use_cassette()
+def test_interview_comment(session, params):
+    with raises(TypeError):
+        InterviewsApi(session).comment(params['InterviewId'], comment="aaa")
+
+    # no way to check comments for now, make sure there are no exceptions    
+    InterviewsApi(session).comment(params['InterviewId'], comment="aaa", variable="Q01")

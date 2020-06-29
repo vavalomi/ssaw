@@ -3,17 +3,18 @@ import re
 import os
 from .exceptions import NotFoundError, NotAcceptableError
 from sgqlc.endpoint.requests import RequestsEndpoint
+from .headquarters import Client
 
 
 class HQBase(object):
-    _apiprefix = ""
+    _apiprefix: str = ""
 
-    def __init__(self, client):
+    def __init__(self, client: Client) -> None:
         self._hq = client
         self.endpoint = RequestsEndpoint(client.baseurl +'/graphql', session=client.session)
 
     @property
-    def url(self):
+    def url(self) -> str:
         return self._hq.baseurl + self._apiprefix
 
     def _make_call(self, method, path, filepath = None, parser=None, **kwargs):
@@ -50,7 +51,7 @@ class HQBase(object):
                     return True
         elif rc == 404:
             raise NotFoundError(response.text)
-        elif rc == 406:
+        elif rc in [400, 406]:
             raise NotAcceptableError(response.text)
         else:
             response.raise_for_status()

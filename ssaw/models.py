@@ -1,4 +1,4 @@
-from .utils import to_qidentity
+from .utils import to_qidentity, to_hex
 
 class Assignment(object):
     def __init__(self, responsible, quantity, questionnaire_id,
@@ -41,7 +41,6 @@ class Assignment(object):
 
     @classmethod
     def from_dict(cls, dict):
-        print(dict)
         obj = cls(
             responsible = dict['ResponsibleName'],
             quantity = dict['Quantity'], 
@@ -129,8 +128,28 @@ class ExportJob(object):
         self.to_date = to_date
         self.access_token = access_token
         self.storage_type = storage_type
+        self._export_status: str
+        self._has_export_file: bool
+        self._cancel_link: str
+        self._download_link: str
 
-    def __str__(self):
+    @property
+    def export_status(self) -> str:
+        return self._export_status
+
+    @property
+    def has_export_file(self) -> bool:
+        return self._has_export_file
+
+    @property
+    def cancel_link(self) -> str:
+        return self._cancel_link
+
+    @property
+    def download_link(self) -> str:
+        return self._download_link
+
+    def __str__(self) ->str:
         return(str(self.__dict__))
 
     @classmethod
@@ -145,7 +164,7 @@ class ExportJob(object):
             storage_type = dict['StorageType'] if 'StorageType' in dict else None
         )
         setattr(obj, 'job_id', dict['JobId'])
-        setattr(obj, 'export_status', dict['ExportStatus'])
+        setattr(obj, '_export_status', dict['ExportStatus'])
         setattr(obj, 'start_date', dict['StartDate'])
         setattr(obj, 'complete_date', dict['CompleteDate'])
         setattr(obj, 'progress', dict['Progress'])
@@ -153,10 +172,10 @@ class ExportJob(object):
             setattr(obj, 'eta', dict['ETA'])
         if 'Links' in dict:
             if 'Cancel' in dict['Links']:
-                setattr(obj, 'cancel_link', dict['Links']['Cancel'])
+                setattr(obj, '_cancel_link', dict['Links']['Cancel'])
             if 'Download' in dict['Links']:
-                setattr(obj, 'download_link', dict['Links']['Download'])
-        setattr(obj, 'has_export_file', dict['HasExportFile'])
+                setattr(obj, '_download_link', dict['Links']['Download'])
+        setattr(obj, '_has_export_file', dict['HasExportFile'])
         return obj
 
     def to_json(self):
@@ -170,3 +189,48 @@ class ExportJob(object):
                 "StorageType": self.storage_type,
             }
         return {k: v for k, v in ret.items() if v is not None}
+
+class InterviewAnswers(object):
+    def __init__(self, answers: dict):
+        data = {}
+        variables = {}
+        self._raw_data = answers["Answers"]
+        for ans in self._raw_data:
+            val = ans["Answer"]
+            id = to_hex(ans["QuestionId"]["Id"])
+            variables[ans["VariableName"]] = id
+            if val is None:
+                continue
+            if len(ans["QuestionId"]["RosterVector"]) > 0:
+                key = "_".join([id,] + [str(r) for r in ans["QuestionId"]["RosterVector"]])
+            else:
+                key = id
+            data[key] = val
+        self._data = data
+        self._variables = variables
+    
+    def __str__(self) -> str:
+        return(str(self._raw_data))
+    
+    def get_answer(self, variable: str = None, question_id: str = None, roster_vector: list = []):
+        if variable:
+            if variable in self._variables:
+                key = self._variables[variable]
+            else:
+                raise TypeError("get_answer() variable not found")
+        else:
+            if question_id:
+                key= to_hex(question_id)
+            else:
+                raise TypeError("get_anwer() either 'variable' or 'question_id' argument is required")
+        
+        if roster_vector:
+            key = "_".join([key, ] + [str(r) for r in roster_vector])
+        
+        if key in self._data:
+            return self._data[key]
+        else:
+            return None
+
+    def __iter__(self):
+       return iter(self._raw_data)

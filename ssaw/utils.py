@@ -1,17 +1,18 @@
 from functools import wraps
 import uuid
 
-def fix_qid(expects='hex', param_name='questionnaire_id'):
+def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
     def wrapper_outer(func):
         @wraps(func)
         def wrapper_inner(*args, **kwargs):
-            if param_name in kwargs:
-                if expects == 'hex':
-                    kwargs[param_name] = uuid.UUID(kwargs[param_name]).hex
-                elif expects == 'string':
-                    kwargs[param_name] = str(uuid.UUID(kwargs[param_name]))
-                else:
-                    raise ValueError('expects should be either hex or string')
+            for param_name in expects.keys():
+                if param_name in kwargs:
+                    if expects[param_name] == 'hex':
+                        kwargs[param_name] = uuid.UUID(kwargs[param_name]).hex
+                    elif expects[param_name] == 'string':
+                        kwargs[param_name] = str(uuid.UUID(kwargs[param_name]))
+                    else:
+                        raise ValueError('expects should be either hex or string')
             return func(*args, **kwargs)
         return wrapper_inner
     return wrapper_outer
