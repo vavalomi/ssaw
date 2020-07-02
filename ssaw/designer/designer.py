@@ -1,14 +1,15 @@
-from datetime import datetime
-import uuid
+import copy
+import hashlib
+import imghdr
 import json
 import os
-import zipfile
-import tempfile
 import shutil
-import copy
-import imghdr
-import hashlib
-from .constants import *
+import tempfile
+import uuid
+import zipfile
+from datetime import datetime
+
+from .constants import CLASSTYPE_LOOKUPTABLE, CLASSTYPE_MACRO, QUESTION_TYPES
 
 
 def export_questionnaire(obj, outfolder):
@@ -80,7 +81,7 @@ class MacrosCache:
         return ret
 
 
-def collect_expressions(obj, id="", evaluate_macros=False, macros_cache=None):
+def collect_expressions(obj, id="", evaluate_macros=False, macros_cache=None):  # noqa: C901
     ret = []
     if id == "":
         if hasattr(obj, "PublicKey"):
@@ -88,7 +89,7 @@ def collect_expressions(obj, id="", evaluate_macros=False, macros_cache=None):
         else:
             try:
                 show_structure(obj)
-            except Exception as e:
+            except Exception:
                 print(obj)
         if evaluate_macros and macros_cache is None:
             macros_cache = MacrosCache()
@@ -614,8 +615,8 @@ CLASS_DICT = {
     "Translation": Translation,
     "ValidationCondition": ValidationCondition,
     "Variable": Variable,
-    "System.Collections.Generic.Dictionary`2[[System.Guid, mscorlib],[WB.Core.SharedKernels.SurveySolutions.Documents.LookupTable, WB.Core.SharedKernels.Questionnaire]], mscorlib": MyDict,
-    "System.Collections.Generic.Dictionary`2[[System.Guid, mscorlib],[WB.Core.SharedKernels.SurveySolutions.Documents.Macro, WB.Core.SharedKernels.Questionnaire]], mscorlib": MyDict,
+    CLASSTYPE_LOOKUPTABLE: MyDict,
+    CLASSTYPE_MACRO: MyDict,
     "Macro": Macro,
     "MyDict": MyDict,
     "LookupTable": LookupTable,

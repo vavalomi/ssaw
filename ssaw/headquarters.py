@@ -1,5 +1,7 @@
 from requests import Session
+
 from .__about__ import __title__, __version__
+
 
 class Client(object):
     """Initializes the API client

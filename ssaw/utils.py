@@ -1,5 +1,6 @@
-from functools import wraps
 import uuid
+from functools import wraps
+
 
 def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
     def wrapper_outer(func):
@@ -17,15 +18,18 @@ def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
         return wrapper_inner
     return wrapper_outer
 
+
 def to_hex(q_id):
     return uuid.UUID(q_id).hex
+
 
 def to_qidentity(q_id, q_version):
     return "{}${}".format(to_hex(q_id), q_version)
 
+
 def parse_qidentity(q_identity):
     if type(q_identity) is tuple:
-        (q_id, q_version) = q_identity 
+        (q_id, q_version) = q_identity
     else:
         qq = q_identity.split("$")
         q_id = qq[0]

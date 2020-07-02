@@ -1,5 +1,7 @@
-from . import my_vcr
 from ssaw import SettingsApi
+
+from . import my_vcr
+
 
 @my_vcr.use_cassette()
 def test_settings_globalnotice(session):
@@ -9,6 +11,7 @@ def test_settings_globalnotice(session):
     r = SettingsApi(session).get_globalnotice()
     assert r == 'aaa'
 
+
 @my_vcr.use_cassette()
 def test_settings_globalnotice2(session):
     """Tests an API call to remove global settings"""
@@ -16,4 +19,3 @@ def test_settings_globalnotice2(session):
     SettingsApi(session).remove_globalnotice()
     r = SettingsApi(session).get_globalnotice()
     assert r == ''
-

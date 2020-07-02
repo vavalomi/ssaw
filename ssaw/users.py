@@ -1,5 +1,5 @@
 from .base import HQBase
-from .exceptions import NotFoundError
+
 
 class UsersApi(HQBase):
     _apiprefix = "/api/v1"
@@ -27,7 +27,7 @@ class UsersApi(HQBase):
     def archive(self, id):
         path = self._url_users + '/{}/archive'.format(id)
         return self._make_call('patch', path)
-    
+
     def _list_users(self, path):
         page_size = 10
         page = 1
@@ -45,7 +45,7 @@ class UsersApi(HQBase):
             else:
                 yield from ()
             page += 1
-        
+
     @property
     def _url_users(self):
         return self.url + '/users'

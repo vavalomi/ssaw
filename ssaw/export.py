@@ -1,13 +1,15 @@
 
 from .base import HQBase
-from .exceptions import NotFoundError
 from .models import ExportJob
 from .utils import parse_qidentity
 
-class ExportApi(HQBase):
-    _apiprefix = "/api/v2/export"
 
-    def get_list(self, export_type=None, interview_status=None, questionnaire_identity=None, export_status=None, has_file=None):
+class ExportApi(HQBase):
+    _apiprefix: str = "/api/v2/export"
+
+    def get_list(self, export_type=None, interview_status=None,
+                 questionnaire_identity=None, export_status=None,
+                 has_file=None):
         path = self.url
         params = {
             "exportType": export_type,
@@ -20,18 +22,25 @@ class ExportApi(HQBase):
         for item in r:
             yield ExportJob.from_dict(item)
 
-    def get(self, questionnaire_identity, export_path='', export_type='Tabular'):
-        """Downloads latest available export file.
+    def get(self, questionnaire_identity: str, export_path: str = "", export_type: str = "Tabular"):
+        """Downloads latest available export file
 
-        :param id: Questionnaire id in format QuestionnaireGuid$Version
-        :param exportpath: Path to save the downloaded file
-        :param exporttype: Format of the export data: ``Tabular``, ``STATA``, ``SPSS``, ``Binary``, ``DDI``, ``Paradata``
+        Parameters
+        ----------
+        questionnaire_identity : str
+            Questionnaire id in format QuestionnaireGuid$Version
+
+        export_path: str
+            Path to save the downloaded file
+
+        export_type: str
+            Format of the export data: ``Tabular``, ``STATA``, ``SPSS``, ``Binary``, ``DDI``, ``Paradata``
         """
 
         ret_list = self.get_list(
-            export_type = export_type,
-            questionnaire_identity = parse_qidentity(questionnaire_identity),
-            export_status = 'Completed',
+            export_type=export_type,
+            questionnaire_identity=parse_qidentity(questionnaire_identity),
+            export_status='Completed',
             has_file='true')
         try:
             download_link = next(ret_list).download_link
@@ -39,17 +48,16 @@ class ExportApi(HQBase):
         except StopIteration:
             pass
 
-    def get_info(self, job_id):
+    def get_info(self, job_id: int) -> ExportJob:
         path = self.url + '/{}'.format(job_id)
         return ExportJob.from_dict(self._make_call('get', path))
 
-    def start(self, export_job):
+    def start(self, export_job: ExportJob) -> ExportJob:
         path = self.url
         return ExportJob.from_dict(self._make_call("post", path, json=export_job.to_json()))
 
-    def cancel(self, job_id):
+    def cancel(self, job_id: int) -> None:
         response = self.get_info(job_id)
-        # pylint: disable=no-member
         if response.export_status == "Running":
             path = self.url + '{}'.format(job_id)
             _ = self._make_call('delete', path)

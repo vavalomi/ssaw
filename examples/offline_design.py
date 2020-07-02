@@ -31,10 +31,10 @@ s1.add_question(questiontype=4, questiontext='numeric quest', isinteger=True)
 myquest.add_macro(name='macro1', content='3>4')
 myquest.add_macro(name='macro2', content='1>4', description='second macro')
 
-#myquest.add_lookuptable(tablename='table1', filename='170209.txt')
+# myquest.add_lookuptable(tablename='table1', filename='170209.txt')
 
-#myquest.add_attachment(name='picture', filename="c:\\temp\\avatar-2.png")
+# myquest.add_attachment(name='picture', filename="c:\\temp\\avatar-2.png")
 
-#myquest.add_translation(name='random', filename="c:\\temp\\965976b6d7144d07b8bf0c9d16599d20.xlsx")
+# myquest.add_translation(name='random', filename="c:\\temp\\965976b6d7144d07b8bf0c9d16599d20.xlsx")
 
 export_questionnaire(myquest, ".")

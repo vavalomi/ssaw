@@ -1,22 +1,23 @@
-from .base import HQBase
-from .utils import to_qidentity
-from .exceptions import NotFoundError
-from .models import Assignment
 from typing import Iterator
+
+from .base import HQBase
+from .models import Assignment
+from .utils import to_qidentity
+
 
 class AssignmentsApi(HQBase):
     _apiprefix = "/api/v1/assignments"
 
     def get_list(self, questionnaire_id: str = None, questionnaire_version: int = None) -> Iterator[Assignment]:
         """Get list of assignments
-        
+
         Parameters
         ----------
         questionnaire_id : str, optional
             Filter by specific questionnaire id
         questionnaire_version : int, optional
             Filter by specific version number
-        
+
         Yields
         -------
         list of :class:`ssaw.models.Assignment` objects
@@ -30,7 +31,7 @@ class AssignmentsApi(HQBase):
             'limit': limit
         }
         if questionnaire_id and questionnaire_version:
-            params['questionnaireId'] = to_qidentity(questionnaire_id, questionnaire_version) 
+            params['questionnaireId'] = to_qidentity(questionnaire_id, questionnaire_version)
 
         while offset < total_count:
             params['offset'] = offset
@@ -42,12 +43,12 @@ class AssignmentsApi(HQBase):
 
     def get_info(self, id: int) -> Assignment:
         """Get single assignment details
-        
+
         Parameters
         ----------
         id : int
             Assignment Id
-        
+
         Returns
         -------
             :class:`ssaw.models.Assignment` object
@@ -58,12 +59,12 @@ class AssignmentsApi(HQBase):
 
     def create(self, obj: Assignment) -> Assignment:
         """Create new assignment
-        
+
         Parameters
         ----------
         obj : Assignment
             Assignment object to be created
-        
+
         Returns
         -------
             :class:`ssaw.models.Assignment` object

@@ -1,11 +1,12 @@
-from .utils import to_qidentity, to_hex
+from .utils import to_hex, to_qidentity
+
 
 class Assignment(object):
     def __init__(self, responsible, quantity, questionnaire_id,
-        identifying_data=None, email='', password='', webmode=False,
-        audio_recording_enabled=False, comments=''):
+                 identifying_data=None, email='', password='', webmode=False,
+                 audio_recording_enabled=False, comments=''):
         """[summary]
-        
+
         Parameters
         ----------
         responsible : [type]
@@ -42,13 +43,14 @@ class Assignment(object):
     @classmethod
     def from_dict(cls, dict):
         obj = cls(
-            responsible = dict['ResponsibleName'],
-            quantity = dict['Quantity'], 
-            questionnaire_id = dict['QuestionnaireId'],
-            identifying_data=dict['IdentifyingData'] if 'IdentifyingData' in dict else [],
-            email = dict['Email'],
-            password = dict['Password'],
-            webmode = dict['WebMode']
+            responsible=dict['ResponsibleName'],
+            quantity=dict['Quantity'],
+            questionnaire_id=dict['QuestionnaireId'],
+            identifying_data=dict['IdentifyingData'] if 'IdentifyingData' in dict else [
+            ],
+            email=dict['Email'],
+            password=dict['Password'],
+            webmode=dict['WebMode']
         )
         setattr(obj, 'id', dict['Id'])
         setattr(obj, 'responsible_id', dict['ResponsibleId'])
@@ -57,20 +59,22 @@ class Assignment(object):
         setattr(obj, 'created_utc', dict['CreatedAtUtc'])
         setattr(obj, 'updated_utc', dict['UpdatedAtUtc'])
         if 'IsAudioRecordingEnabled' in dict:
-            setattr(obj, 'audio_recording_enabled', dict['IsAudioRecordingEnabled'])
+            setattr(obj, 'audio_recording_enabled',
+                    dict['IsAudioRecordingEnabled'])
         return obj
 
     def to_json(self):
         return {
-                "Responsible": self.responsible,
-                "Quantity": self.quantity,
-                "QuestionnaireId": self.questionnaire_id,
-                "Email": self.email,
-                "Password": self.password,
-                "WebMode": self.webmode,
-                "IsAudioRecordingEnabled": self.audio_recording_enabled,
-                "Comments": self.comments
-            }
+            "Responsible": self.responsible,
+            "Quantity": self.quantity,
+            "QuestionnaireId": self.questionnaire_id,
+            "Email": self.email,
+            "Password": self.password,
+            "WebMode": self.webmode,
+            "IsAudioRecordingEnabled": self.audio_recording_enabled,
+            "Comments": self.comments
+        }
+
 
 class QuestionnaireListItem(object):
     def __init__(self, dict):
@@ -88,17 +92,18 @@ class QuestionnaireListItem(object):
     def from_dict(cls, dict):
         return cls(dict)
 
+
 class ExportJob(object):
     def __init__(self,
-        questionnaire_identity,
-        export_type='Tabular',
-        interview_status='All',
-        from_date=None,
-        to_date=None,
-        access_token=None,
-        storage_type=None):
+                 questionnaire_identity,
+                 export_type='Tabular',
+                 interview_status='All',
+                 from_date=None,
+                 to_date=None,
+                 access_token=None,
+                 storage_type=None):
         """[summary]
-        
+
         Parameters
         ----------
         questionnaire_identity : [type]
@@ -118,8 +123,9 @@ class ExportJob(object):
         """
 
         if type(questionnaire_identity) is tuple:
-            (questionnaire_id, questionnaire_version) = questionnaire_identity 
-            questionnaire_identity = to_qidentity(questionnaire_id, questionnaire_version)
+            (questionnaire_id, questionnaire_version) = questionnaire_identity
+            questionnaire_identity = to_qidentity(
+                questionnaire_id, questionnaire_version)
 
         self.questionnaire_identity = questionnaire_identity
         self.export_type = export_type
@@ -149,19 +155,19 @@ class ExportJob(object):
     def download_link(self) -> str:
         return self._download_link
 
-    def __str__(self) ->str:
+    def __str__(self) -> str:
         return(str(self.__dict__))
 
     @classmethod
     def from_dict(cls, dict):
         obj = cls(
-            export_type = dict['ExportType'],
-            questionnaire_identity = dict['QuestionnaireId'],
-            interview_status = dict['InterviewStatus'],
-            from_date = dict['From'] if 'From' in dict else None,
-            to_date = dict['To'] if 'To' in dict else None,
-            access_token = dict['AccessToken'] if 'AccessToken' in dict else None,
-            storage_type = dict['StorageType'] if 'StorageType' in dict else None
+            export_type=dict['ExportType'],
+            questionnaire_identity=dict['QuestionnaireId'],
+            interview_status=dict['InterviewStatus'],
+            from_date=dict['From'] if 'From' in dict else None,
+            to_date=dict['To'] if 'To' in dict else None,
+            access_token=dict['AccessToken'] if 'AccessToken' in dict else None,
+            storage_type=dict['StorageType'] if 'StorageType' in dict else None
         )
         setattr(obj, 'job_id', dict['JobId'])
         setattr(obj, '_export_status', dict['ExportStatus'])
@@ -180,15 +186,16 @@ class ExportJob(object):
 
     def to_json(self):
         ret = {
-                "ExportType": self.export_type,
-                "QuestionnaireId": self.questionnaire_identity,
-                "InterviewStatus": self.interview_status,
-                "From": self.from_date,
-                "To": self.to_date,
-                "AccessToken": self.access_token,
-                "StorageType": self.storage_type,
-            }
+            "ExportType": self.export_type,
+            "QuestionnaireId": self.questionnaire_identity,
+            "InterviewStatus": self.interview_status,
+            "From": self.from_date,
+            "To": self.to_date,
+            "AccessToken": self.access_token,
+            "StorageType": self.storage_type,
+        }
         return {k: v for k, v in ret.items() if v is not None}
+
 
 class InterviewAnswers(object):
     def __init__(self, answers: dict):
@@ -202,16 +209,17 @@ class InterviewAnswers(object):
             if val is None:
                 continue
             if len(ans["QuestionId"]["RosterVector"]) > 0:
-                key = "_".join([id,] + [str(r) for r in ans["QuestionId"]["RosterVector"]])
+                key = "_".join([id, ] + [str(r)
+                                         for r in ans["QuestionId"]["RosterVector"]])
             else:
                 key = id
             data[key] = val
         self._data = data
         self._variables = variables
-    
+
     def __str__(self) -> str:
         return(str(self._raw_data))
-    
+
     def get_answer(self, variable: str = None, question_id: str = None, roster_vector: list = []):
         if variable:
             if variable in self._variables:
@@ -220,17 +228,18 @@ class InterviewAnswers(object):
                 raise TypeError("get_answer() variable not found")
         else:
             if question_id:
-                key= to_hex(question_id)
+                key = to_hex(question_id)
             else:
-                raise TypeError("get_anwer() either 'variable' or 'question_id' argument is required")
-        
+                raise TypeError(
+                    "get_anwer() either 'variable' or 'question_id' argument is required")
+
         if roster_vector:
             key = "_".join([key, ] + [str(r) for r in roster_vector])
-        
+
         if key in self._data:
             return self._data[key]
         else:
             return None
 
     def __iter__(self):
-       return iter(self._raw_data)
+        return iter(self._raw_data)
