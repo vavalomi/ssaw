@@ -3,7 +3,7 @@ sgqlc @ https://github.com/profusion/sgqlc/archive/433f41389af0208aa6c2744877b33
 
 # testing requirements
 flake8>=3.8.2
-flake-import-order>=0.18.1
+flake8-import-order>=0.18.1
 pytest>=5.3.5
 pytest-cov>=2.8.1
 python-env>=1.0.0
