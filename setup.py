@@ -9,7 +9,7 @@ packages = [
 
 requires = [
     'requests',
-    'sgqlc',
+    'sgqlc @ https://github.com/profusion/sgqlc/archive/433f41389af0208aa6c2744877b331b35f75ffe4.zip',
 ]
 
 test_requirements = [
