@@ -26,7 +26,7 @@ client = ssaw.Client('https://demo.mysurvey.solutions', 'api_user', 'api_passwor
 
 Get list of questionnaires:
 ```python
-for q in ssaw.QuestionnaireApi(client).get_list():
+for q in ssaw.QuestionnairesApi(client).get_list():
     print(q.title)
 ```
 
