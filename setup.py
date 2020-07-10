@@ -9,10 +9,12 @@ packages = [
 
 requires = [
     'requests',
-    'sgqlc @ https://github.com/profusion/sgqlc/archive/433f41389af0208aa6c2744877b331b35f75ffe4.zip',
+    'sgqlc',
 ]
 
 test_requirements = [
+    'flake8',
+    'flake8-import-order',
     'pytest',
     'pytest-cov',
     'vcrpy',
@@ -27,9 +29,20 @@ with open(os.path.join(here, 'ssaw', '__about__.py'), 'r', encoding='utf-8') as 
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Environment :: Console',
+    'Environment :: Web Environment',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: Implementation :: PyPy',
+]
+
 setup(
     name=about['__title__'],
     version=about['__version__'],
+    classifiers=classifiers,
     packages=packages,
     install_requires=requires,
     author=about['__author__'],
