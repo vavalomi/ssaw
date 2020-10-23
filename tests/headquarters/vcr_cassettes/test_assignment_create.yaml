@@ -1,8 +1,9 @@
 interactions:
 - request:
-    body: '{"Responsible": "Interviewer1", "Quantity": 5, "QuestionnaireId": "ecb715a3-e856-48d7-9f81-35dc3bb6a301$1",
+    body: '{"Responsible": "Interviewer1", "Quantity": 55, "QuestionnaireId": "9d3ad069-99aa-4d6a-8eda-ad12c722a60f$1",
       "Email": "", "Password": "", "WebMode": false, "IsAudioRecordingEnabled": false,
-      "Comments": ""}'
+      "Comments": "", "IdentifyingData": [{"Variable": "address", "Answer": "123 Main
+      Street"}, {"Variable": "name", "Answer": "Jane Doe"}]}'
     headers:
       Accept:
       - '*/*'
@@ -11,31 +12,33 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '204'
+      - '324'
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.1
     method: POST
     uri: https://apitest.mysurvey.solutions/api/v1/assignments
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACo2QMU/DMBCF/4vFmCA7bhyTLZQOHUBQWhgQw8W5FEuJU8VOq6rqf+esFiQ2tvPp
-        vefv3YlV3tut69EFVp7YsqHBtkfrtg8QgJUfnwktWakTtkK/G5y3dYdxw4ziikPGU6GBpzMhdFqr
-        lqcq50aZrMC2VuyP7Ql6JOPSBRz3Fg84ChK8TOiDHZwDO16S0dSFyEGiztVMN8Vdq4XMGyPrWoHk
-        4ibaflP8fJgiPY9RQPjhyMo8YdVovuweKbCFzmPC5iNCwKYKm2Dol4wTO1epkGsuyywvubgtuNBS
-        Uvpm1/xbu+jBdiSi8Rm8PwxjLEGvd6wfh4YqXwFWaDAS3R/XQOcI13Q3dR318dXU2IE05Kf7L1zU
-        /NCfE/aGo22tgXir1wBh8hfr+Rt8gzp+xQEAAA==
+        H4sIAAAAAAAACo2Sy27bMBBFf8UgupQKPiRK1M5NsnDRFG0eLdCiiyE5SonKVCDSCYzA/94hbAfI
+        puiOHNx7ZuaSL2ydUniIW4yZDS9s4+kQxn2ID5eQgQ0/z7W8ZwMDJTtnUACC5q4BY21nlIDWIoyc
+        e1axb7AEsBOyIe6mqWLrmJ5xIa+QanUNIa5u84KY2aF6gzYSda+UtaO20vVNr4xGy5uugU7A6P6F
+        /ggRV5czssOviphsELpiN5ge55gCGUqJOc01B8lr0QOvGyH62uqR17rlTjvZ4Wg1e2P7DFvqxTYx
+        4/IUkHoJEnzdYcphjhHCciQbr8BzbYwBaLyGHj2AF9J1UlJO47tie6Wki3lXwuYFBaf125bWWdzv
+        8IREHGFKWLGLBSGjX+f77KiN5GV4Xkt1x9XQdoMw75VUfSd/EP/+0f+/+GoLYSIVHb9ASs/zUvag
+        23e017OnrU8j3KDDMtOH/V1JPp/wx/w3ab3zYSYN+enHXMWiOc9/oAfDJYzBQYnrNkPepbOV+rwG
+        8inEP8f64S+jUnfNjwIAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 03:25:01 GMT
+      - Fri, 23 Oct 2020 03:57:19 GMT
       Server:
-      - Kestrel
+      - Microsoft-IIS/10.0
       Strict-Transport-Security:
       - max-age=2592000
       Transfer-Encoding:

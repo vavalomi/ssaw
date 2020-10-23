@@ -72,9 +72,9 @@ class Assignment(object):
             "Password": self.password,
             "WebMode": self.webmode,
             "IsAudioRecordingEnabled": self.audio_recording_enabled,
-            "Comments": self.comments
+            "Comments": self.comments,
+            "IdentifyingData": self.identifying_data,
         }
-
 
 class QuestionnaireListItem(object):
     def __init__(self, dict):

@@ -108,3 +108,4 @@ def test_assignment_create(session, params):
 
     res = AssignmentsApi(session).create(newobj)
     assert res.responsible == "Interviewer1"
+    assert res.identifying_data[0]["Answer"] == identifying_data[0]["Answer"]
