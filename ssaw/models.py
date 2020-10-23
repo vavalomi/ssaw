@@ -76,6 +76,7 @@ class Assignment(object):
             "IdentifyingData": self.identifying_data,
         }
 
+
 class QuestionnaireListItem(object):
     def __init__(self, dict):
         self.questionnaire_identity = dict['QuestionnaireIdentity']
