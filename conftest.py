@@ -24,5 +24,7 @@ def params():
         'TemplateVersion': 1,
         'InterviewId': 'fdd62d6c-c8a3-4737-ac76-26125f0b9d82',
         'SupervisorId': 'b252a359-00e6-4605-b642-a4094d8db8d7',
-        'InterviewerId': ''
+        'InterviewerId': '',
+        'MapFileName': 'test_map.tif',
+        'MapUserName': 'inter1',
     }

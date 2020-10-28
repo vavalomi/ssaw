@@ -8,6 +8,7 @@ Table of Contents
     ssaw.assignments
     ssaw.export
     ssaw.interviews
+    ssaw.maps
     ssaw.models
     ssaw.questionnaires
     ssaw.settings

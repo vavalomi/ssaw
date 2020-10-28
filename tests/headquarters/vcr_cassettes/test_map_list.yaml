@@ -1,0 +1,140 @@
+interactions:
+- request:
+    body: '{"query": "query {\nmaps(take: 20, skip: 0, where: {}) {\nfilteredCount\nnodes
+      {\nfileName\nimportDate\n}\n}\n}", "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '155'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.2
+    method: POST
+    uri: https://apitest.mysurvey.solutions/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACozRXWvCMBQG4L8iudrAhnPy0aa566aD4ScYr8YoYdZRXKzUeCHS/77orgZmHRwI
+        IeHh5T0XsrHeEn0hzh6O13Nbf/mqrTbPzWnviUY2JPtmU4W3t9tjNbeuIpq8OvtZtWeznAwe8JH6
+        w44MSe0OTetH1l9/MGCQQJYAGsx1GM6oRExAaADSDX9xK08H09NHbXu1zABokWvJKAp5X5stVuV4
+        XU6LcVEyAKC+3sZAlAaCpsLQDMR90NSt3dsSZJZT5+LpMDXINaaaAxV5GklXLMunxWLyZ6obJKXm
+        GRWY34deiqJcmxmqeTkvRorHQZUwYVBqFkBJcxbZwu7c+MZXRx/dAAYMDWSahQEKSvZIiNiDIWgm
+        NBdUZKwHc67fEiL0TzmPbBIVIGTRpq6MMsBDTRo5zXmkqRuj/sUwpCJVUYaxtI8JUZRmnCIP9x/m
+        veu6bwAAAP//AwDRsW4AvQMAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 28 Oct 2020 15:52:47 GMT
+      Server:
+      - Microsoft-IIS/10.0
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nmaps(take: 20, skip: 0, where: {users_some: {userName:
+      \"random\"}}) {\nfilteredCount\nnodes {\nfileName\nimportDate\n}\n}\n}", "variables":
+      null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '189'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.2
+    method: POST
+    uri: https://apitest.mysurvey.solutions/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACqpWSkksSVSyqlbKTSwoBtFpmTklqUWpKc75pXklSlYGOkp5+SmpQKno2NraWgAA
+        AAD//wMAFyqTmDAAAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 28 Oct 2020 16:09:54 GMT
+      Server:
+      - Microsoft-IIS/10.0
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nmaps(take: 20, skip: 0, where: {}) {\nfilteredCount\nnodes
+      {\nfileName\nimportDate\n}\n}\n}", "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '155'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.2
+    method: POST
+    uri: https://demo.mysurvey.solutions/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAACoTRTWvDMAwG4L8yfNqgMZI/Eke3bO1g9BPqnsYIZk1H6NKU1D2U0v8+tzsN6gUE
+        xkg8iFdntnbeMTqzxu0P13dTf/uqq9Yv7XHnGSEO2K5dV6H3fmtWM9dUjNhb476q7mQX44dHfOJ+
+        v2UDVjf7tvND568TAgQkkCWAFnMKJQXXiAkoAmCXwR9u6fnD5PhZu14tswCkctKCo9L3tel8WY5W
+        5aQYFaUAAO7rTQxEbSFoJhTPQN0Hbd25nStBZzlvmvh2mFqUhClJ4CpPI9sVi/J5Ph//u9UN0ppk
+        xhXm96HXoihXdopmVs6KoZFx0CRCWdQkAqh5LiJX2J5a3/rq4KMXwIChhYxEKOBgdI+EiD0YAglF
+        UnGViR6safotpUL+XMrIJdEAgokmdWWMBRliIoFcpSbKCJH2MZrQkJAcZfj/Mh+Xy+UHAAD//wMA
+        qPiC3nYDAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 28 Oct 2020 16:15:01 GMT
+      Server:
+      - Microsoft-IIS/10.0
+      Strict-Transport-Security:
+      - max-age=2592000
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 200
+      message: OK
+version: 1
