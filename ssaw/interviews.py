@@ -34,7 +34,6 @@ class InterviewsApi(HQBase):
             q = op.interviews(take=take, skip=skip, where=where)
             q.__fields__('filtered_count')
             q.nodes.__fields__(*fields)
-            print(op)
             cont = self.endpoint(op)
             errors = cont.get('errors')
             if errors:

@@ -40,5 +40,6 @@ def test_export_start(session, params):
 @my_vcr.use_cassette()
 def test_export_get(session, params):
     tempdir = gettempdir()
-    r = ExportApi(session).get(params['QuestionnaireId'], tempdir, 'Tabular')
+    r = ExportApi(session).get(questionnaire_identity=params['QuestionnaireId'],
+                               export_path=tempdir, export_type='Tabular')
     assert r == join(tempdir, 'health_survey_1_Tabular_All.zip')

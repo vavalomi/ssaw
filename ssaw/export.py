@@ -1,4 +1,3 @@
-
 from .base import HQBase
 from .models import ExportJob
 from .utils import parse_qidentity
@@ -22,7 +21,9 @@ class ExportApi(HQBase):
         for item in r:
             yield ExportJob.from_dict(item)
 
-    def get(self, questionnaire_identity: str, export_path: str = "", export_type: str = "Tabular"):
+    def get(self, questionnaire_identity: str,
+            export_type: str = "Tabular", interview_status="All",
+            export_path: str = ""):
         """Downloads latest available export file
 
         Parameters
@@ -30,16 +31,23 @@ class ExportApi(HQBase):
         questionnaire_identity : str
             Questionnaire id in format QuestionnaireGuid$Version
 
-        export_path: str
-            Path to save the downloaded file
-
         export_type: str
             Format of the export data: ``Tabular``, ``STATA``, ``SPSS``, ``Binary``, ``DDI``, ``Paradata``
+
+        interview_status: str
+            What interviews to include in the export:
+            ``All``, ``SupervisorAssigned``, ``InterviewerAssigned``, ``Completed``,
+            ``RejectedBySupervisor``, ``ApprovedBySupervisor``, ``RejectedByHeadquarters``, ``ApprovedByHeadquarters``
+
+        export_path: str
+            Path to save the downloaded file
         """
 
+        qid = parse_qidentity(questionnaire_identity)
         ret_list = self.get_list(
             export_type=export_type,
-            questionnaire_identity=parse_qidentity(questionnaire_identity),
+            questionnaire_identity=qid,
+            interview_status=interview_status,
             export_status='Completed',
             has_file='true')
         try:

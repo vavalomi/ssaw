@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.0.6
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v2/export?exportType=Tabular&questionnaireIdentity=ecb715a3e85648d79f8135dc3bb6a301%241&exportStatus=Completed&hasFile=true
+    uri: https://apitest.mysurvey.solutions/api/v2/export?exportType=Tabular&questionnaireIdentity=ecb715a3e85648d79f8135dc3bb6a301%241&interviewStatus=All&exportStatus=Completed&hasFile=true
   response:
     body:
       string: !!binary |
