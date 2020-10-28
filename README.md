@@ -1,6 +1,6 @@
 # SSAW: Python wrapper for the Survey Solutions HTTP API
 
-[![Build Status](https://travis-ci.org/vavalomi/ssaw.svg?branch=master)](https://travis-ci.org/vavalomi/ssaw)
+[![Python package](https://github.com/vavalomi/ssaw/workflows/Python%20package/badge.svg)](https://github.com/vavalomi/ssaw/actions)
 [![codecov](https://codecov.io/gh/vavalomi/ssaw/branch/master/graph/badge.svg)](https://codecov.io/gh/vavalomi/ssaw)
 [![PyPI version](https://badge.fury.io/py/ssaw.svg)](https://badge.fury.io/py/ssaw)
 [![Documentation Status](https://readthedocs.org/projects/ssaw/badge/?version=latest)](https://ssaw.readthedocs.io/en/latest/?badge=latest)
