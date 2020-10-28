@@ -67,3 +67,12 @@ timestamp = datetime.datetime.now() - datetime.timedelta(minutes=15)
 for i in InterviewsApi(client).get_list(update_date_gt=timestamp):
     print(i)
 ```
+
+Get list of map files linked to the interviewer and remove the links
+```python
+from ssaw import MapsApi
+
+for m in MapsApi(client).get_list(filter_user="inter"):
+    print(m.file_name)
+    MapsApi(client).delete_user(file_name=m.file_name, user_name="inter")
+```
