@@ -11,3 +11,4 @@ coverage.xml
 .vscode
 venv
 docs/_build
+headquarters_schema.json

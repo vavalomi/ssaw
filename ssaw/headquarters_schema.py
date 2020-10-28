@@ -76,13 +76,35 @@ class Uuid(sgqlc.types.Scalar):
 ########################################################################
 # Input Objects
 ########################################################################
+class AssignmentsFilter(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('and_', 'archived', 'or_', 'questionnaire_id', 'received_by_tablet_at_utc', 'received_by_tablet_at_utc_gt', 'received_by_tablet_at_utc_lt', 'received_by_tablet_at_utc_not', 'responsible_id', 'responsible_id_in', 'responsible_id_not', 'responsible_id_not_in', 'web_mode')
+    and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('AssignmentsFilter')), graphql_name='AND')
+    archived = sgqlc.types.Field(Boolean, graphql_name='archived')
+    or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('AssignmentsFilter')), graphql_name='OR')
+    questionnaire_id = sgqlc.types.Field('QuestionnaireIdentity', graphql_name='questionnaireId')
+    received_by_tablet_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc')
+    received_by_tablet_at_utc_gt = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc_gt')
+    received_by_tablet_at_utc_lt = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc_lt')
+    received_by_tablet_at_utc_not = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc_not')
+    responsible_id = sgqlc.types.Field(Uuid, graphql_name='responsibleId')
+    responsible_id_in = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Uuid)), graphql_name='responsibleId_in')
+    responsible_id_not = sgqlc.types.Field(Uuid, graphql_name='responsibleId_not')
+    responsible_id_not_in = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Uuid)), graphql_name='responsibleId_not_in')
+    web_mode = sgqlc.types.Field(Boolean, graphql_name='webMode')
+
+
 class InterviewFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'assignment_id', 'assignment_id_in', 'assignment_id_not', 'created_date_gt', 'created_date_gte', 'created_date_lt', 'created_date_lte', 'created_date_not_gt', 'created_date_not_gte', 'created_date_not_lt', 'created_date_not_lte', 'errors_count', 'errors_count_gt', 'identifying_questions_some', 'key', 'key_contains', 'key_in', 'key_starts_with', 'or_', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'received_by_interviewer', 'responsible_name', 'responsible_name_lower_case', 'responsible_name_lower_case_in', 'responsible_name_lower_case_starts_with', 'responsible_name_in', 'responsible_name_starts_with', 'responsible_role', 'status', 'status_in', 'status_not', 'supervisor_name', 'supervisor_name_lower_case', 'supervisor_name_lower_case_in', 'supervisor_name_lower_case_starts_with', 'supervisor_name_in', 'supervisor_name_starts_with', 'update_date_gt', 'update_date_gte', 'update_date_lt', 'update_date_lte', 'update_date_not_gt', 'update_date_not_gte', 'update_date_not_lt', 'update_date_not_lte')
+    __field_names__ = ('and_', 'assignment_id', 'assignment_id_in', 'assignment_id_not', 'client_key', 'client_key_contains', 'client_key_in', 'client_key_starts_with', 'created_date_gt', 'created_date_gte', 'created_date_lt', 'created_date_lte', 'created_date_not_gt', 'created_date_not_gte', 'created_date_not_lt', 'created_date_not_lte', 'errors_count', 'errors_count_gt', 'identifying_questions_some', 'key', 'key_contains', 'key_in', 'key_starts_with', 'not_answered_count', 'not_answered_count_gt', 'not_answered_count_gte', 'not_answered_count_in', 'not_answered_count_lt', 'not_answered_count_lte', 'not_answered_count_not', 'not_answered_count_not_gt', 'not_answered_count_not_gte', 'not_answered_count_not_in', 'not_answered_count_not_lt', 'not_answered_count_not_lte', 'or_', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'received_by_interviewer_at_utc', 'received_by_interviewer_at_utc_gt', 'received_by_interviewer_at_utc_lt', 'received_by_interviewer_at_utc_not', 'responsible_name', 'responsible_name_lower_case', 'responsible_name_lower_case_in', 'responsible_name_lower_case_starts_with', 'responsible_name_in', 'responsible_name_starts_with', 'responsible_role', 'status', 'status_in', 'status_not', 'supervisor_name', 'supervisor_name_lower_case', 'supervisor_name_lower_case_in', 'supervisor_name_lower_case_starts_with', 'supervisor_name_in', 'supervisor_name_starts_with', 'update_date_gt', 'update_date_gte', 'update_date_lt', 'update_date_lte', 'update_date_not_gt', 'update_date_not_gte', 'update_date_not_lt', 'update_date_not_lte')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewFilter')), graphql_name='AND')
     assignment_id = sgqlc.types.Field(Int, graphql_name='assignmentId')
     assignment_id_in = sgqlc.types.Field(sgqlc.types.list_of(Int), graphql_name='assignmentId_in')
     assignment_id_not = sgqlc.types.Field(Int, graphql_name='assignmentId_not')
+    client_key = sgqlc.types.Field(String, graphql_name='clientKey')
+    client_key_contains = sgqlc.types.Field(String, graphql_name='clientKey_contains')
+    client_key_in = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='clientKey_in')
+    client_key_starts_with = sgqlc.types.Field(String, graphql_name='clientKey_starts_with')
     created_date_gt = sgqlc.types.Field(DateTime, graphql_name='createdDate_gt')
     created_date_gte = sgqlc.types.Field(DateTime, graphql_name='createdDate_gte')
     created_date_lt = sgqlc.types.Field(DateTime, graphql_name='createdDate_lt')
@@ -98,11 +120,26 @@ class InterviewFilter(sgqlc.types.Input):
     key_contains = sgqlc.types.Field(String, graphql_name='key_contains')
     key_in = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='key_in')
     key_starts_with = sgqlc.types.Field(String, graphql_name='key_starts_with')
+    not_answered_count = sgqlc.types.Field(Int, graphql_name='notAnsweredCount')
+    not_answered_count_gt = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_gt')
+    not_answered_count_gte = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_gte')
+    not_answered_count_in = sgqlc.types.Field(sgqlc.types.list_of(Int), graphql_name='notAnsweredCount_in')
+    not_answered_count_lt = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_lt')
+    not_answered_count_lte = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_lte')
+    not_answered_count_not = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_not')
+    not_answered_count_not_gt = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_not_gt')
+    not_answered_count_not_gte = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_not_gte')
+    not_answered_count_not_in = sgqlc.types.Field(sgqlc.types.list_of(Int), graphql_name='notAnsweredCount_not_in')
+    not_answered_count_not_lt = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_not_lt')
+    not_answered_count_not_lte = sgqlc.types.Field(Int, graphql_name='notAnsweredCount_not_lte')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewFilter')), graphql_name='OR')
     questionnaire_id = sgqlc.types.Field(Uuid, graphql_name='questionnaireId')
     questionnaire_variable = sgqlc.types.Field(String, graphql_name='questionnaireVariable')
     questionnaire_version = sgqlc.types.Field(Long, graphql_name='questionnaireVersion')
-    received_by_interviewer = sgqlc.types.Field(Boolean, graphql_name='receivedByInterviewer')
+    received_by_interviewer_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByInterviewerAtUtc')
+    received_by_interviewer_at_utc_gt = sgqlc.types.Field(DateTime, graphql_name='receivedByInterviewerAtUtc_gt')
+    received_by_interviewer_at_utc_lt = sgqlc.types.Field(DateTime, graphql_name='receivedByInterviewerAtUtc_lt')
+    received_by_interviewer_at_utc_not = sgqlc.types.Field(DateTime, graphql_name='receivedByInterviewerAtUtc_not')
     responsible_name = sgqlc.types.Field(String, graphql_name='responsibleName')
     responsible_name_lower_case = sgqlc.types.Field(String, graphql_name='responsibleNameLowerCase')
     responsible_name_lower_case_in = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='responsibleNameLowerCase_in')
@@ -131,15 +168,16 @@ class InterviewFilter(sgqlc.types.Input):
 
 class InterviewSort(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('assignment_id', 'created_date', 'errors_count', 'id', 'key', 'questionnaire_id', 'questionnaire_version', 'received_by_interviewer', 'responsible_name', 'responsible_role', 'status', 'update_date')
+    __field_names__ = ('assignment_id', 'created_date', 'errors_count', 'id', 'key', 'not_answered_count', 'questionnaire_id', 'questionnaire_version', 'received_by_interviewer_at_utc', 'responsible_name', 'responsible_role', 'status', 'update_date')
     assignment_id = sgqlc.types.Field(SortOperationKind, graphql_name='assignmentId')
     created_date = sgqlc.types.Field(SortOperationKind, graphql_name='createdDate')
     errors_count = sgqlc.types.Field(SortOperationKind, graphql_name='errorsCount')
     id = sgqlc.types.Field(SortOperationKind, graphql_name='id')
     key = sgqlc.types.Field(SortOperationKind, graphql_name='key')
+    not_answered_count = sgqlc.types.Field(SortOperationKind, graphql_name='notAnsweredCount')
     questionnaire_id = sgqlc.types.Field(SortOperationKind, graphql_name='questionnaireId')
     questionnaire_version = sgqlc.types.Field(SortOperationKind, graphql_name='questionnaireVersion')
-    received_by_interviewer = sgqlc.types.Field(SortOperationKind, graphql_name='receivedByInterviewer')
+    received_by_interviewer_at_utc = sgqlc.types.Field(SortOperationKind, graphql_name='receivedByInterviewerAtUtc')
     responsible_name = sgqlc.types.Field(SortOperationKind, graphql_name='responsibleName')
     responsible_role = sgqlc.types.Field(SortOperationKind, graphql_name='responsibleRole')
     status = sgqlc.types.Field(SortOperationKind, graphql_name='status')
@@ -212,6 +250,27 @@ class QuestionFilter(sgqlc.types.Input):
     variable = sgqlc.types.Field(String, graphql_name='variable')
 
 
+class QuestionnaireIdentity(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('and_', 'id', 'id_not', 'or_', 'version', 'version_gt', 'version_gte', 'version_in', 'version_lt', 'version_lte', 'version_not', 'version_not_gt', 'version_not_gte', 'version_not_in', 'version_not_lt', 'version_not_lte')
+    and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('QuestionnaireIdentity')), graphql_name='AND')
+    id = sgqlc.types.Field(Uuid, graphql_name='id')
+    id_not = sgqlc.types.Field(Uuid, graphql_name='id_not')
+    or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('QuestionnaireIdentity')), graphql_name='OR')
+    version = sgqlc.types.Field(Long, graphql_name='version')
+    version_gt = sgqlc.types.Field(Long, graphql_name='version_gt')
+    version_gte = sgqlc.types.Field(Long, graphql_name='version_gte')
+    version_in = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Long)), graphql_name='version_in')
+    version_lt = sgqlc.types.Field(Long, graphql_name='version_lt')
+    version_lte = sgqlc.types.Field(Long, graphql_name='version_lte')
+    version_not = sgqlc.types.Field(Long, graphql_name='version_not')
+    version_not_gt = sgqlc.types.Field(Long, graphql_name='version_not_gt')
+    version_not_gte = sgqlc.types.Field(Long, graphql_name='version_not_gte')
+    version_not_in = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Long)), graphql_name='version_not_in')
+    version_not_lt = sgqlc.types.Field(Long, graphql_name='version_not_lt')
+    version_not_lte = sgqlc.types.Field(Long, graphql_name='version_not_lte')
+
+
 class UserMapFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('and_', 'or_', 'user_name', 'user_name_not', 'user_name_not_starts_with', 'user_name_starts_with')
@@ -227,6 +286,19 @@ class UserMapFilter(sgqlc.types.Input):
 ########################################################################
 # Output Objects and Interfaces
 ########################################################################
+class Assignment(sgqlc.types.Type):
+    __schema__ = headquarters_schema
+    __field_names__ = ('archived', 'created_at_utc', 'email', 'id', 'interviews_needed', 'received_by_tablet_at_utc', 'responsible_id', 'web_mode')
+    archived = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='archived')
+    created_at_utc = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='createdAtUtc')
+    email = sgqlc.types.Field(String, graphql_name='email')
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
+    interviews_needed = sgqlc.types.Field(Int, graphql_name='interviewsNeeded')
+    received_by_tablet_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc')
+    responsible_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='responsibleId')
+    web_mode = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='webMode')
+
+
 class CategoricalOption(sgqlc.types.Type):
     __schema__ = headquarters_schema
     __field_names__ = ('parent_value', 'title', 'value')
@@ -256,7 +328,13 @@ class HeadquartersMutations(sgqlc.types.Type):
 
 class HeadquartersQuery(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('interviews', 'maps', 'questionnaires', 'questions', 'viewer')
+    __field_names__ = ('assignments', 'interviews', 'maps', 'questionnaires', 'questions', 'viewer')
+    assignments = sgqlc.types.Field('IPagedConnectionOfAssignment', graphql_name='assignments', args=sgqlc.types.ArgDict((
+        ('skip', sgqlc.types.Arg(Int, graphql_name='skip', default=None)),
+        ('take', sgqlc.types.Arg(Int, graphql_name='take', default=None)),
+        ('where', sgqlc.types.Arg(AssignmentsFilter, graphql_name='where', default=None)),
+))
+    )
     interviews = sgqlc.types.Field('IPagedConnectionOfInterview', graphql_name='interviews', args=sgqlc.types.ArgDict((
         ('order_by', sgqlc.types.Arg(InterviewSort, graphql_name='order_by', default=None)),
         ('skip', sgqlc.types.Arg(Int, graphql_name='skip', default=None)),
@@ -288,6 +366,14 @@ class HeadquartersQuery(sgqlc.types.Type):
     viewer = sgqlc.types.Field('User', graphql_name='viewer')
 
 
+class IPagedConnectionOfAssignment(sgqlc.types.Type):
+    __schema__ = headquarters_schema
+    __field_names__ = ('filtered_count', 'nodes', 'total_count')
+    filtered_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='filteredCount')
+    nodes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(Assignment)), graphql_name='nodes')
+    total_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='totalCount')
+
+
 class IPagedConnectionOfInterview(sgqlc.types.Type):
     __schema__ = headquarters_schema
     __field_names__ = ('filtered_count', 'nodes', 'total_count')
@@ -314,25 +400,28 @@ class IPagedConnectionOfQuestionnaire(sgqlc.types.Type):
 
 class Interview(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('action_flags', 'assignment_id', 'created_date', 'errors_count', 'id', 'identifying_questions', 'key', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'received_by_interviewer', 'responsible_id', 'responsible_name', 'responsible_name_lower_case', 'responsible_role', 'status', 'supervisor_name', 'supervisor_name_lower_case', 'update_date', 'was_completed')
+    __field_names__ = ('action_flags', 'assignment_id', 'client_key', 'created_date', 'errors_count', 'id', 'identifying_questions', 'key', 'not_answered_count', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'received_by_interviewer', 'received_by_interviewer_at_utc', 'responsible_id', 'responsible_name', 'responsible_name_lower_case', 'responsible_role', 'status', 'supervisor_name', 'supervisor_name_lower_case', 'update_date', 'was_completed')
     action_flags = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(InterviewActionFlags))), graphql_name='actionFlags')
     assignment_id = sgqlc.types.Field(Int, graphql_name='assignmentId')
+    client_key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='clientKey')
     created_date = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='createdDate')
     errors_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='errorsCount')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     identifying_questions = sgqlc.types.Field(sgqlc.types.list_of('QuestionAnswer'), graphql_name='identifyingQuestions')
     key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='key')
+    not_answered_count = sgqlc.types.Field(Int, graphql_name='notAnsweredCount')
     questionnaire_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='questionnaireId')
     questionnaire_variable = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='questionnaireVariable')
     questionnaire_version = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='questionnaireVersion')
     received_by_interviewer = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='receivedByInterviewer')
+    received_by_interviewer_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByInterviewerAtUtc')
     responsible_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='responsibleId')
     responsible_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='responsibleName')
     responsible_name_lower_case = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='responsibleNameLowerCase')
     responsible_role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='responsibleRole')
     status = sgqlc.types.Field(sgqlc.types.non_null(InterviewStatus), graphql_name='status')
     supervisor_name = sgqlc.types.Field(String, graphql_name='supervisorName')
-    supervisor_name_lower_case = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='supervisorNameLowerCase')
+    supervisor_name_lower_case = sgqlc.types.Field(String, graphql_name='supervisorNameLowerCase')
     update_date = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='updateDate')
     was_completed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='wasCompleted')
 
