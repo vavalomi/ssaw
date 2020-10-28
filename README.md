@@ -18,6 +18,7 @@ pip install ssaw
 ```
 
 Initialize connection with the server:
+
 ```python
 import ssaw
 
@@ -25,21 +26,23 @@ client = ssaw.Client('https://demo.mysurvey.solutions', 'api_user', 'api_passwor
 ```
 
 Get list of questionnaires:
+
 ```python
 for q in ssaw.QuestionnairesApi(client).get_list():
     print(q.title)
 ```
 
 Download latest export file in SPSS format:
+
 ```python
 from ssaw import ExportApi
 
 # without export_path parameter file will be saved in the current working directory
 filename = ExportApi(client).get(export_type="SPSS", questionnaire_identity="64136490cbc24a71a1df10f4b7115599$1")
-
 ```
 
 Create new assignment:
+
 ```python
 from ssaw.models import Assignment
 from ssaw import AssignmentsApi
@@ -49,9 +52,9 @@ identifying_data = [
     {"Variable": "name", "Answer": "Jane Doe"}
 ]
 newobj = Assignment(
-    responsible="inter1", 
-    questionnaire_id="", 
-    quantity=5, 
+    responsible="inter1",
+    questionnaire_id="",
+    quantity=5,
     identifying_data=identifying_data)
 
 res = AssignmentsApi(client).create(newobj)
@@ -59,6 +62,7 @@ print(res.id)
 ```
 
 Get list of interviews that were updated during last 15 minutes (using GraphQL)
+
 ```python
 import datetime
 from ssaw import InterviewApi
@@ -69,6 +73,7 @@ for i in InterviewsApi(client).get_list(update_date_gt=timestamp):
 ```
 
 Get list of map files linked to the interviewer and remove the links
+
 ```python
 from ssaw import MapsApi
 

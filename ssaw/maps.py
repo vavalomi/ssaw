@@ -67,7 +67,7 @@ class MapsApi(HQBase):
         ----------
         file_name : str
             Filename of the map
-        
+
         user_name: str
             Interviewer role user name
 
@@ -84,7 +84,7 @@ class MapsApi(HQBase):
         ----------
         file_name : str
             Filename of the map
-        
+
         user_name: str
             Interviewer role user name
 
