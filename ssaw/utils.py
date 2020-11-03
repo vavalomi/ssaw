@@ -1,6 +1,7 @@
-import datetime
 import uuid
 from functools import wraps
+
+from .exceptions import IncompleteQuestionnaireIdError
 
 
 def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
@@ -33,18 +34,13 @@ def parse_qidentity(q_identity):
         (q_id, q_version) = q_identity
     else:
         qq = q_identity.split("$")
-        q_id = qq[0]
-        q_version = qq[1]
+        try:
+            q_id = qq[0]
+            q_version = qq[1]
+        except IndexError:
+            raise(IncompleteQuestionnaireIdError)
 
     return to_qidentity(q_id, q_version)
-
-
-def parse_datestring(date_string: str) -> datetime.datetime:
-    try:
-        ret = datetime.datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S.%f")
-    except TypeError:
-        ret = datetime.datetime(2016, 1, 1)
-    return ret
 
 
 def to_camel(string: str) -> str:

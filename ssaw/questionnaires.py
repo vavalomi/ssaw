@@ -22,7 +22,7 @@ class QuestionnairesApi(HQBase):
             if 'TotalCount' in r:
                 total_count = r['TotalCount']
                 for item in r['Questionnaires']:
-                    yield QuestionnaireListItem.from_dict(item)
+                    yield QuestionnaireListItem(**item)
             else:
                 yield from ()
             page += 1
@@ -39,6 +39,6 @@ class QuestionnairesApi(HQBase):
         path = self.url + '/{}/{}/interviews'.format(id, version)
         return self._make_call('get', path)
 
-    def update_recordaudio(self, id: UUID, version: int):
-        """POST /api/v1/questionnaires/{id}/{version}/recordAudio"""
-        pass
+    def update_recordaudio(self, id: UUID, version: int, enabled: bool):
+        path = self.url + '/{}/{}/recordAudio'.format(id, version)
+        return self._make_call('post', path, json={"Enabled": enabled})

@@ -4,7 +4,7 @@ import re
 
 from sgqlc.endpoint.requests import RequestsEndpoint
 
-from .exceptions import NotAcceptableError, NotFoundError
+from .exceptions import NotAcceptableError, NotFoundError, UnauthorizedError
 from .headquarters import Client
 
 
@@ -21,8 +21,7 @@ class HQBase(object):
 
     def _make_call(self, method: str, path: str, filepath: str = None, parser=None, **kwargs):
         response = self._hq.session.request(method=method, url=path, **kwargs)
-        rc = response.status_code
-        if rc < 300:
+        if response.status_code < 300:
             if method == 'get':
                 if 'application/json' in response.headers['Content-Type']:
                     if parser:
@@ -34,6 +33,15 @@ class HQBase(object):
                     return self._get_file_stream(filepath, response)
             else:
                 return json.loads(response.content) if response.content else True
+
+        else:
+            self._process_status_code(response)
+
+    @staticmethod
+    def _process_status_code(response):
+        rc = response.status_code
+        if rc == 401:
+            raise UnauthorizedError()
         elif rc == 404:
             raise NotFoundError(response.text)
         elif rc in [400, 406]:

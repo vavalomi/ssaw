@@ -1,4 +1,9 @@
+from datetime import datetime
+from typing import Generator
+from uuid import UUID
+
 from .base import HQBase
+from .models import InterviewerAction
 
 
 class UsersApi(HQBase):
@@ -8,9 +13,18 @@ class UsersApi(HQBase):
         path = self._url_users + '/{}'.format(id)
         return self._make_call('get', path)
 
-    def get_actions_log(self, id):
+    def get_actions_log(
+            self, id: UUID, start: datetime = None, end: datetime = None) -> Generator[InterviewerAction, None, None]:
+
         path = self._url_interviewers + '/{}/actions-log'.format(id)
-        return self._make_call('get', path)
+        params = {}
+        if start:
+            params["start"] = start.strftime("%Y-%m-%d")
+        if end:
+            params["end"] = end.strftime("%Y-%m-%d")
+        response = self._make_call('get', path, params=params)
+        for ac in response:
+            yield InterviewerAction(**ac)
 
     def list_supervisors(self):
         path = self._url_supervisors

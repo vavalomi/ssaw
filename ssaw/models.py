@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Union
 from uuid import UUID
 
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, Extra, Field, SecretStr
 
 from .headquarters_schema import Map
 from .utils import to_camel, to_hex, to_qidentity
@@ -26,14 +26,12 @@ class QuestionType(Enum):
     AUDIO = 13
 
 
-
 class Assignment(object):
     def __init__(self, responsible, quantity, questionnaire_id,
                  identifying_data=None, email='', password='', webmode=False,
                  audio_recording_enabled=False, comments=''):
         """[summary]
 
-        export_type: str
         Parameters
         ----------
         responsible : [type]
@@ -102,23 +100,6 @@ class Assignment(object):
             "Comments": self.comments,
             "IdentifyingData": self.identifying_data,
         }
-
-
-class QuestionnaireListItem(object):
-    def __init__(self, dict):
-        self.questionnaire_identity = dict['QuestionnaireIdentity']
-        self.questionnaire_id = dict['QuestionnaireId']
-        self.version = dict['Version']
-        self.title = dict['Title']
-        self.variable = dict['Variable']
-        self.last_entry_date = dict['LastEntryDate']
-
-    def __str__(self):
-        return(str(self.__dict__))
-
-    @classmethod
-    def from_dict(cls, dict):
-        return cls(dict)
 
 
 class ExportJob(object):
@@ -276,7 +257,35 @@ class InterviewAnswers(object):
 class BaseModelWithConfig(BaseModel):
     class Config:
         alias_generator = to_camel
+        allow_population_by_field_name = True
         extra = Extra.allow
+
+
+class IdentifyingData(BaseModelWithConfig):
+    variable: str
+    answer: str
+
+
+class Assignment2(BaseModelWithConfig):
+    responsible_name: str
+    quantity: int = None
+    questionnaire_id: str
+    identifying_data: List[IdentifyingData] = []
+    email: str = None
+    password: SecretStr = None
+    webmode: bool = False
+    audio_recording_enabled: bool = False
+    comments: str = None
+
+
+class InterviewAnswer(BaseModelWithConfig):
+    variable_name: str
+    question_id: str
+    answer: str
+
+
+class InterviewAnswerList(BaseModelWithConfig):
+    answers: List[InterviewAnswer]
 
 
 class ValidationCondition(BaseModelWithConfig):
@@ -413,6 +422,8 @@ class Attachment(BaseModelWithConfig):
     attachment_id: UUID
     content_id: str
     name: str
+
+
 class Questionnaire(BaseModelWithConfig):
     attachments: List[Attachment]
     categories: List[Category]
@@ -425,3 +436,17 @@ class Questionnaire(BaseModelWithConfig):
     title: str
     translations: list
     variable_name: str
+
+
+class QuestionnaireListItem(BaseModelWithConfig):
+    questionnaire_identity: str
+    questionnaire_id: UUID
+    version: int
+    title: str
+    variable: str
+    last_entry_date: datetime.datetime
+
+
+class InterviewerAction(BaseModelWithConfig):
+    message: str
+    time: datetime.datetime

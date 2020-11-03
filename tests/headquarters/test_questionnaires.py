@@ -42,3 +42,9 @@ def test_questionnaire_interviews(session, params):
     response = QuestionnairesApi(session).interviews(params['TemplateId'], params['TemplateVersion'])
     assert isinstance(response, dict)
     assert 'Interviews' in response.keys(), "The Interviews should be in the response"
+
+
+@my_vcr.use_cassette()
+def test_questionnaire_recordaudio(session, params):
+    response = QuestionnairesApi(session).update_recordaudio(params['TemplateId'], params['TemplateVersion'], True)
+    assert response is True
