@@ -1,4 +1,3 @@
-from . import designer
 from .__about__ import __version__
 from .assignments import AssignmentsApi
 from .export import ExportApi
@@ -10,5 +9,5 @@ from .settings import SettingsApi
 from .users import UsersApi
 
 
-__all__ = ["designer", "__version__", "AssignmentsApi", "ExportApi",
+__all__ = ["__version__", "AssignmentsApi", "ExportApi",
            "Client", "InterviewsApi", "MapsApi", "QuestionnairesApi", "SettingsApi", "UsersApi", ]

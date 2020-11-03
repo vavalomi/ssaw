@@ -1,4 +1,30 @@
-from .utils import to_hex, to_qidentity
+import datetime
+from enum import Enum
+from typing import Dict, List, Literal, Union
+from uuid import UUID
+
+from pydantic import BaseModel, Extra, Field
+
+from .headquarters_schema import Map
+from .utils import to_camel, to_hex, to_qidentity
+
+
+__all__ = ["Assignment", "ExportJob", "Map", ]
+
+
+class QuestionType(Enum):
+    SINGLE_SELECT = 0
+    MULTI_SELECT = 3
+    NUMERIC = 4
+    DATE = 5
+    GPS = 6
+    TEXT = 7
+    LIST = 9
+    BARCODE = 10
+    PICTURE = 11
+    GEOGRAPHY = 12
+    AUDIO = 13
+
 
 
 class Assignment(object):
@@ -7,6 +33,7 @@ class Assignment(object):
                  audio_recording_enabled=False, comments=''):
         """[summary]
 
+        export_type: str
         Parameters
         ----------
         responsible : [type]
@@ -244,3 +271,157 @@ class InterviewAnswers(object):
 
     def __iter__(self):
         return iter(self._raw_data)
+
+
+class BaseModelWithConfig(BaseModel):
+    class Config:
+        alias_generator = to_camel
+        extra = Extra.allow
+
+
+class ValidationCondition(BaseModelWithConfig):
+    expression: str
+    message: str
+    severity: int
+
+
+class Macro(BaseModelWithConfig):
+    name: str
+    content: str
+    description: str = ""
+
+
+class VariableType(Enum):
+    BOOLEAN = 3
+    DOUBLE = 2
+    DATE = 4
+    LONG = 1
+    STRING = 5
+
+
+class Variable(BaseModelWithConfig):
+    obj_type: Literal['Variable'] = Field(alias="$type")
+    public_key: UUID
+    name: str
+    label: str = ""
+    type: VariableType
+    expression: str
+    do_not_export: bool
+    variable_name: str
+
+
+class Category(BaseModelWithConfig):
+    id: UUID
+    name: str
+
+
+class StaticText(BaseModelWithConfig):
+    obj_type: Literal['StaticText'] = Field(alias="$type")
+    public_key: UUID
+    text: str
+    attachment_name: str = ""
+    hide_if_disabled: bool
+    validation_conditions: List[ValidationCondition] = []
+    variable_name: str
+
+
+class QuestionProperties(BaseModelWithConfig):
+    hide_instructions: bool = False
+    use_formatting: bool = False
+
+
+class Question(BaseModelWithConfig):
+    condition_expression: str
+    featured: bool
+    hide_if_disabled: bool
+    instructions: str = ""
+    properties: QuestionProperties = None
+    public_key: UUID
+    question_scope: int
+    question_text: str
+    Question_type: QuestionType
+    stata_export_caption: str
+    validation_conditions = []
+    variable_name: str
+
+
+class TextQuestion(Question):
+    obj_type: Literal['TextQuestion'] = Field(alias="$type")
+    mask: str = None
+
+
+class NumericQuestion(Question):
+    obj_type: Literal['NumericQuestion'] = Field(alias="$type")
+    is_integer: bool
+
+
+class Answer(BaseModelWithConfig):
+    answer_text: str
+    answer_value: int
+
+
+class SingleQuestion(Question):
+    obj_type: Literal['SingleQuestion'] = Field(alias="$type")
+    answers: List[Answer]
+    cascade_from_question_id: UUID
+    categories_id: UUID
+    is_filtered_combobox: bool
+    show_as_list: bool
+
+
+class MultyOptionsQuestion(Question):
+    obj_type: Literal['MultyOptionsQuestion'] = Field(alias="$type")
+    answers: List[Answer]
+    are_answers_ordered: bool
+    yes_no_view: bool
+
+
+class DateTimeQuestion(Question):
+    obj_type: Literal['DateTimeQuestion'] = Field(alias="$type")
+    is_timestamp: bool
+
+
+class TextListQuestion(Question):
+    obj_type: Literal['TextListQuestion'] = Field(alias="$type")
+    max_answer_count: int
+
+
+class RosterSource(Enum):
+    FIXED = 1
+    OTHER = 0
+
+
+class Group(BaseModelWithConfig):
+    obj_type: Literal['Group'] = Field(alias="$type")
+    children: List[Union[StaticText, NumericQuestion, TextQuestion,
+                         SingleQuestion, DateTimeQuestion, Variable, "Group"]] = []
+    description: str = ""
+    display_mode: int
+    fixed_roster_titles: list
+    is_flat_mode: bool
+    is_plain_mode: bool
+    is_roster: bool
+    public_key: UUID
+    roster_size_source: RosterSource
+    roster_size_question_id: UUID = None
+    roster_title_question_id: UUID = None
+    title: str
+    variable_name: str
+
+
+class Attachment(BaseModelWithConfig):
+    attachment_id: UUID
+    content_id: str
+    name: str
+class Questionnaire(BaseModelWithConfig):
+    attachments: List[Attachment]
+    categories: List[Category]
+    children: List[Group]
+    creation_date: datetime.datetime
+    cover_page_section_id: UUID = None
+    lookup_tables: dict
+    macros: Dict[UUID, Macro]
+    public_key: UUID
+    title: str
+    translations: list
+    variable_name: str

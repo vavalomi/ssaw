@@ -1,3 +1,4 @@
+import datetime
 import uuid
 from functools import wraps
 
@@ -36,3 +37,15 @@ def parse_qidentity(q_identity):
         q_version = qq[1]
 
     return to_qidentity(q_id, q_version)
+
+
+def parse_datestring(date_string: str) -> datetime.datetime:
+    try:
+        ret = datetime.datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S.%f")
+    except TypeError:
+        ret = datetime.datetime(2016, 1, 1)
+    return ret
+
+
+def to_camel(string: str) -> str:
+    return ''.join(word.capitalize() for word in string.split('_'))

@@ -1,6 +1,7 @@
+from uuid import UUID
+
 from .base import HQBase
-from .designer import import_questionnaire_json
-from .models import QuestionnaireListItem
+from .models import Questionnaire, QuestionnaireListItem
 
 
 class QuestionnairesApi(HQBase):
@@ -30,14 +31,14 @@ class QuestionnairesApi(HQBase):
         path = self.url + '/statuses'
         return self._make_call('get', path)
 
-    def document(self, id, version):
+    def document(self, id: UUID, version: int) -> Questionnaire:
         path = self.url + '/{}/{}/document'.format(id, version)
-        return self._make_call('get', path, parser=import_questionnaire_json)
+        return self._make_call('get', path, parser=Questionnaire.parse_raw)
 
-    def interviews(self, id, version):
+    def interviews(self, id: UUID, version: int):
         path = self.url + '/{}/{}/interviews'.format(id, version)
         return self._make_call('get', path)
 
-    def update_recordaudio(self, id, version):
+    def update_recordaudio(self, id: UUID, version: int):
         """POST /api/v1/questionnaires/{id}/{version}/recordAudio"""
         pass

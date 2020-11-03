@@ -1,4 +1,5 @@
 import types
+from uuid import UUID
 
 from pytest import fixture
 
@@ -33,7 +34,7 @@ def test_questionnaire_list(session):
 @my_vcr.use_cassette(decode_compressed_response=True)
 def test_questionnaire_document(session, params):
     response = QuestionnairesApi(session).document(params['TemplateId'], params['TemplateVersion'])
-    assert response is not None  # this is a json object no easy test for now
+    assert response.public_key == UUID(params['TemplateId'])
 
 
 @my_vcr.use_cassette()
