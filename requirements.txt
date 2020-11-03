@@ -1,5 +1,6 @@
 requests>=2.23.0
 sgqlc>=11.0
+typing-extensions>=3.7.4.3
 
 # testing requirements
 flake8>=3.8.2

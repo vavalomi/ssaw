@@ -1,12 +1,17 @@
 import datetime
 from enum import Enum
-from typing import Dict, List, Literal, Union
+from typing import Dict, List, Union
 from uuid import UUID
 
 from pydantic import BaseModel, Extra, Field, SecretStr
 
 from .headquarters_schema import Map
 from .utils import to_camel, to_hex, to_qidentity
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 
 __all__ = ["Assignment", "ExportJob", "Map", ]
