@@ -3,10 +3,10 @@ from enum import Enum
 from typing import Dict, List, Union
 from uuid import UUID
 
-from pydantic import BaseModel, Extra, Field, SecretStr
+from pydantic import BaseModel, Extra, Field
 
 from .headquarters_schema import Map
-from .utils import to_camel, to_hex, to_qidentity
+from .utils import get_variables, to_camel, to_hex, to_qidentity
 
 try:
     from typing import Literal
@@ -29,6 +29,20 @@ class QuestionType(Enum):
     PICTURE = 11
     GEOGRAPHY = 12
     AUDIO = 13
+
+
+class QuestionTypeLiteral(Enum):
+    SINGLE_SELECT = "SingleQuestion"
+    MULTI_SELECT = "MultyOptionsQuestion"
+    NUMERIC = "NumericQuestion"
+    DATE = "DateTimeQuestion"
+    GPS = "GpsCoordinateQuestion"
+    TEXT = "TextQuestion"
+    LIST = "TextListQuestion"
+    BARCODE = "QRBarcodeQuestion"
+    PICTURE = "MultimediaQuestion"
+    GEOGRAPHY = "AreaQuestion"
+    AUDIO = "AudioQuestion"
 
 
 class Assignment(object):
@@ -212,51 +226,80 @@ class ExportJob(object):
 
 
 class InterviewAnswers(object):
-    def __init__(self, answers: dict):
-        data = {}
-        variables = {}
-        self._raw_data = answers["Answers"]
-        for ans in self._raw_data:
-            val = ans["Answer"]
-            id = to_hex(ans["QuestionId"]["Id"])
-            variables[ans["VariableName"]] = id
-            if val is None:
-                continue
-            if len(ans["QuestionId"]["RosterVector"]) > 0:
-                key = "_".join([id, ] + [str(r)
-                                         for r in ans["QuestionId"]["RosterVector"]])
-            else:
-                key = id
-            data[key] = val
-        self._data = data
-        self._variables = variables
+    def __init__(self, questionnaire_document=None):
+        self._variables = {}
+        self._data = {}
+        self._raw_data = []
+        if questionnaire_document:
+            types = [
+                QuestionTypeLiteral.BARCODE.value,
+                QuestionTypeLiteral.SINGLE_SELECT.value,
+                QuestionTypeLiteral.MULTI_SELECT.value,
+                QuestionTypeLiteral.DATE.value,
+                QuestionTypeLiteral.GPS.value,
+                QuestionTypeLiteral.LIST.value,
+                QuestionTypeLiteral.NUMERIC.value,
+                QuestionTypeLiteral.TEXT.value
+            ]
+            for var in get_variables(questionnaire_document, types):
+                if getattr(var, "linked_to_question_id", None) is not None:
+                    continue  # preloading is not allowed for categorical linked questions
+                self._variables[var.variable_name] = var.public_key.hex
+
+    def __iter__(self):
+        return iter(self._raw_data)
 
     def __str__(self) -> str:
         return(str(self._raw_data))
 
+    @classmethod
+    def from_dict(cls, answers: list):
+        obj = cls()
+        obj._raw_data = answers
+        for ans in obj._raw_data:
+            val = ans["Answer"]
+            if val is None:
+                continue
+            id = to_hex(ans["QuestionId"]["Id"])
+            obj._variables[ans["VariableName"]] = id
+            if len(ans["QuestionId"]["RosterVector"]) > 0:
+                key = id + "_" + "-".join([str(r) for r in ans["QuestionId"]["RosterVector"]])
+            else:
+                key = id
+            obj._data[key] = val
+        return(obj)
+
+    def dict(self) -> dict:
+        return([{"Identity": k, "Answer": v} for k, v in self._data.items()])
+
     def get_answer(self, variable: str = None, question_id: str = None, roster_vector: list = []):
+        key = self._get_key(variable=variable, question_id=question_id, roster_vector=roster_vector)
+        if key in self._data:
+            return self._data[key]
+
+    def set_answer(self, answer, variable: str = None, question_id: str = None, roster_vector: list = []):
+        key = self._get_key(variable=variable, question_id=question_id, roster_vector=roster_vector)
+        self._data[key] = answer
+
+    def _get_key(self, variable: str = None, question_id: str = None, roster_vector: list = []):
         if variable:
             if variable in self._variables:
                 key = self._variables[variable]
             else:
-                raise TypeError("get_answer() variable not found")
+                raise TypeError("variable not found")
         else:
             if question_id:
                 key = to_hex(question_id)
             else:
                 raise TypeError(
-                    "get_anwer() either 'variable' or 'question_id' argument is required")
+                    "either 'variable' or 'question_id' argument is required")
 
-        if roster_vector:
-            key = "_".join([key, ] + [str(r) for r in roster_vector])
+        if roster_vector is not None:
+            if type(roster_vector) is not list:
+                roster_vector = [roster_vector]
+            key = key + "_" + "-".join([str(r) for r in roster_vector])
 
-        if key in self._data:
-            return self._data[key]
-        else:
-            return None
-
-    def __iter__(self):
-        return iter(self._raw_data)
+        return(key)
 
 
 class BaseModelWithConfig(BaseModel):
@@ -264,33 +307,6 @@ class BaseModelWithConfig(BaseModel):
         alias_generator = to_camel
         allow_population_by_field_name = True
         extra = Extra.allow
-
-
-class IdentifyingData(BaseModelWithConfig):
-    variable: str
-    answer: str
-
-
-class Assignment2(BaseModelWithConfig):
-    responsible_name: str
-    quantity: int = None
-    questionnaire_id: str
-    identifying_data: List[IdentifyingData] = []
-    email: str = None
-    password: SecretStr = None
-    webmode: bool = False
-    audio_recording_enabled: bool = False
-    comments: str = None
-
-
-class InterviewAnswer(BaseModelWithConfig):
-    variable_name: str
-    question_id: str
-    answer: str
-
-
-class InterviewAnswerList(BaseModelWithConfig):
-    answers: List[InterviewAnswer]
 
 
 class ValidationCondition(BaseModelWithConfig):
@@ -377,10 +393,11 @@ class Answer(BaseModelWithConfig):
 class SingleQuestion(Question):
     obj_type: Literal['SingleQuestion'] = Field(alias="$type")
     answers: List[Answer]
-    cascade_from_question_id: UUID
-    categories_id: UUID
+    cascade_from_question_id: UUID = None
+    categories_id: UUID = None
     is_filtered_combobox: bool
     show_as_list: bool
+    linked_to_question_id: UUID = None
 
 
 class MultyOptionsQuestion(Question):
@@ -388,6 +405,7 @@ class MultyOptionsQuestion(Question):
     answers: List[Answer]
     are_answers_ordered: bool
     yes_no_view: bool
+    linked_to_question_id: UUID = None
 
 
 class DateTimeQuestion(Question):
@@ -400,6 +418,26 @@ class TextListQuestion(Question):
     max_answer_count: int
 
 
+class GpsCoordinateQuestion(Question):
+    obj_type: Literal[QuestionTypeLiteral.GPS.value] = Field(alias="$type")
+
+
+class QRBarcodeQuestion(Question):
+    obj_type: Literal[QuestionTypeLiteral.BARCODE.value] = Field(alias="$type")
+
+
+class MultimediaQuestion(Question):
+    obj_type: Literal[QuestionTypeLiteral.PICTURE.value] = Field(alias="$type")
+
+
+class AudioQuestion(Question):
+    obj_type: Literal[QuestionTypeLiteral.AUDIO.value] = Field(alias="$type")
+
+
+class AreaQuestion(Question):
+    obj_type: Literal[QuestionTypeLiteral.GEOGRAPHY.value] = Field(alias="$type")
+
+
 class RosterSource(Enum):
     FIXED = 1
     OTHER = 0
@@ -408,7 +446,7 @@ class RosterSource(Enum):
 class Group(BaseModelWithConfig):
     obj_type: Literal['Group'] = Field(alias="$type")
     children: List[Union[StaticText, NumericQuestion, TextQuestion,
-                         SingleQuestion, DateTimeQuestion, Variable, "Group"]] = []
+                         SingleQuestion, MultyOptionsQuestion, DateTimeQuestion, Variable, "Group"]]
     description: str = ""
     display_mode: int
     fixed_roster_titles: list

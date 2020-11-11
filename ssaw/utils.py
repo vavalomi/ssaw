@@ -45,3 +45,13 @@ def parse_qidentity(q_identity):
 
 def to_camel(string: str) -> str:
     return ''.join(word.capitalize() for word in string.split('_'))
+
+
+def get_variables(obj, tt=[]):
+    if hasattr(obj, "children"):
+        for ch in obj.children:
+            yield from get_variables(ch, tt)
+    else:
+        type_name = type(obj).__name__
+        if type_name in tt or not tt:
+            yield obj

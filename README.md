@@ -45,7 +45,8 @@ Create new assignment:
 
 ```python
 from ssaw.models import Assignment
-from ssaw import AssignmentsApi
+from ssaw import AssignmentsApi, QuestionnairesApi
+from ssaw.models import InterviewAnswers
 
 identifying_data = [
     {"Variable": "address", "Answer": "123 Main Street"},
@@ -59,6 +60,23 @@ newobj = Assignment(
 
 res = AssignmentsApi(client).create(newobj)
 print(res.id)
+
+# More advanced example with data-preloading
+q_doc = QuestionnairesApi(client).document(id="00000000-0000-0000-0000-000000000000", version=1)
+
+d = InterviewAnswers(q_doc)
+d.set_answer(variable="address", answer="123 Main Street")
+d.set_answer(variable="name", answer="Jane Doe")
+d.set_answer(variable="member_name", answer="Jane", roster_vector=0)  # question in the first-level roster
+d.set_answer(variable="pet", answer="Cat", roster_vector=[0, 0])  # second-level roster
+
+newobj = Assignment(
+    responsible="inter1",
+    questionnaire_id="",
+    quantity=5,
+    identifying_data=d.dict())
+
+res = AssignmentsApi(client).create(newobj)
 ```
 
 Get list of interviews that were updated during last 15 minutes (using GraphQL)

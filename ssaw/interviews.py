@@ -48,7 +48,7 @@ class InterviewsApi(HQBase):
         path = self.url + '/{}'.format(interview_id)
         ret = self._make_call('get', path)
         if "Answers" in ret:
-            return InterviewAnswers(ret)
+            return InterviewAnswers.from_dict(ret["Answers"])
 
     def delete(self, interviewid, comment=''):
         return self._change_status(action='delete', interviewid=interviewid, comment=comment)
