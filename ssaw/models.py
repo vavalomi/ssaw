@@ -272,7 +272,7 @@ class InterviewAnswers(object):
     def dict(self) -> dict:
         return([{"Identity": k, "Answer": v} for k, v in self._data.items()])
 
-    def get_answer(self, variable: str = None, question_id: str = None, roster_vector: list = []):
+    def get_answer(self, variable: str = None, question_id: str = None, roster_vector: list = None):
         key = self._get_key(variable=variable, question_id=question_id, roster_vector=roster_vector)
         if key in self._data:
             return self._data[key]
