@@ -22,7 +22,7 @@ def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
 
 
 def to_hex(q_id):
-    return uuid.UUID(q_id).hex
+    return uuid.UUID(str(q_id)).hex
 
 
 def to_qidentity(q_id, q_version):
