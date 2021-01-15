@@ -44,6 +44,13 @@ class QuestionTypeLiteral(Enum):
     GEOGRAPHY = "AreaQuestion"
     AUDIO = "AudioQuestion"
 
+class UserRole(Enum):
+    ADMINISTRATOR = "Administrator"
+    SUPERVISOR = "Supervisor"
+    INTERVIEWER = "Interviewer"
+    HEADQUARTERS = "Headquarter"
+    OBSERVER = "Observer"
+    APIUSER = "ApiUser"
 
 class Assignment(object):
     def __init__(self, responsible, quantity, questionnaire_id,
@@ -493,3 +500,12 @@ class QuestionnaireListItem(BaseModelWithConfig):
 class InterviewerAction(BaseModelWithConfig):
     message: str
     time: datetime.datetime
+
+class User(BaseModelWithConfig):
+    user_name: str
+    password: str
+    role: UserRole = UserRole.INTERVIEWER
+    supervisor: str = None
+    full_name: str = None
+    email: str = None
+    phone_number: str = None

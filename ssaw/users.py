@@ -3,7 +3,7 @@ from typing import Generator
 from uuid import UUID
 
 from .base import HQBase
-from .models import InterviewerAction
+from .models import InterviewerAction, User, UserRole
 
 
 class UsersApi(HQBase):
@@ -41,6 +41,14 @@ class UsersApi(HQBase):
     def archive(self, id):
         path = self._url_users + '/{}/archive'.format(id)
         return self._make_call('patch', path)
+
+    def create(self, **kwargs):
+    
+        user = User(**kwargs)
+        path = self._url_users
+
+        return self._make_call("post", path, data=user.json(by_alias=True), 
+            headers={"content-type": "application/json"})
 
     def _list_users(self, path):
         page_size = 10
