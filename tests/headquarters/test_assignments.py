@@ -7,7 +7,7 @@ from ssaw.exceptions import NotFoundError
 from ssaw.models import Assignment
 
 from . import my_vcr
-
+from ..utils import create_assignment
 
 @my_vcr.use_cassette()
 def test_assignment_list(session, params):
@@ -80,15 +80,15 @@ def test_assignment_get_quantity_settings(session):
 
 @my_vcr.use_cassette()
 def test_assignment_assign(session):
-    obj = AssignmentsApi(session).assign(4, 'Interviewer1')
-    assert obj.responsible == 'Interviewer1'
+    obj = AssignmentsApi(session).assign(2, 'inter2')
+    assert obj.responsible == 'inter2'
     with raises(NotFoundError):
         AssignmentsApi(session).assign(4, 'random_user')
 
 
 @my_vcr.use_cassette()
 def test_assignment_get_history(session):
-    res = AssignmentsApi(session).get_history(4)
+    res = AssignmentsApi(session).get_history(2)
     assert isinstance(res, GeneratorType)
     evnt = next(res)
     assert 'Action' in evnt
@@ -100,12 +100,8 @@ def test_assignment_create(session, params):
         {"Variable": "address", "Answer": "123 Main Street"},
         {"Variable": "name", "Answer": "Jane Doe"}
     ]
-    newobj = Assignment(
-        responsible="Interviewer1",
-        questionnaire_id=params['QuestionnaireId'],
-        quantity=5,
-        identifying_data=identifying_data)
 
-    res = AssignmentsApi(session).create(newobj)
-    assert res.responsible == "Interviewer1"
+    res = create_assignment(session, "inter1", params['QuestionnaireId'], identifying_data)
+
+    assert res.responsible == "inter1"
     assert res.identifying_data[0]["Answer"] == identifying_data[0]["Answer"]

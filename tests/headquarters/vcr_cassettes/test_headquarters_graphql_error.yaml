@@ -14,7 +14,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.2
+      - python-ssaw/0.3.1
     method: POST
     uri: https://demo.mysurvey.solutions/graphql
   response:
@@ -30,7 +30,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 03 Nov 2020 21:27:27 GMT
+      - Fri, 15 Jan 2021 22:31:40 GMT
       Server:
       - Microsoft-IIS/10.0
       Strict-Transport-Security:

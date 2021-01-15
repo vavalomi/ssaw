@@ -9,49 +9,32 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/interviews/fdd62d6c-c8a3-4737-ac76-26125f0b9d82/history
+    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d/history
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACt2d207cMBRF/yXPExQ7iR3PGxKViiq15SJeqqrKJB6IBBmaDNAK8e91KK04BlEK
-        ArH3EyhxMmfhy/JxPOQy2e7Xfjjv/MV2m8yTZdsa3Zombao6Twub27RurEm1UbpcZgvXVjqZJTtn
-        flx3q76vu8FfX+ibhVVluMZXpUmLqrWpW1Yqzcu2yRcLU+eZii888MMYfk/mapbs+mY1tGMy/3IZ
-        Qmr9j2SezZLNZiocbr93djpFOa6GzXHsDnvfhpt9GrrDrq/Xq+FjfeJDqb8sflDi/O7qODofTn+u
-        h3BZOBI+9fJqlux3JyG4+uQ0lNSZztJMp1rtKzvPzFypDZdZpwJcVs6zbLr9cjn6dSj8+8h08Gp2
-        b/S3PveFwk8GP56u+rFbxCVV8qJoH/zPh5Duw7gTe7hHOFxNIYWGllr3siEf1ENXh7/TVjdOP54e
-        9/nNjcK59WpdH7/33eHRertvjvwYCg+rMZScLnwMjs5LE/jfBs6Ocq8H8GdM2PLNcT349qA+7p5O
-        8f3mbtcU5jbF43rCm8fQHBg5KkauvimKZhWDaGCQnKVGcsoage3sRUHS2WMQ2KYVg9A0rYIFpGQB
-        MSwglgWkYgF5XIoLAKKmGDhIaNyuaOSuaOyuaPSuaPweFiRYSGgMr2gUH5ZQSUg0jeM1jeM1jeM1
-        jeM1jeM1jeM1jeM1jeOrClnymmU9WIAg60SAINtEgCDLRIAgu0SAIKtEgCCbRIDQeMTRCBE5V5Qk
-        NG6HXg+WJDR2h14PliQ0fodeD47GLhrFQy8ISxIayUMvCEsSGslDLwhrkuUhw7EPVWLANiyJATt1
-        NAVHoyo4GlVB2KhgkxGJAZuJmJJkm3kMgtvNIxDcjh6B4Hb1CISms8OuOsQgsGsOMQhu/hGBOJoa
-        wc0JLcv3RWMQWLfHILBuj0Fg3R6DwLo9BoF1ewwC6/YYhMYjjkaIsE8T7pDQuB13y8AdEhq7424Z
-        uENC43fkvITjWZXEwB22OJ5VSQzcAUtg4I5WOUcuknNkIgKDxBuORH+4OYjkIPE4cP4hOUhMDpx7
-        SA4Sl+NuVY44SGyOu0s54sD1OccuOYmBa0GOXXLWcjQqy9GoLGGjwp1YCQzceZXAwJ1WCQzcWZVl
-        WV2vOMxRcZjDcdSGo6iNKqOoDYlBUhuwsyqJATurkhiwsyqJAezxiuMVQhIDd6zieIWQxMAdqwzH
-        WGUoMkCJAZsBSgwSbzgS/cE+JY84cD1uSb5MFIPgTkkiENxJSQSCOy2JQICzD1dSdHaJAdvVJQZs
-        R5cYsN1cYsBmHxIDNvuQGLDZh8Qg8YYjqY2X9vhmP174YS8Uvif47T5Ecd75UELdB3Lr/INM2XR1
-        ff1J10q/BfhPOq02jFJK5894Tfy7/o289H6C0cYa594Gzf++8/5Z8W++SlOb/q3iU5ua29CVMkX2
-        cEf6evULsQb1NUKEAAA=
+        H4sIAAAAAAAAA9WSTUvDQBCG/0rZc1b2I902uRW8VPGrFQ+Kh0l3UhbaTd1N/aD0vzsJIlGrILSH
+        Qg7LzDvzvs+QDRv7GsOzw5exZTlDoUpVqJKXOgWeZiblRWoKLqFvMlvY1A4tS9jNGmPtKu/BBWwH
+        M6vBCpPxLAMatAb4EC1wsFLNBkqBEeX3wTsMkd4slwmb4KwKNrL8YUORLL6yXCRsNKtbAZuuV03K
+        WIVRjG7usUlxFdzceaircAlLJJVrWOSXzqRaNJ1PSgzUvoZAA1Qhv802YbduSbFguSKlEkpyIbns
+        3yqVa5lrfWKkMGZg7pvNZRmxJp0QefuxbbIzccdx75FZwLiqfHTForPjQCDn+PYXwK7oP/LSDiqn
+        kvcHnFL100OFHflI95qSdm+3fvr4ZUkG1tLlI0mg9aGSVLp3Ac73pnXA1jZUsW5bx8nomz0dwDPw
+        2Dut8PjJItl1wNR/iYZGaal/AXrcvgNcvNGuSwUAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 12 Jun 2020 18:31:35 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

@@ -1,6 +1,7 @@
 interactions:
 - request:
-    body: null
+    body: '{"UserName": "rrg9wl5ez1", "Password": "Validpassword1", "Role": "Supervisor",
+      "Supervisor": null, "FullName": null, "Email": null, "PhoneNumber": null}'
     headers:
       Accept:
       - '*/*'
@@ -9,17 +10,18 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '0'
+      - '152'
       User-Agent:
       - python-ssaw/0.3.1
-    method: PATCH
-    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d/hqreject?comment=
+      content-type:
+      - application/json
+    method: POST
+    uri: http://localhost:9707/api/v1/users
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAz2MOw7CMBBErzJKHXEAuoQ01JwgwpNgyXhX3nVMbs9HKN3oPb3prtlZtsgG89mr
-        IRoOxjKYxTUznDBWh2RCFviDWCQlaTGv/46GNhv4Ut6d4YyLPDXxM3sMqkU2hnG/Vf0+m5QeE3+6
-        ewPDTbHPgwAAAA==
+        H4sIAAAAAAAAA6tWCi1OLfJMUbJSMrIwMjQ0NzM2SjU0MzGzTLWwSEsxMU5KM0kyMkyxME9U0lFy
+        LSrKLypWsoqOrQUA6t6R/zkAAAA=
     headers:
       Content-Encoding:
       - gzip
@@ -34,6 +36,6 @@ interactions:
       Vary:
       - Accept-Encoding
     status:
-      code: 406
-      message: Not Acceptable
+      code: 200
+      message: OK
 version: 1

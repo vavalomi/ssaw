@@ -10,6 +10,7 @@ requires = [
     'pydantic',
     'requests',
     'sgqlc',
+    'typing-extensions',
 ]
 
 test_requirements = [
@@ -17,6 +18,8 @@ test_requirements = [
     'flake8-import-order',
     'pytest',
     'pytest-cov',
+    'python-dotenv',
+    'sphinx',
     'vcrpy',
 ]
 

@@ -19,14 +19,14 @@ def test_export_notfound(session):
 @my_vcr.use_cassette()
 def test_export_info(session, params):
 
-    r = ExportApi(session).get_info(params['JobId'])
+    r = ExportApi(session).get_info(1)
     assert isinstance(r, ExportJob), 'Should get back an ExportJob object'
-    assert r.job_id == params['JobId'], "Should get back the same job id"
+    assert r.job_id == 1, "Should get back the same job id"
 
 
 @my_vcr.use_cassette()
 def test_export_cancel(session, params):
-    r = ExportApi(session).cancel(params['JobId'])
+    r = ExportApi(session).cancel(1)
     assert r is None, 'Does not return anything'
 
 
@@ -42,4 +42,4 @@ def test_export_get(session, params):
     tempdir = gettempdir()
     r = ExportApi(session).get(questionnaire_identity=params['QuestionnaireId'],
                                export_path=tempdir, export_type='Tabular')
-    assert r == join(tempdir, 'health_survey_1_Tabular_All.zip')
+    assert r == join(tempdir, 'ssaw_1_Tabular_All.zip')

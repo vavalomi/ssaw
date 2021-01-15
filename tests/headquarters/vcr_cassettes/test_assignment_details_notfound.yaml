@@ -9,9 +9,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/7373
+    uri: http://localhost:9707/api/v1/assignments/7373
   response:
     body:
       string: ''
@@ -19,13 +19,9 @@ interactions:
       Content-Length:
       - '0'
       Date:
-      - Fri, 12 Jun 2020 18:31:27 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 404
       message: Not Found

@@ -14,30 +14,26 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: PATCH
-    uri: https://apitest.mysurvey.solutions/api/v1/interviews/fdd62d6c-c8a3-4737-ac76-26125f0b9d82/assign
+    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d/assign
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAClMKLU4tUihPLFbIyy9RSMsvzUvRUwIAH/PjPBUAAAA=
+        H4sIAAAAAAAAA1MKLU4tUihPLFbIyy9RSMsvzUvRUwIAH/PjPBUAAAA=
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 12 Jun 2020 18:31:35 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 406
       message: Not Acceptable

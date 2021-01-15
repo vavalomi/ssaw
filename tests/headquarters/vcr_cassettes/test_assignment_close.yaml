@@ -9,35 +9,34 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4
+    uri: http://localhost:9707/api/v1/assignments/4
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRwU7DMBBE/8XimFRrx3FT30LpoQcQVK04IA62swFLqVPFTqsK8e9s1IKEetzV
-        zJux94vVIZ5wiEy/vWds3WBIvj378PFgkvldMi0ztsF46EP0tsNpw5wCBUZAzisDueS8yq1qIVcl
-        OOXEHFur2D/bk9kjGdch4XD0SLGcBC8jxuT7EIwfLmR0ds5LU2BVKlk180Vb8aJsXGGtMgXwu8n2
-        R4nLfgyJaZhQhuqnM9MqY/XgPv0RCdiaLmLGlgOahE2ddslRigDqDkXO1RZKLSst+UyCKCtJ9N2h
-        udWqnBdbELoELcWs4FwspiarvfEd02Hsuow9mxhP/UCpl/kV7WPf0LOvJTbocGp1f94a+pJ0TbiI
-        17EeG9+Thgh0g1WYNMRKw4jfP+9gbxCsAQAA
+        H4sIAAAAAAAAA42SzU7cMBSFX2VkdTlG/hsnzm4KLKhE1VKYSq1Y3Ng3raXgoNhhNEK8e20YoEQj
+        xM6xzz33nE+5J+sQtzhG0vy+J2cOQ/JpR5pyJg0BKSprkFNA0JRZBdS0bUWN5LBqETrGHFmSiyEm
+        HDdo0zBmo+uH5d62GG2gnzB7cSEX5+DD4kcaERPJog2MHtq+vIJzI8aYbw/EMAJ1LWVL2063VNha
+        0VoaTbFlqlJQcejsR2N8gYCLkwFn+wPc5Kvr5X55t/PhzwkkmHF5IVKAFB4Fx4zGgVavQQ5geOP/
+        XLU0LUVLz1nNeer/zF/LPTYhjcpUMN4OIfo88QjTSVQK25oq0RmquGW0dk5Tu+IOGWoAFOTN2Ney
+        pSE+ZLo8P32fMCY/hAB+fPI0ToJj2hgDoJyGGh2A48JWQmRO3acydlbm7zxu4/EwhUQaXqxg31zn
+        GqP96+8wG3bQR1yS4xEhoVunq2TzFsEEp4xTvroUopG8kfKI16wW9a9sf3Xr3hebI6Ml47qIT2/A
+        91mVj98gxu0wuqevn9ieDw5fIlygxZLp8+6yME97+zD1fW4U15PzQ9bk+fzDnIaiec7/8A84cVJV
+        XQMAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:41 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -55,35 +54,32 @@ interactions:
       Content-Type:
       - application/json-patch+json
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: PATCH
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/changequantity
+    uri: http://localhost:9707/api/v1/assignments/4/changequantity
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRwU7DMBBE/8XimFR2Yjuub6H00AMIqlYcEAfH3oCl1Klsp1WF+Hc2aoWEOO5q
-        5s3Y+0U2DkL2/cWHjweTDdFv7wUuieYF2UI6jiH5boB5Q6ykkpqKlkwZWnLGVNnJnpZSUCtt1UDf
-        SfLH9mQOgMZNyBBPHs4QGQpeJkjZjyEYH69ksF3DhKlBCcmVa5a9YrVwtu46aWrK7mbbLyWtxilk
-        oumMMlg/X4huCtJG++lPgMDeDAkKsopgMrg277PFlIpid1qXTO6o0FxpzhacVkJxpO+P7r9Wlqze
-        0UoLqnm1qBmrlnOT9cH4gegwDUNBnk1K5zFi6nV+he5xdPjsW4ktWJhb3V92Br8k3xKu4k1qJ+dH
-        1CABb7AOswZZOU7w/QMMwlxXnwEAAA==
+        H4sIAAAAAAAAA32SW2vjMBCF/0oY+mgX3WJLfksvD1lo6S27sEsfRtJ4V+DKxVIaQsl/r0yyhb70
+        TRqd882ZQe+w9hRz6Pch/r3CjND9eT/V8h46QClaZ4gjYcOcQmNtayTHpSXsGfNQwU+cAtqBoIvb
+        YahgFdOOpuLlQi5uMMTFY56IMhyqL2gjqNFSWts3VjittDQNWaZahS3H3n2H/oGRFlcjweG5Kkzo
+        VAUPlF7HmELRzxXwkpQiq2slelMr7litvW9qt+SeGDWIJOCL7RZfSisIMdPEy9P9llIOY4wYpiPT
+        eImeNcYYROUb1OQRPReuFaIsqD+bbevZ/xZoly7HbczQ8RmFp7nbMsbk/oU3KsAeh0QVXE6Emfwq
+        b7IrXQQTvGa85ssnITrJOynPuWZa6N8Fv3n134oVO2etZEbM4usXDENRleMdprQbJ3+8/SJ7M3r6
+        jPBAjuZMF/uneeP5hD/ufZ1WWx/Goin+8lOu46z5n//wAcKnBp5GAgAA
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:42 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -99,9 +95,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: POST
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/close
+    uri: http://localhost:9707/api/v1/assignments/4/close
   response:
     body:
       string: ''
@@ -109,13 +105,9 @@ interactions:
       Content-Length:
       - '0'
       Date:
-      - Sat, 13 Jun 2020 02:50:42 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -129,35 +121,34 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4
+    uri: http://localhost:9707/api/v1/assignments/4
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRzU7DMBCE38XimFR2YrvGt1B66AEEVSsOiIN/NmApdarYaVUh3p0NLUgVx13N
-        fDNrf5ImpiMMiejXt4KsPMQc2lOI7/cmm98l0bwga0j7PqZgO5g2xEkqqaloyZShJWdMlVa2tJSC
-        OumqObRWkivbo9kBGlcxw3AIgLEMBc8jpBz6GE0YzmRwds6EqUEJyZWf37aK1cK72lppaspuJtsf
-        JS36MWai6YQyWD+ffoZmcB/hAAhsTZegIIsBTAbf5G12mFJR7E7rkskNFZorzdmM00oojvTt3v/X
-        ypLVG1ppQTWvZlIKxiftcmdCR3Qcu64gTyalYz9g6nl+AfvQezz7UmINDqZWd6eNwSfJl4SzeJWa
-        0YceNUjAP1jGSYOsPIzw9Q1crcbRrAEAAA==
+        H4sIAAAAAAAAA42SzU7cMBSFX2VkdTlG/pskzm4KLKhE1VKYSq1Y3Ng3raXgINthNEK8e20YoEQj
+        xC62zz33nE+5J2sftxgiaX/fkzOLPrm0I235Ji0BKWqjkVNAqCgzCqjuuppqyWHVIfSMWbIkF2NM
+        GDZo0hiy0fXDcm9bjDYwTJi9uJCLc3B+8SMFxESyaAPBQTeUV7A2YIz59kAMLbBqpOxo11cdFaZR
+        tJG6otgxVSuoOfTmozG+gMfFyYiz/R5u8tX1cr+83zn/5wQSzLi8EClACo+CY0bjQKvXIAcwvPF/
+        rlqalqKl56zmPPV/5q/lHpuQVmUqGG9HH12eeIRpJSqFXUOV6DVV3DDaWFtRs+IWGVYAKMibsa9l
+        S0ucz3R5fvo+YUxu9B5cePLUVoJlldYaQNkKGrQAlgtTC5E59Z/K2FmZv3O4jcfj5BNpebGCffN8
+        WAfz191hNuxhiLgkxwEhoV2nq2TyFsEEp4xTvroUopW8lfKIN6wRza9sf3Vr3xUrdsSlYM2qiE9v
+        wA1ZlT+/QYzbMdin00/szkeLLxEu0GDJ9Hl3WZinvb2fhiE3iuvJujFr8nz+YU590Tznf/gHZKel
+        EF0DAAA=
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:42 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

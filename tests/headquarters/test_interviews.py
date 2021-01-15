@@ -22,7 +22,7 @@ def test_interview_details(session, params):
     """Tests an API call to get an interview details"""
 
     r = InterviewsApi(session).get_info(params['InterviewId'])
-    assert r.get_answer("Q01") == "Yes"
+    assert r.get_answer("sex") == "Man"
 
 
 @my_vcr.use_cassette()
@@ -75,4 +75,4 @@ def test_interview_comment(session, params):
         InterviewsApi(session).comment(params['InterviewId'], comment="aaa")
 
     # no way to check comments for now, make sure there are no exceptions
-    InterviewsApi(session).comment(params['InterviewId'], comment="aaa", variable="Q01")
+    InterviewsApi(session).comment(params['InterviewId'], comment="aaa", variable="sex")

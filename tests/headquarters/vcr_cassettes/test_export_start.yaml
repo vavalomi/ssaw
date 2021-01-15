@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"ExportType": "Tabular", "QuestionnaireId": "ecb715a3-e856-48d7-9f81-35dc3bb6a301$1",
+    body: '{"ExportType": "Tabular", "QuestionnaireId": "9d3ad06999aa4d6a8edaad12c722a60f$1",
       "InterviewStatus": "All"}'
     headers:
       Accept:
@@ -10,41 +10,37 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '112'
+      - '108'
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: POST
-    uri: https://apitest.mysurvey.solutions/api/v2/export
+    uri: http://localhost:9707/api/v2/export
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACp2Qy27CMBBF/8XqMpA4acDJDvFQqbpoS37ASQaIMHY0tqEI8e8dlwap2+7sk/Gd
-        m3Nlr6Zet6xMRSEitvzqDbqNk85bVrI5gnTQsogRQregC9E0SZNRMhnxtOKizHiZJeNcFGkhaHBu
-        jr0CB/dZ7ZWK2DuaHYKlxIRWVLOBLxENDpe3Th9o4srmUjegaM/eud6WcSz7zoF14+PFejzBZWyN
-        8q4z2oZP8SmN4ad2HP6BKizMWSsj2/9GxNtOAbtF7EXau5BVAKVDD4Oi6tIHFZWsvZJISz885VOg
-        lh1CEMqgqac8lxmIfPIs2mmxFTzL2yar64nMEv7E6dlaO8BTB+eH85lSxFdojoOZygynWdOQxsoc
-        QA/oE7akdv+HbZxBuYN7x98MlNoqGRqGcgHevgHwsNbd/AEAAA==
+        H4sIAAAAAAAAA1WQ3W7CMAyF3yXaZVmTAGXtHeJH67RJ++kLmMZAhUmqNIVNaO8+s5JJu7M/Hdvn
+        +CKe3KY0otCJWH22zoePAKHvRCEWHiGgEYlg5MOSG6ZaajWSaqSmldbFWBUTeZ9NMyUzFi7csSUM
+        OGhtT5SIV+92HjveKPlENY985b3zsXlu7IEVF7EAWyPxnX0IbZGm5GqgvetCkc/kLIW2SU86xV+n
+        qeaTS3e25MAMm74T8QjdEGTdEJvYAnUYs1Vf7TVDBZuewPP0W49daJy10Hi8vkHkZgxGZnmeA0xM
+        Bg9oAIzS9UxryOT2TvFYaQP6U4Pnv2fNiZivvTvGSJWL1byuOX/lDmgjesct/2T/j30E52GHg8fb
+        Dg+2I7g6LE2Epa2pN/iCAW6hfwDVn8ePxQEAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 12 Jun 2020 18:31:30 GMT
+      - Fri, 15 Jan 2021 22:31:40 GMT
       Location:
-      - https://apitest.mysurvey.solutions/api/v2/export/2898
+      - http://localhost:9707/api/v2/export/2
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 201
       message: Created

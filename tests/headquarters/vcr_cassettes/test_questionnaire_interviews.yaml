@@ -9,35 +9,32 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/questionnaires/ecb715a3-e856-48d7-9f81-35dc3bb6a301/1/interviews
+    uri: http://localhost:9707/api/v1/questionnaires/9d3ad06999aa4d6a8edaad12c722a60f/1/interviews
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACl2QXUvDMBSG/0uuG0nSNs16p27CQBzq8Ea8SJMTCbSpJOlkjP13Tzc/hneH8H48
-        eQ9kHTLEnYfPRNrXA7kDnacI9nGClP0Y5te34k+1tqQlzloprDTUKF3Sqikbqk0jqZBc1I51C6sE
-        KchPRtA+wskIpmt4jR5QtaSVsg1dOMVpWVtTdp3UJeP/jS8QE96k5QW5Tsm/hwFCnuNEQZ4gfSCk
-        7/pzgZFMMi0Y5UozWnGuaCcdo7JmRhrRgOskFlzYHvQAaPz9IMSZYBXjGNPtOIVMWlaQ54yz4BaX
-        ujMMWJTf65RXIcf9Uuc5TTBEYIIKvhWiZbIViyuhuKxO3Qb8DuzNfgk7b1DudJ/giCtvooVI2jD1
-        PWb6wWM5x/btmHX/DYMrbJxLMJ/HLyWpZJ6/AQAA
+        H4sIAAAAAAAAA3VRTW/UMBD9K9GcYxQ7Xm+cCypsKxUBFbSARNXDJDMBS1kH2c5Wq2r/O85u0aog
+        braf38e8eYJrnzjsHD9GaO+f4IoxzYHp08wxucmfXq8J2lqtTVPCHwBa+PYTU+FisZ/mUCBR4Bhf
+        QwkXPj5yyB+kqosP6HxxmwJzgkN5lrL/l/K45Rc679BzsZkYDg/lOfCiBFypQXVqEEOtUWhrtOi0
+        6YTElbHUkaaG4Gzl0QU+Ei3VSJWxwlrMRDIoGiYUSFL1a6XQVMPfxK8c4jGvzOFidD/8ln1a5HQJ
+        nzn+yn25bjwZUM1ac9cIrQYrtOwr0RAZ0a8kccUGkRW8oH3Mc2eiWwaUGboMYQrx7TT7BG1Vwm3K
+        u8kLOVfA4RSDlxnfY0yXPoX9BtOioyolRSWFXN0p1dayretXzXotbfP96Nuz2zG92W945/pMGHCM
+        /C9wkb6kHlo/j+NS/02gZSfLNVu6rcvZZA53NyUcn7Pmem6GIfJyPPwGWZFBYmMCAAA=
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 12 Jun 2020 18:31:36 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

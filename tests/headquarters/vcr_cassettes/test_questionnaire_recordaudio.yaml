@@ -13,21 +13,17 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.2
+      - python-ssaw/0.3.1
     method: POST
-    uri: https://apitest.mysurvey.solutions/api/v1/questionnaires/ecb715a3-e856-48d7-9f81-35dc3bb6a301/1/recordAudio
+    uri: http://localhost:9707/api/v1/questionnaires/9d3ad06999aa4d6a8edaad12c722a60f/1/recordAudio
   response:
     body:
       string: ''
     headers:
       Date:
-      - Tue, 03 Nov 2020 22:45:06 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
-      - Microsoft-IIS/10.0
-      Strict-Transport-Security:
-      - max-age=2592000
-      X-Powered-By:
-      - ASP.NET
+      - Kestrel
     status:
       code: 204
       message: No Content

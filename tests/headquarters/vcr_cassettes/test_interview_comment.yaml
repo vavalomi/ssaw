@@ -11,9 +11,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.0.7
+      - python-ssaw/0.3.1
     method: POST
-    uri: https://apitest.mysurvey.solutions/api/v1/interviews/fdd62d6c-c8a3-4737-ac76-26125f0b9d82/comment-by-variable/Q01?comment=aaa
+    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d/comment-by-variable/sex?comment=aaa
   response:
     body:
       string: ''
@@ -21,13 +21,9 @@ interactions:
       Content-Length:
       - '0'
       Date:
-      - Mon, 29 Jun 2020 20:06:52 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

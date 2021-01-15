@@ -1,8 +1,7 @@
 interactions:
 - request:
-    body: '{"query": "mutation {\naddUserToMap(fileName: \"test_map.tif\", userName:
-      \"inter1\") {\nfileName\nimportDate\n}\n}", "variables": null, "operationName":
-      null}'
+    body: '{"query": "mutation {\naddUserToMap(fileName: \"map.tpk\", userName: \"inter1\")
+      {\nfileName\nimportDate\n}\n}", "variables": null, "operationName": null}'
     headers:
       Accept:
       - application/json; charset=utf-8
@@ -11,79 +10,31 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '155'
+      - '154'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.2
+      - python-ssaw/0.3.1
     method: POST
-    uri: https://apitest.mysurvey.solutions/graphql
+    uri: http://localhost:9707/graphql
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAChTJMQqAMAwF0LtktvJjFWtmV530AIG2UFAU7VZ6d3F8vEJes5IUUu/3Nzzbtej9
-        O6YjrHoGEmIHxtjmFKmhdN7Xk2fN/3ToYBgGboMVOwjbdrJs0AtAtdYPAAD//wMAHKGCaWAAAAA=
+        H4sIAAAAAAAAAxTIsQqAIBAA0H+5OcU7a3FurcmWtgMNpESp28R/D8f3GgQWBteAQzi++PqycR2+
+        0hN3zhEcZK5a6g0TpFzLKyvLaDKEyqDCxRM5i87OGtGc0Hv/AQAA//8DAFlzL7dYAAAA
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json
       Date:
-      - Wed, 28 Oct 2020 15:55:11 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
-      - Microsoft-IIS/10.0
-      Strict-Transport-Security:
-      - max-age=2592000
+      - Kestrel
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query": "mutation {\naddUserToMap(fileName: \"test_map.tif\", userName:
-      \"inter1\") {\nfileName\nimportDate\n}\n}", "variables": null, "operationName":
-      null}'
-    headers:
-      Accept:
-      - application/json; charset=utf-8
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '159'
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python-ssaw/0.2
-    method: POST
-    uri: https://demo.mysurvey.solutions/graphql
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAACgzKMQqAMAwF0KuUP4sHyB3cdBKHQKJLbSRpcSi9u775dai7eYD2jlsj+FIQFn7S
-        y5GK1XRaKzJjHBOEK4M6WGQL9dX+Byot5zE+AAAA//8DAJj9qQdKAAAA
-    headers:
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 28 Oct 2020 16:15:02 GMT
-      Server:
-      - Microsoft-IIS/10.0
-      Strict-Transport-Security:
-      - max-age=2592000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"Responsible": "Interviewer1"}'
+    body: '{"Responsible": "inter2"}'
     headers:
       Accept:
       - '*/*'
@@ -9,39 +9,36 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '31'
+      - '25'
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: PATCH
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/assign
+    uri: http://localhost:9707/api/v1/assignments/2/assign
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRwU7DMBBE/8XimFTrxHEd30rpoQcQVK04IA62swFLqVPFTqsK8e9saEFCHHc1
-        82bW/mDrBkPy7dmHtzuTDNMvrxktmRYZ22A89CF62+G0YU6CBFNAzpWBXHCucitbyGUFTrpijq2V
-        7I/tweyRjOuQcDh6POHASfA0Yky+D8H44UJGZ+e8MiWqSgrVzOtW8bJqXGmtNCXwm8n2S4nLfgyJ
-        aZhQhuqn8/ewGNy7PyIBW9NFzNhyQJOwWaRdcpRSAHWHMudyC5UWSgs+E1BUShB9d2j+a2XOyy0U
-        ugItipmqoa5Jutob3zEdxq7L2KOJ8dQPFHqZn9He9w1dfe2wQYdTqdvz1tCLpGvARbyOi7HxPWmI
-        QF+wCpPm54DPLwA/D5WfAQAA
+        H4sIAAAAAAAAA32ST28bIRDFv4qFetyNYGD/sDc3ycGVUiVp0kqpehhgaJE2bLTgWFbk7x62dqvk
+        khsM7/3mzYgXtnEUc/D7EH9fYEY2/Hw51fKeDQwldFaTQMKWW4XamE5LgY0h9Jw7VrHvOAc0I7Eh
+        bsexYuuYdjQXrwC5usIQV9/yTJTZoXqH1kBtL6UxvjVge9VL3ZLhqlPYCfT2I/QXjLS6mIgdflWF
+        yQao2C2lpymmUPRLhVkufWeUr50lXisNtjakeN35tuG2ISP6Jf4b21d8LK1YiJlmKE83W0o5TDFi
+        mI9M7SQ63mqtEZVrsSeH6ATYDqAsyH8SxbZZ/M+Bdul82sbMBr6g8DR3U8aY7Z/wTAXocUxUsfOZ
+        MJNb5/tsSxfgIGouatHcAQxSDBLOtOg51w8Ff//kPhQrfiahB/grvnzEMBZVOV5jSrtpdsfbDzJX
+        k6P/EW7J0pLp8/5u2Xg+4Y9736T11oWpaIq//JTLuGj+5T+8AiGxEkJGAgAA
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:42 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -59,30 +56,26 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: PATCH
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/assign
+    uri: http://localhost:9707/api/v1/assignments/4/assign
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAClMKLU4tUsjLL1FIyy/NS7FSKErMS8nPjS8FCisBAGcUe10dAAAA
+        H4sIAAAAAAAAA1MKLU4tUsjLL1FIyy/NS7FSKErMS8nPjS8FCisBAGcUe10dAAAA
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:42 GMT
+      - Fri, 15 Jan 2021 22:31:40 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 404
       message: Not Found

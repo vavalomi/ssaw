@@ -12,3 +12,4 @@ coverage.xml
 venv
 docs/_build
 headquarters_schema.json
+tests/env_vars_override.sh

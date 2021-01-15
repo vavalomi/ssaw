@@ -9,13 +9,13 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/questionnaires/statuses
+    uri: http://localhost:9707/api/v1/questionnaires/statuses
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACm2NSw7CMAxE75I1lyhBCLaFHWIR0REKgtjYbqveniYRX7EbPc88H1wLNRJ0buG8
+        H4sIAAAAAAAAA22NSw7CMAxE75I1lyhBCLaFHWIR0REKgtjYbqveniYRX7EbPc88H1wLNRJ0buG8
         IFhJu54hQ1SSRjWeU4HbZBlixCdtccFpXi2n96jg0E1rktcoW5FsTz5wLAW1IPWdpxtfUXPDLDT8
         8T3fbGbzvc9T0a/+z2GFqjw+AFK6VQrkAAAA
     headers:
@@ -24,17 +24,13 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 12 Jun 2020 18:31:35 GMT
+      - Fri, 15 Jan 2021 22:31:41 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

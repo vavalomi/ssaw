@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"Responsible": "Interviewer1", "Quantity": 55, "QuestionnaireId": "9d3ad069-99aa-4d6a-8eda-ad12c722a60f$1",
+    body: '{"Responsible": "inter1", "Quantity": 5, "QuestionnaireId": "9d3ad06999aa4d6a8edaad12c722a60f$1",
       "Email": "", "Password": "", "WebMode": false, "IsAudioRecordingEnabled": false,
       "Comments": "", "IdentifyingData": [{"Variable": "address", "Answer": "123 Main
       Street"}, {"Variable": "name", "Answer": "Jane Doe"}]}'
@@ -12,41 +12,37 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '324'
+      - '313'
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.1
+      - python-ssaw/0.3.1
     method: POST
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments
+    uri: http://localhost:9707/api/v1/assignments
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACo2Sy27bMBBFf8UgupQKPiRK1M5NsnDRFG0eLdCiiyE5SonKVCDSCYzA/94hbAfI
-        puiOHNx7ZuaSL2ydUniIW4yZDS9s4+kQxn2ID5eQgQ0/z7W8ZwMDJTtnUACC5q4BY21nlIDWIoyc
-        e1axb7AEsBOyIe6mqWLrmJ5xIa+QanUNIa5u84KY2aF6gzYSda+UtaO20vVNr4xGy5uugU7A6P6F
-        /ggRV5czssOviphsELpiN5ge55gCGUqJOc01B8lr0QOvGyH62uqR17rlTjvZ4Wg1e2P7DFvqxTYx
-        4/IUkHoJEnzdYcphjhHCciQbr8BzbYwBaLyGHj2AF9J1UlJO47tie6Wki3lXwuYFBaf125bWWdzv
-        8IREHGFKWLGLBSGjX+f77KiN5GV4Xkt1x9XQdoMw75VUfSd/EP/+0f+/+GoLYSIVHb9ASs/zUvag
-        23e017OnrU8j3KDDMtOH/V1JPp/wx/w3ab3zYSYN+enHXMWiOc9/oAfDJYzBQYnrNkPepbOV+rwG
-        8inEP8f64S+jUnfNjwIAAA==
+        H4sIAAAAAAAAA42ST2/cIBDFv8oK9WhHgFnb+OYmOWzVVPnbSq16GGCconpxZHBWq2i/ewZtNlIu
+        VW8wvPeb4cEL62P0j2GLIbHuhW0cLfyw9+HxAhKw7teplvasY1DJxmoUgFBzq0Ab0+hKwNogDJw7
+        VrDvMHswI7IuLONYsD7EHc7kFbJaXYEPq7s0IyZ2KD6gtcS6rSpjhtpI26q20jUarhoFjYDB/gv9
+        BQKuLiZkh98FMVm3LtgtxqcpRE/6XGGuQqXQtKWSgy6VsLxsnatLuxYOOdYAKNkH2zfYUivmQ8JZ
+        0NHNgjH5KQTw85GpXQWO11prAOVqaNEBOCFtIyUFNHzKtk32P3vcxfNpySnzjIK3e9Ok/Wz/+Gck
+        4ABjxIKdzwgJXZ8ekqUukktRclGK9b2UXSU6xc8onkaJn4R/eHL/L77cgh9JRctriHE3ze64+4Hm
+        anL4PsItWswzfd7f58TTG/6Y+yb2i/MTachPP+UyZM1p/gM9FM5+8BZyWncJ0hJPVurznsdXH/4e
+        64dXcqp87IcCAAA=
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 23 Oct 2020 03:57:19 GMT
+      - Fri, 15 Jan 2021 22:31:40 GMT
       Server:
-      - Microsoft-IIS/10.0
-      Strict-Transport-Security:
-      - max-age=2592000
+      - Kestrel
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

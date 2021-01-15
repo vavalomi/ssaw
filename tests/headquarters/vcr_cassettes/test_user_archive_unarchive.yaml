@@ -1,0 +1,128 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.3.1
+    method: PATCH
+    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d/archive
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Date:
+      - Fri, 15 Jan 2021 22:31:42 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.3.1
+    method: GET
+    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAyWNTQvCMBBE/8ueG9ls+qG5iV4K4kH0JB7SdIPB2kIS60H876Z4nMfMvA+0cRvs
+        3c/cg07hxQVcIoc2J7CoXNOVTvSWUZQbsqLjEkXj6gptxZ1c9/DvH82T88KPiQNldpoGjqCv0C5k
+        9vzmALci2w6TfSwuZ4aYZbvAJvlp3Ju0HBCSFCiFrM5EWkmtaEVrVHUN3x9Uo+DsrAAAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 15 Jan 2021 22:31:42 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.3.1
+    method: PATCH
+    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d/unarchive
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Date:
+      - Fri, 15 Jan 2021 22:31:42 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.3.1
+    method: GET
+    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA02NPQvCMBRF/8ubG3l56ZfZRJeCOIhO4pCmLzRYW0hKHcT/boqL4z3ce88bmrgL
+        tvcLd6CdGSJncI0cmhTBonJVmzvRWUaRb8mKlnMUlSsLtAW3su7g1z+ZJ6eFH2cOlNh5GjiCvkGz
+        ksXziwPcs6Q7TvbxJ9sHNrOfxoOZ1wNCkgKlkMWFSCupFW2oRlWW8PkCDoQJHK0AAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 15 Jan 2021 22:31:42 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

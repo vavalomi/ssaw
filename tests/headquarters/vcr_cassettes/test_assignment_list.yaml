@@ -9,38 +9,31 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments?offset=1&limit=10&questionnaireId=ecb715a3e85648d79f8135dc3bb6a301%241
+    uri: http://localhost:9707/api/v1/assignments?offset=1&limit=10&questionnaireId=9d3ad06999aa4d6a8edaad12c722a60f%241
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACt2WzWrcMBSF30V0OTL6t6zdNGQRaJs2ndBF6UK2rlOBRx4sOSGEvHtlnKQZ2mGm
-        lAxtNsIy5x5fnU8WukPLGP1VWENIEZmvd+jMIVMu0AXETR+irzuY3qBGEUUsI5hqS7CgVONatQQr
-        SRrVsBLaWqGtsg92DbnwLCQYrj3cwECz4NMIMfk+BOuH2RmauqTSctBSCe3KqtWUS9fwulaWE/pm
-        KntyiSf9GBIyZLKyIfl0i4xcoOXQfPfXkA1b20VYoJMBbAK3TJepyV9hJPdOFKZ8Rbhh3AhZaM2V
-        ZNn9cuMO1p6ure+yKD9+tDHe9IObZ1+gft87eGrgAhqYOnp7u7I5jvTgHsauy+uJy9H5PmtyvQ9X
-        p2HSPHZ/v5g5qFfPgRlBCso1qeheDtvaY3KQr54DMUwXpa6o2IthS3pMCuI/o0AOpcAxVSsijdBG
-        0EIQJvUeDMxIYgQvaMWEesZhjvMniXn+Aiz4ryxqJpnlssKEgMJCEZlZCIatIJVw2tU5xd+y+Dxu
-        YHDT8GIo6B+jkJlGIUulxc6DaYf22CjYv/9b0Ocs8MEwGGZ0lY/9nDGjBZU8b/ddMHZoD4ORhvEv
-        WXxboPPBwfAof+fXPi+c5V246pPtHoLIF6vzto0wZXL/A1uXjo58CQAA
+        H4sIAAAAAAAAA91Ty27CMBD8F6vHBNlOyOuWIg5IbWkRqFKrHpbshlpKHGQ7IIT49zoCqvbGqYfe
+        1vbM7OyOfGSltWqjW9LOsuL9yGbIiihgC7LbTlu1bmi4YRhRHNM6C2NZ52EsKh5miElYjQUSpwSA
+        JPtFe4KWPFFpR0b4p5eerFOd1qDMWTPHCJAneZ4DxJhARgiAQlaplJDw+m6gzQb+TtHeTrpeO1bw
+        QQq0U+7AinHASlN9qh15wRoaSwGbGAJHWLqVq3wXyaUIuQjFeCllEYkiikYiSlOevnn51RZvB09b
+        UI1H+fIZrN13Bs+nV1o/dkjfFhZU0eDp/rAEvwp3kdd90/iJbNmj6jzG85XeTPWAufo/BecM5P/O
+        QI5ykXGe35TBT/CfZPARsLlBMlf4g2qVH1v6uZedg+ayBv9P5nVtyZfi9AUFEqy3SwMAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 03:34:12 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

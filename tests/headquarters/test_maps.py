@@ -21,7 +21,7 @@ def test_map_list(session):
 
 @my_vcr.use_cassette()
 def test_map_delete(session, params):
-    r = MapsApi(session).delete(params["MapFileName"])
+    r = MapsApi(session).delete(params["MapFileName2"])
     assert isinstance(r, Map)
 
 

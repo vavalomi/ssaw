@@ -11,35 +11,32 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: PATCH
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/archive
+    uri: http://localhost:9707/api/v1/assignments/4/archive
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRTUsDMRRF/0twOVOSyUdjdrV20YWipcWFdJGPNxqYZsok01LE/+4bWgRxmce5
-        590kX2QdIJXYXmL6eLTFEvO+r3BIjKjIBvKxTzm6DqYJ8YoqahtaM21pLRjTtVMtrZWkXvlmDq1T
-        5E/s2R4Ag+tUYDhFOMPAEHgdIZfYp2TjcDWDd3MmLQctldBhft9qxmXw3DllOWV3U+zXkpf9mAox
-        dFJZrF8uxMiKLAb/GU+AwtZ2GSqyHMAWCIuyKx63NBS7U14ztaXSCG0EmwnaSC3QvjuG/6yqGd/S
-        xnBppJhprhltkF0dbOyISWPXVeTF5nzuB9x6Pb+Be+oDXvtWYgMeplYPl63FJym3DVd4nRdjiD0y
-        aMA/WKWJQVcZRvj+AYeq6V2fAQAA
+        H4sIAAAAAAAAA32Sy24cIRBFf2WEsuy2eA0NvRs/FhPJUR52IiXyooDqBKlNW0B7NLLm3wOa2Xjj
+        HRT3nqq64o3sPcYSpmOIf2+hABn/vF1q5UhGAoIPziADBEWdBGPtYASDrUWYKPWkIz8hBbAzkjGu
+        89yRXcwHTNXLuNjcQ4ibHyUhFnLq3qENR6WFsHZSljsttTAKLZWDhIHB5D5Cf4aIm9sFyempq0wy
+        yo58x/yyxByqvlWIFyglWt1LPpleMkd77b3q3ZZ5pKgAkJN3ti/wXFuREAsmVp++rZhLWGKEkM5M
+        4wV4qowxANIr0OgBPONu4LwGNH1qtn3zvwY85JtljYWMrKHgsve2rpHcv/CKFVjSih25SQgF/a48
+        FlebcMpZT1nPtg+cj4KNQlwxTTXXvyv98cV/LDZXg9JSsCa+e4YwV1U9foWcD0vy59svtPeLr9tO
+        MGdsKThsI10fH1rg5YI/x77Pu9WHpWqqv36Uu9g0/mI+/QcLNmSHRQIAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:41 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -53,35 +50,34 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4
+    uri: http://localhost:9707/api/v1/assignments/4
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRz0/DIBTH/xfisTXQAmPc6tyhB40uWzwYD0BflaSjC9Ati/F/9zWbJsYjL5/v
-        j/f4JE1IJ4iJ6Ne3grQdhOz7sw/v9yabnyHRvCAbSIcxJG8HmCfESSqpqWjJlKElZ0yVVva0lII6
-        6aoF9FaSP7JHswcUtiFDPHrAWIbA8wQp+zEE4+PFGZxdMGFqUEJy1S2WvWK16FxtrTQ1ZTez7Ncl
-        rcYpZKLpbGWwfj4TLQrSRPfhj4CGOU5QkFUEk6Fr8i47DKkoVqd1yeSWCs2V5uyW00oojua7Q/ef
-        lSWrt7TSgs6sWNZsqZBd740fiA7TMBTkyaR0GiOGXt4vYB/GDrfuzZCwxAYczKXuzluDF8nXhAvc
-        pmbq/IgMOuAXrMPMXBf4+gaYtjXSqwEAAA==
+        H4sIAAAAAAAAA42SS2/bMBCE/4pB9GgG4sOSqJub5JACKfpIXKBFDity1RJQqICkYhhB/nuXidM0
+        hlH0RpEzszsf9MDWIW0xJtb9eGAXDkP2ece6cmYdAyUba1BwQKh5ZTVw0/cNN0rAqkcYqsqxJfsy
+        pYxxgzZPkYJuHpf72BK0gXFGyhJSLS7Bh8XXHBEzI9EGood+LK/gXMSU6PbIGkZi3SrV836oey5t
+        q3mrTM2xr3SjoREw2P9d4wMEXJxNeDA/wC1d3Sz3w4edDz/PIMMBlz9ECpDCo+A4oHGk1esiRzC8
+        yX+pWpqWoqXnQc3Drf8Kfy331IR1mqhguptC8uR4gukUao19y7UcDNfCVrx1ruZ2JRxWWAOgZG9s
+        H8uUjvlAdAU9fZ4xZT+FAD4+ZxqnwFW1MQZAuxpadABOSNtISZyGd8V2Ufz3HrfpdJpDZp0oUbBv
+        vqIa0f7y90iBOc64ZKcRIaNb5+tsaYispOCV4GJ1JWWnRKfUiWirVrbfKf36zv1bbE6autVKFPH5
+        LfiRVHT8BCltp+iev75hfzk5ajvAmLBQsFhWer+7KsjzPj7M40iF0np2fiIN+el/OQ9F4/bmx9/b
+        mGPbXAMAAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:41 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -97,35 +93,32 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: PATCH
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4/unarchive
+    uri: http://localhost:9707/api/v1/assignments/4/unarchive
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRS0sDMRDHv0vwuCvJ5tE0t1p76EHR0uJBeshjVgPbbNlkW4r43Z2lRRCPGX7/
-        x0y+yDpAKrG9xPTxaIsl5n1f4ZAYUZEN5GOfcnQdTBPiFVXUNrRm2tJaMKZrp1paK0m98s0MWqfI
-        H9mzPQAK16nAcIpwhoEh8DpCLrFPycbh6gzezZi0HLRUQofZvNWMy+C5c8pyyu4m2a9LXvZjKsTQ
-        ycpi/XIhRlZkMfjPeAI0LMMIFVkOYAuERdkVjyENxeqU10xtqTRCG8HuBW2kFmi+O4b/rKoZ39LG
-        SDqxcs7ZXCO7OtjYEZPGrqvIi8353A8Yen2/gXvqA27d2i5jiQ14mEo9XLYWL1JuCVd4nRdjiD0y
-        6IBfsEoTc1vg+wfxorSwngEAAA==
+        H4sIAAAAAAAAA32STU/jMBCG/0o14pggfzWxc+sCh64EYvmUQBzG9mTXUnBQ7FJVqP99nW0XiQs3
+        e+Z9n/mwP2DtKebQ70L8fY4ZoXv+OMbyDjpAKVpniCNhw5xCY21rJMelJewZ81DBA04B7UDQxc0w
+        VLCKaUtT8XIhF5cY4uI2T0QZ9tUXtBHUaCmt7RsrnFZamoYsU63ClmPvvkP/xEiL85Fg/1IVJnSq
+        ghtKb2NMoejnCHhJSpHVtRK9qRV3rNbeN7Vbck+MGkQS8MV2ha+lFISYaeIl9WtDKYcxRgzTgWm8
+        RM8aYwyi8g1q8oieC9cKURbUn8y29ex/D7RNZ+MmZuj4jMLj3MsyxuT+hHcqwB6HRBWcTYSZ/Crf
+        Z1eqCCZ4zXjNl3dCdJJ3Up5yzbTQTwV//+a/F5tTrcqz/RNfvGIYiqocrzGl7Tj5w+2R7OXo6bOF
+        G3I09/RjdzdvPB/xh72v02rjw1g0xV9+ykWcNf/73/8FRI7t3EYCAAA=
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:41 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
@@ -139,35 +132,34 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.0.6
+      - python-ssaw/0.3.1
     method: GET
-    uri: https://apitest.mysurvey.solutions/api/v1/assignments/4
+    uri: http://localhost:9707/api/v1/assignments/4
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACmWRsU7DMBCG38ViTKpzYjvGWygdOoCgasWAGBznApZSp4qdVhXi3bmoBQkx+vTd
-        9/+2P1kd4gnHyMzrW8bWLYbku7MP7/c22Z8hMyJjG4yHIUTf9DhPmFOgwBaQc20hF5zrvFEd5EqC
-        U66osGsU+7P2aPdIi+uQcDx6pFhOwPOEMfkhBOvHixldU3FpS9RSCd1Wt53mpWxd2TTKlsBv5rVf
-        S1wOU0jMwKyyVD+dmZEZq0f34Y9Iws72ETO2HNEmbOu0S45SCqDuUOZcbUEaoY3gCwGF1ILsu0P7
-        n1U5L7dQGAlGFAvgAnhF7Gpvfc9MmPo+Y082xtMwUurl/ILNw9DSta8lNuhwbnV33lp6knRNuMDr
-        WE+tH4ghA/3BKswMudI44dc3QtSK9awBAAA=
+        H4sIAAAAAAAAA42ST0/cMBDFv8rK6nGN4j+bxLltgQOVqFoKW6kVh4k9aS0FB8UOqxXiu3e8LFCi
+        VdVbYr95894veWTrELc4Rtb8fGQXDkPyacea/MwaBkpW1qDggFDywmrgpm0rbpSAVYvQFYVjS3Y1
+        xITjBm0aRjK6fVoebLPRBvoJyUtItbgEHxbf0oiYGIk2MHpo+3wLzo0YI50eiWEklrVSLW+7suXS
+        1prXypQc20JXGioBnf3fGJ8g4OJswNn+AHd0dLs8LO92Pvw6gwQzLq9EMpDMI+OY0TjS6i3IEQzv
+        /F+q5qa5aO45qzlP/Zf5W7l9E9ZoooLxfgjR08QeplOoNbY117IzXAtb8Nq5ktuVcFhgCYCSvRv7
+        nLc0zAeiK+jq64Qx+SEE8OOzp3EKXFEaYwC0K6FGB+CEtJWUxKn7kMcu8vyDx208HaaQWCOyFRya
+        r6jGaH/7ByTDDvqIS3Y6IiR063STLG2RhRS8EFysrqVslGiUOhF1Ucv6B9nf3Lt/i81Jrenr7cXn
+        d+B7UtHjF4hxO4zu+e07tpeDw9cIV2gxZ/q4u87M08E+TH1PjeJ6cn4gDc3TD3MesuYl/9MfPlti
+        Wl0DAAA=
     headers:
       Content-Encoding:
       - gzip
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 13 Jun 2020 02:50:41 GMT
+      - Fri, 15 Jan 2021 22:31:39 GMT
       Server:
       - Kestrel
-      Strict-Transport-Security:
-      - max-age=2592000
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK
