@@ -7,7 +7,9 @@ from .maps import MapsApi
 from .questionnaires import QuestionnairesApi
 from .settings import SettingsApi
 from .users import UsersApi
+from .workspaces import WorkspacesApi
 
 
 __all__ = ["__version__", "AssignmentsApi", "ExportApi",
-           "Client", "InterviewsApi", "MapsApi", "QuestionnairesApi", "SettingsApi", "UsersApi", ]
+           "Client", "InterviewsApi", "MapsApi", "QuestionnairesApi",
+           "SettingsApi", "UsersApi", "WorkspacesApi",]

@@ -1,5 +1,7 @@
 import datetime
 from enum import Enum
+import re
+import sys
 from typing import Dict, List, Union
 from uuid import UUID
 
@@ -509,3 +511,28 @@ class User(BaseModelWithConfig):
     full_name: str = None
     email: str = None
     phone_number: str = None
+
+class Version():
+    def __init__(self, version_string: str):
+        pattern = r"(\d{1,2})\.(\d{1,2})(\.\d+)? \(build (\d+)\)"
+        m = re.match(pattern, version_string, flags=re.IGNORECASE)
+        if m:
+            self.major = int(m.group(1))
+            self.minor = int(m.group(2))
+            self.patch = int(m.group(3)[1:]) if m.group(3) else 0
+            self.build = int(m.group(4))
+            self.version = version_string
+        else:
+            # assume dev version, therefore most recent
+            self.version = version_string
+            self.build =  sys.maxsize
+
+    def __repr__(self):
+        return self.version
+
+    def __lt__(self, other: "Version"):
+        return self.build < other.build
+
+
+    def __eq__(self, other: "Version"):
+        return self.build == other.build
