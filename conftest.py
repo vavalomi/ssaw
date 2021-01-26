@@ -17,13 +17,20 @@ def load_env_vars(request):
     if os.path.isfile(env_path):
         load_dotenv(dotenv_path=env_path, override=True)
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def session():
     return Client(
         os.environ.get("base_url"),
         os.environ.get("SOLUTIONS_API_USER", ""),
         os.environ.get("SOLUTIONS_API_PASSWORD", ""))
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
+def admin_session():
+    return Client(
+        os.environ.get("base_url"),
+        os.environ.get("admin_username", ""),
+        os.environ.get("admin_password", ""))
+
+@pytest.fixture(scope="session")
 def params():
     return json.load(open("tests/params.json", mode="r"))

@@ -1,0 +1,184 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:23:51 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"Name": "enable", "DisplayName": "to be deleted"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pW8kvMTVWyUkrNS0zKSVXSUXLJLC7ISayECpfkKySlKqSk5qSWpKZAZEHqUhxL
+        QkuSlazySnNyagEAAAD//wMAk1p3BEQAAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 26 Jan 2021 06:23:52 GMT
+      Location:
+      - http://localhost:9707/api/v1/workspaces/enable
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:23:52 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces/enable/disable
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:23:52 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:23:52 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces/enable/enable
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:23:52 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 204
+      message: No Content
+version: 1

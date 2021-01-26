@@ -1,0 +1,134 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:20:07 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"Name": "new", "DisplayName": "this is new"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pW8kvMTVWyUspLLVfSUXLJLC7ISayEipVkZBYrABFcLjEpJzXFsSS0JFnJKq80
+        J6cWAAAA//8DAPU5flA/AAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 26 Jan 2021 06:20:08 GMT
+      Location:
+      - http://localhost:9707/api/v1/workspaces/new
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:20:08 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"Name": "cannot", "DisplayName": "cannot create as api user"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '62'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 26 Jan 2021 06:20:08 GMT
+      Server:
+      - Kestrel
+      WWW-Authenticate:
+      - Basic realm="WB.Headquarters", charset="UTF-8"
+    status:
+      code: 403
+      message: Forbidden
+version: 1

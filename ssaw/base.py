@@ -4,7 +4,7 @@ import re
 
 from sgqlc.endpoint.requests import RequestsEndpoint
 
-from .exceptions import NotAcceptableError, NotFoundError, UnauthorizedError
+from .exceptions import ForbiddenError, NotAcceptableError, NotFoundError, UnauthorizedError
 from .headquarters import Client
 
 class HQBase(object):
@@ -49,6 +49,8 @@ class HQBase(object):
         rc = response.status_code
         if rc == 401:
             raise UnauthorizedError()
+        elif rc == 403:
+            raise ForbiddenError()
         elif rc == 404:
             raise NotFoundError(response.text)
         elif rc in [400, 406]:

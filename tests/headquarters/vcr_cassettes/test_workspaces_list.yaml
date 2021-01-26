@@ -1,0 +1,67 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:19:43 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/api/v1/workspaces?start=0&length=10&IncludeDisabled=False
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAzyLsQrCMBRFf0XunKGu2cSOooviIA6v7QsEX5rwkgyl9N9tqbjdczlnxjPqJyfq
+        OcO+ZlwpMCyS+kA6waD1OQlNv79lR1XK4V/tBnXCw6k8Sg87VpHlbXDTgXVHg4sPvsAeG4N7LCTn
+        WMeNV825zOtsli8AAAD//wMANeM5tYwAAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 26 Jan 2021 06:19:43 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

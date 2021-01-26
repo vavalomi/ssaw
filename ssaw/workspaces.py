@@ -42,23 +42,27 @@ class WorkspacesApi(HQBase):
 
     def create(self, name: str, display_name: str):
         path = self.url
-        self._make_call('post', path, json={'Name': name, 'DisplayName': display_name})
+        return self._make_call('post', path, json={'Name': name, 'DisplayName': display_name})
 
     def update(self, name: str, display_name: str):
         path = self.url + '/{}'.format(name)
-        self._make_call('patch', path, json={'DisplayName': display_name})
+        return self._make_call('patch', path, json={'DisplayName': display_name})
 
     def delete(self, name: str):
         path = self.url + '/{}'.format(name)
-        self._make_call('delete', path)
+        res = self._make_call('delete', path)
+        if 'Success' in res.keys():
+            return res['Success']
+        else:
+            return False
 
     def enable(self, name: str):
         path = self.url + '/{}/enable'.format(name)
-        self._make_call('post', path)
+        return self._make_call('post', path)
 
     def disable(self, name: str):
         path = self.url + '/{}/disable'.format(name)
-        self._make_call('post', path)
+        return self._make_call('post', path)
 
     def assign(self, user_ids: List[str], workspaces: List[str]):
         path = self.url + '/assign'
@@ -71,7 +75,7 @@ class WorkspacesApi(HQBase):
             'Workspaces': workspaces,
             'Mode': 'Assign'
         }
-        self._make_call('post', path, json=data)
+        return self._make_call('post', path, json=data)
 
     def status(self, name: str):
         path = self.url + '/status/{}'.format(name)

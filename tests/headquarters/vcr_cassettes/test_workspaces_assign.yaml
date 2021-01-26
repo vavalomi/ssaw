@@ -1,0 +1,61 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:24:03 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"UserIds": ["21696f6606244698aac1a027d3cbd8e9"], "Workspaces": ["3dh6cbhwaa"],
+      "Mode": "Assign"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '97'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces/assign
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 06:24:03 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 204
+      message: No Content
+version: 1

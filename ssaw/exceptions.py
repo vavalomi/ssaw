@@ -19,6 +19,11 @@ class UnauthorizedError(Exception):
         self.message = 'Either username or password were not provided or wrong'
         super().__init__(self.message)
 
+class ForbiddenError(Exception):
+    def __init__(self):
+        self.expression = 'Forbidden'
+        self.message = 'User is not authorized to perform this action'
+        super().__init__(self.message)
 
 class NotAcceptableError(Exception):
     def __init__(self, message):
