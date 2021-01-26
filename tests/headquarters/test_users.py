@@ -1,7 +1,5 @@
 
 from datetime import datetime
-import random
-import string
 from types import GeneratorType
 
 from pytest import raises
@@ -9,10 +7,9 @@ from pytest import raises
 from ssaw import UsersApi
 from ssaw.models import InterviewerAction
 
+from tests.utils import random_name
 from . import my_vcr
 
-def random_name(N=10):
-    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
 
 @my_vcr.use_cassette()
 def test_user_create(session):

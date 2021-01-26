@@ -1,6 +1,8 @@
 import os
+import random
 import requests
 import re
+import string
 
 from ssaw import AssignmentsApi
 from ssaw.models import Assignment
@@ -42,6 +44,8 @@ def create_interview(base_url, user_name, password, assignment_id):
         p = session.post(base_url + "/interviewerHq/StartNewInterview/{}".format(assignment_id))
 
     interview_id = get_interview_id(p.text)
+    if not interview_id:
+        raise InterruptedError
     param = {"InterviewId": interview_id}
     data = {"answer": 2, "identity":"fe9719791f0bde796f28d74e66d67d12"}
     p = session.post(base_url + "/api/webinterview/commands/answerSingleOptionQuestion", params=param, json=data)
@@ -56,3 +60,6 @@ def upload_maps(base_url, zip_file):
     with requests.Session() as session:
         _ = session.post(login_url, data={"UserName": user_name, "Password": password})
         _ = session.post(base_url + "/api/MapsApi/Upload", files={'file': open(zip_file, 'rb')})
+
+def random_name(N=10):
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
