@@ -19,7 +19,77 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 06:24:08 GMT
+      - Tue, 26 Jan 2021 18:40:17 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"Name": "status", "DisplayName": "to be deleted"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pW8kvMTVWyUiouSSwpLVbSUXLJLC7ISayECpfkKySlKqSk5qSWpKZAZBOTclJT
+        HEtCS5KVrPJKc3JqAQAAAP//AwBvrranRAAAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 26 Jan 2021 18:40:18 GMT
+      Location:
+      - http://localhost:9707/api/v1/workspaces/status
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 18:40:18 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -39,13 +109,13 @@ interactions:
       User-Agent:
       - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/workspaces/status/c8lu9vyyj0
+    uri: http://localhost:9707/api/v1/workspaces/status/status
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0yKvQrCMBCAX0Vu7tBRM9o6OCiIg/NRDzmNl5C7tAbx3a2gkvH7eUKHsqaePBmd
-        wVnK1MAppJtGHGiPdwIHw9Ln1VjKtYUq9qzRY/k+RmqL6dfmb/NgNZbLIc+FgwhyIu1CFgPXNrAV
-        ozQyTZQqe8zxYzXUcofxT683AAAA//8DAP2ZIEWzAAAA
+        H4sIAAAAAAAAA0yMuwoCMRBFf2WZOoV1SnctLBTEwnp0LxJcJyEz4wPx31VYJNXlnAP3RT3LEgMm
+        GEaKVh2BDrletPAJW76CIqmxuVIThqRl4ufcLXdHdON8Emj1SGpJzjvHd7MIpwrts4tRXARai6He
+        Eu6ojd17+VnNrdxw+dP7AwAA//8DAIj6pKCuAAAA
     headers:
       Content-Encoding:
       - gzip
@@ -54,7 +124,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 06:24:08 GMT
+      - Tue, 26 Jan 2021 18:40:18 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

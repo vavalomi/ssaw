@@ -19,7 +19,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 06:24:03 GMT
+      - Tue, 26 Jan 2021 18:40:16 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -28,7 +28,77 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"UserIds": ["21696f6606244698aac1a027d3cbd8e9"], "Workspaces": ["3dh6cbhwaa"],
+    body: '{"Name": "assign", "DisplayName": "to be deleted"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '50'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: POST
+    uri: http://localhost:9707/api/v1/workspaces
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pW8kvMTVWyUkosLs5Mz1PSUXLJLC7ISayECpfkKySlKqSk5qSWpKZAZBOTclJT
+        HEtCS5KVrPJKc3JqAQAAAP//AwD2NFSERAAAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 26 Jan 2021 18:40:17 GMT
+      Location:
+      - http://localhost:9707/api/v1/workspaces/assign
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.0
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.01 (build 30293)
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Tue, 26 Jan 2021 18:40:17 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"UserIds": ["21696f6606244698aac1a027d3cbd8e9"], "Workspaces": ["assign"],
       "Mode": "Assign"}'
     headers:
       Accept:
@@ -38,7 +108,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '97'
+      - '93'
       Content-Type:
       - application/json
       User-Agent:
@@ -52,7 +122,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 06:24:03 GMT
+      - Tue, 26 Jan 2021 18:40:17 GMT
       Server:
       - Kestrel
     status:

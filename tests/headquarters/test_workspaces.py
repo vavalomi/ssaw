@@ -5,15 +5,7 @@ from types import GeneratorType
 from ssaw import UsersApi, WorkspacesApi
 from ssaw.exceptions import ForbiddenError
 
-from tests.utils import random_name
 from . import my_vcr
-
-
-@pytest.fixture(scope="module")
-def test_workspace(admin_session):
-    name = random_name()
-    _ = WorkspacesApi(admin_session).create(name, 'test workspace')
-    return name
 
 
 @my_vcr.use_cassette()
@@ -54,11 +46,13 @@ def test_workspaces_enable_disable(admin_session):
     assert response is True
 
 @my_vcr.use_cassette()
-def test_workspaces_assign(admin_session, params, test_workspace):
-    response = WorkspacesApi(admin_session).assign(params['Headquarters'], test_workspace)
+def test_workspaces_assign(admin_session, params):
+    _ = WorkspacesApi(admin_session).create('assign', 'to be deleted')
+    response = WorkspacesApi(admin_session).assign(params['Headquarters'], 'assign')
     assert response is True
 
 @my_vcr.use_cassette()
-def test_workspaces_status(admin_session, test_workspace):
-    response = WorkspacesApi(admin_session).status(test_workspace)
+def test_workspaces_status(admin_session):
+    _ = WorkspacesApi(admin_session).create('status', 'to be deleted')
+    response = WorkspacesApi(admin_session).status('status')
     assert 'CanBeDeleted' in response.keys()
