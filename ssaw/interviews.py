@@ -5,7 +5,7 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .exceptions import GraphQLError
-from .headquarters_schema import Interview, InterviewFilter, headquarters_schema
+from .headquarters_schema import Interview, InterviewFilter, ComparableGuidOperationFilterInput, headquarters_schema
 from .models import InterviewAnswers
 from .utils import fix_qid
 
@@ -14,10 +14,15 @@ class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects={'questionnaire_id': 'hex'})
-    def get_list(self, fields: list = [], **kwargs) -> Generator[Interview, None, None]:
-        where = InterviewFilter(**kwargs)
-        take = 20
-        skip = 0
+    def get_list(self, fields: list = [], questionnaire_id = None, **kwargs) -> Generator[Interview, None, None]:
+        if questionnaire_id:
+            kwargs["questionnaire_id"] = ComparableGuidOperationFilterInput(eq=questionnaire_id)
+        interview_args = {
+            'take': 20,
+            'skip': 0,
+        }
+        if kwargs:
+            interview_args['where'] = InterviewFilter(**kwargs)
         filtered_count = 21
         if not fields:
             fields = [
@@ -29,9 +34,9 @@ class InterviewsApi(HQBase):
                 'errors_count',
                 'status',
             ]
-        while skip < filtered_count:
+        while interview_args['skip'] < filtered_count:
             op = Operation(headquarters_schema.HeadquartersQuery)
-            q = op.interviews(take=take, skip=skip, where=where)
+            q = op.interviews(**interview_args)
             q.__fields__('filtered_count')
             q.nodes.__fields__(*fields)
             cont = self.endpoint(op)
@@ -42,7 +47,7 @@ class InterviewsApi(HQBase):
 
             filtered_count = res.filtered_count
             yield from res.nodes
-            skip += take
+            interview_args['skip'] += interview_args['take']
 
     def get_info(self, interview_id: str) -> list:
         path = self.url + '/{}'.format(interview_id)

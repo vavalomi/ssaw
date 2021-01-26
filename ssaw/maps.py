@@ -4,7 +4,7 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .exceptions import GraphQLError
-from .headquarters_schema import Map, MapsFilter, UserMapFilter, headquarters_schema
+from .headquarters_schema import Map, MapsFilter, ListFilterInputTypeOfUserMapFilterInput, UserMapFilterInput, headquarters_schema, StringOperationFilterInput
 
 
 class MapsApi(HQBase):
@@ -25,19 +25,25 @@ class MapsApi(HQBase):
         """
 
         if filter_user:
-            kwargs['users_some'] = UserMapFilter(user_name=filter_user)
-        where = MapsFilter(**kwargs)
-        take = 20
-        skip = 0
+            kwargs['users'] = ListFilterInputTypeOfUserMapFilterInput(
+                some=UserMapFilterInput(
+                    user_name=StringOperationFilterInput(
+                        eq=filter_user)))
+        maps_args = {
+            'take': 20,
+            'skip': 0,
+        }
+        if kwargs:
+            maps_args['where'] = MapsFilter(**kwargs)
         filtered_count = 21
         if not fields:
             fields = [
                 'file_name',
                 'import_date',
             ]
-        while skip < filtered_count:
+        while maps_args['skip'] < filtered_count:
             op = Operation(headquarters_schema.HeadquartersQuery)
-            q = op.maps(take=take, skip=skip, where=where)
+            q = op.maps(**maps_args)
             q.__fields__('filtered_count')
             q.nodes.__fields__(*fields)
             cont = self.endpoint(op)
@@ -48,7 +54,7 @@ class MapsApi(HQBase):
 
             filtered_count = res.filtered_count
             yield from res.nodes
-            skip += take
+            maps_args['skip'] += maps_args['take']
 
     def delete(self, file_name: str) -> Map:
         """Delete a map file
@@ -100,7 +106,7 @@ class MapsApi(HQBase):
                 'file_name',
                 'import_date',
             ]
-        op = Operation(headquarters_schema.HeadquartersMutations)
+        op = Operation(headquarters_schema.HeadquartersMutation)
         func = getattr(op, method_name)
         func(**kwargs).__fields__(*fields)
         cont = self.endpoint(op)
