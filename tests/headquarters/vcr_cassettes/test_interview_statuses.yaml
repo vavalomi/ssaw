@@ -9,22 +9,24 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/questionnaires/statuses
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA22NSw7CMAxE75I1lyhBCLaFHWIR0REKgtjYbqveniYRX7EbPc88H1wLNRJ0buG8
+        H4sIAAAAAAAAA2yNSw7CMAxE75I1lyhBCLaFHWIR0REKgtjYbqveniYRX7EbPc88H1wLNRJ0buG8
         IFhJu54hQ1SSRjWeU4HbZBlixCdtccFpXi2n96jg0E1rktcoW5FsTz5wLAW1IPWdpxtfUXPDLDT8
-        8T3fbGbzvc9T0a/+z2GFqjw+AFK6VQrkAAAA
+        8T3fbGbzvc9T0a/+z2GFqjw+AAAA//8DAFK6VQrkAAAA
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

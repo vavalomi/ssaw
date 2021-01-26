@@ -9,23 +9,26 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d
+    uri: http://localhost:9707/api/v1/interviews/9f7f4d0143914027b32724a7b714f210
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4XOTUvEMBAG4L9S5tyBfJk0vQleFFZQYS+yh0kygYKmkFQUSv+7XfBmYS/zvpeZ
+        H4sIAAAAAAAAA4TOTUvEMBAG4L9S5tyBfJk0vQleFFZQYS+yh0kygYKmkFQUSv+7XfBmYS/zvpeZ
         Z1a4L+2ba4PxfYUz1YnCBz/TJ8MIlFLl1qCHly9uyzSXxwTjCtcJpJWLniUSk0URDaEPwaHXku4C
         UxYi7Zuvc1u4njkuc92Ny9b/ifsJqXR3oql0b0tlXmDr/71QrnHoe8V20DpgyDagioPBQXuLHIRx
-        hpykHG/4T1S4e5j5CG78c+xm9k5651FmETDx3mxWAyZn2NpkXZLqhnuiAttl+wWh8Md4fAEAAA==
+        hpykHG/4T1S4e5j5CG78c+xm9k5651FmETDx3mxWAyZn2NpkXZLqhnuiAttl+wUAAP//AwCh8Md4
+        fAEAAA==
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:44:40 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

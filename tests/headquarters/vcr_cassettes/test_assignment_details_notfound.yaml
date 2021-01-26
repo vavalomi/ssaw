@@ -9,17 +9,19 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/assignments/7373
   response:
     body:
       string: ''
     headers:
+      Content-Language:
+      - en-US
       Content-Length:
       - '0'
       Date:
-      - Fri, 15 Jan 2021 22:31:39 GMT
+      - Tue, 26 Jan 2021 20:51:26 GMT
       Server:
       - Kestrel
     status:

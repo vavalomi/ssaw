@@ -9,23 +9,25 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/supervisors/4806c323ef674da58660333154f1cc33/interviewers?offset=1&limit=10
+    uri: http://localhost:9707/api/v1/supervisors/03b1948e3af940648b7e691dd7d732cf/interviewers?offset=1&limit=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA52OMU/DMBCF/8vNPnQ+O07qtSyVKljKhBgc+yxFpIlku1OV/06KGBiYGJ/ee5++
-        O7xVKRX8+x1O9bzGT0ngc5irKDgWCW1al+fQBDwwsUbSqLsLszfaG35iM5jegvrGnPYrJCPWyjig
-        5XxAqyPhkJLD2OkkJC4E4Z/9S7g+uNPSpGjY1D8VBjLO/VaIZHI/2owpCqE9cMRRLGGfXUexk1EP
-        6Q8Fhu1DwWtJUsAvt3lWcJ6uUwNPCi5rC/NxvS175H2Vc5VHs30BEBsblEIBAAA=
+        H4sIAAAAAAAAA5yOsWrDMBRF/+XNekV6UmRJa7oEQrKkS0sHyX4CE8cGSZmC/71O6VLo1PFy7z2c
+        B7xVLhXCxwMO9bj0Vx4g5DhVFrAvHNu4zK+xMQQgSQqlQrIXkoEoGPXivJSa3kF8cw7bFzgOnr0m
+        dB15NF2vMRqfkbR1KUltd+x+9qd4e4LHuXFRsIr/OXgtO29+OWSjOml5hzarjIaYMLJP6LQnm6zt
+        k6U/HAjWTwHnMnCBMN+nScBxvI0NgpICLkuL0365z1umbZZz5We1fgEAAP//AwDbUsZfRQEAAA==
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

@@ -9,22 +9,25 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/assignments/2/history?start=1&length=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAxWOPQsCMRBE/8vWniQ5BS+dnIiVhWijWMTLFgv5OJJYSMh/d9O+mTdMhQvlEtMP
-        9KvCcSkUA2iYE5qCFjYdxXQ1Hpmalb4ZE9NHWU5cYKaEkoOQg9zfldKj1KPaTvIgxLR7dt1a6pvG
-        cd+ArjBH7zEUVjm+YV5jyPRxfYtCwSShtXdPlphsPpNjxk+0an8iy83mrAAAAA==
+        H4sIAAAAAAAAA5SOMQ+CMBCF/8vNSOAgCN0MxjgxEF00DhUupgm0pK0xhvDfvW4MLK7fu3vvm+Gs
+        nDf2C+I+w6HzymgQ0JJ0Tr009RAFamwjR+JATurtyDK9+u4ofWCYYLpL0h0WF0xEnousjMsMK6zy
+        W3jvexVq5cD3EsQMDX1acpPRTj2H0KC0J4t8W5txJO0ZwbJEK6HaEo/9b4MocoyLsthX6bbMajKC
+        Da2UTR4h6Yzt3UkNzFhEZMsPAAD//wMAm4W2PjwBAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:51:45 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

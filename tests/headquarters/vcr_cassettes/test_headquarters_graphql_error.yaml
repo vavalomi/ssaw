@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: '{"query": "query {\nmaps(take: 20, skip: 0, where: {}) {\nfilteredCount\nnodes
-      {\nfileName\nimportDate\n}\n}\n}", "variables": null, "operationName": null}'
+    body: '{"query": "query {\nmaps(take: 20, skip: 0) {\nfilteredCount\nnodes {\nfileName\nimportDate\n}\n}\n}",
+      "variables": null, "operationName": null}'
     headers:
       Accept:
       - application/json; charset=utf-8
@@ -10,11 +10,11 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '155'
+      - '144'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: POST
     uri: https://demo.mysurvey.solutions/graphql
   response:
@@ -27,10 +27,12 @@ interactions:
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
-      - application/json
+      - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:44:39 GMT
       Server:
       - Microsoft-IIS/10.0
       Strict-Transport-Security:

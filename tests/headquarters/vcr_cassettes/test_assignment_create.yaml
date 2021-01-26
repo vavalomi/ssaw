@@ -16,27 +16,29 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: POST
     uri: http://localhost:9707/api/v1/assignments
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA42ST2/cIBDFv8oK9WhHgFnb+OYmOWzVVPnbSq16GGCconpxZHBWq2i/ewZtNlIu
-        VW8wvPeb4cEL62P0j2GLIbHuhW0cLfyw9+HxAhKw7teplvasY1DJxmoUgFBzq0Ab0+hKwNogDJw7
-        VrDvMHswI7IuLONYsD7EHc7kFbJaXYEPq7s0IyZ2KD6gtcS6rSpjhtpI26q20jUarhoFjYDB/gv9
-        BQKuLiZkh98FMVm3LtgtxqcpRE/6XGGuQqXQtKWSgy6VsLxsnatLuxYOOdYAKNkH2zfYUivmQ8JZ
-        0NHNgjH5KQTw85GpXQWO11prAOVqaNEBOCFtIyUFNHzKtk32P3vcxfNpySnzjIK3e9Ok/Wz/+Gck
-        4ABjxIKdzwgJXZ8ekqUukktRclGK9b2UXSU6xc8onkaJn4R/eHL/L77cgh9JRctriHE3ze64+4Hm
-        anL4PsItWswzfd7f58TTG/6Y+yb2i/MTachPP+UyZM1p/gM9FM5+8BZyWncJ0hJPVurznsdXH/4e
-        64dXcqp87IcCAAA=
+        H4sIAAAAAAAAA4ySS2/cIBSF/8oIdWlXPGwM3rlJFlM1VZtHK7Xq4gLXKaoHRwZnNIrmvxc0mUjZ
+        VN3B5ZzvXg48kyFG/xB2GBLpn8nW5YUfDz48XEIC0v8819KB9AQE76xGBgiS2ga0MZ0WDFqDMFLq
+        SEW+weLBTEj6sE5TRYYQ97hkL+Nicw0+bG7TgpjIsXqD1hylEsKYURpuVaOElmho0zXQMRjtv9Af
+        IeDmckZy/FVlJunbitxgfJxD9FlfKgTBadSC16rjum46K2po9FhzIZUxVMgWFXlj+wy73Ir4kHBh
+        +ejrijH5OQTwy4mpnQBHpdYaoHESFDoAx7jtOM8Bje+KbVv8Tx738WJeS8q0oODl3nnSYbG//RNm
+        4AhTxIpcLAgJ3ZDuk81dOOWspqzm8o7TvmV9o94LrdpW/Mj4+0f3/+KrHfgpq/LyC8S4nxd32n1H
+        cz07fB3hBi2WmT4c7kri6QV/yn0bh9X5OWuyP/+Uq1A05/mP+aFw8aO3UNK6TZDWeLbmPq95fPLh
+        z6l+/AsAAP//AwCKr400hwIAAA==
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:51:48 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

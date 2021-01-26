@@ -9,28 +9,30 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/assignments/4
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA42SzU7cMBSFX2VkdTlG/hsnzm4KLKhE1VKYSq1Y3Ng3raXgoNhhNEK8e20YoEQj
-        xM6xzz33nE+5J+sQtzhG0vy+J2cOQ/JpR5pyJg0BKSprkFNA0JRZBdS0bUWN5LBqETrGHFmSiyEm
-        HDdo0zBmo+uH5d62GG2gnzB7cSEX5+DD4kcaERPJog2MHtq+vIJzI8aYbw/EMAJ1LWVL2063VNha
-        0VoaTbFlqlJQcejsR2N8gYCLkwFn+wPc5Kvr5X55t/PhzwkkmHF5IVKAFB4Fx4zGgVavQQ5geOP/
-        XLU0LUVLz1nNeer/zF/LPTYhjcpUMN4OIfo88QjTSVQK25oq0RmquGW0dk5Tu+IOGWoAFOTN2Ney
-        pSE+ZLo8P32fMCY/hAB+fPI0ToJj2hgDoJyGGh2A48JWQmRO3acydlbm7zxu4/EwhUQaXqxg31zn
-        GqP96+8wG3bQR1yS4xEhoVunq2TzFsEEp4xTvroUopG8kfKI16wW9a9sf3Xr3hebI6Ml47qIT2/A
-        91mVj98gxu0wuqevn9ieDw5fIlygxZLp8+6yME97+zD1fW4U15PzQ9bk+fzDnIaiec7/8A84cVJV
-        XQMAAA==
+        H4sIAAAAAAAAA4ySQU/cMBCF/8rK6nGNHNub2LltgQOVqFoKW6kVh3E8aS0FB9kOqxXiv9eGBUq0
+        SNwc+82b9z7lnqx93GKIpP19T84s+uTSjrTlTFoCgjedxooCQk1ZJ4FqYxqqRQUrg9AzZsmSXIwx
+        Ydhgl8aQja4flnvbYrSBYcLsVXGxOAfnFz9SQEwkizYQHJihvIK1AWPMtwdiaI61EsJQ09eG8k5J
+        qoSuKRomGwlNBX330RhfwOPiZMTZfg83+ep6uV/e75z/cwIJZlxeiBQghUfBMaNxoNVrkAMY3vg/
+        Vy1NS9HSc1Zznvo/89dyj01IKzMVjLejjy5PPMJEsBq14FQ1XFPZdIKC1D3lolbGMFGvUJE3Y1/L
+        lpY4n+lW+en7hDG50Xtw4clTWwGW1VprAGlrUGgBbMW7hvPMqf9Uxs7K/J3DbTweJ59Iy4oV7JvX
+        uUbo/ro7zIY9DBGX5DggJLTrdJW6vIUzXlFWUV5fctZK2Qp1pBvJRfUr21/d2vfFq6oV/GglOFeq
+        iE9vwA1ZlY/fIMbtGOzT108056PFlwgX2GHJ9Hl3WZinvb2fhiE3iuvJujFr8nz+YU590Tznf/gH
+        AAD//wMAnabF3l0DAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:39 GMT
+      - Tue, 26 Jan 2021 20:51:34 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -54,26 +56,28 @@ interactions:
       Content-Type:
       - application/json-patch+json
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: PATCH
     uri: http://localhost:9707/api/v1/assignments/4/changequantity
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA32SW2vjMBCF/0oY+mgX3WJLfksvD1lo6S27sEsfRtJ4V+DKxVIaQsl/r0yyhb70
-        TRqd882ZQe+w9hRz6Pch/r3CjND9eT/V8h46QClaZ4gjYcOcQmNtayTHpSXsGfNQwU+cAtqBoIvb
-        YahgFdOOpuLlQi5uMMTFY56IMhyqL2gjqNFSWts3VjittDQNWaZahS3H3n2H/oGRFlcjweG5Kkzo
-        VAUPlF7HmELRzxXwkpQiq2slelMr7litvW9qt+SeGDWIJOCL7RZfSisIMdPEy9P9llIOY4wYpiPT
-        eImeNcYYROUb1OQRPReuFaIsqD+bbevZ/xZoly7HbczQ8RmFp7nbMsbk/oU3KsAeh0QVXE6Emfwq
-        b7IrXQQTvGa85ssnITrJOynPuWZa6N8Fv3n134oVO2etZEbM4usXDENRleMdprQbJ3+8/SJ7M3r6
-        jPBAjuZMF/uneeP5hD/ufZ1WWx/Goin+8lOu46z5n//wAcKnBp5GAgAA
+        H4sIAAAAAAAAA3ySSWsjMRCF/4oROXYHbdbSN2c5eCBD1hlIyKEkVWcEHXVoyTEm+L+PGnsCOUxu
+        Uum9r14V+iDrgKnEfhfTywUUIN3Tx7FWdqQjILj2FhkgKOolWOe0FQyWDqGnNJCG/IIpghuQdGkz
+        DA1ZpbzFqXoZF4sriGlxVybEQvbNF7TlqIwQzvXKcW+kEVaho1JL0Ax6/x36ByRcXIxI9s9NZZJO
+        NuQW89uYcqz6uUIQgkUreGs0t63UXrQgbd9yoYxzVKglGvLF9hNeaysSU8GJ1aebDeYSx5QgTgem
+        DQICVdZaABkUGAwAgXGvOa8L6k9m23r2v0fc5vNxkwrp6IyC49y6jjH5P/EdK7CHIWNDzieEgmFV
+        HoqvXTjlrKWs5eqe007KTphTqyUX7LHiH97C/8VL1onlKePUUDuLL18hDlVVj9eQ83acwuH2G93V
+        GPAzwi16nDOd7e7njZcj/rD3dV5tQhyrpvrrT7lMs+Zf/v1fAAAA//8DAEXVkiFGAgAA
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:39 GMT
+      - Tue, 26 Jan 2021 20:51:34 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -95,17 +99,19 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: POST
     uri: http://localhost:9707/api/v1/assignments/4/close
   response:
     body:
       string: ''
     headers:
+      Content-Language:
+      - en-US
       Content-Length:
       - '0'
       Date:
-      - Fri, 15 Jan 2021 22:31:39 GMT
+      - Tue, 26 Jan 2021 20:51:34 GMT
       Server:
       - Kestrel
     status:
@@ -121,28 +127,30 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/assignments/4
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA42SzU7cMBSFX2VkdTlG/pskzm4KLKhE1VKYSq1Y3Ng3raXgINthNEK8e20YoEQj
-        xC62zz33nE+5J2sftxgiaX/fkzOLPrm0I235Ji0BKWqjkVNAqCgzCqjuuppqyWHVIfSMWbIkF2NM
-        GDZo0hiy0fXDcm9bjDYwTJi9uJCLc3B+8SMFxESyaAPBQTeUV7A2YIz59kAMLbBqpOxo11cdFaZR
-        tJG6otgxVSuoOfTmozG+gMfFyYiz/R5u8tX1cr+83zn/5wQSzLi8EClACo+CY0bjQKvXIAcwvPF/
-        rlqalqKl56zmPPV/5q/lHpuQVmUqGG9HH12eeIRpJSqFXUOV6DVV3DDaWFtRs+IWGVYAKMibsa9l
-        S0ucz3R5fvo+YUxu9B5cePLUVoJlldYaQNkKGrQAlgtTC5E59Z/K2FmZv3O4jcfj5BNpebGCffN8
-        WAfz191hNuxhiLgkxwEhoV2nq2TyFsEEp4xTvroUopW8lfKIN6wRza9sf3Vr3xUrdsSlYM2qiE9v
-        wA1ZlT+/QYzbMdin00/szkeLLxEu0GDJ9Hl3WZinvb2fhiE3iuvJujFr8nz+YU590Tznf/gHZKel
-        EF0DAAA=
+        H4sIAAAAAAAAA4ySS0/cMBSF/8rI6nKM4kcezm4KLKhE1VKYSq1YXNs3raXgINvDaIT477VhgBIN
+        ErvYPvfccz7lnqx83GKIpP99T84s+uTSjvTlm/QEBG+NQkYBoaGVkUCV1i1VgkGtEYaqsmRJLqaY
+        MKzRpClko+uH5d62GK1h3GD2YlwszsH5xY8UEBPJojUEB3osr2BtwBjz7YEYimPTCaGpHhpNuekk
+        7YRqKOpKthJaBoP5aIwv4HFxMuFsv4ebfHW93C8fds7/OYEEMy4vRAqQwqPgmNE40Oo1yAEMb/yf
+        q5ampWjpOas5T/2f+Wu5xyakl5kKxtvJR5cnHmEiWIVKcNq1XFHZGkFBqoFy0XRaV6KpsSNvxr6W
+        LT1xPtNl+en7BmNyk/fgwpOnsgJs1SilAKRtoEMLYBk3LeeZ0/CpjJ2V+TuH23g8bXwifVWsYN88
+        H1bB/HV3mA0HGCMuyXFASGhX6SqZvIVXnNGKUd5c8qqXshfdkWolF+xXtr+6te+La9aL+ojVnMmm
+        iE9vwI1ZlT+/QYzbKdin00/U55PFlwgXaLBk+ry7LMzT3t5vxjE3iquNdVPW5Pn8w5z6onnO//AP
+        AAD//wMAwpGKuF0DAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:39 GMT
+      - Tue, 26 Jan 2021 20:51:34 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

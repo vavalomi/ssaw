@@ -9,26 +9,29 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d/history
+    uri: http://localhost:9707/api/v1/interviews/9f7f4d0143914027b32724a7b714f210/history
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA9WSTUvDQBCG/0rZc1b2I902uRW8VPGrFQ+Kh0l3UhbaTd1N/aD0vzsJIlGrILSH
-        Qg7LzDvzvs+QDRv7GsOzw5exZTlDoUpVqJKXOgWeZiblRWoKLqFvMlvY1A4tS9jNGmPtKu/BBWwH
-        M6vBCpPxLAMatAb4EC1wsFLNBkqBEeX3wTsMkd4slwmb4KwKNrL8YUORLL6yXCRsNKtbAZuuV03K
-        WIVRjG7usUlxFdzceaircAlLJJVrWOSXzqRaNJ1PSgzUvoZAA1Qhv802YbduSbFguSKlEkpyIbns
-        3yqVa5lrfWKkMGZg7pvNZRmxJp0QefuxbbIzccdx75FZwLiqfHTForPjQCDn+PYXwK7oP/LSDiqn
-        kvcHnFL100OFHflI95qSdm+3fvr4ZUkG1tLlI0mg9aGSVLp3Ac73pnXA1jZUsW5bx8nomz0dwDPw
-        2Dut8PjJItl1wNR/iYZGaal/AXrcvgNcvNGuSwUAAA==
+        H4sIAAAAAAAAA7SSTWvDMAyG/0rxOR624yZNbj2Wsa+27LCd1FophtbubHcflP73Kdko2Qc7ZWCM
+        kV5Jzyt8ZDOXMDxbfJkZVrOqKRtthOQ6r+gSquSrnC6loVyVUjdKCpaxuwPGZL1zYAN+FJocjCgq
+        XlUAXJsC+AQNcDBSrUuloBDN98J7DJHerJYZm+PaBxNZ/XgkJIOvrBYZm65TJ2CLw76ljD5MY7Qb
+        h4aa3QS7sQ6SD9ewQ1LZ1ov8kpn7bZs5u8RA6VsIVEARmnc8ZWxpd4QFuz0plVCS0wJUsVSiVrqW
+        xYXUUhbjyUPbuWkiJtIJUXeHnbIzsewR9yYOjswCxr130a62vR4DGlE9I5f49peB39B/8FKP9o9I
+        XpW8GPOJGhI278FOXaR9LUg72K6fPr8sycAY2nwkCXRzKCRVProC60aLFLAbG3xMXWpIj/qfPL4D
+        AAD//8L0Yx7IHCQPeiXmpSq45KfSymemdPNZMdA6JI8Zkewjc2NTUxMTHD6KrQUAAAD//wMA1/nx
+        mUwFAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:40 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

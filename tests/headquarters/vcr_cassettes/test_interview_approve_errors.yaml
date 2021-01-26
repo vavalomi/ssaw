@@ -11,22 +11,24 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: PATCH
-    uri: http://localhost:9707/api/v1/interviews/e02f2b2ff34a4964b46b1a569dbd4d8d/approve?comment=
+    uri: http://localhost:9707/api/v1/interviews/9f7f4d0143914027b32724a7b714f210/approve?comment=
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA03NMQ7CMBQD0KtYnREHYKMsZYUTRMQtQSE/5P805fYUhBCb9STb3TEZyxzYoOas
+        H4sIAAAAAAAAA0zNMQ7CMBQD0KtYnREHYKMsZYUTRMQtQSE/5P805fYUhBCb9STb3TEZyxzYoOas
         KoLiZyx71TAl+i36apBEyAi7EqPEKC2k6dujojkFl8yL0e9wkHuOXOMGJ94+2D/PNb+XVcq/DnT+
-        UV1ZX7V7AXxiDwSSAAAA
+        UV1ZX7V7AQAA//8DAHxiDwSSAAAA
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:40 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

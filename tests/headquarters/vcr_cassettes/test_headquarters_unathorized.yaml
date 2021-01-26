@@ -9,15 +9,17 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: https://demo.mysurvey.solutions/api/v1/questionnaires?offset=1&limit=10&page=1
   response:
     body:
       string: ''
     headers:
+      Content-Language:
+      - en-US
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:44:39 GMT
       Server:
       - Microsoft-IIS/10.0
       Strict-Transport-Security:

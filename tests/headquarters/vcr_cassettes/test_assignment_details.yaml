@@ -9,27 +9,30 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/assignments/2
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA42SzU7cMBSFX2VkdTmu/JNJ4uymwIJKVC2FQWrF4tq+AUvBQbbDaIR499owQIlm
-        wc6x7zn3nE95JGsftxgi6f4+klOLPrm0I105k46AFI1RyCkg1JSZCqjSuqFKclhphJ4xS5bkfIwJ
-        wwZNGkM2un5a7m2L0QaGCbMXF3JxBs4vfqeAmEge2kBwoIfyCtYGjDHfHoihBNatlJrqvtZUmLai
-        rVQ1Rc2qpoKGQ28+G+M7eFwcjzjb7+EuX10v98v7nfM3x5BgxuWNSAFSeBQcMxoHWr0HOYDhg/9r
-        1dK0FC09ZzXnqf8zfy/33IR0IlPBeD/66LLiGaaVWFWoW1qJXtGKG0Zba2tqVtwiwxoABfkg+1G2
-        dMT5TJfnp18TxuRG78GFF09lJVhWK6UAKltDixbAcmEaITKn/kuRnRb9g8NtPBonn0jHihXsm69y
-        jWBu3QNmwx6GiEtyFBAS2nW6TCZvEUxwyjjlqwshOsk7Kb4q3jKm/mT7y3v7+eGTO3BDnsrHnxDj
-        dgz25esK9dlo8S3CORosmb7tLgrztLf30zDkRnE9WTfmmazPP8yJLzOv+Z/+AfmoYwJdAwAA
+        H4sIAAAAAAAAA4ySQU/cMBCF/8rK6nGN4knWiXPbAgcqUbUUtlIrDuN40loKDoq9rFaI/94xLFBW
+        i8Qtsd+8ee9L7sUyxA1NUbS/78WZo5B82oo2P4tWYAl1Z0hJJNSy6CqUxtpamlLhwhL2ReHEXFyM
+        MdG0oi6NExtdP8x3ttlohcOa2EtBOTtHH2Y/0kSUBItWOHm0Q75F5yaKkU8PxDBAuilLK22vrYSu
+        qWRTGi3JFlVdYa2w7z4a4wsGmp2MtLc/4A0fXc93y/utD39OMOEelxciGUjmkXHs0TjQ6jXIAQxv
+        /J+r5qa5aO65V3M/9X/mr+Uem4gWmArF2zFEzxOPMPtK1YWmhdS96mUFBPx1jc1EQVutO6tBvBn7
+        mre0wgemm6++rykmP4aAfnryNK5EV2hjDGLlNDbkEJ2CrgZgTv0nxWNnef7O0yYej+uQRFtkK9w1
+        X3CNqfvr74gNexwizcXxRJjILdNV6ngLFKBkoSToSyhagLaCI93o2qhfbH91694XV1VbNkdNCQZM
+        Fp/eoB9YxY/fMMbNOLmnt59kz0dHLxEuqKOc6fP2MjNPO/uwHgZuFJdr50fW8Dz/MKcha57zP/wD
+        AAD//wMArueKpF0DAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:39 GMT
+      - Tue, 26 Jan 2021 20:51:23 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

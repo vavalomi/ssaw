@@ -9,25 +9,27 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v2/export/1
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA3WQXU/CMBSG/0vjJdAv2FzvCEjEaKKyP3BYD7BQ2qXrQEP473bOmnjhXfvkbc9z
-        3it5ctu1JoqPyMNH43zYBAhdSxRZuFNjMKAmIxKhD0sIGLlggo8ZH/NZKYSSXMnpZCalzHkMpkf/
-        ZrMJz4XM8ph99W7vsY2zOGNxfDknynbGxKP3zqfLc22PMXMlC7AVmoSX7mKNg6hODiE0ilLjKjAH
-        1wZV5Cyn0NT0LCh+b0U53dUGyW1EHqEdNl31QAXfYdq9/Gx66xK2nQEfFd86bEPtrIXaY18TKbQE
-        zbKiKACmOoN71ACaiyoXAjK2u+tbWNuA/lzj5bfMuTGRr7w7Jf/SpdO8qmILpTuiTegdd7GZwx+2
-        Cc7DHgfHnz882NZAb9jLDXBtK9NpfMEAA7p9Acj9uuTlAQAA
+        H4sIAAAAAAAAA3SQzW7CMBCE38XqMRDHpA7xDfGjUrVSW/ICS7xAhLEjx4FWiHfvhjSVeqjkg/Vp
+        xp6ZK3t227VmKonY8rN2PmwChLZhis3dqTYYULOIEfRhAQGJCy6SEU9GQhaCK5GqRI5lJqYyJeFg
+        +k8r+Jg/Zmk2Ie2bd3uPDf01kfR7MSMD5+p+xpzzVHBJsqX3zjNlW2Mi9lLZIxmubA62RDPghbtY
+        44B6sEMItYpj40owB9cElWc8i6Gu4rOI8V4xTuJdZZDdIvYETV971QEVfIvDEMVX3VUoYNsa8BTk
+        vcUmVM5aqDx2m7FcT0Bzmec5QKolTFED6ESUmRAg+e4hIdvaBvTnCi+/y86MIb7y7jTkL9xwm5Ul
+        TVK4I9oBfeCOZjr8YZvgPOyxz/jzhgfbGOgSduF6uLalaTW+YoAe3b4BAAD//wMASftCK/IBAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:44:38 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

@@ -11,17 +11,19 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: PATCH
-    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d/archive
+    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62/archive
   response:
     body:
       string: ''
     headers:
+      Content-Language:
+      - en-US
       Content-Length:
       - '0'
       Date:
-      - Fri, 15 Jan 2021 22:31:42 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
     status:
@@ -37,22 +39,24 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d
+    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAyWNTQvCMBBE/8ueG9ls+qG5iV4K4kH0JB7SdIPB2kIS60H876Z4nMfMvA+0cRvs
-        3c/cg07hxQVcIoc2J7CoXNOVTvSWUZQbsqLjEkXj6gptxZ1c9/DvH82T88KPiQNldpoGjqCv0C5k
-        9vzmALci2w6TfSwuZ4aYZbvAJvlp3Ju0HBCSFCiFrM5EWkmtaEVrVHUN3x9Uo+DsrAAAAA==
+        H4sIAAAAAAAAAySNsQ7CIBRF/4VZDLziq3QzupAYB6OLG62PlFhLAlgH478LcTwn9+Z8mEm7OIx+
+        oTvrcnzRil0TRVOIOSVbgbTh6KTjCgi4Jd3zbaMBe8ShR2D//ck+qTz8nClWdw5TZVN58fSmWKRJ
+        xzA8asjZKZXSPpLNPswHm+saBEguJAe8gOgAOiXXuhGtVjf2/QEAAP//AwD4ofYaqgAAAA==
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:42 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -74,17 +78,19 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: PATCH
-    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d/unarchive
+    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62/unarchive
   response:
     body:
       string: ''
     headers:
+      Content-Language:
+      - en-US
       Content-Length:
       - '0'
       Date:
-      - Fri, 15 Jan 2021 22:31:42 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
     status:
@@ -100,22 +106,24 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/users/c03f7b4fdce0492cbe407f650c5eb18d
+    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA02NPQvCMBRF/8ubG3l56ZfZRJeCOIhO4pCmLzRYW0hKHcT/boqL4z3ce88bmrgL
-        tvcLd6CdGSJncI0cmhTBonJVmzvRWUaRb8mKlnMUlSsLtAW3su7g1z+ZJ6eFH2cOlNh5GjiCvkGz
-        ksXziwPcs6Q7TvbxJ9sHNrOfxoOZ1wNCkgKlkMWFSCupFW2oRlWW8PkCDoQJHK0AAAA=
+        H4sIAAAAAAAAA0yNsQ7CIBRF/4VZDLziq3QzupAYB6OLG+AjJdY2AVIH479b4uJ4Ts7NfTOTd8n3
+        caY764IdMq3YNVMyC7KgZCuQNhyDDFwBAbekHd82GtAheofAfv3JPmlZxLFQqu48DZVN5TnSi9Ii
+        TT5O/vH3tE9kS5zGgy21BgGSC8kBLyA6gE7JtW5Eq9WNfb4AAAD//wMAtzC0zasAAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:42 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

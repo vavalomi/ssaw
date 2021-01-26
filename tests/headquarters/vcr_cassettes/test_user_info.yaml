@@ -9,22 +9,24 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
-    uri: http://localhost:9707/api/v1/users/d3e44eb842f941c08dd6c51de0e6aae2
+    uri: http://localhost:9707/api/v1/users/ead9e932872947c3a49f2368bb0365e8
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA02NsQrCMBRF/+XNjeS9pLVmE10K4iA6iUNMXmmwtpCUOoj/boqL4z3ce88bmrSN
-        rgszezCt7RMXcEkcmxzBK9aa77XQ1G6ERidF7X0lXImeJVfWMsGvf7RPzoswTBwxs9PYcwJzhWYh
-        c+AXR7gVWXcY3eNPtotspzAOezstByQJhUSB5ZnIKDSKVqRqtdbw+QKS4YSOrQAAAA==
+        H4sIAAAAAAAAA0yNsQrCMBRF/yWzkeSltkk20SUgDqKL22v6SoO1hSTUQfx3U1wcz+Fc7pu5tI9+
+        CAt1zPY4JtqwW6LoCjLCzpBRwHUDhleNVxwr03NQtW5boeodafbrz/iksghTpiiLu8zjym7lJdCL
+        YpEunWb/+Hs6RMIc5umIea1BgORCcqivICyAreRWGyEU3NnnCwAA//8DAI3dxwyrAAAA
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

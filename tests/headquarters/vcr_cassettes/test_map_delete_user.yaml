@@ -15,21 +15,23 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: POST
     uri: http://localhost:9707/graphql
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAxTIsQqAIBAA0H+5OcWzWpyjraZa2g68QFISu0389/CNr4InIXAVPEcWPj8ua3nT
-        RrnnHSLvlBgcJMpa8gMDhJTfIgtJb2ssKoMK58NaN6IbJ41oLmit/QAAAP//AwCa0YxlXQAAAA==
+        H4sIAAAAAAAAAxTIsQqAIBAA0H+5OUPPanCOtppqaTvoAklR7Lbw38M3vg8uEgL3wcWBhY+Xy1JS
+        XCm3vH3gjSKDg0i5l/xABz7mVGQmaY0ajdJG4bSjdjg4M/V2tCfUWn8AAAD//wMAw1WUAl0AAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
-      - application/json
+      - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

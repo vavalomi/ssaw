@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"UserName": "rrg9wl5ez1", "Password": "Validpassword1", "Role": "Supervisor",
+    body: '{"UserName": "5w7ltoltfb", "Password": "Validpassword1", "Role": "Supervisor",
       "Supervisor": null, "FullName": null, "Email": null, "PhoneNumber": null}'
     headers:
       Accept:
@@ -12,7 +12,7 @@ interactions:
       Content-Length:
       - '152'
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
       content-type:
       - application/json
     method: POST
@@ -20,15 +20,17 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6tWCi1OLfJMUbJSMrIwMjQ0NzM2SjU0MzGzTLWwSEsxMU5KM0kyMkyxME9U0lFy
-        LSrKLypWsoqOrQUA6t6R/zkAAAA=
+        H4sIAAAAAAAAA6pWCi1OLfJMUbJSsjAyNjEzskwySjNNNDE1NE0yME1KSkwzMLU0SDFKMbNU0lFy
+        LSrKLypWsoqOrQUAAAD//wMAKVBW9zkAAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

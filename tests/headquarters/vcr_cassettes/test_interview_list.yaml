@@ -1,7 +1,7 @@
 interactions:
 - request:
     body: '{"query": "query {\ninterviews(take: 20, skip: 0, where: {questionnaireId:
-      \"9d3ad06999aa4d6a8edaad12c722a60f\"}) {\nfilteredCount\nnodes {\nid\nquestionnaireId\nquestionnaireVersion\nassignmentId\nresponsibleId\nerrorsCount\nstatus\n}\n}\n}",
+      {eq: \"9d3ad06999aa4d6a8edaad12c722a60f\"}}) {\nfilteredCount\nnodes {\nid\nquestionnaireId\nquestionnaireVersion\nassignmentId\nresponsibleId\nerrorsCount\nstatus\n}\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -11,21 +11,23 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '285'
+      - '291'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: POST
     uri: http://localhost:9707/graphql
   response:
     body:
-      string: '{"data":{"interviews":{"filteredCount":1,"nodes":[{"id":"e02f2b2ff34a4964b46b1a569dbd4d8d","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":4,"responsibleId":"d3e44eb842f941c08dd6c51de0e6aae2","errorsCount":0,"status":"INTERVIEWERASSIGNED"}]}}}'
+      string: '{"data":{"interviews":{"filteredCount":1000,"nodes":[{"id":"b2d3541ccb31415fa2be481c620a715f","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"7f373e95d620451290b226885a060dd3","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"5ac06b4d88bf4322bc08a2b88dfbf047","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"fe74e21dc5274dfea5e2d91e6bceba67","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"eae08a958f2e43398495c0bec267919a","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"29db85c5a4734c30b841f579df8a960d","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"57ecfdd045ac42f8a426f2bc08476178","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"4cc64cf7c8e44b409205066789a58898","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"d559399751854193a8732a23c58c5bc8","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"6042bd9d685a4e8d995e20f94f6a42ae","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"bb772f77cb1b4ad289937c51d51a995a","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"bdd6e842ab044ac2b7732b94047a7c23","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"9d6b4885ef7d4d9ea4ddeeaa10fde357","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"3be8652e72114bfe8e3034f60cfacf00","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"a34eb120d9934647a62e778f59fbd56d","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"03c13cd9e32d4dae9f66741cf6327960","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"1e03e83df1374b848980a84353ef174b","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"44770af5f37f4a0b9c2d98d71f0cbdd3","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"79e2df14a97b4d3595df6cdf09706942","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"3ea114da775341c8a0517a44cb1b92ca","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"}]}}}'
     headers:
+      Content-Language:
+      - en-US
       Content-Type:
-      - application/json
+      - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:40 GMT
+      - Tue, 26 Jan 2021 20:44:40 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -33,7 +35,7 @@ interactions:
       Vary:
       - Accept-Encoding
       content-length:
-      - '288'
+      - '4756'
     status:
       code: 200
       message: OK

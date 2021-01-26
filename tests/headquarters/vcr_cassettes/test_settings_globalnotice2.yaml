@@ -11,15 +11,17 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: DELETE
     uri: http://localhost:9707/api/v1/settings/globalnotice
   response:
     body:
       string: ''
     headers:
+      Content-Language:
+      - en-US
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
     status:
@@ -35,20 +37,22 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/settings/globalnotice
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6tW8k0tLk5MT1WyyivNyakFAIF28ycQAAAA
+        H4sIAAAAAAAAA6pW8k0tLk5MT1WyyivNyakFAAAA//8DAIF28ycQAAAA
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

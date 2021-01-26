@@ -19,7 +19,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 18:40:16 GMT
+      - Tue, 26 Jan 2021 20:44:45 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -57,7 +57,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 18:40:17 GMT
+      - Tue, 26 Jan 2021 20:44:46 GMT
       Location:
       - http://localhost:9707/api/v1/workspaces/assign
       Server:
@@ -89,7 +89,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 18:40:17 GMT
+      - Tue, 26 Jan 2021 20:44:46 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -98,7 +98,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"UserIds": ["21696f6606244698aac1a027d3cbd8e9"], "Workspaces": ["assign"],
+    body: '{"UserIds": ["4668849fe57d4f569bd3ba4ada16eca6"], "Workspaces": ["assign"],
       "Mode": "Assign"}'
     headers:
       Accept:
@@ -122,7 +122,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 18:40:17 GMT
+      - Tue, 26 Jan 2021 20:44:46 GMT
       Server:
       - Kestrel
     status:

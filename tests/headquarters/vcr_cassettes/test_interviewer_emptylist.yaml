@@ -9,21 +9,23 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.3.1
+      - python-ssaw/0.4.0
     method: GET
     uri: http://localhost:9707/api/v1/supervisors/767ca045-45e7-4607-9799-29837d87d1d1/interviewers?offset=1&limit=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6tWCi1OLSpWsoqO1VHyL0pJLVKyyivNydFR8snMzSxRsjLQUQrJL0nMcc4vzYNw
-        /dPSilNBzFoAHzPr0z0AAAA=
+        H4sIAAAAAAAAA6pWCi1OLSpWsoqO1VHyL0pJLVKyyivNydFR8snMzSxRsjI00FEKyS9JzHHOL80D
+        8oFc/7S04lSQVC0AAAD//wMAMG6G4j4AAAA=
     headers:
       Content-Encoding:
       - gzip
+      Content-Language:
+      - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 15 Jan 2021 22:31:41 GMT
+      - Tue, 26 Jan 2021 20:44:41 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

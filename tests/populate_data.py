@@ -9,11 +9,13 @@ from dotenv import load_dotenv
 import ssaw
 from tests.utils import create_assignment, create_interview, import_questionnaire, upload_maps
 
-env_path = Path("tests/env_vars.sh") 
-load_dotenv(dotenv_path=env_path)
-env_path = Path("tests/env_vars_override.sh")
+script_dir = os.path.abspath(os.path.dirname(__file__))
+
+env_path = Path(os.path.join(script_dir, "env_vars.sh"))
+load_dotenv(dotenv_path=env_path, verbose=True, override=True)
+env_path = Path(os.path.join(script_dir, "env_vars_override.sh"))
 if env_path.is_file():
-    load_dotenv(dotenv_path=env_path)
+    load_dotenv(dotenv_path=env_path, verbose=True, override=True)
 
 base_url = os.environ.get("base_url")
 designer_questionnaire_id = os.environ.get("designer_questionnaire_id")
@@ -23,6 +25,7 @@ ret = import_questionnaire(base_url, designer_questionnaire_id)
 client = ssaw.Client(base_url, os.environ.get("SOLUTIONS_API_USER"), os.environ.get("SOLUTIONS_API_PASSWORD"))
 q = next(ssaw.QuestionnairesApi(client).get_list())
 
+hq1 = ssaw.UsersApi(client).create(user_name="hq1", password="Validpassword1", role="Headquarter")
 super1 = ssaw.UsersApi(client).create(user_name="super1", password="Validpassword1", role="Supervisor")
 inter1 = ssaw.UsersApi(client).create(user_name="inter1", password="Validpassword1", role="Interviewer", supervisor="super1")
 inter2 = ssaw.UsersApi(client).create(user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
@@ -37,9 +40,10 @@ res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_
 res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_data)
 res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_data)
 
-interview_id = create_interview(base_url, "inter1", "Validpassword1", res.id)
+for i in range(1000):
+    interview_id = create_interview(base_url + '/primary', "inter1", "Validpassword1", 3)
 
-upload_maps(base_url, os.path.join(os.path.dirname(os.path.realpath(__file__)), "maps.zip"))
+upload_maps(base_url + '/primary', os.path.join(os.path.dirname(os.path.realpath(__file__)), "maps.zip"))
 
 
 # save parameters for test runs
@@ -49,6 +53,7 @@ params = {
     'TemplateId': designer_questionnaire_id,
     'TemplateVersion': version,
     'InterviewId': interview_id,
+    'Headquarters': hq1["UserId"],
     'SupervisorId': super1["UserId"],
     'InterviewerId': inter1["UserId"],
     'InterviewerId2': inter2["UserId"],
