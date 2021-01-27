@@ -1,7 +1,7 @@
 import datetime
-from enum import Enum
 import re
 import sys
+from enum import Enum
 from typing import Dict, List, Union
 from uuid import UUID
 
@@ -46,6 +46,7 @@ class QuestionTypeLiteral(Enum):
     GEOGRAPHY = "AreaQuestion"
     AUDIO = "AudioQuestion"
 
+
 class UserRole(Enum):
     ADMINISTRATOR = "Administrator"
     SUPERVISOR = "Supervisor"
@@ -54,9 +55,10 @@ class UserRole(Enum):
     OBSERVER = "Observer"
     APIUSER = "ApiUser"
 
+
 class Assignment(object):
     def __init__(self, responsible: str, quantity: int, questionnaire_id,
-                 identifying_data=None, email: str = '', password: str = '', webmode: bool= False,
+                 identifying_data=None, email: str = '', password: str = '', webmode: bool = False,
                  audio_recording_enabled: bool = False, comments: str = ''):
         """An assignment.
 
@@ -484,6 +486,7 @@ class InterviewerAction(BaseModelWithConfig):
     message: str
     time: datetime.datetime
 
+
 class User(BaseModelWithConfig):
     user_name: str
     password: str
@@ -492,6 +495,7 @@ class User(BaseModelWithConfig):
     full_name: str = None
     email: str = None
     phone_number: str = None
+
 
 class Version():
     def __init__(self, version_string: str):
@@ -506,14 +510,13 @@ class Version():
         else:
             # assume dev version, therefore most recent
             self.version = version_string
-            self.build =  sys.maxsize
+            self.build = sys.maxsize
 
     def __repr__(self):
         return self.version
 
     def __lt__(self, other: "Version"):
         return self.build < other.build
-
 
     def __eq__(self, other: "Version"):
         return self.build == other.build

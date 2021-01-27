@@ -5,7 +5,11 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .exceptions import GraphQLError
-from .headquarters_schema import Interview, InterviewFilter, ComparableGuidOperationFilterInput, headquarters_schema
+from .headquarters_schema import (
+    ComparableGuidOperationFilterInput,
+    Interview,
+    InterviewFilter,
+    headquarters_schema)
 from .models import InterviewAnswers
 from .utils import fix_qid
 
@@ -16,7 +20,7 @@ class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects={'questionnaire_id': 'hex'})
-    def get_list(self, fields: list = [], questionnaire_id = None, **kwargs) -> Generator[Interview, None, None]:
+    def get_list(self, fields: list = [], questionnaire_id=None, **kwargs) -> Generator[Interview, None, None]:
         if questionnaire_id:
             kwargs["questionnaire_id"] = ComparableGuidOperationFilterInput(eq=questionnaire_id)
         interview_args = {

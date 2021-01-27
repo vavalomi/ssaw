@@ -28,4 +28,3 @@ class Client(object):
         res = self.session.get("{}/.version".format(self.baseurl))
         if res.status_code == 200:
             return Version(res.text)
-

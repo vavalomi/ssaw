@@ -7,15 +7,16 @@ from sgqlc.endpoint.requests import RequestsEndpoint
 from .exceptions import ForbiddenError, NotAcceptableError, NotFoundError, UnauthorizedError
 from .headquarters import Client
 
+
 class HQBase(object):
     _apiprefix: str = ""
 
     def __init__(self, client: Client, workspace: str = None) -> None:
         self._hq = client
-        self.workspace= workspace
+        self.workspace = workspace
         graphqlpath = '/graphql'
         if workspace:
-            graphqlpath = '/' + workspace + graphqlpath 
+            graphqlpath = '/' + workspace + graphqlpath
         self.endpoint = RequestsEndpoint(client.baseurl + graphqlpath, session=client.session)
 
     @property

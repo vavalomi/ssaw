@@ -2,12 +2,10 @@ import json
 import os
 from pathlib import Path
 
-import requests
-
 from dotenv import load_dotenv
 
 import ssaw
-from tests.utils import create_assignment, create_interview, import_questionnaire, upload_maps
+from ssaw.tests.utils import create_assignment, create_interview, import_questionnaire, upload_maps
 
 script_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -25,10 +23,14 @@ ret = import_questionnaire(base_url, designer_questionnaire_id)
 client = ssaw.Client(base_url, os.environ.get("SOLUTIONS_API_USER"), os.environ.get("SOLUTIONS_API_PASSWORD"))
 q = next(ssaw.QuestionnairesApi(client).get_list())
 
-hq1 = ssaw.UsersApi(client).create(user_name="hq1", password="Validpassword1", role="Headquarter")
-super1 = ssaw.UsersApi(client).create(user_name="super1", password="Validpassword1", role="Supervisor")
-inter1 = ssaw.UsersApi(client).create(user_name="inter1", password="Validpassword1", role="Interviewer", supervisor="super1")
-inter2 = ssaw.UsersApi(client).create(user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
+hq1 = ssaw.UsersApi(client).create(
+    user_name="hq1", password="Validpassword1", role="Headquarter")
+super1 = ssaw.UsersApi(client).create(
+    user_name="super1", password="Validpassword1", role="Supervisor")
+inter1 = ssaw.UsersApi(client).create(
+    user_name="inter1", password="Validpassword1", role="Interviewer", supervisor="super1")
+inter2 = ssaw.UsersApi(client).create(
+    user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
 
 identifying_data = [
     {"Variable": "address", "Answer": "123 Main Street"},

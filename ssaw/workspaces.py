@@ -5,6 +5,7 @@ from .exceptions import FeatureNotSupported
 from .headquarters import Client
 from .models import Version
 
+
 class WorkspacesApi(HQBase):
     """ Set of functions to access and manipulate Workspaces. """
 
@@ -14,9 +15,9 @@ class WorkspacesApi(HQBase):
         if client.version < Version("21.01 (build 30293)"):
             raise FeatureNotSupported
 
-        super().__init__(client) 
+        super().__init__(client)
 
-    def get_list(self, user_id: str=None, include_disabled: bool=False):
+    def get_list(self, user_id: str = None, include_disabled: bool = False):
         path = self.url
         length = 10
         start = 0

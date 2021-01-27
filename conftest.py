@@ -1,9 +1,9 @@
 import json
 import os
-from pathlib import Path
-import pytest
 
 from dotenv import load_dotenv
+
+import pytest
 
 from ssaw import Client
 
@@ -17,6 +17,7 @@ def load_env_vars(request):
     if os.path.isfile(env_path):
         load_dotenv(dotenv_path=env_path, override=True)
 
+
 @pytest.fixture(scope="session")
 def session():
     return Client(
@@ -24,12 +25,14 @@ def session():
         os.environ.get("SOLUTIONS_API_USER", ""),
         os.environ.get("SOLUTIONS_API_PASSWORD", ""))
 
+
 @pytest.fixture(scope="session")
 def admin_session():
     return Client(
         os.environ.get("base_url"),
         os.environ.get("admin_username", ""),
         os.environ.get("admin_password", ""))
+
 
 @pytest.fixture(scope="session")
 def params():

@@ -9,6 +9,7 @@ from ssaw.models import Assignment
 from . import my_vcr
 from ..utils import create_assignment
 
+
 @my_vcr.use_cassette()
 def test_assignment_list(session, params):
     response = AssignmentsApi(session).get_list(params['TemplateId'], params['TemplateVersion'])

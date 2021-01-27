@@ -12,4 +12,4 @@ from .workspaces import WorkspacesApi
 
 __all__ = ["__version__", "AssignmentsApi", "ExportApi",
            "Client", "InterviewsApi", "MapsApi", "QuestionnairesApi",
-           "SettingsApi", "UsersApi", "WorkspacesApi",]
+           "SettingsApi", "UsersApi", "WorkspacesApi", ]

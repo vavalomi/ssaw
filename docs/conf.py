@@ -38,7 +38,7 @@ extensions = [
     'sphinx_autodoc_typehints',
 
 ]
-  
+
 master_doc = 'index'
 
 # Add any paths that contain templates here, relative to this directory.

@@ -4,7 +4,13 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .exceptions import GraphQLError
-from .headquarters_schema import Map, MapsFilter, ListFilterInputTypeOfUserMapFilterInput, UserMapFilterInput, headquarters_schema, StringOperationFilterInput
+from .headquarters_schema import (
+    ListFilterInputTypeOfUserMapFilterInput,
+    Map,
+    MapsFilter,
+    StringOperationFilterInput,
+    UserMapFilterInput,
+    headquarters_schema)
 
 
 class MapsApi(HQBase):

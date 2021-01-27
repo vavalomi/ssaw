@@ -5,9 +5,8 @@ from types import GeneratorType
 from pytest import raises
 
 from ssaw import UsersApi
-from ssaw.models import InterviewerAction
+from ssaw.tests.utils import random_name
 
-from tests.utils import random_name
 from . import my_vcr
 
 
@@ -15,6 +14,7 @@ from . import my_vcr
 def test_user_create(session):
     ret = UsersApi(session).create(user_name=random_name(), password="Validpassword1", role="Supervisor")
     assert "UserId" in ret.keys(), "Id of the create user must be returned"
+
 
 @my_vcr.use_cassette()
 def test_supervisor_list(session):
