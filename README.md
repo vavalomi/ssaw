@@ -6,7 +6,7 @@
 [![Documentation Status](https://readthedocs.org/projects/ssaw/badge/?version=latest)](https://ssaw.readthedocs.io/en/latest/?badge=latest)
 
 
-SSAW is a Python library to access the [Survey Solutions APO](<https://mysurvey.solutions>). This library enables you to manage resources such as creating assignments, users, maps; as well as perform workflow actions, like approving interviews, reassigning workspaces etc in your Python applications.
+SSAW is a Python library to access the [Survey Solutions API](<https://mysurvey.solutions>). This library enables you to manage resources such as creating assignments, users, maps; as well as perform workflow actions, like approving interviews, reassigning workspaces etc in your Python applications.
 
 
 ```python
