@@ -6,10 +6,12 @@ from .headquarters import Client
 from .models import Version
 
 class WorkspacesApi(HQBase):
+    """ Set of functions to access and manipulate Workspaces. """
+
     _apiprefix = "/api/v1/workspaces"
 
     def __init__(self, client: Client):
-        if client.version < Version("21.01 (build 30000)"):
+        if client.version < Version("21.01 (build 30293)"):
             raise FeatureNotSupported
 
         super().__init__(client) 

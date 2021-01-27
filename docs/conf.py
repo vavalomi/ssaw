@@ -35,9 +35,10 @@ release = about['__version__']
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-]
+    'sphinx_autodoc_typehints',
 
+]
+  
 master_doc = 'index'
 
 # Add any paths that contain templates here, relative to this directory.
@@ -77,5 +78,9 @@ html_theme_options = {
 
 html_static_path = ['_static']
 
-napoleon_use_rtype = False
+napoleon_use_rtype = True
+napoleon_use_param = True
+add_module_names = False
 autodoc_member_order = 'bysource'
+autoclass_content = 'both'
+typehints_document_rtype = False

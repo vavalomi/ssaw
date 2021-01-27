@@ -4,6 +4,8 @@ from .utils import parse_qidentity
 
 
 class ExportApi(HQBase):
+    """ Set of functions to access and generate export files. """
+
     _apiprefix: str = "/api/v2/export"
 
     def get_list(self, export_type=None, interview_status=None,

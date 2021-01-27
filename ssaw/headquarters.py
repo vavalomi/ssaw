@@ -8,17 +8,13 @@ from .models import Version
 class Client(object):
     """Initializes the API client
 
-    Parameters
-    ----------
-    url: str
-        URL of the headquarters app
-    api_user: str
-        API user name
-    api_password: str
-        API user password
+    :param url: URL of the headquarters app
+    :param api_user: API user name
+    :param api_password: API user password
+    :param workspace: Name of the workspace. If `None`, 'primary' will be assumed
     """
 
-    def __init__(self, url: str, api_user: str, api_password: str, workspace: str = None):
+    def __init__(self, url: str, api_user: str, api_password: str, workspace: str = 'primary'):
         session = Session()
         session.auth = (api_user, api_password)
         signature = 'python-{}/{}'.format(__title__, __version__)

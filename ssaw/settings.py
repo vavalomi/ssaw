@@ -2,6 +2,8 @@ from .base import HQBase
 
 
 class SettingsApi(HQBase):
+    """ Set of functions to access and modify Global Notice. """
+
     _apiprefix = "/api/v1/settings"
 
     def get_globalnotice(self):

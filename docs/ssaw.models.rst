@@ -1,10 +1,7 @@
-`ssaw.models` module
-====================
+Models
+======
 
-.. automodule:: ssaw.models
-
-.. autoclass:: Assignment
+.. py:module:: ssaw.models
+.. autoclass:: ExportJob
   :members:
 
-.. autoclass: ExportJob
-  :members:

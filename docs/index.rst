@@ -4,16 +4,17 @@ Survey Solutions API Wrapper
 Table of Contents
 ==================
 .. toctree::
+    introduction
     ssaw
     ssaw.assignments
     ssaw.export
     ssaw.interviews
     ssaw.maps
-    ssaw.models
     ssaw.questionnaires
     ssaw.settings
     ssaw.users
-
+    ssaw.workspaces
+    ssaw.models
 
 Indices and tables
 ==================

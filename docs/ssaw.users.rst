@@ -1,6 +1,7 @@
-`ssaw.users` module
-===================
+Users
+=====
+.. py:module:: ssaw.users
 
-.. autoclass:: ssaw.UsersApi
+.. autoclass:: UsersApi()
   :members:
   :undoc-members:

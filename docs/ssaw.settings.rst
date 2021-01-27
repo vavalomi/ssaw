@@ -1,6 +1,7 @@
-`ssaw.settings` module
+Settings
 ======================
+.. py:module:: ssaw.settings
 
-.. autoclass:: ssaw.SettingsApi
+.. autoclass:: SettingsApi()
   :members:
   :undoc-members:

@@ -1,6 +1,7 @@
-`ssaw.interviews` module
-===========================
+Interviews
+==========
+.. py:module:: ssaw.interviews
 
-.. autoclass:: ssaw.InterviewsApi
+.. autoclass:: InterviewsApi()
   :members:
   :undoc-members:

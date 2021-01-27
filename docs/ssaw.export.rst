@@ -1,6 +1,7 @@
-`ssaw.export` module
-====================
+Export
+======
+.. py:module:: ssaw.export
 
-.. autoclass:: ssaw.ExportApi
+.. autoclass:: ExportApi()
   :members:
   :undoc-members:

@@ -11,6 +11,8 @@ from .utils import fix_qid
 
 
 class InterviewsApi(HQBase):
+    """ Set of functions to access and manipulate Interviews. """
+
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects={'questionnaire_id': 'hex'})

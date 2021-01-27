@@ -8,20 +8,16 @@ from .headquarters_schema import Map, MapsFilter, ListFilterInputTypeOfUserMapFi
 
 
 class MapsApi(HQBase):
+    """ Set of functions to access and manipulate Maps. """
+
     def get_list(self, filter_user: str = None, fields: list = [], **kwargs) -> Generator[Map, None, None]:
         """Get list of maps
 
-        Parameters
-        ----------
-        filter_user : str, optional
-            List only maps linked to the user
+        :param filter_user: List only maps linked to the user
 
-        fields : list, optional
-            List of fields to return for each map
+        :param fields: List of fields to return for each map
 
-        Yields
-        -------
-        list of :class:`ssaw.headquarters_schema.Map` objects
+        :returns: List of Map objects
         """
 
         if filter_user:
@@ -59,44 +55,27 @@ class MapsApi(HQBase):
     def delete(self, file_name: str) -> Map:
         """Delete a map file
 
-        Parameters
-        ----------
-        file_name : str
-            Filename (with extension) to be deleted
+        :param file_name: Filename (with extension) to be deleted
         """
         return self._call_mutation(method_name="delete_map", file_name=file_name)
 
     def add_user(self, file_name: str, user_name: str) -> Map:
         """Add user-to-map link
 
-        Parameters
-        ----------
-        file_name : str
-            Filename of the map
+        :param file_name: Filename of the map
+        :param user_name: Interviewer role user name
 
-        user_name: str
-            Interviewer role user name
-
-        Yields
-        -------
-        Modified :class:`ssaw.headquarters_schema.Map` object
+        :returns: Modified Map object
         """
         return self._call_mutation(method_name="add_user_to_map", file_name=file_name, user_name=user_name)
 
     def delete_user(self, file_name: str, user_name: str) -> Map:
         """Remove user-to-map link
 
-        Parameters
-        ----------
-        file_name : str
-            Filename of the map
+        :param file_name: Filename of the map
+        :param user_name: Interviewer role user name
 
-        user_name: str
-            Interviewer role user name
-
-        Yields
-        -------
-        Modified :class:`ssaw.headquarters_schema.Map` object
+        :returns: Modified Map object
         """
         return self._call_mutation(method_name="delete_user_from_map", file_name=file_name, user_name=user_name)
 

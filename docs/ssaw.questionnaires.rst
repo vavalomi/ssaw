@@ -1,6 +1,7 @@
-`ssaw.questionnaires` module
-============================
+Questionnaires
+==============
+.. py:module:: ssaw.questionnaires
 
-.. autoclass:: ssaw.QuestionnairesApi
+.. autoclass:: QuestionnairesApi()
   :members:
   :undoc-members:

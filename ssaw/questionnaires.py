@@ -5,6 +5,8 @@ from .models import Questionnaire, QuestionnaireListItem
 
 
 class QuestionnairesApi(HQBase):
+    """ Set of functions to access information on Questionnaires. """
+
     _apiprefix = "/api/v1/questionnaires"
 
     def get_list(self):

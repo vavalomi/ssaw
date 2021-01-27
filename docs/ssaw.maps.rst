@@ -1,6 +1,7 @@
-`ssaw.maps` module
-==================
+Maps
+====
+.. py:module:: ssaw.maps
 
-.. autoclass:: ssaw.MapsApi
+.. autoclass:: MapsApi()
   :members:
   :undoc-members:

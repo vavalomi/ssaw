@@ -55,29 +55,19 @@ class UserRole(Enum):
     APIUSER = "ApiUser"
 
 class Assignment(object):
-    def __init__(self, responsible, quantity, questionnaire_id,
-                 identifying_data=None, email='', password='', webmode=False,
-                 audio_recording_enabled=False, comments=''):
-        """[summary]
+    def __init__(self, responsible: str, quantity: int, questionnaire_id,
+                 identifying_data=None, email: str = '', password: str = '', webmode: bool= False,
+                 audio_recording_enabled: bool = False, comments: str = ''):
+        """An assignment.
 
-        Parameters
-        ----------
-        responsible : [type]
-            [description]
-        quantity : [type]
-            [description]
-        questionnaire_id : [type]
-            [description]
-        email : str, optional
-            [description], by default ''
-        password : str, optional
-            [description], by default ''
-        webmode : bool, optional
-            [description], by default False
-        audio_recording_enabled : bool, optional
-            [description], by default False
-        comments : str, optional
-            [description], by default ''
+            :param responsible: responsible username
+            :param quantity: [description]
+            :param questionnaire_id: [description]
+            :param email: [description], defaults to ''
+            :param password: [description], defaults to ''
+            :param webmode: [description], defaults to False
+            :param audio_recording_enabled: [description], defaults to False
+            :param comments: [description], defaults to ''
         """
 
         self.responsible = responsible
@@ -132,31 +122,22 @@ class Assignment(object):
 
 class ExportJob(object):
     def __init__(self,
-                 questionnaire_identity,
+                 questionnaire_identity: str,
                  export_type='Tabular',
                  interview_status='All',
                  from_date=None,
                  to_date=None,
-                 access_token=None,
-                 storage_type=None):
-        """[summary]
+                 access_token: str = None,
+                 storage_type: str = None):
+        """ExportJob object.
 
-        Parameters
-        ----------
-        questionnaire_identity : [type]
-            [description]
-        export_type : str, optional
-            [description], by default 'Tabular'
-        interview_status : str, optional
-            [description], by default 'All'
-        from_date : [type], optional
-            [description], by default None
-        to_date : [type], optional
-            [description], by default None
-        access_token : [type], optional
-            [description], by default None
-        storage_type : [type], optional
-            [description], by default None
+        :param questionnaire_identity: [description]
+        :param export_type: [description], default to 'Tabular'
+        :param interview_status: [description], defaults to 'All'
+        :param from_date: [description], defaults to None
+        :param to_date: [description], defaults to None
+        :param access_token: [description], defaults to None
+        :param storage_type: [description], defaults to None
         """
 
         if type(questionnaire_identity) is tuple:

@@ -6,21 +6,16 @@ from .utils import to_qidentity
 
 
 class AssignmentsApi(HQBase):
+    """ Set of functions to access and manipulate Assignments. """
     _apiprefix = "/api/v1/assignments"
 
     def get_list(self, questionnaire_id: str = None, questionnaire_version: int = None) -> Iterator[Assignment]:
         """Get list of assignments
 
-        Parameters
-        ----------
-        questionnaire_id : str, optional
-            Filter by specific questionnaire id
-        questionnaire_version : int, optional
-            Filter by specific version number
+        :param questionnaire_id: Filter by specific questionnaire id
+        :param questionnaire_version: Filter by specific version number
 
-        Yields
-        -------
-        list of :class:`ssaw.models.Assignment` objects
+        :returns: list of :class:`Assignment<ssaw.models.Assignment>` objects
         """
         path = self.url
         limit = 10
@@ -44,14 +39,9 @@ class AssignmentsApi(HQBase):
     def get_info(self, id: int) -> Assignment:
         """Get single assignment details
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
+        :param id: Assignment Id
 
-        Returns
-        -------
-            :class:`ssaw.models.Assignment` object
+        :returns: Assignment object
         """
         path = self.url + "/{}".format(id)
         item = self._make_call("get", path)
@@ -60,37 +50,26 @@ class AssignmentsApi(HQBase):
     def create(self, obj: Assignment) -> Assignment:
         """Create new assignment
 
-        Parameters
-        ----------
-        obj : Assignment
-            Assignment object to be created
+        :param obj: Assignment object to be created
 
-        Returns
-        -------
-            :class:`ssaw.models.Assignment` object
+        :returns: Newly created Assignment object
         """
         path = self.url
         res = self._make_call("post", path, json=obj.to_json())
         return Assignment.from_dict(res['Assignment'])
 
-    def archive(self, id: int):
+    def archive(self, id: int) -> None:
         """Archive assignment
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
+        :param id: Assignment Id
         """
         path = self.url + "/{}/archive".format(id)
         self._make_call("patch", path)
 
-    def unarchive(self, id: int):
+    def unarchive(self, id: int) -> None:
         """Unarchive assignment
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
+        :param id: Assignment Id
         """
         path = self.url + "/{}/unarchive".format(id)
         self._make_call("patch", path)
@@ -98,16 +77,10 @@ class AssignmentsApi(HQBase):
     def assign(self, id: int, responsible: str) -> Assignment:
         """Assign new responsible person for assignment
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
-        responsible : str
-            Username of the new responsible
+        :param id: Assignment Id
+        :param responsible: Username of the new responsible
 
-        Returns
-        -------
-            Modified :class:`ssaw.models.Assignment` object
+        :returns: Modified Assignment object
         """
         path = self.url + "/{}/assign".format(id)
         res = self._make_call("patch", path, json={"Responsible": responsible})
@@ -116,15 +89,9 @@ class AssignmentsApi(HQBase):
     def get_quantity_settings(self, id: int) -> bool:
         """Checi if quantity may be edited for the assignment
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
+        :param id: Assignment Id
 
-        Returns
-        -------
-        bool
-            `True` if quantity can be edited, `False` otherwise
+        :returns: `True` if quantity can be edited, `False` otherwise
         """
         path = self.url + "/{}/assignmentQuantitySettings".format(id)
         res = self._make_call("get", path)
@@ -133,16 +100,10 @@ class AssignmentsApi(HQBase):
     def update_quantity(self, id: int, quantity: int) -> Assignment:
         """Change maximum quantity of interviews to be created
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
-        quantity : int
-            new quantity of interviews to be collected
+        :param id: Assignment Id
+        :param quantity: new quantity of interviews to be collected
 
-        Returns
-        -------
-            Modified :class:`ssaw.models.Assignment` object
+        :returns: Modified Assignment object
 
         """
         if not isinstance(quantity, int):
@@ -152,13 +113,10 @@ class AssignmentsApi(HQBase):
         res = self._make_call("patch", path, data=str(quantity), headers=headers)
         return Assignment.from_dict(res)
 
-    def close(self, id: int):
+    def close(self, id: int) -> None:
         """Close assignment by setting Size to the number of collected interviews
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
+        :param id: Assignment Id
         """
         path = self.url + "/{}/close".format(id)
         self._make_call("post", path)
@@ -182,29 +140,19 @@ class AssignmentsApi(HQBase):
     def get_recordaudio(self, id: int) -> bool:
         """Get status of audio recording for the assignment
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
+        :param id: Assignment Id
 
-        Returns
-        -------
-        bool
-            True if audio recording is enabled, False otherwise
+        :returns: `True` if audio recording is enabled, `False` otherwise
         """
         path = self.url + "/{}/recordAudio".format(id)
         res = self._make_call("get", path)
         return res['Enabled']
 
-    def update_recordaudio(self, id: int, enabled: bool):
+    def update_recordaudio(self, id: int, enabled: bool) -> None:
         """Turn recording of audio for the assignment
 
-        Parameters
-        ----------
-        id : int
-            Assignment Id
-        enabled : bool
-            True to turn audio recording on, False to turn it off
+        :param id: Assignment Id
+        :param enabled: `True` to turn audio recording on, `False` to turn it off
         """
         if not isinstance(enabled, bool):
             raise TypeError('enabled must be either True or False')
