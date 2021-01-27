@@ -5,9 +5,9 @@ from types import GeneratorType
 from pytest import raises
 
 from ssaw import UsersApi
-from ssaw.tests.utils import random_name
 
 from . import my_vcr
+from ..utils import random_name
 
 
 @my_vcr.use_cassette()
