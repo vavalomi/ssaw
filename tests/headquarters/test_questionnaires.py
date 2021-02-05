@@ -29,6 +29,7 @@ def test_questionnaire_list(session):
     response = QuestionnairesApi(session).get_list()
     assert isinstance(response, types.GeneratorType)
     assert isinstance(next(response), QuestionnaireListItem), "Should be list of Questionnaire objects"
+    assert len(list(response)) == 12, "We have to have all items returned"
 
 
 @my_vcr.use_cassette(decode_compressed_response=True)

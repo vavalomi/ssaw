@@ -21,6 +21,7 @@ def test_supervisor_list(session):
     response = UsersApi(session).list_supervisors()
     assert isinstance(response, GeneratorType)
     assert 'UserName' in next(response).keys(), "The UserName should be in the response"
+    assert len(list(response)) == 13, "We have to have all items returned"
 
 
 @my_vcr.use_cassette()

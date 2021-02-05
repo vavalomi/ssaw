@@ -5,7 +5,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 import ssaw
-from ssaw.tests.utils import create_assignment, create_interview, import_questionnaire, upload_maps
+
+from tests.utils import (
+    create_assignment, create_interview, import_questionnaire, random_name, upload_maps
+)
 
 script_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -18,9 +21,13 @@ if env_path.is_file():
 base_url = os.environ.get("base_url")
 designer_questionnaire_id = os.environ.get("designer_questionnaire_id")
 
-ret = import_questionnaire(base_url, designer_questionnaire_id)
+# just to a list with more than one page
+for _ in range(13):
+    _ = import_questionnaire(base_url, designer_questionnaire_id)
 
-client = ssaw.Client(base_url, os.environ.get("SOLUTIONS_API_USER"), os.environ.get("SOLUTIONS_API_PASSWORD"))
+client = ssaw.Client(base_url,
+                     os.environ.get("SOLUTIONS_API_USER"),
+                     os.environ.get("SOLUTIONS_API_PASSWORD"))
 q = next(ssaw.QuestionnairesApi(client).get_list())
 
 hq1 = ssaw.UsersApi(client).create(
@@ -31,6 +38,12 @@ inter1 = ssaw.UsersApi(client).create(
     user_name="inter1", password="Validpassword1", role="Interviewer", supervisor="super1")
 inter2 = ssaw.UsersApi(client).create(
     user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
+
+# just to a list with more than one page
+for _ in range(13):
+    _ = ssaw.UsersApi(client).create(user_name=random_name(), password="Validpassword1",
+                                     role="Supervisor")
+
 
 identifying_data = [
     {"Variable": "address", "Answer": "123 Main Street"},
@@ -45,7 +58,8 @@ res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_
 for i in range(1000):
     interview_id = create_interview(base_url + '/primary', "inter1", "Validpassword1", 3)
 
-upload_maps(base_url + '/primary', os.path.join(os.path.dirname(os.path.realpath(__file__)), "maps.zip"))
+upload_maps(base_url + '/primary',
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), "maps.zip"))
 
 
 # save parameters for test runs

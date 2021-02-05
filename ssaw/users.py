@@ -60,7 +60,7 @@ class UsersApi(HQBase):
             'offset': page,
             'limit': page_size
         }
-        while page * page_size < total_count:
+        while (page - 1) * page_size < total_count:
             params['offset'] = page
             r = self._make_call('get', path, params=params)
             total_count = r['TotalCount']

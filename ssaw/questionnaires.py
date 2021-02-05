@@ -18,8 +18,8 @@ class QuestionnairesApi(HQBase):
             'offset': page,
             'limit': page_size
         }
-        while page * page_size < total_count:
-            params['page'] = page
+        while (page - 1) * page_size < total_count:
+            params['offset'] = page
             r = self._make_call('get', path, params=params)
             if 'TotalCount' in r:
                 total_count = r['TotalCount']

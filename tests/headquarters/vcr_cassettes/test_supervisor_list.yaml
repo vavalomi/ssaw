@@ -9,17 +9,23 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.2
     method: GET
     uri: http://localhost:9707/api/v1/supervisors?offset=1&limit=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA5SOPWvDMBRF/8ubpfL09GFLa7oEQrukS0sHKZLARLGLJdMh+L/XLl0ydrzcew/n
-        Dm81zRXcxx2O9TRdrimCy77UxOAwJ9+GaXz2LYEDQhIcBSdzJnRKOSWeNEpN5h3YL+e4faEnqQzZ
-        wClrz5UWmgfUgQefUVuMFI3927/42w7W311pU2k5wMr+60G0e/QGlewePFAGYVWfuPTZcoVG8T50
-        iRsrYuxiJ+mSHz3q8pVmAesng9c5phncuJTC4DTchgZOIIPz1Hw5TMu4ZdpmOde0V+sPAAAA//8D
-        ACLFvrBJAQAA
+        H4sIAAAAAAAAA5zSPW8bMQwG4P9ysxlQIvVBr+kSoMjULu0kSmLj5sON72C3Dfrfey66KOOthPji
+        wUu9TZ/nfpqn/de36W7+eKyPvU17K09z3023p16Ww/HlQ1n6tJ88egfoAcMnl/ZEe0c3HjGx/zLt
+        /uXcrbsT5UDdWwP2nIAdMkgICZqpuYIti+b/7+/L8zXY/SA9mvwOffqz2+hILG50pFxIHSpIbAWY
+        m0FJ3oPriBZVmsc0OugXHx6WU3QPmx2EKJwHh6RasHuGGMgBG2UoJAFKaOSrU1/NjY54DrbY6eVb
+        2+xwzCJjH5FzYKIGXTuujpggu6DQK1LrqM2lOjrSZakXO1/idsc6SkiDI3hLEpTWAlSBiRvkK6ZZ
+        NlHOKJlHh3Lv5IOVsN2x5mIYHNqzpx4jxNbi6qgRikSFiCZcC3nX3/Wh3w/P/WmWn7T9Li6FPN4l
+        lBrE5FpA8sApG6hJBKktIAm2nt79Uz272F79o8aNDn8jIvGq+AsAAP//nJQ7D8MgDIT/C3OQeAVI
+        166VunTtACZISJREaehjyH+vM1XJmM2WPJzuvvOfDlhp1AqZCEgpWI/5QKTAWukwFo512qpI6sPg
+        O9aRH3fDSLYti2StsRb/hpdGohnIZ2ecoiJogABa6si2MsqoUi416nr8eWBXuNlBGoTrHFDlOMJh
+        DUNjlKfWC+5c1EHEHRzlPbSDjZm/yHJvyHUK/UROpebckEt6pJmcOGvIbZhdPg+1rLvCuxif/Tov
+        PwAAAP//AwBbrpa/iwUAAA==
     headers:
       Content-Encoding:
       - gzip
@@ -28,7 +34,47 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:44:41 GMT
+      - Fri, 05 Feb 2021 17:38:57 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.1
+    method: GET
+    uri: http://localhost:9707/api/v1/supervisors?offset=2&limit=10
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA5zQPW/CQAwG4P9yc4zu03eXlS5IqF3o0qqDL+eoKSFB+YBKiP9eqLqkI5stvX71
+        yBfxOvIwivL9Ijbjtq/2nEVZUztyIdYD09T03RNNLEqhpVYgNUi3U740plR6FT36EN9E8duzud0K
+        DrbCpDxoRwZsYoZEmICsZIUO6+zxL/9Mh3vxgJ1KXyd1/hTX4hGHWUnvtDQLh5HaesQMxOTAWq8h
+        UpDAUgVdY1W7QEvHuD82zVzFND/o0Kvg0RlcOKyKWnI0gCwzWAwKyEiCkJJUznijXPznmI88qId/
+        obWzbkEgmRSHyoDMiGCjdkA5JbBGUYghZ7b1kvDt2vP5VO3PJ3H9KMTLkHkQZTe3bSG2zaGZRKlk
+        IXb9RO26n7v7bm+5uh75NuvrDwAAAP//AwAl2O9dWQIAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Feb 2021 17:38:57 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

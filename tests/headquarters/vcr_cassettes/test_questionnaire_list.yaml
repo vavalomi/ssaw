@@ -9,17 +9,19 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.2
     method: GET
-    uri: http://localhost:9707/api/v1/questionnaires?offset=1&limit=10&page=1
+    uri: http://localhost:9707/api/v1/questionnaires?offset=1&limit=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1zPwUoDMRAG4FdZgseNJOl26+5NbA8FpShFD9LDdGe2hK6JJrNIKX13Ew+y9RZ+
-        5vszcxbPI0W23jmwgaJo38/X0RrJseWTaEWDM0BVN00DUGENd4QAqE23MAZq1d9oUf7HEyazkxnK
-        LOWUJvhKISYnWl2KreWBEo0RvotP6I5woIJTcfE1rc8KgoX933BKHiHyynE4LYFzbJTRUmmp51tV
-        tZVpjb6dz3S1MGl4He9HtP6FOh/QusPK5bK0dQ9DpFK80f7JI13Hl10pNgEppPb8of2wnNZWaW/P
-        MDz40fHvGZu+j5Sflx8AAAD//wMAskKy/WgBAAA=
+        H4sIAAAAAAAAA9yQMWvDMBBG/4oRHa0inRWn1hZohkA7tIR26HTxXYJokBNJoYTQ/15pKU7Xesr6
+        uPdxvIt4OXFMbvAeXeAo7MflGq2IfXLpLKzoqEFSbdd1iIZafGBCJA39HABbtb3Tov4rjzRZPFlE
+        WUw5VrP4xiFmT1hdi7VLe85qjPhVHbD/xB1XKQ9Xx/F8sTA43PweZ/KEMS19CudHTAWDAi2Vlnq2
+        VsYasKDvZ402c8jHq7g4kRteuR8COb9b+jKWv97iPnIt3nnzPBBf4+/6H41gkkZw042aSRo1N93I
+        TNLoBwAA//8yGdZhZEqVMDId1mFkRpUwMhvWYWROlTAyH4RhBAAAAP//ol4YWVAljCyGdRhZUiWM
+        LId1GBkaUKcRaTDoQylWR8m/KCW1CGg6yMLM3MwSqLvzSxJznPNL80B8YCvGPy2tOBXErgUAAAD/
+        /wMAjp7xIq8LAAA=
     headers:
       Content-Encoding:
       - gzip
@@ -28,7 +30,46 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:44:41 GMT
+      - Fri, 05 Feb 2021 18:21:38 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.4.2
+    method: GET
+    uri: http://localhost:9707/api/v1/questionnaires?offset=2&limit=10
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA9yQQUsDMRCF/8oSPG4kyW63bm6iPRSUohQ9iIfpZrYE10STLFJK/7sTBNl6tQfx
+        Njzme/Pm7dndiDFZ7xzYgJHpp/2xtDTokk07pllrKjCiadsWoDYNXKABMFJ1c6WgEf2ZlKz8SU84
+        nkGeSZ5RPmUJfMAQiWNaypKtbRqQ2Bjho3iD7gW2WCRyLt6n/hmDYGHzvUzKDcS0cCnsriFlWQkl
+        uZBcztai1rXSSp7PKlnPFS0v4+VorL/Hzgdj3XbhshnF7mGIWLJH3Nx6g8fyofxNS+o0Lan/3VJ1
+        mpaqP9/Sc8lWwWAg93zQvtpEuQXl9gmGKz+69PXHqu8j0qwOnwAAAP//AwCaZ7GQtwMAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 05 Feb 2021 18:21:38 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
