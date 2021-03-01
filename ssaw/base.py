@@ -20,7 +20,7 @@ class HQBase(object):
             self.workspace = workspace
         else:
             self.workspace = client.workspace
- 
+
     @property
     def url(self) -> str:
         if self.workspace:
