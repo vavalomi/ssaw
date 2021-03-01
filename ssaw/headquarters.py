@@ -11,17 +11,17 @@ class Client(object):
     :param url: URL of the headquarters app
     :param api_user: API user name
     :param api_password: API user password
-    :param workspace: Name of the workspace. If `None`, 'primary' will be assumed
+    :param workspace: Name of the workspace. If `None`, "primary" will be assumed
     """
 
-    def __init__(self, url: str, api_user: str, api_password: str, workspace: str = 'primary'):
+    def __init__(self, url: str, api_user: str, api_password: str, workspace: str = "primary"):
         session = Session()
         session.auth = (api_user, api_password)
-        signature = 'python-{}/{}'.format(__title__, __version__)
-        session.headers.update({'User-Agent': signature})
+        signature = "python-{}/{}".format(__title__, __version__)
+        session.headers.update({"User-Agent": signature})
         self.baseurl = url.rstrip("/")
         self.session = session
-        self._workspace = workspace
+        self.workspace = workspace
 
     @property
     def version(self) -> Version:

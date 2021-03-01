@@ -4,7 +4,10 @@ import re
 
 from sgqlc.endpoint.requests import RequestsEndpoint
 
-from .exceptions import ForbiddenError, NotAcceptableError, NotFoundError, UnauthorizedError
+from .exceptions import (
+    ForbiddenError, GraphQLError,
+    NotAcceptableError, NotFoundError, UnauthorizedError
+)
 from .headquarters import Client
 
 
@@ -13,12 +16,11 @@ class HQBase(object):
 
     def __init__(self, client: Client, workspace: str = None) -> None:
         self._hq = client
-        self.workspace = workspace
-        graphqlpath = '/graphql'
         if workspace:
-            graphqlpath = '/' + workspace + graphqlpath
-        self.endpoint = RequestsEndpoint(client.baseurl + graphqlpath, session=client.session)
-
+            self.workspace = workspace
+        else:
+            self.workspace = client.workspace
+ 
     @property
     def url(self) -> str:
         if self.workspace:
@@ -44,6 +46,22 @@ class HQBase(object):
 
         else:
             self._process_status_code(response)
+
+    def _make_graphql_call(self, op):
+        endpoint = RequestsEndpoint(self._hq.baseurl + '/graphql', session=self._hq.session)
+        cont = endpoint(op)
+        errors = cont.get('errors')
+        if errors:
+            try:
+                rc = errors[0]['extensions']['code']
+            except KeyError:
+                rc = None
+            if rc == 'AUTH_NOT_AUTHENTICATED':
+                raise UnauthorizedError()
+            else:
+                raise GraphQLError(errors[0]['message'])
+        else:
+            return cont
 
     @staticmethod
     def _process_status_code(response):
