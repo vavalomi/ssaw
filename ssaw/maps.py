@@ -3,7 +3,6 @@ from typing import Generator
 from sgqlc.operation import Operation
 
 from .base import HQBase
-from .exceptions import GraphQLError
 from .headquarters_schema import (
     ListFilterInputTypeOfUserMapFilterInput,
     Map,
@@ -16,7 +15,8 @@ from .headquarters_schema import (
 class MapsApi(HQBase):
     """ Set of functions to access and manipulate Maps. """
 
-    def get_list(self, filter_user: str = None, fields: list = [], **kwargs) -> Generator[Map, None, None]:
+    def get_list(self, filter_user: str = None, fields: list = [],
+                 skip: int = None, take: int = None, **kwargs) -> Generator[Map, None, None]:
         """Get list of maps
 
         :param filter_user: List only maps linked to the user
@@ -32,31 +32,30 @@ class MapsApi(HQBase):
                     user_name=StringOperationFilterInput(
                         eq=filter_user)))
         maps_args = {
-            'take': 20,
-            'skip': 0,
+            "workspace": self.workspace
         }
         if kwargs:
             maps_args['where'] = MapsFilter(**kwargs)
-        filtered_count = 21
+        if skip:
+            maps_args["skip"] = skip
+        if take:
+            maps_args["take"] = take
+
         if not fields:
             fields = [
                 'file_name',
                 'import_date',
             ]
-        while maps_args['skip'] < filtered_count:
-            op = Operation(headquarters_schema.HeadquartersQuery)
-            q = op.maps(**maps_args)
-            q.__fields__('filtered_count')
-            q.nodes.__fields__(*fields)
-            cont = self.endpoint(op)
-            errors = cont.get('errors')
-            if errors:
-                raise GraphQLError(errors[0]['message'])
-            res = (op + cont).maps
 
-            filtered_count = res.filtered_count
-            yield from res.nodes
-            maps_args['skip'] += maps_args['take']
+        op = Operation(headquarters_schema.HeadquartersQuery)
+        q = op.maps(**maps_args)
+        q.__fields__('filtered_count')
+        q.nodes.__fields__(*fields)
+
+        cont = self._make_graphql_call(op)
+        res = (op + cont).maps
+
+        yield from res.nodes
 
     def delete(self, file_name: str) -> Map:
         """Delete a map file
@@ -94,9 +93,7 @@ class MapsApi(HQBase):
         op = Operation(headquarters_schema.HeadquartersMutation)
         func = getattr(op, method_name)
         func(**kwargs).__fields__(*fields)
-        cont = self.endpoint(op)
-        errors = cont.get('errors')
-        if errors:
-            raise GraphQLError(errors[0]['message'])
+        cont = self._make_graphql_call(op)
+
         res = (op + cont)
         return getattr(res, method_name)

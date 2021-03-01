@@ -459,7 +459,7 @@ class Attachment(BaseModelWithConfig):
     name: str
 
 
-class Questionnaire(BaseModelWithConfig):
+class QuestionnaireDocument(BaseModelWithConfig):
     attachments: List[Attachment]
     categories: List[Category]
     children: List[Group]
@@ -471,15 +471,6 @@ class Questionnaire(BaseModelWithConfig):
     title: str
     translations: list
     variable_name: str
-
-
-class QuestionnaireListItem(BaseModelWithConfig):
-    questionnaire_identity: str
-    questionnaire_id: UUID
-    version: int
-    title: str
-    variable: str
-    last_entry_date: datetime.datetime
 
 
 class InterviewerAction(BaseModelWithConfig):

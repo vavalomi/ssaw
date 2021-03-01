@@ -1,7 +1,10 @@
 from uuid import UUID
 
+from sgqlc.operation import Operation
+
 from .base import HQBase
-from .models import Questionnaire, QuestionnaireListItem
+from .headquarters_schema import HeadquartersQuery
+from .models import QuestionnaireDocument
 
 
 class QuestionnairesApi(HQBase):
@@ -9,33 +12,47 @@ class QuestionnairesApi(HQBase):
 
     _apiprefix = "/api/v1/questionnaires"
 
-    def get_list(self):
-        path = self.url
-        page_size = 10
-        page = 1
-        total_count = 11
-        params = {
-            'offset': page,
-            'limit': page_size
+    def get_list(self, fields: list = [], questionnaire_id: str = None, version: int = None,
+                 skip: int = None, take: int = None):
+        if not fields:
+            fields = [
+                "id",
+                "questionnaire_id",
+                "version",
+                "title",
+                "variable",
+                "default_language_name",
+            ]
+        # we always have workspace parameter
+        q_args = {
+            "workspace": self.workspace
         }
-        while (page - 1) * page_size < total_count:
-            params['offset'] = page
-            r = self._make_call('get', path, params=params)
-            if 'TotalCount' in r:
-                total_count = r['TotalCount']
-                for item in r['Questionnaires']:
-                    yield QuestionnaireListItem(**item)
-            else:
-                yield from ()
-            page += 1
+        if questionnaire_id:
+            q_args["questionnaire_id"] = questionnaire_id
+        if version:
+            q_args["version"] = version
+        if skip:
+            q_args["skip"] = skip
+        if take:
+            q_args["take"] = take
+
+        op = Operation(HeadquartersQuery)
+        q = op.questionnaires(**q_args)
+        q.nodes.__fields__(*fields)
+
+        cont = self._make_graphql_call(op)
+
+        res = (op + cont).questionnaires
+
+        yield from res.nodes
 
     def statuses(self):
         path = self.url + '/statuses'
         return self._make_call('get', path)
 
-    def document(self, id: UUID, version: int) -> Questionnaire:
+    def document(self, id: UUID, version: int) -> QuestionnaireDocument:
         path = self.url + '/{}/{}/document'.format(id, version)
-        return self._make_call('get', path, parser=Questionnaire.parse_raw)
+        return self._make_call('get', path, parser=QuestionnaireDocument.parse_raw)
 
     def interviews(self, id: UUID, version: int):
         path = self.url + '/{}/{}/interviews'.format(id, version)
