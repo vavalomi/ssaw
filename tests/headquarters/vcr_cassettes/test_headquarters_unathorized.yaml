@@ -1,36 +1,49 @@
 interactions:
 - request:
-    body: null
+    body: '{"query": "query {\nquestionnaires(workspace: \"primary\") {\nnodes {\nid\nquestionnaireId\nversion\ntitle\nvariable\ndefaultLanguageName\n}\n}\n}",
+      "variables": null, "operationName": null}'
     headers:
       Accept:
-      - '*/*'
+      - application/json; charset=utf-8
       Accept-Encoding:
       - gzip, deflate
       Connection:
       - keep-alive
+      Content-Length:
+      - '190'
+      Content-Type:
+      - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.4.2
-    method: GET
-    uri: https://demo.mysurvey.solutions/api/v1/questionnaires?offset=1&limit=10
+      - python-ssaw/0.4.3
+    method: POST
+    uri: https://demo.mysurvey.solutions/graphql
   response:
     body:
-      string: ''
+      string: !!binary |
+        H4sIAAAAAAAAClyOMQvCMBBG/0q4uQg6Zita0KUucRIpIT1MIE30cgGx5L+b0M3t4H3vcSsgUaQE
+        8r7CginpJ4IEZVGYTISBRU5IwiURIgud2UZyX5wFR6GNqYZgWylhipkM7qADH41mF8NW9S7U5KED
+        E31eAsh9eXTw0mwrhnfG1LZBu5qASvDDGNKmr1Wa20P9TZ2n8aqmdgyjuhx7NZygtNSsWbfpX0qG
+        7H0pPwAAAP//AwBxY70f4gAAAA==
     headers:
+      Content-Encoding:
+      - gzip
       Content-Language:
       - en-US
+      Content-Type:
+      - application/json; charset=utf-8
       Date:
-      - Fri, 05 Feb 2021 18:38:07 GMT
+      - Mon, 01 Mar 2021 19:27:39 GMT
       Server:
       - Microsoft-IIS/10.0
       Strict-Transport-Security:
       - max-age=2592000
       Transfer-Encoding:
       - chunked
-      WWW-Authenticate:
-      - Basic realm="WB.Headquarters", charset="UTF-8"
+      Vary:
+      - Accept-Encoding
       X-Powered-By:
       - ASP.NET
     status:
-      code: 401
-      message: Unauthorized
+      code: 200
+      message: OK
 version: 1

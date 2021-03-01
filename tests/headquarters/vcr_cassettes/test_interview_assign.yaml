@@ -14,9 +14,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/interviews/9f7f4d0143914027b32724a7b714f210/assign
+    uri: http://localhost:9707/primary/api/v1/interviews/9f7f4d0143914027b32724a7b714f210/assign
   response:
     body:
       string: !!binary |

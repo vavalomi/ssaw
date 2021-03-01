@@ -13,9 +13,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PUT
-    uri: http://localhost:9707/api/v1/settings/globalnotice
+    uri: http://localhost:9707/primary/api/v1/settings/globalnotice
   response:
     body:
       string: ''
@@ -39,9 +39,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/settings/globalnotice
+    uri: http://localhost:9707/primary/api/v1/settings/globalnotice
   response:
     body:
       string: !!binary |

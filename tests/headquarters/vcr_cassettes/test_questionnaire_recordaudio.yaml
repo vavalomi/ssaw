@@ -13,9 +13,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: http://localhost:9707/api/v1/questionnaires/9d3ad06999aa4d6a8edaad12c722a60f/1/recordAudio
+    uri: http://localhost:9707/primary/api/v1/questionnaires/9d3ad06999aa4d6a8edaad12c722a60f/1/recordAudio
   response:
     body:
       string: ''

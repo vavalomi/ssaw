@@ -4,7 +4,7 @@ from uuid import UUID
 from pytest import fixture
 
 from ssaw import QuestionnairesApi
-from ssaw.models import QuestionnaireListItem
+from ssaw.headquarters_schema import Questionnaire
 
 from . import my_vcr
 
@@ -28,7 +28,7 @@ def test_interview_statuses(session, statuses):
 def test_questionnaire_list(session):
     response = QuestionnairesApi(session).get_list()
     assert isinstance(response, types.GeneratorType)
-    assert isinstance(next(response), QuestionnaireListItem), "Should be list of Questionnaire objects"
+    assert isinstance(next(response), Questionnaire), "Should be list of Questionnaire objects"
     assert len(list(response)) == 12, "We have to have all items returned"
 
 

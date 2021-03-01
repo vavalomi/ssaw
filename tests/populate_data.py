@@ -51,9 +51,9 @@ identifying_data = [
 ]
 
 # we will always start with at least 3 assignments
-res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_data)
-res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_data)
-res = create_assignment(client, "inter1", q.questionnaire_identity, identifying_data)
+res = create_assignment(client, "inter1", q.id, identifying_data)
+res = create_assignment(client, "inter1", q.id, identifying_data)
+res = create_assignment(client, "inter1", q.id, identifying_data)
 
 for i in range(1000):
     interview_id = create_interview(base_url + '/primary', "inter1", "Validpassword1", 3)

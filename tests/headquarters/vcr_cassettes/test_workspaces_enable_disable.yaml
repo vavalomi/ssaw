@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
     uri: http://localhost:9707/.version
   response:
@@ -41,9 +41,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: http://localhost:9707/api/v1/workspaces
+    uri: http://localhost:9707/primary/api/v1/workspaces
   response:
     body:
       string: !!binary |
@@ -59,7 +59,7 @@ interactions:
       Date:
       - Tue, 26 Jan 2021 20:44:45 GMT
       Location:
-      - http://localhost:9707/api/v1/workspaces/enable
+      - http://localhost:9707/primary/api/v1/workspaces/enable
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -79,7 +79,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
     uri: http://localhost:9707/.version
   response:
@@ -109,9 +109,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: http://localhost:9707/api/v1/workspaces/enable/disable
+    uri: http://localhost:9707/primary/api/v1/workspaces/enable/disable
   response:
     body:
       string: ''
@@ -135,7 +135,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
     uri: http://localhost:9707/.version
   response:
@@ -165,9 +165,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: http://localhost:9707/api/v1/workspaces/enable/enable
+    uri: http://localhost:9707/primary/api/v1/workspaces/enable/enable
   response:
     body:
       string: ''

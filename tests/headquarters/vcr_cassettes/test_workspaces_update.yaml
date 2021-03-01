@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
     uri: http://localhost:9707/.version
   response:
@@ -41,9 +41,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/workspaces/primary
+    uri: http://localhost:9707/primary/api/v1/workspaces/primary
   response:
     body:
       string: ''

@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"query": "query {\nmaps(take: 20, skip: 0) {\nfilteredCount\nnodes {\nfileName\nimportDate\n}\n}\n}",
+    body: '{"query": "query {\nmaps(workspace: \"dddd\") {\nfilteredCount\nnodes {\nfileName\nimportDate\n}\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -10,20 +10,19 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '144'
+      - '146'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: https://demo.mysurvey.solutions/graphql
+    uri: http://localhost:9707/graphql
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAACiSOwQrCMBBEfyXsuQh6zK1oQS/1Ek8iJaSLCaRJ2WxALPl3E3ubYWYeswESRUog
-        nxssmJJ+I0hQFoXJRBhY5IQkXBIhstCZbST3xVlwFNqYuhBsa0qYYiaDB+jAR6PZxbBTvQsVeerA
-        RJ+XAPJYXh2smm2NYdFrgurxwxjSPtpqdW43+oe6TuNdTU0Mo7qdezVcoDTArFm36h8gQ/a+lB8A
-        AAD//wMA4gsDDs4AAAA=
+        H4sIAAAAAAAAAzyOsQrCMBBAfyXcLKG4CBkLDg66dlCHI15rsCbh7mItJf9uQej6hvfeAsScWMBd
+        F3iTCA4EDo5fT1lDiib1RudM5laaZn/oWnuKPaMoF6+FyV5Qw4dsl/glGT2JPQeREIeNbK6/wkwo
+        Rp+cpmih3nfwQEVwax3zuhHLONb6AwAA//8DADi5d4GXAAAA
     headers:
       Content-Encoding:
       - gzip
@@ -32,17 +31,13 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:44:39 GMT
+      - Mon, 01 Mar 2021 20:07:28 GMT
       Server:
-      - Microsoft-IIS/10.0
-      Strict-Transport-Security:
-      - max-age=2592000
+      - Kestrel
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      X-Powered-By:
-      - ASP.NET
     status:
       code: 200
       message: OK

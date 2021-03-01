@@ -16,9 +16,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: http://localhost:9707/api/v1/assignments
+    uri: http://localhost:9707/primary/api/v1/assignments
   response:
     body:
       string: !!binary |
@@ -38,7 +38,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:48 GMT
+      - Mon, 01 Mar 2021 20:07:48 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

@@ -9,9 +9,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/supervisors/767ca045-45e7-4607-9799-29837d87d1d1/interviewers?offset=1&limit=10
+    uri: http://localhost:9707/primary/api/v1/supervisors/767ca045-45e7-4607-9799-29837d87d1d1/interviewers?offset=1&limit=10
   response:
     body:
       string: !!binary |

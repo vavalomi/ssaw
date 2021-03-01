@@ -9,9 +9,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v2/export/1
+    uri: http://localhost:9707/primary/api/v2/export/1
   response:
     body:
       string: !!binary |

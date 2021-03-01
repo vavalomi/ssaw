@@ -9,9 +9,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/assignments?offset=1&limit=10&questionnaireId=9d3ad06999aa4d6a8edaad12c722a60f%241
+    uri: http://localhost:9707/primary/api/v1/assignments?offset=1&limit=10&questionnaireId=9d3ad06999aa4d6a8edaad12c722a60f%241
   response:
     body:
       string: !!binary |
@@ -31,7 +31,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:20 GMT
+      - Mon, 01 Mar 2021 20:07:20 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

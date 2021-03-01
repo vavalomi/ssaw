@@ -12,11 +12,11 @@ interactions:
       Content-Length:
       - '152'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
       content-type:
       - application/json
     method: POST
-    uri: http://localhost:9707/api/v1/users
+    uri: http://localhost:9707/primary/api/v1/users
   response:
     body:
       string: !!binary |

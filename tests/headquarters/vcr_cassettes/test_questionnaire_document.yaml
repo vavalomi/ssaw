@@ -9,9 +9,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/questionnaires/9d3ad06999aa4d6a8edaad12c722a60f/1/document
+    uri: http://localhost:9707/primary/api/v1/questionnaires/9d3ad06999aa4d6a8edaad12c722a60f/1/document
   response:
     body:
       string: "{\n  \"CoverPageSectionId\": \"3ed87270-3ac4-486a-a6f6-f3e4d756d0f3\"\

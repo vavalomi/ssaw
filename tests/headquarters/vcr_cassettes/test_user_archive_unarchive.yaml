@@ -11,9 +11,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62/archive
+    uri: http://localhost:9707/primary/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62/archive
   response:
     body:
       string: ''
@@ -39,9 +39,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62
+    uri: http://localhost:9707/primary/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62
   response:
     body:
       string: !!binary |
@@ -78,9 +78,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62/unarchive
+    uri: http://localhost:9707/primary/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62/unarchive
   response:
     body:
       string: ''
@@ -106,9 +106,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62
+    uri: http://localhost:9707/primary/api/v1/users/f41706e56f1f42e2ae9b83926b66cb62
   response:
     body:
       string: !!binary |

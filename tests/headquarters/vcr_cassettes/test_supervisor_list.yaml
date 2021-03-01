@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.4.2
     method: GET
-    uri: http://localhost:9707/api/v1/supervisors?offset=1&limit=10
+    uri: http://localhost:9707/primary/api/v1/supervisors?offset=1&limit=10
   response:
     body:
       string: !!binary |
@@ -56,7 +56,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.4.1
     method: GET
-    uri: http://localhost:9707/api/v1/supervisors?offset=2&limit=10
+    uri: http://localhost:9707/primary/api/v1/supervisors?offset=2&limit=10
   response:
     body:
       string: !!binary |

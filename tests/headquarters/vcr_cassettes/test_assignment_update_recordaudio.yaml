@@ -9,9 +9,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/assignments/4/recordAudio
+    uri: http://localhost:9707/primary/api/v1/assignments/4/recordAudio
   response:
     body:
       string: !!binary |
@@ -24,7 +24,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:37 GMT
+      - Mon, 01 Mar 2021 20:07:37 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -48,9 +48,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/assignments/4/recordAudio
+    uri: http://localhost:9707/primary/api/v1/assignments/4/recordAudio
   response:
     body:
       string: ''
@@ -58,7 +58,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 20:51:37 GMT
+      - Mon, 01 Mar 2021 20:07:37 GMT
       Server:
       - Kestrel
     status:
@@ -74,9 +74,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/assignments/4/recordAudio
+    uri: http://localhost:9707/primary/api/v1/assignments/4/recordAudio
   response:
     body:
       string: !!binary |
@@ -89,7 +89,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:37 GMT
+      - Mon, 01 Mar 2021 20:07:37 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

@@ -18,11 +18,10 @@ def test_headquarters_unathorized():
 
 
 @my_vcr.use_cassette()
-def test_headquarters_graphql_error():
-    s = Client('https://demo.mysurvey.solutions/', "aa", "")
+def test_headquarters_graphql_error(session):
 
     with raises(GraphQLError):
-        next(MapsApi(s).get_list())
+        next(MapsApi(session, workspace="dddd").get_list())
 
 
 def test_utils_parse_qidentity(params):

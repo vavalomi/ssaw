@@ -11,9 +11,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/assignments/4/archive
+    uri: http://localhost:9707/primary/api/v1/assignments/4/archive
   response:
     body:
       string: !!binary |
@@ -32,7 +32,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:29 GMT
+      - Mon, 01 Mar 2021 20:07:29 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -52,9 +52,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/assignments/4
+    uri: http://localhost:9707/primary/api/v1/assignments/4
   response:
     body:
       string: !!binary |
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:29 GMT
+      - Mon, 01 Mar 2021 20:07:29 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -97,9 +97,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: PATCH
-    uri: http://localhost:9707/api/v1/assignments/4/unarchive
+    uri: http://localhost:9707/primary/api/v1/assignments/4/unarchive
   response:
     body:
       string: !!binary |
@@ -118,7 +118,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:29 GMT
+      - Mon, 01 Mar 2021 20:07:29 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -138,9 +138,9 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/api/v1/assignments/4
+    uri: http://localhost:9707/primary/api/v1/assignments/4
   response:
     body:
       string: !!binary |
@@ -161,7 +161,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:51:29 GMT
+      - Mon, 01 Mar 2021 20:07:29 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

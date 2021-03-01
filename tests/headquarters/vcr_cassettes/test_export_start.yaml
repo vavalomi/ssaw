@@ -14,9 +14,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.0
+      - python-ssaw/0.4.3
     method: POST
-    uri: http://localhost:9707/api/v2/export
+    uri: http://localhost:9707/primary/api/v2/export
   response:
     body:
       string: !!binary |
@@ -36,7 +36,7 @@ interactions:
       Date:
       - Tue, 26 Jan 2021 20:44:38 GMT
       Location:
-      - http://localhost:9707/api/v2/export/2
+      - http://localhost:9707/primary/api/v2/export/2
       Server:
       - Kestrel
       Transfer-Encoding:
