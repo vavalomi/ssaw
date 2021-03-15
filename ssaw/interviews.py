@@ -9,7 +9,7 @@ from .headquarters_schema import (
     ComparableInt64OperationFilterInput,
     HeadquartersQuery,
     Interview,
-    InterviewFilter,
+    InterviewsFilter,
     InterviewSort
 )
 from .models import InterviewAnswers
@@ -43,7 +43,7 @@ class InterviewsApi(HQBase):
             kwargs["questionnaire_version"] = ComparableInt64OperationFilterInput(eq=questionnaire_version)
 
         if kwargs:
-            interview_args['where'] = InterviewFilter(**kwargs)
+            interview_args['where'] = InterviewsFilter(**kwargs)
 
         if not fields:
             fields = [

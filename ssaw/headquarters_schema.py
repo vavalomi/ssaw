@@ -227,31 +227,6 @@ class IdentifyEntityValueFilter(sgqlc.types.Input):
     entity = sgqlc.types.Field('QuestionnaireItemsFilter', graphql_name='entity')
 
 
-class InterviewFilter(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'status', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'key', 'not_answered_count', 'client_key', 'assignment_id', 'created_date', 'responsible_name', 'responsible_name_lower_case', 'supervisor_name', 'supervisor_name_lower_case', 'responsible_role', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'identifying_data')
-    and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewFilter')), graphql_name='and')
-    or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewFilter')), graphql_name='or')
-    status = sgqlc.types.Field('InterviewStatusOperationFilterInput', graphql_name='status')
-    questionnaire_id = sgqlc.types.Field(ComparableGuidOperationFilterInput, graphql_name='questionnaireId')
-    questionnaire_variable = sgqlc.types.Field('StringOperationFilterInput', graphql_name='questionnaireVariable')
-    questionnaire_version = sgqlc.types.Field(ComparableInt64OperationFilterInput, graphql_name='questionnaireVersion')
-    key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='key')
-    not_answered_count = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='notAnsweredCount')
-    client_key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='clientKey')
-    assignment_id = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='assignmentId')
-    created_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='createdDate')
-    responsible_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleName')
-    responsible_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleNameLowerCase')
-    supervisor_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorName')
-    supervisor_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorNameLowerCase')
-    responsible_role = sgqlc.types.Field('UserRolesOperationFilterInput', graphql_name='responsibleRole')
-    update_date_utc = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='updateDateUtc')
-    received_by_interviewer_at_utc = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='receivedByInterviewerAtUtc')
-    errors_count = sgqlc.types.Field(ComparableInt32OperationFilterInput, graphql_name='errorsCount')
-    identifying_data = sgqlc.types.Field('ListFilterInputTypeOfIdentifyEntityValueFilterInput', graphql_name='identifyingData')
-
-
 class InterviewSort(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('key', 'created_date', 'update_date_utc', 'responsible_name', 'responsible_role', 'assignment_id', 'errors_count', 'status', 'received_by_interviewer_at_utc', 'questionnaire_id', 'questionnaire_version', 'id', 'not_answered_count')
@@ -277,6 +252,31 @@ class InterviewStatusOperationFilterInput(sgqlc.types.Input):
     neq = sgqlc.types.Field(InterviewStatus, graphql_name='neq')
     in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(InterviewStatus)), graphql_name='in')
     nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(InterviewStatus)), graphql_name='nin')
+
+
+class InterviewsFilter(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('and_', 'or_', 'status', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'key', 'not_answered_count', 'client_key', 'assignment_id', 'created_date', 'responsible_name', 'responsible_name_lower_case', 'supervisor_name', 'supervisor_name_lower_case', 'responsible_role', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'identifying_data')
+    and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewsFilter')), graphql_name='and')
+    or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewsFilter')), graphql_name='or')
+    status = sgqlc.types.Field(InterviewStatusOperationFilterInput, graphql_name='status')
+    questionnaire_id = sgqlc.types.Field(ComparableGuidOperationFilterInput, graphql_name='questionnaireId')
+    questionnaire_variable = sgqlc.types.Field('StringOperationFilterInput', graphql_name='questionnaireVariable')
+    questionnaire_version = sgqlc.types.Field(ComparableInt64OperationFilterInput, graphql_name='questionnaireVersion')
+    key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='key')
+    not_answered_count = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='notAnsweredCount')
+    client_key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='clientKey')
+    assignment_id = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='assignmentId')
+    created_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='createdDate')
+    responsible_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleName')
+    responsible_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleNameLowerCase')
+    supervisor_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorName')
+    supervisor_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorNameLowerCase')
+    responsible_role = sgqlc.types.Field('UserRolesOperationFilterInput', graphql_name='responsibleRole')
+    update_date_utc = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='updateDateUtc')
+    received_by_interviewer_at_utc = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='receivedByInterviewerAtUtc')
+    errors_count = sgqlc.types.Field(ComparableInt32OperationFilterInput, graphql_name='errorsCount')
+    identifying_data = sgqlc.types.Field('ListFilterInputTypeOfIdentifyEntityValueFilterInput', graphql_name='identifyingData')
 
 
 class ListFilterInputTypeOfIdentifyEntityValueFilterInput(sgqlc.types.Input):
@@ -510,7 +510,7 @@ class HeadquartersQuery(sgqlc.types.Type):
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
         ('skip', sgqlc.types.Arg(Int, graphql_name='skip', default=None)),
         ('take', sgqlc.types.Arg(Int, graphql_name='take', default=None)),
-        ('where', sgqlc.types.Arg(InterviewFilter, graphql_name='where', default=None)),
+        ('where', sgqlc.types.Arg(InterviewsFilter, graphql_name='where', default=None)),
         ('order', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(InterviewSort)), graphql_name='order', default=None)),
 ))
     )
