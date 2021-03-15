@@ -25,6 +25,6 @@ filename = ssaw.ExportApi(client).get(export_type="SPSS",
 ```
 
 Complete documentation at <https://ssaw.readthedocs.io>  
-Details on API at <https://demo.mysurvey.solutions/apidocs/index>
+Details on API at <https://demo.mysurvey.solutions/apidocs>
 
 Read more about Survey Solutions at <https://mysurvey.solutions>
