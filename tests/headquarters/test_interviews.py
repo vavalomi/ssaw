@@ -30,7 +30,8 @@ def test_interview_history(session, params):
     """Tests an API call to get an interview history"""
 
     r = InterviewsApi(session).history(params['InterviewId'])
-    assert 'InterviewId' in r.keys(), "The Questions key should be in the response"
+    assert isinstance(r, types.GeneratorType)
+    assert 'Action' in next(r).keys(), "The actions should be in the response"
 
 
 @my_vcr.use_cassette()

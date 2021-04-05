@@ -1,7 +1,7 @@
 from typing import Iterator
 
 from .base import HQBase
-from .models import Assignment
+from .models import Assignment, AssignmentHistoryItem
 from .utils import to_qidentity
 
 
@@ -123,7 +123,7 @@ class AssignmentsApi(HQBase):
 
     def get_history(self, id: int) -> Iterator[dict]:
         page_size = 10
-        start = 1
+        start = 0
         total_count = 11
         params = {
             'start': start,
@@ -135,7 +135,9 @@ class AssignmentsApi(HQBase):
             r = self._make_call('get', path, params=params)
             total_count = r['RecordsFiltered']
             start += page_size
-            yield from r['History']
+            for item in r['History']:
+                print(item)
+                yield AssignmentHistoryItem(**item)
 
     def get_recordaudio(self, id: int) -> bool:
         """Get status of audio recording for the assignment

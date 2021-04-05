@@ -69,7 +69,9 @@ class InterviewsApi(HQBase):
         path = self.url + '/{}'.format(interview_id)
         ret = self._make_call('get', path)
         if "Answers" in ret:
-            return InterviewAnswers.from_dict(ret["Answers"])
+            obj = InterviewAnswers()
+            obj.from_dict(ret["Answers"])
+            return obj
 
     def delete(self, interviewid, comment=''):
         return self._change_status(action='delete', interviewid=interviewid, comment=comment)
@@ -104,7 +106,8 @@ class InterviewsApi(HQBase):
     @fix_qid(expects={'interview_id': 'string'})
     def history(self, interview_id):
         path = self.url + '/{}/history'.format(interview_id)
-        return self._make_call('get', path)
+        ret = self._make_call('get', path)
+        yield from ret["Records"]
 
     def hqapprove(self, interviewid, comment=''):
         return self._change_status(action='hqapprove', interviewid=interviewid, comment=comment)

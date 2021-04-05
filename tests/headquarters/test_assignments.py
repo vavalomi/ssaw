@@ -92,7 +92,7 @@ def test_assignment_get_history(session):
     res = AssignmentsApi(session).get_history(2)
     assert isinstance(res, GeneratorType)
     evnt = next(res)
-    assert 'Action' in evnt
+    assert  hasattr(evnt, "action")
 
 
 @my_vcr.use_cassette()
