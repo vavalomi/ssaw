@@ -3,7 +3,6 @@ import re
 import sys
 from enum import Enum
 from typing import Dict, List, Optional, Union
-
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Extra, Field
@@ -33,10 +32,12 @@ class QuestionType(Enum):
     GEOGRAPHY = 12
     AUDIO = 13
 
+
 class QuestionScope(Enum):
     INTERVIEWER = 0
     SUPERVISOR = 1
     HIDDEN = 3
+
 
 class UserRole(Enum):
     ADMINISTRATOR = "Administrator"
@@ -86,6 +87,7 @@ class InterviewAction(Enum):
     @property
     def code(self):
         return self.value.ordinal()
+
 
 class Assignment(object):
     def __init__(self, responsible: str, quantity: int, questionnaire_id,
@@ -258,19 +260,9 @@ class InterviewAnswers(object):
         self._data = {}
         self._raw_data = []
         if questionnaire_document:
-            types = [
-                "QRBarcodeQuestion",
-                "SingleQuestion",
-                "MultyOptionsQuestion",
-                "DateTimeQuestion",
-                "GpsCoordinateQuestion",
-                "TextListQuestion",
-                "NumericQuestion",
-                "TextQuestion",
-            ]
             self._variables = get_properties(questionnaire_document)
             self._public_ids = {var.public_key.hex: variable_name for variable_name, var in self._variables.items()}
-            self._groups = get_properties(questionnaire_document, groups = True, items = False)
+            self._groups = get_properties(questionnaire_document, groups=True, items=False)
 
     def __iter__(self):
         return iter(self._raw_data)
@@ -288,7 +280,7 @@ class InterviewAnswers(object):
             id = to_hex(ans["QuestionId"]["Id"])
             variable_name = ans["VariableName"]
             if variable_name not in self._variables:
-                self._variables[variable_name] = Question(variable_name = variable_name, public_key = id)
+                self._variables[variable_name] = Question(variable_name=variable_name, public_key=id)
                 self._public_ids[id] = variable_name
             key = (variable_name, ) + tuple(ans["QuestionId"]["RosterVector"])
             self._data[key] = val
@@ -298,43 +290,43 @@ class InterviewAnswers(object):
         for t, answer in self._data.items():
             identity = self._variables[t[0]].public_key.hex
             if len(t) > 1:
-                identity += "_" + "-".join([str(r) for r in t[1:]])
+                identity += "_" + "-".join(str(r) for r in t[1:])
 
             ans = answer
             q_type = self._variables[t[0]].question_type
 
             if q_type == QuestionType.LIST:
-                if type(answer) == list:
-                    ans_split = answer
-                else:
-                    ans_split = answer.split("|")
-
+                ans_split = answer if type(answer) == list else answer.split("|")
                 if prefilling:
                     ans = str(ans_split)
                 else:
-                    ans = [{"value": i+1, "isProtected":False, "text": ans_split[i]} for i in range(0,len(ans_split))]
+                    ans = [
+                        {
+                            "value": i + 1,
+                            "isProtected": False,
+                            "text": ans_split[i],
+                        }
+                        for i in range(len(ans_split))
+                    ]
 
             elif q_type == QuestionType.MULTI_SELECT:
-                if type(answer) == list:
-                    ans_split = answer
-                else:
-                    ans_split = answer.split(",")
-
+                ans_split = answer if type(answer) == list else answer.split(",")
                 if prefilling:
                     ans = str(ans_split)
                 else:
                     if self._variables[t[0]].yes_no_view:
-                        ans = ans = [{"value": i, "isProtected":False, "yes": (i in ans_split)} for i in range(1, len(self._variables[t[0]].answers) + 1)]  
+                        ans = ans = [{"value": i, "isProtected": False, "yes": (i in ans_split)}
+                                     for i in range(1, len(self._variables[t[0]].answers) + 1)]
                     else:
-                        ans = ans_split     
+                        ans = ans_split
 
-            elif q_type == QuestionType.SINGLE_SELECT and self._variables[t[0]].linked_to_roster_id and prefilling == False:
+            elif q_type == QuestionType.SINGLE_SELECT and self._variables[t[0]].linked_to_roster_id and not prefilling:
                 if type(ans) != list:
                     ans = [answer, ]
             ret.append({"Identity": identity, "Answer": ans})
 
         return ret
-    
+
     def answer_variables(self) -> list:
         return [t[0] for t in self._data]
 
@@ -346,7 +338,7 @@ class InterviewAnswers(object):
         key = self._get_key(variable=variable, question_id=question_id, roster_vector=roster_vector)
         variable = self._get_variable(variable=variable, question_id=question_id)
         self._data[key] = answer
-    
+
     def remove_answer(self, variable: str = None, question_id: str = None, roster_vector: list = None):
         key = self._get_key(variable=variable, question_id=question_id, roster_vector=roster_vector)
         if key in self._data:
@@ -377,7 +369,7 @@ class InterviewAnswers(object):
     def _get_key(self, roster_vector: list = [], **kwargs):
         key = (self._get_variable(**kwargs), )
         if roster_vector:
-            key += tuple(roster_vector) if type(roster_vector) == list else tuple([roster_vector,])
+            key += tuple(roster_vector) if type(roster_vector) == list else tuple([roster_vector, ])
         return key
 
     def _get_variable(self, variable: str = None, question_id: str = None):
@@ -418,6 +410,7 @@ ASSIGNMENT_ACTION_TYPES = {
     "WebModeChanged": 9
 }
 
+
 class AssignmentHistoryItem(BaseModelWithConfig):
     action: str
     actor_name: str
@@ -428,7 +421,7 @@ class AssignmentHistoryItem(BaseModelWithConfig):
         return {
             "assignment__id": None,
             "date": self.utc_date.strftime("%Y-%m-%d"),
-            "time":self.utc_date.strftime("%H:%M:%S"),
+            "time": self.utc_date.strftime("%H:%M:%S"),
             "action": ASSIGNMENT_ACTION_TYPES[self.action],
             "originator": self.actor_name,
             "role": "",
@@ -475,9 +468,11 @@ class Category(BaseModelWithConfig):
     id: UUID
     name: str
 
+
 class LookupTable(BaseModelWithConfig):
     table_name: str
     file_name: str
+
 
 class StaticText(BaseModelWithConfig):
     obj_type: Literal['StaticText'] = Field(alias="$type")
@@ -518,7 +513,9 @@ class TextQuestion(Question):
 
 
 class NumericQuestion(Question):
-    obj_type: Literal['NumericQuestion'] = Field(alias="$type", default = 'NumericQuestion', const = 'NumericQuestion')
+    obj_type: Literal['NumericQuestion'] = Field(alias="$type",
+                                                 default='NumericQuestion',
+                                                 const='NumericQuestion')
     is_integer: bool = False
     value: float = None
 
@@ -528,13 +525,16 @@ class NumericQuestion(Question):
     def __lt__(self, num):
         return self.value < num
 
+
 class Answer(BaseModelWithConfig):
     answer_text: str
     answer_value: int
 
 
 class SingleQuestion(Question):
-    obj_type: Literal['SingleQuestion'] = Field(alias="$type", default = 'SingleQuestion', const = 'SingleQuestion')
+    obj_type: Literal['SingleQuestion'] = Field(alias="$type",
+                                                default='SingleQuestion',
+                                                const='SingleQuestion')
     answers: List[Answer] = []
     cascade_from_question_id: UUID = None
     categories_id: UUID = None
@@ -545,7 +545,9 @@ class SingleQuestion(Question):
 
 
 class MultiOptionsQuestion(Question):
-    obj_type: Literal['MultyOptionsQuestion'] = Field(alias="$type", default = 'MultyOptionsQuestion', const = 'MultyOptionsQuestion')
+    obj_type: Literal['MultyOptionsQuestion'] = Field(alias="$type",
+                                                      default='MultyOptionsQuestion',
+                                                      const='MultyOptionsQuestion')
     answers: List[Answer] = []
     are_answers_ordered: bool = False
     yes_no_view: bool = False
@@ -597,7 +599,7 @@ class Group(BaseModelWithConfig):
     is_flat_mode: bool = False
     is_plain_mode: bool = False
     is_roster: bool = False
-    public_key: UUID = Field(default_factory=uuid4) 
+    public_key: UUID = Field(default_factory=uuid4)
     parent_id: UUID = None
     roster_size_source: RosterSource = RosterSource.FIXED
     roster_size_question_id: UUID = None
@@ -626,7 +628,6 @@ class QuestionnaireDocument(BaseModelWithConfig):
     title: str
     translations: list
     variable_name: str
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
