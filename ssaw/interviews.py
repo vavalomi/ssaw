@@ -9,8 +9,8 @@ from .headquarters_schema import (
     ComparableInt64OperationFilterInput,
     HeadquartersQuery,
     Interview,
-    InterviewsFilter,
-    InterviewSort
+    InterviewSort,
+    InterviewsFilter
 )
 from .models import InterviewAnswers
 from .utils import fix_qid
