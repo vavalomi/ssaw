@@ -21,7 +21,6 @@ class QuestionnairesApi(HQBase):
                 "version",
                 "title",
                 "variable",
-                "default_language_name",
             ]
         # we always have workspace parameter
         q_args = {
