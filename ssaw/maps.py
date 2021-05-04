@@ -44,7 +44,7 @@ class MapsApi(HQBase):
         if not fields:
             fields = [
                 'file_name',
-                'import_date',
+                'import_date_utc',
             ]
 
         op = Operation(headquarters_schema.HeadquartersQuery)
@@ -88,7 +88,7 @@ class MapsApi(HQBase):
         if not fields:
             fields = [
                 'file_name',
-                'import_date',
+                'import_date_utc',
             ]
         op = Operation(headquarters_schema.HeadquartersMutation)
         func = getattr(op, method_name)
