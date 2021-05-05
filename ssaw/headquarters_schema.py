@@ -331,7 +331,7 @@ class InterviewStatusOperationFilterInput(sgqlc.types.Input):
 
 class InterviewsFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'status', 'interview_mode', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'key', 'not_answered_count', 'client_key', 'assignment_id', 'created_date', 'responsible_name', 'responsible_name_lower_case', 'supervisor_name', 'supervisor_name_lower_case', 'responsible_role', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'identifying_data')
+    __field_names__ = ('and_', 'or_', 'status', 'interview_mode', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'key', 'not_answered_count', 'client_key', 'assignment_id', 'created_date', 'responsible_name', 'supervisor_name', 'responsible_role', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'identifying_data')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewsFilter')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewsFilter')), graphql_name='or')
     status = sgqlc.types.Field(InterviewStatusOperationFilterInput, graphql_name='status')
@@ -344,10 +344,8 @@ class InterviewsFilter(sgqlc.types.Input):
     client_key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='clientKey')
     assignment_id = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='assignmentId')
     created_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='createdDate')
-    responsible_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleName')
-    responsible_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleNameLowerCase')
-    supervisor_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorName')
-    supervisor_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorNameLowerCase')
+    responsible_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleNameLowerCase')
+    supervisor_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorNameLowerCase')
     responsible_role = sgqlc.types.Field('UserRolesOperationFilterInput', graphql_name='responsibleRole')
     update_date_utc = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='updateDateUtc')
     received_by_interviewer_at_utc = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='receivedByInterviewerAtUtc')

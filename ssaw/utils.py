@@ -93,6 +93,8 @@ def filter_object(classname: str, where=None, **kwargs):
         if key not in fields:
             raise KeyError(f"{classname} does not contain field {key}")
         field_type = getattr(getattr(schema, classname), key).type
+        if key in ["responsible_name", "supervisor_name"]:
+            value = value.lower()
         filter_args[key] = field_type(eq=value)
 
     if where:
