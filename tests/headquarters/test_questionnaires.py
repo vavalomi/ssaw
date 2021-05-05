@@ -4,7 +4,7 @@ from uuid import UUID
 from pytest import fixture
 
 from ssaw import QuestionnairesApi
-from ssaw.headquarters_schema import Questionnaire
+from ssaw.headquarters_schema import Interview, Questionnaire
 
 from . import my_vcr
 
@@ -41,8 +41,8 @@ def test_questionnaire_document(session, params):
 @my_vcr.use_cassette()
 def test_questionnaire_interviews(session, params):
     response = QuestionnairesApi(session).interviews(params['TemplateId'], params['TemplateVersion'])
-    assert isinstance(response, dict)
-    assert 'Interviews' in response.keys(), "The Interviews should be in the response"
+    assert isinstance(response, types.GeneratorType)
+    assert isinstance(next(response), Interview), "Should be list of Interview objects"
 
 
 @my_vcr.use_cassette()

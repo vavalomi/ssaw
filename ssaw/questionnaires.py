@@ -4,6 +4,7 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .headquarters_schema import HeadquartersQuery
+from .interviews import InterviewsApi
 from .models import QuestionnaireDocument
 
 
@@ -54,8 +55,8 @@ class QuestionnairesApi(HQBase):
         return self._make_call('get', path, parser=QuestionnaireDocument.parse_raw)
 
     def interviews(self, id: UUID, version: int):
-        path = self.url + '/{}/{}/interviews'.format(id, version)
-        return self._make_call('get', path)
+        api = InterviewsApi(client=self._hq)
+        return api.get_list(questionnaire_id=id, questionnaire_version=version)
 
     def update_recordaudio(self, id: UUID, version: int, enabled: bool):
         path = self.url + '/{}/{}/recordAudio'.format(id, version)
