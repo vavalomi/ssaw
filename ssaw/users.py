@@ -2,14 +2,46 @@ from datetime import datetime
 from typing import Generator
 from uuid import UUID
 
+from sgqlc.operation import Operation
+
 from .base import HQBase
+from .headquarters_schema import HeadquartersQuery, UsersFilterInput
 from .models import InterviewerAction, User
+from .utils import filter_object, order_object
 
 
 class UsersApi(HQBase):
     """ Set of functions to access and manipulate Users. """
 
     _apiprefix = "/api/v1"
+
+    def get_list(self, fields: list = [], order=None,
+                 skip: int = None, take: int = None, where: UsersFilterInput = None, **kwargs):
+        if not fields:
+            fields = [
+                "id",
+                "role",
+                "user_name",
+                "workspaces",
+            ]
+        q_args = {
+        }
+        if order:
+            q_args["order"] = order_object("HqUserSortInput", order)
+        if skip:
+            q_args["skip"] = skip
+        if take:
+            q_args["take"] = take
+        if where or kwargs:
+            q_args['where'] = filter_object("UsersFilterInput", where=where, **kwargs)
+
+        op = Operation(HeadquartersQuery)
+        q = op.users(**q_args)
+        q.nodes.__fields__(*fields)
+        cont = self._make_graphql_call(op)
+        res = (op + cont).users
+
+        yield from res.nodes
 
     def get_info(self, id):
         path = self._url_users + '/{}'.format(id)
