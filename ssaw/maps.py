@@ -3,6 +3,7 @@ from typing import Generator
 from sgqlc.operation import Operation
 
 from .base import HQBase
+from .exceptions import NotAcceptableError
 from .headquarters_schema import (
     ListFilterInputTypeOfUserMapFilterInput,
     Map,
@@ -63,6 +64,26 @@ class MapsApi(HQBase):
         :param file_name: Filename (with extension) to be deleted
         """
         return self._call_mutation(method_name="delete_map", file_name=file_name)
+
+    def upload(self, zip_file) -> bool:
+        """Upload a zip file with maps
+        Currently only works for the admin user!
+
+        :param file_name: Archive with extension with the maps
+
+        :returns: `True` if successful, otherwise raises `NotAcceptableError`
+        """
+
+        with self._hq.session as session:
+            ret = session.post(f"{self.url}/api/MapsApi/Upload", files={'file': open(zip_file, 'rb')})
+            if ret.status_code < 300:
+                if ret.json()["isSuccess"]:
+                    return True
+                else:
+                    for err in ret.json()["errors"]:
+                        raise NotAcceptableError(err)
+            else:
+                self._process_status_code(ret)
 
     def add_user(self, file_name: str, user_name: str) -> Map:
         """Add user-to-map link

@@ -26,6 +26,12 @@ def test_map_delete(session, params):
 
 
 @my_vcr.use_cassette()
+def test_map_upload(admin_session, params):
+    r = MapsApi(admin_session).upload(params["MapsArchive"])
+    assert r is True
+
+
+@my_vcr.use_cassette()
 def test_map_add_user(session, params):
     r = MapsApi(session).add_user(params["MapFileName"], params["MapUserName"])
     assert isinstance(r, Map)
