@@ -20,6 +20,8 @@ class ApplyPolicy(sgqlc.types.Enum):
 
 Boolean = sgqlc.types.Boolean
 
+Date = sgqlc.types.datetime.Date
+
 DateTime = sgqlc.types.datetime.DateTime
 
 class Decimal(sgqlc.types.Scalar):
@@ -269,14 +271,6 @@ class ComparableNullableOfInt64OperationFilterInput(sgqlc.types.Input):
     nlte = sgqlc.types.Field(Long, graphql_name='nlte')
 
 
-class HqUserSortInput(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('user_name', 'creation_date', 'full_name')
-    user_name = sgqlc.types.Field(SortEnumType, graphql_name='userName')
-    creation_date = sgqlc.types.Field(SortEnumType, graphql_name='creationDate')
-    full_name = sgqlc.types.Field(SortEnumType, graphql_name='fullName')
-
-
 class IdentifyEntityValueFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('and_', 'or_', 'answer_code', 'value', 'value_lower_case', 'entity', 'value_bool', 'value_date', 'value_double', 'value_long', 'is_enabled')
@@ -499,7 +493,7 @@ class UserRolesOperationFilterInput(sgqlc.types.Input):
 
 class UsersFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'user_name', 'full_name', 'is_archived', 'creation_date', 'email', 'id', 'role')
+    __field_names__ = ('and_', 'or_', 'user_name', 'full_name', 'is_archived', 'creation_date', 'email', 'phone_number', 'id', 'role')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('UsersFilterInput')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('UsersFilterInput')), graphql_name='or')
     user_name = sgqlc.types.Field(StringOperationFilterInput, graphql_name='userName')
@@ -507,8 +501,17 @@ class UsersFilterInput(sgqlc.types.Input):
     is_archived = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isArchived')
     creation_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='creationDate')
     email = sgqlc.types.Field(StringOperationFilterInput, graphql_name='email')
+    phone_number = sgqlc.types.Field(StringOperationFilterInput, graphql_name='phoneNumber')
     id = sgqlc.types.Field(ComparableGuidOperationFilterInput, graphql_name='id')
     role = sgqlc.types.Field(RoleFilterInput, graphql_name='role')
+
+
+class UsersSortInput(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('user_name', 'creation_date', 'full_name')
+    user_name = sgqlc.types.Field(SortEnumType, graphql_name='userName')
+    creation_date = sgqlc.types.Field(SortEnumType, graphql_name='creationDate')
+    full_name = sgqlc.types.Field(SortEnumType, graphql_name='fullName')
 
 
 
@@ -643,7 +646,7 @@ class HeadquartersMutation(sgqlc.types.Type):
 
 class HeadquartersQuery(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('assignments', 'interviews', 'maps', 'questionnaires', 'questions', 'questionnaire_items', 'viewer', 'users', 'user', 'map_report')
+    __field_names__ = ('assignments', 'interviews', 'maps', 'questionnaires', 'questions', 'questionnaire_items', 'viewer', 'users', 'map_report')
     assignments = sgqlc.types.Field('IPagedConnectionOfAssignment', graphql_name='assignments', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
         ('skip', sgqlc.types.Arg(Int, graphql_name='skip', default=None)),
@@ -695,13 +698,8 @@ class HeadquartersQuery(sgqlc.types.Type):
     users = sgqlc.types.Field('Users', graphql_name='users', args=sgqlc.types.ArgDict((
         ('skip', sgqlc.types.Arg(Int, graphql_name='skip', default=None)),
         ('take', sgqlc.types.Arg(Int, graphql_name='take', default=None)),
-        ('order', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(HqUserSortInput)), graphql_name='order', default=None)),
+        ('order', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(UsersSortInput)), graphql_name='order', default=None)),
         ('where', sgqlc.types.Arg(UsersFilterInput, graphql_name='where', default=None)),
-))
-    )
-    user = sgqlc.types.Field('WorkspaceUser', graphql_name='user', args=sgqlc.types.ArgDict((
-        ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
 ))
     )
     map_report = sgqlc.types.Field('MapReportHolder', graphql_name='mapReport', args=sgqlc.types.ArgDict((
@@ -795,9 +793,10 @@ class Interview(sgqlc.types.Type):
 
 class Map(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('file_name', 'size', 'import_date_utc', 'users', 'x_max_val', 'y_max_val', 'x_min_val', 'y_min_val', 'wkid', 'max_scale', 'min_scale')
+    __field_names__ = ('file_name', 'size', 'import_date', 'import_date_utc', 'users', 'x_max_val', 'y_max_val', 'x_min_val', 'y_min_val', 'wkid', 'max_scale', 'min_scale')
     file_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='fileName')
     size = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='size')
+    import_date = sgqlc.types.Field(DateTime, graphql_name='importDate') # before 21.05
     import_date_utc = sgqlc.types.Field(DateTime, graphql_name='importDateUtc')
     users = sgqlc.types.Field(sgqlc.types.list_of('UserMap'), graphql_name='users')
     x_max_val = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='xMaxVal')
@@ -859,10 +858,16 @@ class Translation(sgqlc.types.Type):
 
 class User(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('id', 'role', 'user_name', 'workspaces')
+    __field_names__ = ('id', 'role', 'user_name', 'full_name', 'email', 'phone_number', 'creation_date', 'is_locked', 'is_archived', 'workspaces')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='role')
     user_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userName')
+    full_name = sgqlc.types.Field(String, graphql_name='fullName')
+    email = sgqlc.types.Field(String, graphql_name='email')
+    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
+    creation_date = sgqlc.types.Field(Date, graphql_name='creationDate')
+    is_locked = sgqlc.types.Field(Boolean, graphql_name='isLocked')
+    is_archived = sgqlc.types.Field(Boolean, graphql_name='isArchived')
     workspaces = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='workspaces')
 
 
@@ -887,16 +892,6 @@ class Viewer(sgqlc.types.Type):
     role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='role')
     user_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userName')
     workspaces = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='workspaces')
-
-
-class WorkspaceUser(sgqlc.types.Type):
-    __schema__ = headquarters_schema
-    __field_names__ = ('id', 'role', 'user_name', 'workspaces', 'supervisor_id')
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
-    role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='role')
-    user_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userName')
-    workspaces = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='workspaces')
-    supervisor_id = sgqlc.types.Field(Uuid, graphql_name='supervisorId')
 
 
 

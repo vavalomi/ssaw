@@ -667,9 +667,19 @@ class Version():
             self.build = int(m.group(4))
             self.version = version_string
         else:
-            # assume dev version, therefore most recent
-            self.version = version_string
-            self.build = sys.maxsize
+            # dev version
+            pattern = r"(\d{1,2})\.(\d{1,2})\.(\d+)\.(\d+)"
+            m = re.match(pattern, version_string, flags=re.IGNORECASE)
+            if m:
+                self.major = int(m.group(1))
+                self.minor = int(m.group(2))
+                self.patch = int(m.group(3))
+                self.build = int(m.group(4))
+                self.version = version_string
+            else:
+                # somehow malformed version string, assume most recent
+                self.version = version_string
+                self.build = sys.maxsize
 
     def __repr__(self):
         return self.version

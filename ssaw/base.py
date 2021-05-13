@@ -16,10 +16,7 @@ class HQBase(object):
 
     def __init__(self, client: Client, workspace: str = None) -> None:
         self._hq = client
-        if workspace:
-            self.workspace = workspace
-        else:
-            self.workspace = client.workspace
+        self.workspace = workspace or client.workspace
 
     @property
     def url(self) -> str:
@@ -51,17 +48,17 @@ class HQBase(object):
         endpoint = RequestsEndpoint(self._hq.baseurl + '/graphql', session=self._hq.session)
         cont = endpoint(op)
         errors = cont.get('errors')
-        if errors:
-            try:
-                rc = errors[0]['extensions']['code']
-            except KeyError:
-                rc = None
-            if rc == 'AUTH_NOT_AUTHENTICATED':
-                raise UnauthorizedError()
-            else:
-                raise GraphQLError(errors[0]['message'])
-        else:
+        if not errors:
             return cont
+
+        try:
+            rc = errors[0]['extensions']['code']
+        except KeyError:
+            rc = None
+        if rc == 'AUTH_NOT_AUTHENTICATED':
+            raise UnauthorizedError()
+        else:
+            raise GraphQLError(errors[0]['message'])
 
     @staticmethod
     def _process_status_code(response):

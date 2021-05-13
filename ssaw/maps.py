@@ -11,6 +11,7 @@ from .headquarters_schema import (
     StringOperationFilterInput,
     UserMapFilterInput,
     headquarters_schema)
+from .models import Version
 
 
 class MapsApi(HQBase):
@@ -43,10 +44,7 @@ class MapsApi(HQBase):
             maps_args["take"] = take
 
         if not fields:
-            fields = [
-                'file_name',
-                'import_date_utc',
-            ]
+            fields = self._default_fields(self._hq.version)
 
         op = Operation(headquarters_schema.HeadquartersQuery)
         q = op.maps(**maps_args)
@@ -106,15 +104,25 @@ class MapsApi(HQBase):
         return self._call_mutation(method_name="delete_user_from_map", file_name=file_name, user_name=user_name)
 
     def _call_mutation(self, method_name: str, fields: list = [], **kwargs) -> Map:
-        if not fields:
-            fields = [
-                'file_name',
-                'import_date_utc',
-            ]
         op = Operation(headquarters_schema.HeadquartersMutation)
         func = getattr(op, method_name)
+        if not fields:
+            fields = self._default_fields(self._hq.version)
         func(**kwargs).__fields__(*fields)
         cont = self._make_graphql_call(op)
 
         res = (op + cont)
         return getattr(res, method_name)
+
+    @staticmethod
+    def _default_fields(version):
+        if version < Version("21.05 (build 31160)"):
+            return [
+                "file_name",
+                "import_date",
+            ]
+        else:
+            return [
+                "file_name",
+                "import_date_utc",
+            ]
