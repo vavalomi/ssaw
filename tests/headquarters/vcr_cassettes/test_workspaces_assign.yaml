@@ -1,5 +1,49 @@
 interactions:
 - request:
+    body: '{"query": "query {\nusers(take: 1, where: {role: {eq: HEADQUARTER}}) {\nnodes
+      {\nid\nrole\nuserName\nfullName\nemail\nphoneNumber\ncreationDate\nisLocked\nisArchived\nworkspaces\n}\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '230'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0yPwQrCMAyG3yVnhc5Nnd4GCh5EUPQkHtItc8Wune2myNi7myqCty9fkp+khwJb
+        hGUPnSfnAxhbEMO5B1XAEkqRJOVUSkpTSgSmDCKW8VyK+WK2iASMwFlNPLlZZ6v9KTsc1weWIW+H
+        dWhU94hF2Wn9FYZpBFSj0r+iqayhXVdLcj+VO8JWWbPCNoRMxCQai+k4ijlL+a3Nb8T3lag9BZG5
+        vFKPP/W07uYbzD/PQONUje7Fu+i9upoYLsNlGIY3AAAA//8DADF+6kUBAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 13 May 2021 17:58:43 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
     body: null
     headers:
       Accept:
@@ -9,17 +53,17 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.5
     method: GET
     uri: http://localhost:9707/.version
   response:
     body:
-      string: 21.01 (build 30293)
+      string: 21.05.0.31160-release
     headers:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 20:44:45 GMT
+      - Thu, 13 May 2021 17:58:43 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -41,7 +85,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.5
     method: POST
     uri: http://localhost:9707/primary/api/v1/workspaces
   response:
@@ -57,7 +101,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:44:46 GMT
+      - Thu, 13 May 2021 17:58:44 GMT
       Location:
       - http://localhost:9707/primary/api/v1/workspaces/assign
       Server:
@@ -79,17 +123,17 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.5
     method: GET
     uri: http://localhost:9707/.version
   response:
     body:
-      string: 21.01 (build 30293)
+      string: 21.05.0.31160-release
     headers:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 20:44:46 GMT
+      - Thu, 13 May 2021 17:58:44 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -98,8 +142,36 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"UserIds": ["4668849fe57d4f569bd3ba4ada16eca6"], "Workspaces": ["assign"],
-      "Mode": "Assign"}'
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.05.0.31160-release
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Thu, 13 May 2021 17:58:44 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"UserIds": ["f044f5bbe88e40a8be803b37b0796910"], "Workspaces": [{"workspace":
+      "assign", "supervisorId": null}], "Mode": "add"}'
     headers:
       Accept:
       - '*/*'
@@ -108,11 +180,11 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '93'
+      - '127'
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.5
     method: POST
     uri: http://localhost:9707/primary/api/v1/workspaces/assign
   response:
@@ -122,7 +194,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Tue, 26 Jan 2021 20:44:46 GMT
+      - Thu, 13 May 2021 17:58:44 GMT
       Server:
       - Kestrel
     status:

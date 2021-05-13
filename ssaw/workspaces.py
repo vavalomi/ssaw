@@ -33,8 +33,7 @@ class WorkspacesApi(HQBase):
             r = self._make_call('get', path, params=params)
             if 'TotalCount' in r:
                 total_count = r['TotalCount']
-                for item in r['Workspaces']:
-                    yield item
+                yield from r['Workspaces']
             else:
                 yield from ()
             start += length
@@ -67,16 +66,22 @@ class WorkspacesApi(HQBase):
         path = self.url + '/{}/disable'.format(name)
         return self._make_call('post', path)
 
-    def assign(self, user_ids: List[str], workspaces: List[str]):
+    def assign(self, user_ids: List[str], workspaces: List[str], supervisors: List[str] = None, mode: str = "add"):
         path = self.url + '/assign'
+
         if not isinstance(user_ids, list):
             user_ids = [user_ids]
         if not isinstance(workspaces, list):
             workspaces = [workspaces]
+        if not isinstance(supervisors, list):
+            supervisors = [supervisors]
+        if mode.lower() not in ["add", "assign", "remove"]:
+            raise ValueError("mode parameter must be one of 'add', 'assign', or 'remove'")
+
         data = {
-            'UserIds': user_ids,
-            'Workspaces': workspaces,
-            'Mode': 'Assign'
+            "UserIds": user_ids,
+            "Workspaces": [{"workspace": w, "supervisorId": s} for w, s in zip(workspaces, supervisors)],
+            "Mode": mode
         }
         return self._make_call('post', path, json=data)
 

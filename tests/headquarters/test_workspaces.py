@@ -1,8 +1,8 @@
 from types import GeneratorType
 
-from pytest import raises
+from pytest import mark, raises
 
-from ssaw import WorkspacesApi
+from ssaw import UsersApi, WorkspacesApi
 from ssaw.exceptions import ForbiddenError
 
 from . import my_vcr
@@ -30,6 +30,7 @@ def test_workspaces_create(admin_session, session):
 
 
 @my_vcr.use_cassette()
+@mark.order(after="test_workspaces_info")
 def test_workspaces_update(session):
     response = WorkspacesApi(session).update('primary', 'new description')
     assert response is True
@@ -52,9 +53,12 @@ def test_workspaces_enable_disable(admin_session):
 
 
 @my_vcr.use_cassette()
-def test_workspaces_assign(admin_session, params):
+def test_workspaces_assign(admin_session):
+    u = next(UsersApi(admin_session).get_list(role="HEADQUARTER", take=1))
     _ = WorkspacesApi(admin_session).create('assign', 'to be deleted')
-    response = WorkspacesApi(admin_session).assign(params['Headquarters'], 'assign')
+    with raises(ValueError):
+        _ = WorkspacesApi(admin_session).assign(u.id, 'assign', mode='abc')
+    response = WorkspacesApi(admin_session).assign(u.id, 'assign')
     assert response is True
 
 
