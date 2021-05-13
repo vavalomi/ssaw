@@ -1,6 +1,34 @@
 interactions:
 - request:
-    body: '{"query": "query {\nmaps(workspace: \"dddd\") {\nfilteredCount\nnodes {\nfileName\nimportDate\n}\n}\n}",
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.05.0.31160-release
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Thu, 13 May 2021 16:25:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nmaps(workspace: \"dddd\") {\nfilteredCount\nnodes {\nfileName\nimportDateUtc\n}\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -10,11 +38,11 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '146'
+      - '149'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.5
     method: POST
     uri: http://localhost:9707/graphql
   response:
@@ -31,7 +59,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 01 Mar 2021 20:07:28 GMT
+      - Thu, 13 May 2021 16:25:46 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

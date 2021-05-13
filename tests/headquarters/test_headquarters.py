@@ -24,16 +24,18 @@ def test_headquarters_graphql_error(session):
         next(MapsApi(session, workspace="dddd").get_list())
 
 
-def test_utils_parse_qidentity(params):
+def test_utils_parse_qidentity():
 
-    a = parse_qidentity(params["QuestionnaireId"])
-    assert a == params["QuestionnaireId"].replace("-", ""), "UUID in hex format $ version"
+    random_guid = "f6a5bd80-fdb4-40b6-8759-0f7531c4a3df"
+    qidentity = f"{random_guid}$1"
+    a = parse_qidentity(qidentity)
+    assert a == qidentity.replace("-", ""), "UUID in hex format $ version"
 
     with raises(IncompleteQuestionnaireIdError):
-        parse_qidentity(params["TemplateId"])
+        parse_qidentity(random_guid)
 
-    a = parse_qidentity((params["TemplateId"], 1))
-    assert a == "{}${}".format(UUID(params["TemplateId"]).hex, 1)
+    a = parse_qidentity((random_guid, 1))
+    assert a == "{}${}".format(UUID(random_guid).hex, 1)
 
 
 def test_utils_fix_qid():

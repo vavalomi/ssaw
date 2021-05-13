@@ -1,7 +1,35 @@
 interactions:
 - request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.05.0.31160-release
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Thu, 13 May 2021 16:23:53 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
     body: '{"query": "mutation {\ndeleteUserFromMap(fileName: \"map.tpk\", userName:
-      \"inter1\") {\nfileName\nimportDate\n}\n}", "variables": null, "operationName":
+      \"inter1\") {\nfileName\nimportDateUtc\n}\n}", "variables": null, "operationName":
       null}'
     headers:
       Accept:
@@ -11,18 +39,19 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '159'
+      - '162'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.5
     method: POST
     uri: http://localhost:9707/graphql
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAxTIsQqAIBAA0H+5OUPPanCOtppqaTvoAklR7Lbw38M3vg8uEgL3wcWBhY+Xy1JS
-        XCm3vH3gjSKDg0i5l/xABz7mVGQmaY0ajdJG4bSjdjg4M/V2tCfUWn8AAAD//wMAw1WUAl0AAAA=
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKSc1JLUkNLU4tcivKz/VNLAAJpmXmpPol5qYqWSnlJhbolRRk
+        K+koZeYW5BeVuCQCVZckA2WMDIwMdQ1MdQ2NQwzNrIyMrUxN9MzNTaKUamtrAQAAAP//AwA518Jy
+        YAAAAA==
     headers:
       Content-Encoding:
       - gzip
@@ -31,7 +60,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:44:41 GMT
+      - Thu, 13 May 2021 16:23:53 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
