@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: '{"query": "query {\nusers {\nnodes {\nid\nrole\nuserName\nfullName\nemail\nphoneNumber\ncreationDate\nisLocked\nisArchived\nworkspaces\n}\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '187'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA8yXTW8jNwyG/8ucswAlUR/cW4AEaIA23eajPRR7oCgpntgeO+OPZLPIfy+93SJB
+        DnWOg7lIhCDMg5fkS33vCm+5+/y9223quDkshlWpuvj7e9eX7nPHlCJhcJizxWwzE0Nl8rnZJKlJ
+        d9KNq0XVk6dfLm6vz680cLjrkpeHIK/7w06DbbdY/BscdHXS1SX3i/8269lqqJe7ZdajP0MyVt72
+        q+GMt4eLLFjzCfwn4/SufvPrSuZV/6/xYlMPgdNRZv3+TehxNc43a5YfMN167Jc8fuu+vpz8BGuA
+        2HzONaWKwEkX4LKLGSIFMvAK9sv56dkft6dXN+/hZg9mMmAnHW82/d3g3iA6sKkYU8WSQVVMJWyF
+        i0fvHcWGr4jXt1/Or/68uP79HaHb4b14yrvtZEBf8WLzVHwx7KtHboWMccHmRoYAMNFxvM1uXcfp
+        aPiKJoqjxSbReqfJidn7VqxQja2V6OA42nD3HLX47pY0QbxoPIlmoGNuWJvJ4qIRj65SAAP5OF56
+        ft4/zjA+TbG1lAgNnHNFNcRA2loEPPgWfUKJ4o/jzc3u8UHiHeAE8aRCbZqHNiPop/YA9eAOlkVi
+        NPE43tNANmx243Y/QTwrHkIAldA0pOS4MicxyUb01tAH1Bt7Qrx/mMEU8Rra5pxg1faCxEKutXCo
+        RFbmyG/wLi5vDnjnf733vX7YTrNtFgYfLFntlIwx1GyoevEuFM/FNXNcOsEZ7hM+PA4TxCOIOq0k
+        jB4qOmGyGdTbU3C+atZ+AI/sYuj3wUqYIB4qRvTRBISCyaQcc6KATieWlpz9QF9Z74jG+yRxNkE8
+        JwWjxFZLQKyhMWSogtIyAAWxbybps98uLi+ub65Ob94Tcln2U0xN18BzMpEyOZ3FTPLR65yZK0TX
+        QuTj2pmHaBebNOZJWp5pTcRJEMnooSXrTTJqfqVYF109judbX9Zk212ZIF47jCiNMdRSUJ8GSevO
+        QcKSGxCxPY5X5/7b+oncaorqoRSTWs3OkT71nGO1iEy2ig8FoH7A0R/zfuD9ajGfTxAPsi+e2Ovj
+        3GLL+kBXX1cwbaG2Zf+mb/6/o9sJshUOVBpGNXKrhcdUQQpEbaCZg5r6cel2a3me9YafpzSMfX15
+        efkHAAD//wMA+wMA3XwRAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 13 May 2021 16:16:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

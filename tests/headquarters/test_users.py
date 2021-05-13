@@ -5,9 +5,17 @@ from types import GeneratorType
 from pytest import raises
 
 from ssaw import UsersApi
+from ssaw.headquarters_schema import User as GraphQLUser
 
 from . import my_vcr
 from ..utils import random_name
+
+
+@my_vcr.use_cassette()
+def test_user_list(admin_session):
+    response = UsersApi(admin_session).get_list()
+    assert isinstance(response, GeneratorType)
+    assert isinstance(next(response), GraphQLUser), "Should be list of User objects"
 
 
 @my_vcr.use_cassette()
@@ -21,7 +29,7 @@ def test_supervisor_list(session):
     response = UsersApi(session).list_supervisors()
     assert isinstance(response, GeneratorType)
     assert 'UserName' in next(response).keys(), "The UserName should be in the response"
-    assert len(list(response)) == 13, "We have to have all items returned"
+    assert len(list(response)) >= 13, "We have to have all items returned"
 
 
 @my_vcr.use_cassette()

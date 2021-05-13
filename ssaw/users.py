@@ -6,6 +6,7 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .headquarters_schema import HeadquartersQuery, UsersFilterInput
+from .headquarters_schema import User as GraphQLUser
 from .models import InterviewerAction, User
 from .utils import filter_object, order_object
 
@@ -15,19 +16,14 @@ class UsersApi(HQBase):
 
     _apiprefix = "/api/v1"
 
-    def get_list(self, fields: list = [], order=None,
-                 skip: int = None, take: int = None, where: UsersFilterInput = None, **kwargs):
-        if not fields:
-            fields = [
-                "id",
-                "role",
-                "user_name",
-                "workspaces",
-            ]
+    def get_list(self, fields: list = [],
+                 order=None, skip: int = None, take: int = None,
+                 where: UsersFilterInput = None, **kwargs) -> Generator[GraphQLUser, None, None]:
+
         q_args = {
         }
         if order:
-            q_args["order"] = order_object("HqUserSortInput", order)
+            q_args["order"] = order_object("UsersSortInput", order)
         if skip:
             q_args["skip"] = skip
         if take:
