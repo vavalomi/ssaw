@@ -1,0 +1,32 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.5
+    method: PATCH
+    uri: http://localhost:9707/primary/api/v1/interviews/random%20string/delete
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '0'
+      Date:
+      - Thu, 13 May 2021 21:34:21 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 404
+      message: Not Found
+version: 1

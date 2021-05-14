@@ -3,12 +3,14 @@ import os
 import re
 
 from sgqlc.endpoint.requests import RequestsEndpoint
+from sgqlc.operation import Operation
 
 from .exceptions import (
     ForbiddenError, GraphQLError,
     NotAcceptableError, NotFoundError, UnauthorizedError
 )
 from .headquarters import Client
+from .headquarters_schema import HeadquartersMutation
 
 
 class HQBase(object):
@@ -43,6 +45,15 @@ class HQBase(object):
 
         else:
             self._process_status_code(response)
+
+    def _call_mutation(self, method_name: str, fields: list = [], **kwargs):
+        op = Operation(HeadquartersMutation)
+        func = getattr(op, method_name)
+        func(**kwargs).__fields__(*fields)
+        cont = self._make_graphql_call(op)
+
+        res = (op + cont)
+        return getattr(res, method_name)
 
     def _make_graphql_call(self, op):
         endpoint = RequestsEndpoint(self._hq.baseurl + '/graphql', session=self._hq.session)

@@ -1,19 +1,18 @@
 from html import escape
 from typing import Generator
+from uuid import UUID
 
 from sgqlc.operation import Operation
 
 from .base import HQBase
 from .headquarters_schema import (
-    ComparableGuidOperationFilterInput,
-    ComparableInt64OperationFilterInput,
+    CalendarEvent,
     HeadquartersQuery,
     Interview,
-    InterviewSort,
-    InterviewsFilter
+    InterviewsFilter,
 )
 from .models import InterviewAnswers
-from .utils import fix_qid
+from .utils import filter_object, fix_qid, order_object
 
 
 class InterviewsApi(HQBase):
@@ -22,28 +21,35 @@ class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects={'questionnaire_id': 'hex'})
-    def get_list(self, fields: list = [], order: InterviewSort = None,
-                 questionnaire_id=None, questionnaire_version=None,
-                 skip: int = None, take: int = None, **kwargs
+    def get_list(self, fields: list = [], order=None,
+                 skip: int = None, take: int = None, where: InterviewsFilter = None,
+                 include_calendar_events: bool = False, **kwargs
                  ) -> Generator[Interview, None, None]:
+        """Get list of interviews
 
+        :param fields: list of fields to return, of ommited, all fields wll be returned
+        :param order: list of fields to sort the results by
+        :param skip: number of interviews to skip
+        :param take: number of interviews to return
+        :param questionnaire_id: filter by specific questionnaire id
+        :param questionnaire_variable: filter by questionnaire variable instead
+        :param questionnaire_version: filter by specific version number
+        :include_calendar_events: return calendar_event object as part of the fields
+
+        :returns: list of :class:`Interview` objects
+        """
         interview_args = {
             "workspace": self.workspace
         }
         if order:
-            interview_args["order"] = order
+            interview_args["order"] = order_object("InterviewSort", order)
         if skip:
             interview_args["skip"] = skip
         if take:
             interview_args["take"] = take
 
-        if questionnaire_id:
-            kwargs["questionnaire_id"] = ComparableGuidOperationFilterInput(eq=questionnaire_id)
-        if questionnaire_version:
-            kwargs["questionnaire_version"] = ComparableInt64OperationFilterInput(eq=questionnaire_version)
-
-        if kwargs:
-            interview_args['where'] = InterviewsFilter(**kwargs)
+        if where or kwargs:
+            interview_args['where'] = filter_object("InterviewsFilter", where=where, **kwargs)
 
         if not fields:
             fields = [
@@ -59,13 +65,18 @@ class InterviewsApi(HQBase):
         op = Operation(HeadquartersQuery)
         q = op.interviews(**interview_args)
         q.nodes.__fields__(*fields)
+        if include_calendar_events:
+            if type(include_calendar_events) in [list, tuple]:
+                q.nodes.calendar_event.__fields__(*include_calendar_events)
+            else:
+                q.nodes.calendar_event.__fields__()
         cont = self._make_graphql_call(op)
 
         res = (op + cont).interviews
 
         yield from res.nodes
 
-    def get_info(self, interview_id: str) -> list:
+    def get_info(self, interview_id: UUID) -> list:
         path = self.url + '/{}'.format(interview_id)
         ret = self._make_call('get', path)
         if "Answers" in ret:
@@ -73,8 +84,57 @@ class InterviewsApi(HQBase):
             obj.from_dict(ret["Answers"])
             return obj
 
-    def delete(self, interviewid, comment=''):
+    def delete(self, interviewid: UUID, comment: str = None):
         return self._change_status(action='delete', interviewid=interviewid, comment=comment)
+
+    def get_calendar_event(self, interview_key: str) -> CalendarEvent:
+        """Get calendar event associated with the interview
+        """
+        interview = self._get_interview_by_key(fields=["id"],
+                                               key=interview_key,
+                                               include_calendar_events=True)
+
+        return interview.calendar_event
+
+    def set_calendar_event(self, interview_key: str, new_start: str,
+                           start_timezone: str, comment: str = None) -> CalendarEvent:
+        """Add new calendar event to the interview, or update the existing one
+
+        :param interview_key: key of the interview to update
+        :param new_start: start date of the calendar event
+        :param start_timezone: timezone string for the start date
+        :param comment: add comment to the calendar event
+
+        :returns: :class:`CalendarEvent' object
+        """
+        interview = self._get_interview_by_key(fields=["id"],
+                                               key=interview_key,
+                                               include_calendar_events=["public_key"])
+
+        kwargs = {
+            "new_start": new_start,
+            "start_timezone": start_timezone,
+            "comment": comment
+        }
+        if hasattr(interview.calendar_event, "public_key"):
+            kwargs["method_name"] = "update_calendar_event"
+            kwargs["public_key"] = interview.calendar_event.public_key
+        else:
+            kwargs["method_name"] = "add_interview_calendar_event"
+            kwargs["interview_id"] = interview.id
+
+        return self._call_mutation(**kwargs)
+
+    def delete_calendar_event(self, interview_key: str) -> CalendarEvent:
+        """Remove calendar event associated with the interview
+        """
+        interview = self._get_interview_by_key(fields=["id"],
+                                               key=interview_key,
+                                               include_calendar_events=["public_key"])
+
+        if hasattr(interview.calendar_event, "public_key"):
+            return self._call_mutation(method_name="delete_calendar_event",
+                                       public_key=interview.calendar_event.public_key)
 
     def approve(self, interviewid, comment=''):
         return self._change_status(action='approve', interviewid=interviewid, comment=comment)
@@ -121,12 +181,10 @@ class InterviewsApi(HQBase):
     def reject(self, interviewid, comment=''):
         return self._change_status(action='reject', interviewid=interviewid, comment=comment)
 
-    def stats(self, interviewid):
-        pass
-
-    def _change_status(self, interviewid, action, comment=''):
+    def _change_status(self, interviewid, action, comment=None):
         path = self.url + '/{}/{}'.format(interviewid, action)
-        return self._make_call('patch', path, params={'comment': escape(comment)})
+        params = {'comment': escape(comment)} if comment else {}
+        return self._make_call('patch', path, params=params)
 
     def _reassign(self, interviewid, action, responsibleid, responsiblename=''):
         path = self.url + '/{}/{}'.format(interviewid, action)
@@ -136,3 +194,12 @@ class InterviewsApi(HQBase):
         }
         _ = self._make_call('patch', path, json=payload)
         return True
+
+    def _get_interview_by_key(self, **kwargs):
+        # expecting fields, key, include_calendar_events
+        try:
+            interview = next(self.get_list(**kwargs))
+        except StopIteration:
+            raise ValueError("interview was not found")
+
+        return interview

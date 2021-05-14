@@ -2,8 +2,8 @@ import types
 
 from pytest import raises
 
-from ssaw import InterviewsApi
-from ssaw.exceptions import NotAcceptableError
+from ssaw import InterviewsApi, UsersApi
+from ssaw.exceptions import NotAcceptableError, NotFoundError
 from ssaw.headquarters_schema import Interview
 from ssaw.utils import to_hex
 
@@ -41,6 +41,12 @@ def test_interview_approve_errors(session, params):
 
 
 @my_vcr.use_cassette()
+def test_interview_delete(session):
+    with raises(NotFoundError):
+        InterviewsApi(session).delete("random string")
+
+
+@my_vcr.use_cassette()
 def test_interview_reject(session, params):
     with raises(NotAcceptableError):
         assert InterviewsApi(session).reject(params['InterviewId'])
@@ -71,9 +77,37 @@ def test_interview_assign(session, params):
 
 
 @my_vcr.use_cassette()
+def test_interview_assign_supervisor(session, admin_session):
+    sup1 = next(UsersApi(admin_session).get_list(role="SUPERVISOR", take=1))
+    interview = next(InterviewsApi(session).get_list(take=1, fields=["id", "key"]))
+    InterviewsApi(session).assign_supervisor(interview.id, sup1.id)
+    interview = next(InterviewsApi(session).get_list(key=interview.key, fields=["supervisor_name"]))
+    assert interview.supervisor_name == sup1.user_name
+
+
+@my_vcr.use_cassette()
 def test_interview_comment(session, params):
     with raises(TypeError):
         InterviewsApi(session).comment(params['InterviewId'], comment="aaa")
 
     # no way to check comments for now, make sure there are no exceptions
     InterviewsApi(session).comment(params['InterviewId'], comment="aaa", variable="sex")
+
+
+@my_vcr.use_cassette()
+def test_interview_set_get_delete_calendar_event(session):
+    api = InterviewsApi(session)
+    interview = next(api.get_list(take=1, fields=["key"]))
+    api.set_calendar_event(interview.key, "2022-02-03T12:34:34", "EST", "Hello")
+    ce = api.get_calendar_event(interview.key)
+    assert ce.comment == "Hello"
+
+    api.set_calendar_event(interview.key, "2022-02-03T12:34:34", "EST", "Hello2")
+    ce = api.get_calendar_event(interview.key)
+    assert ce.comment == "Hello2"
+
+    api.delete_calendar_event(interview.key)
+    assert api.get_calendar_event(interview.key).__json_data__ == {}
+
+    with raises(ValueError):
+        api.delete_calendar_event("random string")

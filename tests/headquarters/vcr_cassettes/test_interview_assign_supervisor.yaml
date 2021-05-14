@@ -1,0 +1,162 @@
+interactions:
+- request:
+    body: '{"query": "query {\nusers(take: 1, where: {role: {eq: SUPERVISOR}}) {\nnodes
+      {\nid\nrole\nuserName\nfullName\nemail\nphoneNumber\ncreationDate\nisLocked\nisArchived\nworkspaces\n}\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '229'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0zPwWoCMRAG4HeZs8Imu6Fdb4IehGKLYi/iYZJMMDW7WZJNiyz77k0sQm//fAw/
+        MxNoHBFWE6RIIZbQe005nCewGlZQV/xVM0aKt6wR0kjJjUYtGiHq9sU0sIDgHeXN4+lje/jcHd8P
+        2UrdHrvidWq+lGhlGrOb5Nyf9zktgDq07jkMV9/TPnWSwpNUIByt7zc4li5ecbasxJLVucvGN69u
+        lK806CIVWAd1td//6MeHWxxQPV6CIdgOwx0u82We518AAAD//wMAUDW6dv0AAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 01:28:22 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\ninterviews(workspace: \"primary\", take: 1) {\nnodes
+      {\nid\nkey\n}\n}\n}", "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '136'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAxSKWwqAIBAA77LfCT7WlrxK9GG6ggQGFUWId8/+ZoapEP3lwVXI5eLjzvycv5U9
+        coe59wgOUIWQpmRWpQgpWY/JaBpJe8sBpYQBNn77KKUgI6wVqKAtrbUPAAD//wMAnUI7OGEAAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 01:28:22 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ResponsibleId": "3028d11ec29145bfbb2fdad5455397f4", "ResponsibleName":
+      ""}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '76'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.5
+    method: PATCH
+    uri: http://localhost:9707/primary/api/v1/interviews/41ccf9f3b11747f5a4f327672a5ec400/assignsupervisor
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '0'
+      Date:
+      - Fri, 14 May 2021 01:28:22 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\ninterviews(workspace: \"primary\", where: {key: {eq:
+      \"00-73-55-41\"}}) {\nnodes {\nsupervisorName\n}\n}\n}", "variables": null,
+      "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '171'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlbKzCtJLSrLTC0vBvHy8lNSgYzoaqXi0gKQeHF+kV9ibqqSlZJx
+        qUlWsqllUmmJUm1sbW0tAAAA//8DAK2pyKJDAAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 01:28:22 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1
