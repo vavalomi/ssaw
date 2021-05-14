@@ -111,7 +111,7 @@ def test_assignment_create(session, params):
 @my_vcr.use_cassette()
 def test_assignment_set_get_delete_calendar_event(session):
     api = AssignmentsApi(session)
-    assignment = next(api._get_list(take=1, fields=["id"]))
+    assignment = next(api._get_list(skip=3, take=1, fields=["id"]))
     api.set_calendar_event(assignment.id, "2022-02-03T12:34:34", "EST", "Hello")
     ce = api.get_calendar_event(assignment.id)
     assert ce.comment == "Hello"
@@ -124,4 +124,4 @@ def test_assignment_set_get_delete_calendar_event(session):
     assert api.get_calendar_event(assignment.id).__json_data__ == {}
 
     with raises(ValueError):
-        api.delete_calendar_event("random string")
+        api.delete_calendar_event(-1)

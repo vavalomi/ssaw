@@ -56,7 +56,7 @@ class ExportApi(HQBase):
             download_link = next(ret_list).download_link
             return self._make_call('get', download_link, filepath=export_path, stream=True)
         except StopIteration:
-            pass
+            return
 
     def get_info(self, job_id: int) -> ExportJob:
         path = self.url + '/{}'.format(job_id)

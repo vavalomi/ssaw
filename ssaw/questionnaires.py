@@ -28,7 +28,7 @@ class QuestionnairesApi(HQBase):
             "workspace": self.workspace
         }
         if questionnaire_id:
-            q_args["questionnaire_id"] = questionnaire_id
+            q_args["id"] = questionnaire_id
         if version:
             q_args["version"] = version
         if skip:

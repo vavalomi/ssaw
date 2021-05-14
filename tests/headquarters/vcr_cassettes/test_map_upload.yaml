@@ -1,7 +1,7 @@
 interactions:
 - request:
     body: !!binary |
-      LS0xZWNjN2ExYWQyNjU3MDQ3Y2QwMGFkMmI3ZDMzMDU2Zg0KQ29udGVudC1EaXNwb3NpdGlvbjog
+      LS1hZDM1NjIxOGEwNjZmZjlmMGFjNGY1NDkyODY4YzFlNw0KQ29udGVudC1EaXNwb3NpdGlvbjog
       Zm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9Im1hcHMuemlwIg0KDQpQSwMEFAAAAAgA
       tHgvUnVMd3eiGAEAXUQDAAcAHABtYXAudHBrVVQJAAOT9QFg8fYBYHV4CwABBOgDAAAE6AMAAOzZ
       f5Da9Z3H8S/5pSRiREsqKk7YlM7hLTFkJQZb7GLEhBhM2IRaVLolCSpeiGE3pNIr3qGDV5zilTrr
@@ -2529,7 +2529,7 @@ interactions:
       FAAAAAgAtHgvUnVMd3eiGAEAXUQDAAcAGAAAAAAAAAAAALSBAAAAAG1hcC50cGtVVAUAA5P1AWB1
       eAsAAQToAwAABOgDAABQSwECHgMUAAAACABDgi9SdUx3d6IYAQBdRAMACAAYAAAAAAAAAAAAtIHj
       GAEAbWFwMi50cGtVVAUAA44GAmB1eAsAAQToAwAABOgDAABQSwUGAAAAAAIAAgCbAAAAxzECAAAA
-      DQotLTFlY2M3YTFhZDI2NTcwNDdjZDAwYWQyYjdkMzMwNTZmLS0NCg==
+      DQotLWFkMzU2MjE4YTA2NmZmOWYwYWM0ZjU0OTI4NjhjMWU3LS0NCg==
     headers:
       Accept:
       - '*/*'
@@ -2540,7 +2540,7 @@ interactions:
       Content-Length:
       - '144136'
       Content-Type:
-      - multipart/form-data; boundary=1ecc7a1ad2657047cd00ad2b7d33056f
+      - multipart/form-data; boundary=ad356218a066ff9f0ac4f5492868c1e7
       User-Agent:
       - python-ssaw/0.5
     method: POST
@@ -2557,7 +2557,68 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 13 May 2021 16:23:53 GMT
+      - Fri, 14 May 2021 20:42:55 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--5caeb39eeb2f7dac71f4c00a40fc6c13\r\nContent-Disposition: form-data; name=\"file\";
+      filename=\"test_maps.py\"\r\n\r\nimport types\r\n\r\nfrom pytest import raises\r\n\r\nfrom
+      ssaw import MapsApi\r\nfrom ssaw.exceptions import NotAcceptableError\r\nfrom
+      ssaw.headquarters_schema import Map\r\n\r\nfrom . import my_vcr\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
+      test_map_list(session):\r\n    r = MapsApi(session).get_list()\r\n    assert
+      isinstance(r, types.GeneratorType)\r\n    assert isinstance(next(r), Map), \"There
+      should be a list of Map objects\"\r\n\r\n    r = MapsApi(session).get_list(take=1,
+      order=[\"file_name\"])\r\n    assert next(r).file_name == \"map2.tpk\", \"The
+      first element must be map2.tpk\"\r\n    with raises(StopIteration):\r\n        next(r)\r\n\r\n
+      \   m = next(MapsApi(session).get_list(skip=1, order=[\"file_name\"]))\r\n    assert
+      m.file_name == \"map.tpk\", \"After skipping one, the first element must be
+      map.tpk\"\r\n\r\n    r = MapsApi(session).get_list(filter_user=\"random\")\r\n
+      \   with raises(StopIteration):\r\n        next(r)\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
+      test_map_delete(session, params):\r\n    r = MapsApi(session).delete(params[\"MapFileName2\"])\r\n
+      \   assert isinstance(r, Map)\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef test_map_upload(admin_session,
+      params):\r\n    r = MapsApi(admin_session).upload(params[\"MapsArchive\"])\r\n
+      \   assert r is True\r\n\r\n    with raises(NotAcceptableError):\r\n        _
+      = MapsApi(admin_session).upload(__file__)\r\n\r\n@my_vcr.use_cassette()\r\ndef
+      test_map_add_user(session, params):\r\n    r = MapsApi(session).add_user(params[\"MapFileName\"],
+      params[\"MapUserName\"])\r\n    assert isinstance(r, Map)\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
+      test_map_delete_user(session, params):\r\n    r = MapsApi(session).delete_user(params[\"MapFileName\"],
+      params[\"MapUserName\"])\r\n    assert isinstance(r, Map)\r\n\r\n--5caeb39eeb2f7dac71f4c00a40fc6c13--\r\n"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1796'
+      Content-Type:
+      - multipart/form-data; boundary=5caeb39eeb2f7dac71f4c00a40fc6c13
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/primary/api/MapsApi/Upload
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWyiwOLk1OTi0uVrJKS8wpTtVRSi0qyi8CcqOVXEEshfzk5NKiotQUPQW3zJxU
+        hcxihbz8EoVEBb2qzAKFxKLkjMyyVKXYWgAAAAD//wMA7OGrwEsAAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 20:42:55 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

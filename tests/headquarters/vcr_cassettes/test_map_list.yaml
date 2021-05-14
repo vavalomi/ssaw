@@ -19,7 +19,7 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Thu, 13 May 2021 16:23:53 GMT
+      - Fri, 14 May 2021 20:36:56 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -49,8 +49,8 @@ interactions:
     body:
       string: !!binary |
         H4sIAAAAAAAAA6pWSkksSVSyqlbKTSwoBtFpmTklqUWpKc75pXklSlZGOkp5+SmpQKlosFyqX2Ju
-        qpIVSLmRXklBtpKOUmZuQX5RiUtiSWpoSTJQysjAyFDXwFTX0DjE0MzK0MDKxEzP3Nw0SqlWB90I
-        UkwwA5kQW1tbCwAAAP//AwDT2PDNtAAAAA==
+        qpIVSLmRXklBtpKOUmZuQX5RiUtiSWpoSTJQysjAyFDXwFTX0CTE0MTKyMzK2FTP0MQiSqlWB90I
+        UkwwBpkQW1tbCwAAAP//AwCdEH0qtAAAAA==
     headers:
       Content-Encoding:
       - gzip
@@ -59,7 +59,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 13 May 2021 16:23:53 GMT
+      - Fri, 14 May 2021 20:36:56 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -89,7 +89,149 @@ interactions:
       Content-Language:
       - en-US
       Date:
-      - Thu, 13 May 2021 16:23:53 GMT
+      - Fri, 14 May 2021 20:36:56 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nmaps(workspace: \"primary\", order: [{fileName: ASC}],
+      take: 1) {\nfilteredCount\nnodes {\nfileName\nimportDateUtc\n}\n}\n}", "variables":
+      null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '187'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlbKTSwoBtFpmTklqUWpKc75pXklSlZGOkp5+SmpQKlosFyqX2Ju
+        qpIVSLmRXklBtpKOUmZuQX5RiUtiSWpoSTJQysjAyFDXwFTX0CTE0MTKyMzK2FTP0MQiSqk2tra2
+        FgAAAP//AwCmyLE8cgAAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 20:36:56 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.05.0.31160-release
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Fri, 14 May 2021 20:36:56 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nmaps(workspace: \"primary\", order: [{fileName: ASC}],
+      skip: 1) {\nfilteredCount\nnodes {\nfileName\nimportDateUtc\n}\n}\n}", "variables":
+      null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '187'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlbKTSwoBtFpmTklqUWpKc75pXklSlZGOkp5+SmpQKlosFyqX2Ju
+        qpIVSLleSUG2ko5SZm5BflGJS2JJamhJMlDGyMDIUNfAVNfQJMTQxMrIzMrYVM/Q2CJKqTa2trYW
+        AAAA//8DAPvle2pxAAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 20:36:56 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/.version
+  response:
+    body:
+      string: 21.05.0.31160-release
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Fri, 14 May 2021 20:36:56 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -129,7 +271,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 13 May 2021 16:23:53 GMT
+      - Fri, 14 May 2021 20:36:56 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

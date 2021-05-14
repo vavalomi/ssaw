@@ -25,11 +25,21 @@ def test_interview_statuses(session, statuses):
 
 
 @my_vcr.use_cassette()
-def test_questionnaire_list(session):
+def test_questionnaire_list(session, params):
     response = QuestionnairesApi(session).get_list()
     assert isinstance(response, types.GeneratorType)
     assert isinstance(next(response), Questionnaire), "Should be list of Questionnaire objects"
     assert len(list(response)) == 12, "We have to have all items returned"
+
+    response = QuestionnairesApi(session).get_list(skip=5)
+    assert next(response).version == 7
+
+    response = QuestionnairesApi(session).get_list(take=5)
+    assert len(list(response)) == 5
+
+    response = QuestionnairesApi(session).get_list(questionnaire_id=params['TemplateId'],
+                                                   version=params['TemplateVersion'])
+    assert len(list(response)) == 1
 
 
 @my_vcr.use_cassette(decode_compressed_response=True)

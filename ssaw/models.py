@@ -91,18 +91,18 @@ class InterviewAction(Enum):
 
 class Assignment(object):
     def __init__(self, responsible: str, quantity: int, questionnaire_id,
-                 identifying_data=None, email: str = '', password: str = '', webmode: bool = False,
-                 audio_recording_enabled: bool = False, comments: str = '', protected_variables: list = None):
+                 identifying_data=None, email: str = "", password: str = "", webmode: bool = False,
+                 audio_recording_enabled: bool = False, comments: str = "", protected_variables: list = None):
         """An assignment.
 
             :param responsible: responsible username
             :param quantity: [description]
             :param questionnaire_id: [description]
-            :param email: [description], defaults to ''
-            :param password: [description], defaults to ''
+            :param email: [description], defaults to ""
+            :param password: [description], defaults to ""
             :param webmode: [description], defaults to False
             :param audio_recording_enabled: [description], defaults to False
-            :param comments: [description], defaults to ''
+            :param comments: [description], defaults to ""
         """
 
         self.responsible = responsible
@@ -122,24 +122,24 @@ class Assignment(object):
     @classmethod
     def from_dict(cls, dict):
         obj = cls(
-            responsible=dict['ResponsibleName'],
-            quantity=dict['Quantity'],
-            questionnaire_id=dict['QuestionnaireId'],
-            identifying_data=dict['IdentifyingData'] if 'IdentifyingData' in dict else [
+            responsible=dict["ResponsibleName"],
+            quantity=dict["Quantity"],
+            questionnaire_id=dict["QuestionnaireId"],
+            identifying_data=dict["IdentifyingData"] if "IdentifyingData" in dict else [
             ],
-            email=dict['Email'],
-            password=dict['Password'],
-            webmode=dict['WebMode']
+            email=dict["Email"],
+            password=dict["Password"],
+            webmode=dict["WebMode"]
         )
-        setattr(obj, 'id', dict['Id'])
-        setattr(obj, 'responsible_id', dict['ResponsibleId'])
-        setattr(obj, 'interviews_count', dict['InterviewsCount'])
-        setattr(obj, 'archived', dict['Archived'])
-        setattr(obj, 'created_utc', dict['CreatedAtUtc'])
-        setattr(obj, 'updated_utc', dict['UpdatedAtUtc'])
-        if 'IsAudioRecordingEnabled' in dict:
-            setattr(obj, 'audio_recording_enabled',
-                    dict['IsAudioRecordingEnabled'])
+        setattr(obj, "id", dict["Id"])
+        setattr(obj, "responsible_id", dict["ResponsibleId"])
+        setattr(obj, "interviews_count", dict["InterviewsCount"])
+        setattr(obj, "archived", dict["Archived"])
+        setattr(obj, "created_utc", dict["CreatedAtUtc"])
+        setattr(obj, "updated_utc", dict["UpdatedAtUtc"])
+        if "IsAudioRecordingEnabled" in dict:
+            setattr(obj, "audio_recording_enabled",
+                    dict["IsAudioRecordingEnabled"])
         return obj
 
     def to_json(self):
@@ -160,8 +160,8 @@ class Assignment(object):
 class ExportJob(object):
     def __init__(self,
                  questionnaire_identity: str,
-                 export_type='Tabular',
-                 interview_status='All',
+                 export_type="Tabular",
+                 interview_status="All",
                  from_date=None,
                  to_date=None,
                  access_token: str = None,
@@ -169,8 +169,8 @@ class ExportJob(object):
         """ExportJob object.
 
         :param questionnaire_identity: [description]
-        :param export_type: [description], default to 'Tabular'
-        :param interview_status: [description], defaults to 'All'
+        :param export_type: [description], default to "Tabular"
+        :param interview_status: [description], defaults to "All"
         :param from_date: [description], defaults to None
         :param to_date: [description], defaults to None
         :param access_token: [description], defaults to None
@@ -216,27 +216,27 @@ class ExportJob(object):
     @classmethod
     def from_dict(cls, dict):
         obj = cls(
-            export_type=dict['ExportType'],
-            questionnaire_identity=dict['QuestionnaireId'],
-            interview_status=dict['InterviewStatus'],
-            from_date=dict['From'] if 'From' in dict else None,
-            to_date=dict['To'] if 'To' in dict else None,
-            access_token=dict['AccessToken'] if 'AccessToken' in dict else None,
-            storage_type=dict['StorageType'] if 'StorageType' in dict else None
+            export_type=dict["ExportType"],
+            questionnaire_identity=dict["QuestionnaireId"],
+            interview_status=dict["InterviewStatus"],
+            from_date=dict["From"] if "From" in dict else None,
+            to_date=dict["To"] if "To" in dict else None,
+            access_token=dict["AccessToken"] if "AccessToken" in dict else None,
+            storage_type=dict["StorageType"] if "StorageType" in dict else None
         )
-        setattr(obj, 'job_id', dict['JobId'])
-        setattr(obj, '_export_status', dict['ExportStatus'])
-        setattr(obj, 'start_date', dict['StartDate'])
-        setattr(obj, 'complete_date', dict['CompleteDate'])
-        setattr(obj, 'progress', dict['Progress'])
-        if 'ETA' in dict:
-            setattr(obj, 'eta', dict['ETA'])
-        if 'Links' in dict:
-            if 'Cancel' in dict['Links']:
-                setattr(obj, '_cancel_link', dict['Links']['Cancel'])
-            if 'Download' in dict['Links']:
-                setattr(obj, '_download_link', dict['Links']['Download'])
-        setattr(obj, '_has_export_file', dict['HasExportFile'])
+        setattr(obj, "job_id", dict["JobId"])
+        setattr(obj, "_export_status", dict["ExportStatus"])
+        setattr(obj, "start_date", dict["StartDate"])
+        setattr(obj, "complete_date", dict["CompleteDate"])
+        setattr(obj, "progress", dict["Progress"])
+        if "ETA" in dict:
+            setattr(obj, "eta", dict["ETA"])
+        if "Links" in dict:
+            if "Cancel" in dict["Links"]:
+                setattr(obj, "_cancel_link", dict["Links"]["Cancel"])
+            if "Download" in dict["Links"]:
+                setattr(obj, "_download_link", dict["Links"]["Download"])
+        setattr(obj, "_has_export_file", dict["HasExportFile"])
         return obj
 
     def to_json(self):
@@ -454,7 +454,7 @@ class VariableType(Enum):
 
 
 class Variable(BaseModelWithConfig):
-    obj_type: Literal['Variable'] = Field(alias="$type")
+    obj_type: Literal["Variable"] = Field(alias="$type")
     public_key: UUID = Field(default_factory=uuid4)
     name: str
     label: str = ""
@@ -475,7 +475,7 @@ class LookupTable(BaseModelWithConfig):
 
 
 class StaticText(BaseModelWithConfig):
-    obj_type: Literal['StaticText'] = Field(alias="$type")
+    obj_type: Literal["StaticText"] = Field(alias="$type")
     public_key: UUID = Field(default_factory=uuid4)
     text: str
     attachment_name: str = ""
@@ -507,15 +507,15 @@ class Question(BaseModelWithConfig):
 
 
 class TextQuestion(Question):
-    obj_type: Literal['TextQuestion'] = Field(alias="$type")
+    obj_type: Literal["TextQuestion"] = Field(alias="$type")
     mask: str = None
     value: str = ""
 
 
 class NumericQuestion(Question):
-    obj_type: Literal['NumericQuestion'] = Field(alias="$type",
-                                                 default='NumericQuestion',
-                                                 const='NumericQuestion')
+    obj_type: Literal["NumericQuestion"] = Field(alias="$type",
+                                                 default="NumericQuestion",
+                                                 const="NumericQuestion")
     is_integer: bool = False
     value: float = None
 
@@ -532,9 +532,9 @@ class Answer(BaseModelWithConfig):
 
 
 class SingleQuestion(Question):
-    obj_type: Literal['SingleQuestion'] = Field(alias="$type",
-                                                default='SingleQuestion',
-                                                const='SingleQuestion')
+    obj_type: Literal["SingleQuestion"] = Field(alias="$type",
+                                                default="SingleQuestion",
+                                                const="SingleQuestion")
     answers: List[Answer] = []
     cascade_from_question_id: UUID = None
     categories_id: UUID = None
@@ -545,9 +545,9 @@ class SingleQuestion(Question):
 
 
 class MultiOptionsQuestion(Question):
-    obj_type: Literal['MultyOptionsQuestion'] = Field(alias="$type",
-                                                      default='MultyOptionsQuestion',
-                                                      const='MultyOptionsQuestion')
+    obj_type: Literal["MultyOptionsQuestion"] = Field(alias="$type",
+                                                      default="MultyOptionsQuestion",
+                                                      const="MultyOptionsQuestion")
     answers: List[Answer] = []
     are_answers_ordered: bool = False
     yes_no_view: bool = False
@@ -556,34 +556,44 @@ class MultiOptionsQuestion(Question):
 
 
 class DateTimeQuestion(Question):
-    obj_type: Literal['DateTimeQuestion'] = Field(alias="$type")
+    obj_type: Literal["DateTimeQuestion"] = Field(alias="$type")
     is_timestamp: bool
 
 
 class TextListQuestion(Question):
-    obj_type: Literal['TextListQuestion'] = Field(alias="$type")
+    obj_type: Literal["TextListQuestion"] = Field(alias="$type")
     max_answer_count: int
 
 
 class GpsCoordinateQuestion(Question):
-    obj_type: Literal["GpsCoordinateQuestion"] = Field(alias="$type")
+    obj_type: Literal["GpsCoordinateQuestion"] = Field(alias="$type",
+                                                       default="GpsCoordinateQuestion",
+                                                       const="GpsCoordinateQuestion")
     question_type: Literal[6]
 
 
 class QRBarcodeQuestion(Question):
-    obj_type: Literal["QRBarcodeQuestion"] = Field(alias="$type")
+    obj_type: Literal["QRBarcodeQuestion"] = Field(alias="$type",
+                                                   default="QRBarcodeQuestion",
+                                                   const="QRBarcodeQuestion")
 
 
 class MultimediaQuestion(Question):
-    obj_type: Literal["MultimediaQuestion"] = Field(alias="$type")
+    obj_type: Literal["MultimediaQuestion"] = Field(alias="$type",
+                                                    default="MultimediaQuestion",
+                                                    const="MultimediaQuestion")
 
 
 class AudioQuestion(Question):
-    obj_type: Literal["AudioQuestion"] = Field(alias="$type")
+    obj_type: Literal["AudioQuestion"] = Field(alias="$type",
+                                               default="AudioQuestion",
+                                               const="AudioQuestion")
 
 
 class AreaQuestion(Question):
-    obj_type: Literal["AreaQuestion"] = Field(alias="$type")
+    obj_type: Literal["AreaQuestion"] = Field(alias="$type",
+                                              default="AreaQuestion",
+                                              const="AreaQuestion")
 
 
 class RosterSource(Enum):
@@ -592,7 +602,7 @@ class RosterSource(Enum):
 
 
 class Group(BaseModelWithConfig):
-    obj_type: Literal['Group'] = Field(alias="$type")
+    obj_type: Literal["Group"] = Field(alias="$type")
     description: str = ""
     display_mode: int = 0
     fixed_roster_titles: list = []
@@ -607,8 +617,9 @@ class Group(BaseModelWithConfig):
     title: str
     variable_name: str
     children: List[Union[StaticText, NumericQuestion, TextQuestion, TextListQuestion,
-                         SingleQuestion, MultiOptionsQuestion, DateTimeQuestion, GpsCoordinateQuestion,
-                         Variable, "Group"]] = []
+                         SingleQuestion, MultiOptionsQuestion, DateTimeQuestion,
+                         Variable, AreaQuestion, AudioQuestion, GpsCoordinateQuestion,
+                         MultimediaQuestion, QRBarcodeQuestion, "Group"]] = []
 
 
 class Attachment(BaseModelWithConfig):

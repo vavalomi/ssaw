@@ -4,6 +4,7 @@ from .base import HQBase
 from .exceptions import FeatureNotSupported
 from .headquarters import Client
 from .models import Version
+from .utils import fix_qid
 
 
 class WorkspacesApi(HQBase):
@@ -17,6 +18,7 @@ class WorkspacesApi(HQBase):
 
         super().__init__(client)
 
+    @fix_qid(expects={'user_id': 'string'})
     def get_list(self, user_id: str = None, include_disabled: bool = False):
         path = self.url
         length = 10
@@ -31,7 +33,7 @@ class WorkspacesApi(HQBase):
         while start < total_count:
             params['start'] = start
             r = self._make_call('get', path, params=params)
-            if 'TotalCount' in r:
+            if r.get("TotalCount"):
                 total_count = r['TotalCount']
                 yield from r['Workspaces']
             else:
@@ -52,11 +54,9 @@ class WorkspacesApi(HQBase):
 
     def delete(self, name: str):
         path = self.url + '/{}'.format(name)
-        res = self._make_call('delete', path)
-        if 'Success' in res.keys():
-            return res['Success']
-        else:
-            return False
+        _ = self._make_call('delete', path)
+
+        return True
 
     def enable(self, name: str):
         path = self.url + '/{}/enable'.format(name)

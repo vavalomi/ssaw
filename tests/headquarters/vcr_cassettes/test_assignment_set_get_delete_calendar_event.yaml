@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: '{"query": "query {\nassignments(workspace: \"primary\", take: 1) {\nnodes
-      {\nid\n}\n}\n}", "variables": null, "operationName": null}'
+    body: '{"query": "query {\nassignments(workspace: \"primary\", skip: 3, take:
+      1) {\nnodes {\nid\n}\n}\n}", "variables": null, "operationName": null}'
     headers:
       Accept:
       - application/json; charset=utf-8
@@ -10,7 +10,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '132'
+      - '141'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
@@ -20,8 +20,8 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyVDpdrY2tpaAAAA
-        AP//AwA+UiT8LwAAAA==
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyUzpdrY2tpaAAAA
+        AP//AwCwbIM5LwAAAA==
     headers:
       Content-Encoding:
       - gzip
@@ -30,7 +30,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -42,7 +42,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
-      1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
+      6}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
       "operationName": null}'
     headers:
       Accept:
@@ -62,8 +62,8 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyVDJR2l5MSc1LyU
-        xCLXMqAiJau80pyc2tja2loAAAAA//8DACXuVAREAAAA
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyUzJR2l5MSc1LyU
+        xCLXMqAiJau80pyc2tja2loAAAAA//8DAHYdXQBEAAAA
     headers:
       Content-Encoding:
       - gzip
@@ -72,7 +72,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -84,7 +84,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "mutation {\naddAssignmentCalendarEvent(\nnewStart: \"2022-02-03T12:34:34\"\nstartTimezone:
-      \"EST\"\ncomment: \"Hello\"\nassignmentId: 1\nworkspace: \"primary\"\n) {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
+      \"EST\"\ncomment: \"Hello\"\nassignmentId: 6\nworkspace: \"primary\"\n) {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -104,11 +104,11 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0yQy2rDMBBF/0XrOMiyZEvelTTQ0mWdTXYjaRwM8gNZTmmD/70TQ01hBNK55zKg
-        B/OQgNUPBt6/zHN3G3oc0gkCDh7i+U6PLd2jd8/q/MDc2Pdbxt4whJERiQhpjJcZ49NhYHRlZFlI
-        a4W0woIBjmCUbYV2unVU6YaE8d7h17MwLCH8Qx/4vbP5NPZTwISktRBmPLBpsaFzm8TKwnjTqqo0
-        ZS6VA+tEoStv6AJV6TVtmhPE1HQ9/owDUuX82fzRS3IEBBci4zRFk4u6kDRHzvmVrGWiP8JXOrua
-        Z1xluWx4UStVS3XUVX5l67r+AgAA//8DAKiK64hQAQAA
+        H4sIAAAAAAAAA0yQy2rDMBBF/0XrOIwefsi7kgZauqyz6W4ijYtBfmDJKW3wv3diqCnMLObccxHo
+        LjwmFPVdoPdPMXafQ09DOmGgweN8vvGxpXv06kVdHIQb+37LxAuFMAomM2Ea50uk+eGISpWoNUDl
+        LZqrxYq0K1RLkINDqSVXuiHRfOvo61EYlhD+oTf63lk8jf0UKBFrLYZIBzEt19C5TRJGgrfG2VK5
+        3GhXVrk1pvUKW196MJZfignn1HQ9/YwDceX83vzRS3IMFCiVAY9upKq14TkCwAdby8R/RM+8uyoz
+        yDNpGlnUbOdwtCWr67r+AgAA//8DAIEUcoZQAQAA
     headers:
       Content-Encoding:
       - gzip
@@ -117,7 +117,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -129,7 +129,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
-      1}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
+      6}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -149,11 +149,11 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SQwWrDMAyG38XnptiOncS5boWNHZdeOnaQbWUEHKfEbscW8u5TCisbSCD/+j4E
-        XpiHDKxdGKQ0fMQRY07bM04eaXhb2OBZywTbMQcBo4f5cCXov/JMjCBiGsfbjj1hCNPmzAh5mo8J
-        541hYJraqKpU1kplpQUDHMFo28vGNb0jZYgZ5+uAn5sQLyH8iV7w656lh2k8B8xIWA8h4Y6dLzYM
-        7gaxqjTe9LquTCWUdmCdLJvaGxqgrnxDl1KGOXfDiN9TRFIOr91vesyOAsmlLDhV2QnZlopqzzk/
-        EXU508fhI/UdFQXXhVAdL1utW6X3TS1ObF3f13X9AQAA//8DADWF3rtoAQAA
+        H4sIAAAAAAAAA1TQy2rDMBAF0H/ROgmjhx/yNg20dFln09LFRBoXgywbS0lpg/+940BDCyOQrs5F
+        oKvwmFE0V4Ep9R9xoJjTeoyjJ968XUXvRSNKsREOA0WP8+HC6H/liU3JYhyG2514pBDGtTMT5nE+
+        JppXI2pVodYAtbdoThZr0q5UHUEBDqWWXOljpvnS0+daiOcQ/kTP9HXP0n4cpkCZmHUYEm3EdD6F
+        3t2QMBK8Nc5WyhVGu6ourDGdV9j5yoOx/FLKOOe2H+h7jMSVw0v7mx6z40CBUlvg0a1UjTY8OwB4
+        ZXWe+OPogdedyi0UW2laWTasC9jZiumyvC/L8gMAAP//AwBEXZDDaAEAAA==
     headers:
       Content-Encoding:
       - gzip
@@ -162,7 +162,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -174,7 +174,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
-      1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
+      6}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
       "operationName": null}'
     headers:
       Accept:
@@ -194,9 +194,9 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAxTKMQqEMBBG4bv8tY2rJsbeyiPIFmMmKwGNYnRBwtzd2L0HXwLTSegSKEY/h9WF
-        M74bNnY5xgTP6FCigKXFBaaj/2f0mv2aFm8Hd2egKsPm12hlVFk3lib7qVrNJgdpxS1EviLyAAAA
-        //8DACuwvTxwAAAA
+        H4sIAAAAAAAAAxTKQQ6CMBBG4bv8axeIg7XsXXkE4mKcKaYJFmOBxDRzd8ruveQrUF4YfQHnHN/p
+        E9KSj02zhhpDQVT0uOIE4Skk5d99q+gw3/U1RXmEfwV0btSTeNdKRxdxt84TjdryqE4b8jB7mtkO
+        AAD//wMALqLJKnAAAAA=
     headers:
       Content-Encoding:
       - gzip
@@ -205,7 +205,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -217,7 +217,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "mutation {\nupdateCalendarEvent(\nnewStart: \"2022-02-03T12:34:34\"\nstartTimezone:
-      \"EST\"\ncomment: \"Hello2\"\npublicKey: \"639d9f57696145cabc2387d9abca76d8\"\nworkspace:
+      \"EST\"\ncomment: \"Hello2\"\npublicKey: \"410d94c972c543c785944fd2afd7d049\"\nworkspace:
       \"primary\"\n) {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
       "variables": null, "operationName": null}'
     headers:
@@ -238,11 +238,11 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0yQTWvDMAyG/4vPbbEdO7Fz7QobOy699CY7Sgk4H9hOx1by36d0rAwkkB89LwLf
-        WQsZWH1ny0wTHiHg2EI83XDMG4aU+us40OutZbXYMT8Nw2PHXjGEiRGJCHmK54RxcxhYU1lVFso5
-        qZx0YIEjWO06abzpPEX6MWO89fi5BcYlhH/oHb+eLB2nYQ6YkbQOQsIdmxcXev+QWFnY1na6Km0p
-        lPbgvCxM1VoaoCpbQ5dShpibfsDvaUSKnD6aP3rOnoDkUu45VdEIWReK6sA5v5D1+yUv1E9V7Lne
-        C9Xwota6VvpgKnFh67r+AAAA//8DAHK5QzdJAQAA
+        H4sIAAAAAAAAA0yQy2rDMBBF/0XrJIwefsjbNNDSZZ1NdxNpXAzyA0lOaYP/veOUhsIVaI7ORTA3
+        4TGjaG5imflGRww0eoynK415w5hS/zEOPL140ZQ74aZhuL+JZwphEkwiYZ7iOVHcHFGrCrUGqL1F
+        c7FYk3al6ggKcCi15Eo/ZorXnj63wriE8A+90teDpeM0zIEysdZhSLQT83IJvbtLwkjw1jhbKVcY
+        7aq6sMZ0XmHnKw/G8k8pY8xtP9D3NBJXTm/tHz1nx0CBUnvg6FaqRhvOAQDe2fpdyROfhyr3UOyl
+        aWXZsF3AwVasruv6AwAA//8DAFsn2jlJAQAA
     headers:
       Content-Encoding:
       - gzip
@@ -251,7 +251,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -263,7 +263,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
-      1}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
+      6}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -283,11 +283,11 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SQwWrDMAyG30XntjiOncS5boWNHZdeOnaQbWUEHKfEbsdW8u5TCisbSCD/+j4E
-        voLHjNBeAVMaPuJIMaf1GSdPPLxdYfDQQgEbcBgoepz3F4b+K8/MFExM43jbwROFMMlVmgnzNB8S
-        zSsEaJraqKpU1kplpUWDgtBo28vGNb1jZYiZ5stAn6sQzyH8iV7o656lh2k8BcrEWI8h0QZOZxsG
-        d4OgKo03va4rUxVKO7ROlk3tDQ9YV77hSynjnLthpO8pEiv71+43PWTHgRRSbgVX2RWyLRXXTghx
-        ZOp84p+jR+47WmyF3haqE2Wrdav0zih5hGV5X5blBwAA//8DAPUm2q9pAQAA
+        H4sIAAAAAAAAA1SQy2rDMBBF/2XWSRg9/Ny2gZYu62xSulCkcTHIsrHklNb43zsONLRwBZqrcxDM
+        As4kA/UCJsbuI/QUUtzGMDjiy9sCnYMactiBNZ6CM9PxytB/5ZmZnImh729v8ETeD3KTJjJpmE6R
+        pg2CUhZGKcTSVUZfKlOSsrlsCTO0RijBShcSTdeOPjchzN7/qV7o697Fh6EfPSVirDU+0g7G+eI7
+        e4NAC3SVtlUhbaaVLcqs0rp10rSucKgr/ikmM6Wm6+l7CMTK8bX5bU/JciFRyj1yVCNkrTTngIhn
+        puaRN0ePfO6o2GO2F7oRec10Jg6o8jOs6/u6rj8AAAD//wMAkjy4f2kBAAA=
     headers:
       Content-Encoding:
       - gzip
@@ -296,7 +296,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -308,7 +308,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
-      1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
+      6}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
       "operationName": null}'
     headers:
       Accept:
@@ -328,9 +328,9 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAAxTKMQqEMBBG4bv8tY2rJsbeyiPIFmMmKwGNYnRBwtzd2L0HXwLTSegSKEY/h9WF
-        M74bNnY5xgTP6FCigKXFBaaj/2f0mv2aFm8Hd2egKsPm12hlVFk3lib7qVrNJgdpxS1EviLyAAAA
-        //8DACuwvTxwAAAA
+        H4sIAAAAAAAAAxTKQQ6CMBBG4bv8axeIg7XsXXkE4mKcKaYJFmOBxDRzd8ruveQrUF4YfQHnHN/p
+        E9KSj02zhhpDQVT0uOIE4Skk5d99q+gw3/U1RXmEfwV0btSTeNdKRxdxt84TjdryqE4b8jB7mtkO
+        AAD//wMALqLJKnAAAAA=
     headers:
       Content-Encoding:
       - gzip
@@ -339,7 +339,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -350,7 +350,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"query": "mutation {\ndeleteCalendarEvent(publicKey: \"639d9f57696145cabc2387d9abca76d8\",
+    body: '{"query": "mutation {\ndeleteCalendarEvent(publicKey: \"410d94c972c543c785944fd2afd7d049\",
       workspace: \"primary\") {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
       "variables": null, "operationName": null}'
     headers:
@@ -371,11 +371,11 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA0yQTWvDMAyG/4vPTXH8kcS5doWNHZdeepNtZQQcJ8ROx1by36cUVgYS2I+fFxnd
-        mYcMrL0zjwEzniBg9LCcbxjzjiGl4TOOdHvzrC0PzE3j+HhjrxjCJBihBSFPyyXhsksMTFMbVUll
-        rVBWWDDAEYy2vWhc0zuKDDHjchvwaw/ENYR/6B2/nyydpnHeP0ZaDyHhgc2rDYN7SKySxpte15Wp
-        SqUdWCdkU3tDB6gr39CklGHJ3TDizxSRIueP7o9esiMguBAFp5JdKVqpqI6c8ytZ60zbwRfqp1oW
-        XBel6rhstW6VPholrmzbtl8AAAD//wMAaQeen0oBAAA=
+        H4sIAAAAAAAAA0yQy2rDMBBF/0XrJIwefm7TQEuXdTbZTaRxMciykeSUNvjfOw40FK4WOjqXGXQX
+        DjOK9i4cecp0RE/BYTzdKOQNY0rDZxj59uZEW+6Encbx8SZeyftJCUaRME/xnChukqhVhVoD1K5B
+        c22wJm1L1RMUYFFqyZUhZIq3gb62Qli8/4fe6fvJ0nEa520x1nr0iXZiXq5+sA9JGAmuMbaplC2M
+        tlVdNMb0TmHvKgem4UkpY8zdMNLPFIgrp4/uj56zZaBAqT1wdCdVqw3nAAAXtpaZf4de+DxVuYdi
+        L00ny5btQh5AlxexrusvAAAA//8DAKMTps1KAQAA
     headers:
       Content-Encoding:
       - gzip
@@ -384,7 +384,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -396,7 +396,7 @@ interactions:
       message: OK
 - request:
     body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
-      1}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
+      6}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
       "variables": null, "operationName": null}'
     headers:
       Accept:
@@ -416,8 +416,8 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyVDJR2l5MSc1LyU
-        xCLXMqAiJau80pyc2tja2loAAAAA//8DACXuVAREAAAA
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyUzJR2l5MSc1LyU
+        xCLXMqAiJau80pyc2tja2loAAAAA//8DAHYdXQBEAAAA
     headers:
       Content-Encoding:
       - gzip
@@ -426,7 +426,49 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 03:55:45 GMT
+      - Fri, 14 May 2021 16:12:50 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      -1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables":
+      null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '177'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6Nja2loAAAAA//8DAPe5xxAl
+        AAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 16:12:50 GMT
       Server:
       - Kestrel
       Transfer-Encoding:

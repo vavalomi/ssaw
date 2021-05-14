@@ -13,13 +13,14 @@ from .headquarters_schema import (
     UserMapFilterInput
 )
 from .models import Version
+from .utils import order_object
 
 
 class MapsApi(HQBase):
     """ Set of functions to access and manipulate Maps. """
 
     def get_list(self, filter_user: str = None, fields: list = [],
-                 skip: int = None, take: int = None, **kwargs) -> Generator[Map, None, None]:
+                 order: list = None, skip: int = None, take: int = None, **kwargs) -> Generator[Map, None, None]:
         """Get list of maps
 
         :param filter_user: List only maps linked to the user
@@ -30,7 +31,7 @@ class MapsApi(HQBase):
         """
 
         if filter_user:
-            kwargs['users'] = ListFilterInputTypeOfUserMapFilterInput(
+            kwargs["users"] = ListFilterInputTypeOfUserMapFilterInput(
                 some=UserMapFilterInput(
                     user_name=StringOperationFilterInput(
                         eq=filter_user)))
@@ -38,14 +39,16 @@ class MapsApi(HQBase):
             "workspace": self.workspace
         }
         if kwargs:
-            maps_args['where'] = MapsFilter(**kwargs)
+            maps_args["where"] = MapsFilter(**kwargs)
+        if order:
+            maps_args["order"] = order_object("MapsSort", order)
         if skip:
             maps_args["skip"] = skip
         if take:
             maps_args["take"] = take
 
         if not fields:
-            fields = self._default_fields(self._hq.version)
+            fields = self._default_fields()
 
         op = Operation(HeadquartersQuery)
         q = op.maps(**maps_args)
@@ -64,7 +67,7 @@ class MapsApi(HQBase):
         """
         return self._call_mutation(method_name="delete_map",
                                    file_name=file_name,
-                                   fields=self._default_fields(self._hq.version))
+                                   fields=self._default_fields())
 
     def upload(self, zip_file) -> bool:
         """Upload a zip file with maps
@@ -96,7 +99,7 @@ class MapsApi(HQBase):
         """
         return self._call_mutation(method_name="add_user_to_map",
                                    file_name=file_name, user_name=user_name,
-                                   fields=self._default_fields(self._hq.version))
+                                   fields=self._default_fields())
 
     def delete_user(self, file_name: str, user_name: str) -> Map:
         """Remove user-to-map link
@@ -109,11 +112,10 @@ class MapsApi(HQBase):
         return self._call_mutation(method_name="delete_user_from_map",
                                    file_name=file_name,
                                    user_name=user_name,
-                                   fields=self._default_fields(self._hq.version))
+                                   fields=self._default_fields())
 
-    @staticmethod
-    def _default_fields(version):
-        if version < Version("21.05 (build 31160)"):
+    def _default_fields(self):
+        if self._hq.version < Version("21.05 (build 31160)"):
             return [
                 "file_name",
                 "import_date",

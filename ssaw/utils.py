@@ -14,7 +14,10 @@ def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
                     if expects[param_name] == 'hex':
                         kwargs[param_name] = uuid.UUID(kwargs[param_name]).hex
                     elif expects[param_name] == 'string':
-                        kwargs[param_name] = str(uuid.UUID(kwargs[param_name]))
+                        try:
+                            kwargs[param_name] = str(uuid.UUID(kwargs[param_name]))
+                        except (AttributeError, ValueError):
+                            raise ValueError(f"{param_name} expect a valid uuid string")
                     else:
                         raise ValueError('expects should be either hex or string')
             return func(*args, **kwargs)

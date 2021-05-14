@@ -1,9 +1,11 @@
 from types import GeneratorType
+from unittest.mock import Mock
 
 from pytest import mark, raises
 
 from ssaw import UsersApi, WorkspacesApi
-from ssaw.exceptions import ForbiddenError
+from ssaw.exceptions import FeatureNotSupported, ForbiddenError
+from ssaw.models import Version
 
 from . import my_vcr
 
@@ -13,6 +15,10 @@ def test_workspaces_list(session):
     response = WorkspacesApi(session).get_list()
     assert isinstance(response, GeneratorType)
     assert "DisplayName" in next(response).keys(), "DisplayName should be in the response"
+
+    response = WorkspacesApi(session).get_list(user_id="00000000-0000-0000-0000-000000000000")
+    with raises(StopIteration):
+        next(response)
 
 
 @my_vcr.use_cassette()
@@ -67,3 +73,11 @@ def test_workspaces_status(admin_session):
     _ = WorkspacesApi(admin_session).create('status', 'to be deleted')
     response = WorkspacesApi(admin_session).status('status')
     assert 'CanBeDeleted' in response.keys()
+
+
+def test_workspaces_old_server():
+    session_mock = Mock()
+    session_mock.version = Version("20.12 (build 29959)")
+
+    with raises(FeatureNotSupported):
+        _ = WorkspacesApi(session_mock).get_list()
