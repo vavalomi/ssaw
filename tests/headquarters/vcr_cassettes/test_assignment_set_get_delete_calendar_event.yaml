@@ -1,0 +1,439 @@
+interactions:
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", take: 1) {\nnodes
+      {\nid\n}\n}\n}", "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '132'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyVDpdrY2tpaAAAA
+        AP//AwA+UiT8LwAAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
+      "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '176'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyVDJR2l5MSc1LyU
+        xCLXMqAiJau80pyc2tja2loAAAAA//8DACXuVAREAAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "mutation {\naddAssignmentCalendarEvent(\nnewStart: \"2022-02-03T12:34:34\"\nstartTimezone:
+      \"EST\"\ncomment: \"Hello\"\nassignmentId: 1\nworkspace: \"primary\"\n) {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '354'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0yQy2rDMBBF/0XrOMiyZEvelTTQ0mWdTXYjaRwM8gNZTmmD/70TQ01hBNK55zKg
+        B/OQgNUPBt6/zHN3G3oc0gkCDh7i+U6PLd2jd8/q/MDc2Pdbxt4whJERiQhpjJcZ49NhYHRlZFlI
+        a4W0woIBjmCUbYV2unVU6YaE8d7h17MwLCH8Qx/4vbP5NPZTwISktRBmPLBpsaFzm8TKwnjTqqo0
+        ZS6VA+tEoStv6AJV6TVtmhPE1HQ9/owDUuX82fzRS3IEBBci4zRFk4u6kDRHzvmVrGWiP8JXOrua
+        Z1xluWx4UStVS3XUVX5l67r+AgAA//8DAKiK64hQAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      1}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '294'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1SQwWrDMAyG38XnptiOncS5boWNHZdeOnaQbWUEHKfEbscW8u5TCisbSCD/+j4E
+        XpiHDKxdGKQ0fMQRY07bM04eaXhb2OBZywTbMQcBo4f5cCXov/JMjCBiGsfbjj1hCNPmzAh5mo8J
+        541hYJraqKpU1kplpQUDHMFo28vGNb0jZYgZ5+uAn5sQLyH8iV7w656lh2k8B8xIWA8h4Y6dLzYM
+        7gaxqjTe9LquTCWUdmCdLJvaGxqgrnxDl1KGOXfDiN9TRFIOr91vesyOAsmlLDhV2QnZlopqzzk/
+        EXU508fhI/UdFQXXhVAdL1utW6X3TS1ObF3f13X9AQAA//8DADWF3rtoAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
+      "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '176'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAxTKMQqEMBBG4bv8tY2rJsbeyiPIFmMmKwGNYnRBwtzd2L0HXwLTSegSKEY/h9WF
+        M74bNnY5xgTP6FCigKXFBaaj/2f0mv2aFm8Hd2egKsPm12hlVFk3lib7qVrNJgdpxS1EviLyAAAA
+        //8DACuwvTxwAAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "mutation {\nupdateCalendarEvent(\nnewStart: \"2022-02-03T12:34:34\"\nstartTimezone:
+      \"EST\"\ncomment: \"Hello2\"\npublicKey: \"639d9f57696145cabc2387d9abca76d8\"\nworkspace:
+      \"primary\"\n) {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '380'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0yQTWvDMAyG/4vPbbEdO7Fz7QobOy699CY7Sgk4H9hOx1by36d0rAwkkB89LwLf
+        WQsZWH1ny0wTHiHg2EI83XDMG4aU+us40OutZbXYMT8Nw2PHXjGEiRGJCHmK54RxcxhYU1lVFso5
+        qZx0YIEjWO06abzpPEX6MWO89fi5BcYlhH/oHb+eLB2nYQ6YkbQOQsIdmxcXev+QWFnY1na6Km0p
+        lPbgvCxM1VoaoCpbQ5dShpibfsDvaUSKnD6aP3rOnoDkUu45VdEIWReK6sA5v5D1+yUv1E9V7Lne
+        C9Xwota6VvpgKnFh67r+AAAA//8DAHK5QzdJAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      1}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '294'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1SQwWrDMAyG30XntjiOncS5boWNHZdeOnaQbWUEHKfEbsdW8u5TCisbSCD/+j4E
+        voLHjNBeAVMaPuJIMaf1GSdPPLxdYfDQQgEbcBgoepz3F4b+K8/MFExM43jbwROFMMlVmgnzNB8S
+        zSsEaJraqKpU1kplpUWDgtBo28vGNb1jZYiZ5stAn6sQzyH8iV7o656lh2k8BcrEWI8h0QZOZxsG
+        d4OgKo03va4rUxVKO7ROlk3tDQ9YV77hSynjnLthpO8pEiv71+43PWTHgRRSbgVX2RWyLRXXTghx
+        ZOp84p+jR+47WmyF3haqE2Wrdav0zih5hGV5X5blBwAA//8DAPUm2q9pAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      1}}) {\nnodes {\nid\ncalendarEvent {\npublicKey\n}\n}\n}\n}", "variables": null,
+      "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '176'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAxTKMQqEMBBG4bv8tY2rJsbeyiPIFmMmKwGNYnRBwtzd2L0HXwLTSegSKEY/h9WF
+        M74bNnY5xgTP6FCigKXFBaaj/2f0mv2aFm8Hd2egKsPm12hlVFk3lib7qVrNJgdpxS1EviLyAAAA
+        //8DACuwvTxwAAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "mutation {\ndeleteCalendarEvent(publicKey: \"639d9f57696145cabc2387d9abca76d8\",
+      workspace: \"primary\") {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '296'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA0yQTWvDMAyG/4vPTXH8kcS5doWNHZdeepNtZQQcJ8ROx1by36cUVgYS2I+fFxnd
+        mYcMrL0zjwEzniBg9LCcbxjzjiGl4TOOdHvzrC0PzE3j+HhjrxjCJBihBSFPyyXhsksMTFMbVUll
+        rVBWWDDAEYy2vWhc0zuKDDHjchvwaw/ENYR/6B2/nyydpnHeP0ZaDyHhgc2rDYN7SKySxpte15Wp
+        SqUdWCdkU3tDB6gr39CklGHJ3TDizxSRIueP7o9esiMguBAFp5JdKVqpqI6c8ytZ60zbwRfqp1oW
+        XBel6rhstW6VPholrmzbtl8AAAD//wMAaQeen0oBAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nassignments(workspace: \"primary\", where: {id: {eq:
+      1}}) {\nnodes {\nid\ncalendarEvent {\nassignmentId\ncomment\ncreatorUserId\ninterviewId\ninterviewKey\nisCompleted\npublicKey\nstartTimezone\nstartUtc\nupdateDateUtc\n}\n}\n}\n}",
+      "variables": null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '294'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlZKLC7OTM/LTc0rKQZx8/JTUoGM6GqlzBQlKyVDJR2l5MSc1LyU
+        xCLXMqAiJau80pyc2tja2loAAAAA//8DACXuVAREAAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 May 2021 03:55:45 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

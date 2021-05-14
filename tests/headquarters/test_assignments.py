@@ -106,3 +106,22 @@ def test_assignment_create(session, params):
 
     assert res.responsible == "inter1"
     assert res.identifying_data[0]["Answer"] == identifying_data[0]["Answer"]
+
+
+@my_vcr.use_cassette()
+def test_assignment_set_get_delete_calendar_event(session):
+    api = AssignmentsApi(session)
+    assignment = next(api._get_list(take=1, fields=["id"]))
+    api.set_calendar_event(assignment.id, "2022-02-03T12:34:34", "EST", "Hello")
+    ce = api.get_calendar_event(assignment.id)
+    assert ce.comment == "Hello"
+
+    api.set_calendar_event(assignment.id, "2022-02-03T12:34:34", "EST", "Hello2")
+    ce = api.get_calendar_event(assignment.id)
+    assert ce.comment == "Hello2"
+
+    api.delete_calendar_event(assignment.id)
+    assert api.get_calendar_event(assignment.id).__json_data__ == {}
+
+    with raises(ValueError):
+        api.delete_calendar_event("random string")

@@ -1,8 +1,16 @@
 from typing import Iterator
 
+from sgqlc.operation import Operation
+
 from .base import HQBase
+from .headquarters_schema import (
+    Assignment as GraphQLAssignment,
+    AssignmentsFilter,
+    CalendarEvent,
+    HeadquartersQuery
+)
 from .models import Assignment, AssignmentHistoryItem
-from .utils import to_qidentity
+from .utils import filter_object, to_qidentity
 
 
 class AssignmentsApi(HQBase):
@@ -35,6 +43,34 @@ class AssignmentsApi(HQBase):
             offset += limit
             for item in r['Assignments']:
                 yield Assignment.from_dict(item)
+
+    def _get_list(self, fields: list = [], skip: int = None, take: int = None,
+                  where: AssignmentsFilter = None, include_calendar_events: bool = False, **kwargs
+                  ) -> Iterator[GraphQLAssignment]:
+
+        args = {
+            "workspace": self.workspace
+        }
+        if skip:
+            args["skip"] = skip
+        if take:
+            args["take"] = take
+
+        if where or kwargs:
+            args['where'] = filter_object("AssignmentsFilter", where=where, **kwargs)
+
+        op = Operation(HeadquartersQuery)
+        q = op.assignments(**args)
+        q.nodes.__fields__(*fields)
+        if include_calendar_events:
+            if type(include_calendar_events) in [list, tuple]:
+                q.nodes.calendar_event.__fields__(*include_calendar_events)
+            else:
+                q.nodes.calendar_event.__fields__()
+        cont = self._make_graphql_call(op)
+        res = (op + cont).assignments
+
+        yield from res.nodes
 
     def get_info(self, id: int) -> Assignment:
         """Get single assignment details
@@ -160,3 +196,53 @@ class AssignmentsApi(HQBase):
             raise TypeError('enabled must be either True or False')
         path = self.url + "/{}/recordAudio".format(id)
         self._make_call("patch", path, json={'Enabled': enabled})
+
+    def get_calendar_event(self, id: int) -> CalendarEvent:
+        """Get calendar event associated with the assignment
+        """
+        assignment = self._get_assignment_by_id(fields=["id"], id=id, include_calendar_events=True)
+
+        return assignment.calendar_event
+
+    def set_calendar_event(self, id: int, new_start: str,
+                           start_timezone: str, comment: str = None) -> CalendarEvent:
+        """Add new calendar event to the assignment, or update the existing one
+
+        :param id: assignment id to update
+        :param new_start: start date of the calendar event
+        :param start_timezone: timezone string for the start date
+        :param comment: add comment to the calendar event
+
+        :returns: :class:`CalendarEvent' object
+        """
+        assignment = self._get_assignment_by_id(fields=["id"], id=id, include_calendar_events=["public_key"])
+
+        kwargs = {
+            "new_start": new_start,
+            "start_timezone": start_timezone,
+            "comment": comment
+        }
+        if hasattr(assignment.calendar_event, "public_key"):
+            kwargs["method_name"] = "update_calendar_event"
+            kwargs["public_key"] = assignment.calendar_event.public_key
+        else:
+            kwargs["method_name"] = "add_assignment_calendar_event"
+            kwargs["assignment_id"] = assignment.id
+
+        return self._call_mutation(**kwargs)
+
+    def delete_calendar_event(self, id: int) -> CalendarEvent:
+        """Remove calendar event associated with the assignment
+        """
+        assignment = self._get_assignment_by_id(fields=["id"], id=id, include_calendar_events=["public_key"])
+
+        if hasattr(assignment.calendar_event, "public_key"):
+            return self._call_mutation(method_name="delete_calendar_event",
+                                       public_key=assignment.calendar_event.public_key)
+
+    def _get_assignment_by_id(self, **kwargs):
+        # expecting fields, id, include_calendar_events
+        try:
+            return next(self._get_list(**kwargs))
+        except StopIteration:
+            raise ValueError("assignment was not found")
