@@ -1,3 +1,4 @@
+export image_name=surveysolutions/surveysolutions:latest
 export container_name=ssaw_testing
 export expose_port=9707
 export admin_username=random_string
@@ -8,6 +9,9 @@ export SOLUTIONS_API_USER=random_string
 export SOLUTIONS_API_PASSWORD=random_string
 export designer_username=random_string
 export designer_password=random_strin
+
+export captcha_secretkey=yoursecret
+export captcha_sitekey=yoursecret
 
 # this values are save in the vcr cassette files,
 # do not change unless regenerating the testing data

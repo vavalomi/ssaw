@@ -49,6 +49,7 @@ class HQBase(object):
     def _call_mutation(self, method_name: str, fields: list = [], **kwargs):
         op = Operation(HeadquartersMutation)
         func = getattr(op, method_name)
+        kwargs["workspace"] = self.workspace
         func(**kwargs).__fields__(*fields)
         cont = self._make_graphql_call(op)
 

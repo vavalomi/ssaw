@@ -5,8 +5,29 @@ import string
 
 import requests
 
-from ssaw import AssignmentsApi
+from ssaw import AssignmentsApi, UsersApi
 from ssaw.models import Assignment
+
+
+def create_user(client, user_name=None, password="Validpassword1", **kwargs):
+    base_url = client.baseurl
+    if not user_name:
+        user_name = random_name()
+    u = UsersApi(client).create(user_name=user_name, password=password, **kwargs)
+    payload = {
+        "userId": u["UserId"],
+        "password": password,
+        "confirmPassword": password,
+        "oldPassword": password
+    }
+
+    with requests.Session() as session:
+        _ = session.post(base_url + "/Account/LogOn", data={"UserName": user_name, "Password": password})
+        _ = session.post(base_url + "/users/ChangePassword",
+                         json=payload,
+                         headers={"X-CSRF-TOKEN": session.cookies["CSRF-TOKEN"]})
+
+    return u
 
 
 def create_assignment(client, responsible, questionnaire_identity, identifying_data):
@@ -56,16 +77,6 @@ def create_interview(base_url, user_name, password, assignment_id):
     p = session.post(base_url + "/api/webinterview/commands/answerSingleOptionQuestion", params=param, json=data)
 
     return interview_id
-
-
-def upload_maps(base_url, zip_file):
-    login_url = base_url + "/Account/LogOn"
-
-    user_name = os.environ.get("admin_username")
-    password = os.environ.get("admin_password")
-    with requests.Session() as session:
-        _ = session.post(login_url, data={"UserName": user_name, "Password": password})
-        _ = session.post(base_url + "/api/MapsApi/Upload", files={'file': open(zip_file, 'rb')})
 
 
 def random_name(N=10):

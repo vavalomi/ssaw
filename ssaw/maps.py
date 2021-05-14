@@ -5,12 +5,13 @@ from sgqlc.operation import Operation
 from .base import HQBase
 from .exceptions import NotAcceptableError
 from .headquarters_schema import (
+    HeadquartersQuery,
     ListFilterInputTypeOfUserMapFilterInput,
     Map,
     MapsFilter,
     StringOperationFilterInput,
-    UserMapFilterInput,
-    headquarters_schema)
+    UserMapFilterInput
+)
 from .models import Version
 
 
@@ -46,7 +47,7 @@ class MapsApi(HQBase):
         if not fields:
             fields = self._default_fields(self._hq.version)
 
-        op = Operation(headquarters_schema.HeadquartersQuery)
+        op = Operation(HeadquartersQuery)
         q = op.maps(**maps_args)
         q.__fields__('filtered_count')
         q.nodes.__fields__(*fields)
@@ -61,7 +62,9 @@ class MapsApi(HQBase):
 
         :param file_name: Filename (with extension) to be deleted
         """
-        return self._call_mutation(method_name="delete_map", file_name=file_name)
+        return self._call_mutation(method_name="delete_map",
+                                   file_name=file_name,
+                                   fields=self._default_fields(self._hq.version))
 
     def upload(self, zip_file) -> bool:
         """Upload a zip file with maps
@@ -91,7 +94,9 @@ class MapsApi(HQBase):
 
         :returns: Modified Map object
         """
-        return self._call_mutation(method_name="add_user_to_map", file_name=file_name, user_name=user_name)
+        return self._call_mutation(method_name="add_user_to_map",
+                                   file_name=file_name, user_name=user_name,
+                                   fields=self._default_fields(self._hq.version))
 
     def delete_user(self, file_name: str, user_name: str) -> Map:
         """Remove user-to-map link
@@ -101,18 +106,10 @@ class MapsApi(HQBase):
 
         :returns: Modified Map object
         """
-        return self._call_mutation(method_name="delete_user_from_map", file_name=file_name, user_name=user_name)
-
-    def _call_mutation(self, method_name: str, fields: list = [], **kwargs) -> Map:
-        op = Operation(headquarters_schema.HeadquartersMutation)
-        func = getattr(op, method_name)
-        if not fields:
-            fields = self._default_fields(self._hq.version)
-        func(**kwargs).__fields__(*fields)
-        cont = self._make_graphql_call(op)
-
-        res = (op + cont)
-        return getattr(res, method_name)
+        return self._call_mutation(method_name="delete_user_from_map",
+                                   file_name=file_name,
+                                   user_name=user_name,
+                                   fields=self._default_fields(self._hq.version))
 
     @staticmethod
     def _default_fields(version):

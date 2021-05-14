@@ -15,7 +15,11 @@ docker run -d --rm \
     --env HQ_Headquarters__TenantName="default" \
     --env Export_ExportSettings__DirectoryPath="/app/AppData/Export" \
     --env HQ_Logging__LogsLocation="/app/AppData/logs" \
+    --env HQ_Captcha__CaptchaType="Recaptcha" \
+    --env HQ_Captcha__SecretKey="$captcha_secretkey" \
+    --env HQ_Captcha__SiteKey="$captcha_sitekey" \
+    --env HQ_Captcha__Version="v2" \
     --publish "$expose_port:80" \
-    --volume "ssaw_testing_app:/app/AppData" \
-    --volume "ssaw_testing_app_key:/root/.aspnet/DataProtection-Keys" \
-    surveysolutions/surveysolutions
+    --volume "${container_name}_app:/app/AppData" \
+    --volume "${container_name}_app_key:/root/.aspnet/DataProtection-Keys" \
+    $image_name

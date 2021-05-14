@@ -18,6 +18,7 @@ test_requirements = [
     'flake8-import-order',
     'pytest',
     'pytest-cov',
+    'pytest-order',
     'python-dotenv',
     'sphinx',
     'vcrpy',

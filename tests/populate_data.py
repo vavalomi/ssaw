@@ -6,8 +6,11 @@ from dotenv import load_dotenv
 
 import ssaw
 
-from tests.utils import (
-    create_assignment, create_interview, import_questionnaire, random_name, upload_maps
+from utils import (
+    create_assignment,
+    create_interview,
+    create_user,
+    import_questionnaire,
 )
 
 script_dir = os.path.abspath(os.path.dirname(__file__))
@@ -30,19 +33,14 @@ client = ssaw.Client(base_url,
                      os.environ.get("SOLUTIONS_API_PASSWORD"))
 q = next(ssaw.QuestionnairesApi(client).get_list())
 
-hq1 = ssaw.UsersApi(client).create(
-    user_name="hq1", password="Validpassword1", role="Headquarter")
-super1 = ssaw.UsersApi(client).create(
-    user_name="super1", password="Validpassword1", role="Supervisor")
-inter1 = ssaw.UsersApi(client).create(
-    user_name="inter1", password="Validpassword1", role="Interviewer", supervisor="super1")
-inter2 = ssaw.UsersApi(client).create(
-    user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
+hq1 = create_user(client, user_name="hq1", password="Validpassword1", role="Headquarter")
+super1 = create_user(client, user_name="super1", password="Validpassword1", role="Supervisor")
+inter1 = create_user(client, user_name="inter1", password="Validpassword1", role="Interviewer", supervisor="super1")
+inter2 = create_user(client, user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
 
 # just to a list with more than one page
 for _ in range(13):
-    _ = ssaw.UsersApi(client).create(user_name=random_name(), password="Validpassword1",
-                                     role="Supervisor")
+    create_user(client, password="Validpassword1", role="Supervisor")
 
 
 identifying_data = [
@@ -50,16 +48,18 @@ identifying_data = [
     {"Variable": "name", "Answer": "Jane Doe"}
 ]
 
-# we will always start with at least 3 assignments
-res = create_assignment(client, "inter1", q.id, identifying_data)
-res = create_assignment(client, "inter1", q.id, identifying_data)
-res = create_assignment(client, "inter1", q.id, identifying_data)
 
-for i in range(1000):
+for i in range(83):
+    _ = create_assignment(client, "inter1", q.id, identifying_data)
+
+for i in range(1003):
     interview_id = create_interview(base_url + '/primary', "inter1", "Validpassword1", 3)
 
-upload_maps(base_url + '/primary',
-            os.path.join(os.path.dirname(os.path.realpath(__file__)), "maps.zip"))
+
+admin_client = ssaw.Client(base_url,
+                           os.environ.get("admin_username"),
+                           os.environ.get("admin_password"))
+ssaw.MapsApi(admin_client).upload(zip_file=os.path.join(os.path.dirname(os.path.realpath(__file__)), "maps.zip"))
 
 
 # save parameters for test runs
@@ -73,6 +73,7 @@ params = {
     'SupervisorId': super1["UserId"],
     'InterviewerId': inter1["UserId"],
     'InterviewerId2': inter2["UserId"],
+    'MapsArchive': 'tests/maps.zip',
     'MapFileName': 'map.tpk',
     'MapFileName2': 'map2.tpk',
     'MapUserName': 'inter1',
