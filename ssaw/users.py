@@ -6,7 +6,7 @@ from sgqlc.operation import Operation
 
 from .base import HQBase
 from .headquarters_schema import HeadquartersQuery, UsersFilterInput
-from .headquarters_schema import User as GraphQLUser
+from .headquarters_schema import User as GraphQLUser, Viewer
 from .models import InterviewerAction, User
 from .utils import filter_object, order_object
 
@@ -79,6 +79,16 @@ class UsersApi(HQBase):
 
         return self._make_call("post", path, data=user.json(by_alias=True),
                                headers={"content-type": "application/json"})
+
+    def viewer(self, username: str = None, password: str = None) -> Viewer:
+        op = Operation(HeadquartersQuery)
+        op.viewer()
+        if username and password:
+            cont = self._make_graphql_call(op, auth=(username, password))
+        else:
+            cont = self._make_graphql_call(op)
+
+        return (op + cont).viewer
 
     def _list_users(self, path):
         page_size = 10

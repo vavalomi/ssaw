@@ -72,8 +72,10 @@ class HQBase(object):
         res = (op + cont)
         return getattr(res, method_name)
 
-    def _make_graphql_call(self, op):
-        endpoint = RequestsEndpoint(self._hq.baseurl + '/graphql', session=self._hq.session)
+    def _make_graphql_call(self, op, **kwargs):
+        if "session" not in kwargs:
+            kwargs["session"] = self._hq.session
+        endpoint = RequestsEndpoint(self._hq.baseurl + '/graphql', **kwargs)
         cont = endpoint(op)
         errors = cont.get('errors')
         if not errors:

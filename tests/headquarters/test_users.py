@@ -76,3 +76,13 @@ def test_user_actions_log(session, params):
         params['InterviewerId'], start=datetime(2000, 7, 14), end=datetime(2000, 8, 14))
     with raises(StopIteration):
         next(response)
+
+
+@my_vcr.use_cassette()
+def test_user_viewer(session):
+    res = UsersApi(session).viewer()
+    assert res.role == "APIUSER"
+
+    res = UsersApi(session).viewer("inter1", "Validpassword1")
+    assert res.role == "INTERVIEWER"
+    assert res.id == "f6aefcabe847413aade21a29b4d4af39"

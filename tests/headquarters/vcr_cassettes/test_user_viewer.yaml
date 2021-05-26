@@ -1,0 +1,86 @@
+interactions:
+- request:
+    body: '{"query": "query {\nviewer {\nid\nrole\nuserName\nworkspaces\n}\n}", "variables":
+      null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '110'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlYqy0wtTy0CsTJTlKyULI1TLSzTTBNT0wyNTIwMLZKSzBLNUpON
+        UsxMDJNNTQyUdJSK8nNSgSodAzxDg12DgAKlxalFfom5IMHEgkwQDyhYnl+UXVyQmJxarGQVrVRQ
+        lJmbWFSpFFtbWwsAAAD//wMAexDlcHwAAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 26 May 2021 17:46:43 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query {\nviewer {\nid\nrole\nuserName\nworkspaces\n}\n}", "variables":
+      null, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '110'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAxSKMQ+CMBQG/8ubXQqNSPcOLAzE6GAcPuhr0ihCXkFiSP+7Zbvc3U4OC8js9A28
+        sRwUHBnyZ7Af0PNFV1qVgONCoah77TR8WdOJZHpzPpv2artbY++2y3KNLC3GI4TPwqKy2yZ5xRkD
+        RzIPmiWMkB89U0p/AAAA//8DACbn3ap/AAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 26 May 2021 17:46:43 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1
