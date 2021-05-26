@@ -77,17 +77,12 @@ class MapsApi(HQBase):
 
         :returns: `True` if successful, otherwise raises `NotAcceptableError`
         """
-
-        with self._hq.session as session:
-            ret = session.post(f"{self.url}/api/MapsApi/Upload", files={'file': open(zip_file, 'rb')})
-            if ret.status_code < 300:
-                if ret.json()["isSuccess"]:
-                    return True
-                else:
-                    for err in ret.json()["errors"]:
-                        raise NotAcceptableError(err)
-            else:
-                self._process_status_code(ret)
+        ret = self._make_call(method="post", path=f"{self.url}/api/MapsApi/Upload",
+                              files={'file': open(zip_file, 'rb')}, use_login_session=True)
+        if ret["isSuccess"]:
+            return True
+        else:
+            raise NotAcceptableError(ret["errors"][0])
 
     def add_user(self, file_name: str, user_name: str) -> Map:
         """Add user-to-map link

@@ -1,7 +1,132 @@
 interactions:
 - request:
+    body: UserName=random_string&Password=random_string
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.25.1
+    method: POST
+    uri: http://localhost:9707/Account/LogOn
+  response:
+    body:
+      string: ''
+    headers:
+      Cache-Control:
+      - no-cache,no-store
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '0'
+      Date:
+      - Wed, 26 May 2021 16:51:29 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Location:
+      - /administration/Workspaces
+      Pragma:
+      - no-cache
+      Server:
+      - Kestrel
+      Set-Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4sZ7d0Mo9qJwbtRx5ZYS_wENZ0vPWkQHjTXTE8tw1cvsCguZbo5PKP73bIBO3B-1bjJCSiS8mTyZ_g9rWN6qK9QqNVckFAhOYiENKFqjp-cjTM-c7wD8AWO_nB6Dw7THrS49PQduc0q1wJ2U7KI_EbMv7-l1lqfHd9Y8U3h1fvD_Zox8PnkfPmc_Qsw5M1guu2OB77zaVUOlIAVBpsm5yXXpVMowT64ZifVEu0lcMOpe-y8OuRhiMjc4zxaIWbx378yNIvuJnoOJH1i6h-e36rW1E4n7VYkC-jqjIRYuNiSn5i9EXF3aEuQZb_6I-N3EjppX4qqZwkT61BagEc4ANCojdH6FK09RGZtYuCI44cU4a8PrAZTe1MO534h9Q0W-9j2tkxUQmGvYjyBJyHataOOScQccLA-KSyqiy9RpG1C19bHH8_5i2GEJDGC_0gwRNY_aVQOy6uAOr61NFxnvIFeK6UL_cHYjREr0ovBS5FIChITgrS0Z0hGfJNy-E7B7TRr3oReWBpy2GkiYYAlzIZu6mAtlJF0wzh3ZNQpOtOWvTvnpWluCnAuL7ZiLhDC8zB_tXGV6_wIy0GfIcH6XkivlOT0FBCj72TPXM5KDngO4OFGiZqWrH4ZLzg9TnokauBfkCKFSO2tCSvTl3lmOo2zcmTV31mjwYgVTnE2UiSvD6LuIOEoN9Mj8T4hHrDSkQwmDtYFGr2EJm7-ccnT6aSUEbYEyj2KfVOFPeoU9G2_Abkh9FqLlDxt_aO-iv3_Owl7he3BVKLYcvCkCeJCsy2159DD2cCpKY3H4kvDwB8Byw;
+        expires=Thu, 27 May 2021 16:51:29 GMT; path=/; samesite=lax; httponly
+      - ShowCaptcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4sZ7d0Mo9qJwbtRx5ZYS_wENZ0vPWkQHjTXTE8tw1cvsCguZbo5PKP73bIBO3B-1bjJCSiS8mTyZ_g9rWN6qK9QqNVckFAhOYiENKFqjp-cjTM-c7wD8AWO_nB6Dw7THrS49PQduc0q1wJ2U7KI_EbMv7-l1lqfHd9Y8U3h1fvD_Zox8PnkfPmc_Qsw5M1guu2OB77zaVUOlIAVBpsm5yXXpVMowT64ZifVEu0lcMOpe-y8OuRhiMjc4zxaIWbx378yNIvuJnoOJH1i6h-e36rW1E4n7VYkC-jqjIRYuNiSn5i9EXF3aEuQZb_6I-N3EjppX4qqZwkT61BagEc4ANCojdH6FK09RGZtYuCI44cU4a8PrAZTe1MO534h9Q0W-9j2tkxUQmGvYjyBJyHataOOScQccLA-KSyqiy9RpG1C19bHH8_5i2GEJDGC_0gwRNY_aVQOy6uAOr61NFxnvIFeK6UL_cHYjREr0ovBS5FIChITgrS0Z0hGfJNy-E7B7TRr3oReWBpy2GkiYYAlzIZu6mAtlJF0wzh3ZNQpOtOWvTvnpWluCnAuL7ZiLhDC8zB_tXGV6_wIy0GfIcH6XkivlOT0FBCj72TPXM5KDngO4OFGiZqWrH4ZLzg9TnokauBfkCKFSO2tCSvTl3lmOo2zcmTV31mjwYgVTnE2UiSvD6LuIOEoN9Mj8T4hHrDSkQwmDtYFGr2EJm7-ccnT6aSUEbYEyj2KfVOFPeoU9G2_Abkh9FqLlDxt_aO-iv3_Owl7he3BVKLYcvCkCeJCsy2159DD2cCpKY3H4kvDwB8Byw
+      User-Agent:
+      - python-requests/2.25.1
+    method: GET
+    uri: http://localhost:9707/administration/Workspaces
+  response:
+    body:
+      string: !!binary |
+        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
+        f57Vlt51jYmnd1GHbvvvsP8CADzvth8bAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Wed, 26 May 2021 16:51:29 GMT
+      Server:
+      - Kestrel
+      Set-Cookie:
+      - currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4u9PUpNVHTRgjXMyl4ollWc3p07FqnT1SAREe0rTDDoSjnB8BRSc1FCO1r9re9RDsjVGT5jxteAXvJiGzp5Ag3HXgLCmGuXYZUWnaphMhlhrg;
+        expires=Wed, 02 Jun 2021 16:51:29 GMT; path=/
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
     body: !!binary |
-      LS1hZDM1NjIxOGEwNjZmZjlmMGFjNGY1NDkyODY4YzFlNw0KQ29udGVudC1EaXNwb3NpdGlvbjog
+      LS1hYzg5NjYzMWYyYmZhMGVmNGY3Njg2MDkzNTFiNmM5Nw0KQ29udGVudC1EaXNwb3NpdGlvbjog
       Zm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9Im1hcHMuemlwIg0KDQpQSwMEFAAAAAgA
       tHgvUnVMd3eiGAEAXUQDAAcAHABtYXAudHBrVVQJAAOT9QFg8fYBYHV4CwABBOgDAAAE6AMAAOzZ
       f5Da9Z3H8S/5pSRiREsqKk7YlM7hLTFkJQZb7GLEhBhM2IRaVLolCSpeiGE3pNIr3qGDV5zilTrr
@@ -2529,7 +2654,7 @@ interactions:
       FAAAAAgAtHgvUnVMd3eiGAEAXUQDAAcAGAAAAAAAAAAAALSBAAAAAG1hcC50cGtVVAUAA5P1AWB1
       eAsAAQToAwAABOgDAABQSwECHgMUAAAACABDgi9SdUx3d6IYAQBdRAMACAAYAAAAAAAAAAAAtIHj
       GAEAbWFwMi50cGtVVAUAA44GAmB1eAsAAQToAwAABOgDAABQSwUGAAAAAAIAAgCbAAAAxzECAAAA
-      DQotLWFkMzU2MjE4YTA2NmZmOWYwYWM0ZjU0OTI4NjhjMWU3LS0NCg==
+      DQotLWFjODk2NjMxZjJiZmEwZWY0Zjc2ODYwOTM1MWI2Yzk3LS0NCg==
     headers:
       Accept:
       - '*/*'
@@ -2540,9 +2665,12 @@ interactions:
       Content-Length:
       - '144136'
       Content-Type:
-      - multipart/form-data; boundary=ad356218a066ff9f0ac4f5492868c1e7
+      - multipart/form-data; boundary=ac896631f2bfa0ef4f768609351b6c97
+      Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4sZ7d0Mo9qJwbtRx5ZYS_wENZ0vPWkQHjTXTE8tw1cvsCguZbo5PKP73bIBO3B-1bjJCSiS8mTyZ_g9rWN6qK9QqNVckFAhOYiENKFqjp-cjTM-c7wD8AWO_nB6Dw7THrS49PQduc0q1wJ2U7KI_EbMv7-l1lqfHd9Y8U3h1fvD_Zox8PnkfPmc_Qsw5M1guu2OB77zaVUOlIAVBpsm5yXXpVMowT64ZifVEu0lcMOpe-y8OuRhiMjc4zxaIWbx378yNIvuJnoOJH1i6h-e36rW1E4n7VYkC-jqjIRYuNiSn5i9EXF3aEuQZb_6I-N3EjppX4qqZwkT61BagEc4ANCojdH6FK09RGZtYuCI44cU4a8PrAZTe1MO534h9Q0W-9j2tkxUQmGvYjyBJyHataOOScQccLA-KSyqiy9RpG1C19bHH8_5i2GEJDGC_0gwRNY_aVQOy6uAOr61NFxnvIFeK6UL_cHYjREr0ovBS5FIChITgrS0Z0hGfJNy-E7B7TRr3oReWBpy2GkiYYAlzIZu6mAtlJF0wzh3ZNQpOtOWvTvnpWluCnAuL7ZiLhDC8zB_tXGV6_wIy0GfIcH6XkivlOT0FBCj72TPXM5KDngO4OFGiZqWrH4ZLzg9TnokauBfkCKFSO2tCSvTl3lmOo2zcmTV31mjwYgVTnE2UiSvD6LuIOEoN9Mj8T4hHrDSkQwmDtYFGr2EJm7-ccnT6aSUEbYEyj2KfVOFPeoU9G2_Abkh9FqLlDxt_aO-iv3_Owl7he3BVKLYcvCkCeJCsy2159DD2cCpKY3H4kvDwB8Byw;
+        currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4u9PUpNVHTRgjXMyl4ollWc3p07FqnT1SAREe0rTDDoSjnB8BRSc1FCO1r9re9RDsjVGT5jxteAXvJiGzp5Ag3HXgLCmGuXYZUWnaphMhlhrg
       User-Agent:
-      - python-ssaw/0.5
+      - python-requests/2.25.1
     method: POST
     uri: http://localhost:9707/primary/api/MapsApi/Upload
   response:
@@ -2557,7 +2685,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 20:42:55 GMT
+      - Wed, 26 May 2021 16:51:29 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -2568,10 +2696,136 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: "--5caeb39eeb2f7dac71f4c00a40fc6c13\r\nContent-Disposition: form-data; name=\"file\";
-      filename=\"test_maps.py\"\r\n\r\nimport types\r\n\r\nfrom pytest import raises\r\n\r\nfrom
-      ssaw import MapsApi\r\nfrom ssaw.exceptions import NotAcceptableError\r\nfrom
-      ssaw.headquarters_schema import Map\r\n\r\nfrom . import my_vcr\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
+    body: UserName=admin&Password=Qwerty1234
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.25.1
+    method: POST
+    uri: http://localhost:9707/Account/LogOn
+  response:
+    body:
+      string: ''
+    headers:
+      Cache-Control:
+      - no-cache,no-store
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '0'
+      Date:
+      - Wed, 26 May 2021 16:51:29 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Location:
+      - /administration/Workspaces
+      Pragma:
+      - no-cache
+      Server:
+      - Kestrel
+      Set-Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4u6f94WiJpECxxnL_GX09gZX7yNCpj21cbVhnm5u-zuy78b4GxWUHE7Ia8c9QB20M2sDaZhLOoehe6I1o3HNjIoRPbtNx8JfR8mURlz64ECfrkfJv6vNUbEZGtVgNL6ziI74RabwjFyRUFD1HvZJbh3vxQcKDDGbQrQ2LJfQOwNCSXargkWx6a9oK4a_Bp7sSkpXs_SbBjHxQsHaTObMXsnEoQvzxdZ0c9q_urRNVu0BHjFn8Omyt30h2kBZT7WG2kyrRW7gQCabWtnPEs-pWxi_Mhl67dBGWSu9JNitDYbSFvBHJ4C7WXDhXV2GeakaiKM4WCxPyBKZzW3n5J5oAY3wbwQ8-vEZRkFgpIRbGv_94lPUwEs-vuT-44c8W3rCLUCDanntHq62aRGj_w9lcIjOHsukYSD12NDIcirO7hQVf4Mki_Snj9UngLSXJ_y7v7qjBePxR1v9Xf7T0-m_QfFbIbk_N0pjXXR1IuYyrmfmkGUFqYxuy5gYYZ6XLWbZ9CImP1vKY0602Ecc1XZMmwpXecKmQCkBzpjj37BstK_MDISL_euer84Q7KqI4C3S-nrSkYLOtvjsfobYeXPQBEgpsO4rhf3XsPpab5fBEq8DzufKe5Ijjo-mRP-HNl3lD4uDcWnejiyE2p2PXesGYQ-vjQrWqIs8wPHOT3seGyZYOsrBi6Mj0ze6f1JuhZC1evL4lMlvGZd-a7VQgPFqGoXlyiQR7CsmxoW0h1pfpm97pCHibDl71hbEiktg3ZdVZTVkTeMlwzNWA2ZMxgHnr3zqSoAz7USitsRYqBPySLzCg;
+        expires=Thu, 27 May 2021 16:51:29 GMT; path=/; samesite=lax; httponly
+      - ShowCaptcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4u6f94WiJpECxxnL_GX09gZX7yNCpj21cbVhnm5u-zuy78b4GxWUHE7Ia8c9QB20M2sDaZhLOoehe6I1o3HNjIoRPbtNx8JfR8mURlz64ECfrkfJv6vNUbEZGtVgNL6ziI74RabwjFyRUFD1HvZJbh3vxQcKDDGbQrQ2LJfQOwNCSXargkWx6a9oK4a_Bp7sSkpXs_SbBjHxQsHaTObMXsnEoQvzxdZ0c9q_urRNVu0BHjFn8Omyt30h2kBZT7WG2kyrRW7gQCabWtnPEs-pWxi_Mhl67dBGWSu9JNitDYbSFvBHJ4C7WXDhXV2GeakaiKM4WCxPyBKZzW3n5J5oAY3wbwQ8-vEZRkFgpIRbGv_94lPUwEs-vuT-44c8W3rCLUCDanntHq62aRGj_w9lcIjOHsukYSD12NDIcirO7hQVf4Mki_Snj9UngLSXJ_y7v7qjBePxR1v9Xf7T0-m_QfFbIbk_N0pjXXR1IuYyrmfmkGUFqYxuy5gYYZ6XLWbZ9CImP1vKY0602Ecc1XZMmwpXecKmQCkBzpjj37BstK_MDISL_euer84Q7KqI4C3S-nrSkYLOtvjsfobYeXPQBEgpsO4rhf3XsPpab5fBEq8DzufKe5Ijjo-mRP-HNl3lD4uDcWnejiyE2p2PXesGYQ-vjQrWqIs8wPHOT3seGyZYOsrBi6Mj0ze6f1JuhZC1evL4lMlvGZd-a7VQgPFqGoXlyiQR7CsmxoW0h1pfpm97pCHibDl71hbEiktg3ZdVZTVkTeMlwzNWA2ZMxgHnr3zqSoAz7USitsRYqBPySLzCg
+      User-Agent:
+      - python-requests/2.25.1
+    method: GET
+    uri: http://localhost:9707/administration/Workspaces
+  response:
+    body:
+      string: !!binary |
+        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
+        f57Vlt51jYmnd1GHbvvvsP8CADzvth8bAAA=
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Wed, 26 May 2021 16:51:29 GMT
+      Server:
+      - Kestrel
+      Set-Cookie:
+      - currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4tB6Hvx9OuZ_oh_g8MjLqIGHokTI6SGgrDOgwCiXxRhGWyez9jm_PWKOk5zOeFxmqkAP4hxk_8OPBEvoNW6TJ7dsJVLO6jeq8efXdW7AtlIhg;
+        expires=Wed, 02 Jun 2021 16:51:29 GMT; path=/
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--b7520398124bafa71455a9d1219d5c46\r\nContent-Disposition: form-data; name=\"file\";
+      filename=\"test_maps.py\"\r\n\r\nimport types\r\nfrom unittest.mock import Mock\r\n\r\nfrom
+      pytest import raises\r\n\r\nfrom ssaw import MapsApi\r\nfrom ssaw.exceptions
+      import NotAcceptableError\r\nfrom ssaw.headquarters_schema import Map\r\nfrom
+      ssaw.models import Version\r\n\r\nfrom . import my_vcr\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
       test_map_list(session):\r\n    r = MapsApi(session).get_list()\r\n    assert
       isinstance(r, types.GeneratorType)\r\n    assert isinstance(next(r), Map), \"There
       should be a list of Map objects\"\r\n\r\n    r = MapsApi(session).get_list(take=1,
@@ -2585,11 +2839,14 @@ interactions:
       \   assert isinstance(r, Map)\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef test_map_upload(admin_session,
       params):\r\n    r = MapsApi(admin_session).upload(params[\"MapsArchive\"])\r\n
       \   assert r is True\r\n\r\n    with raises(NotAcceptableError):\r\n        _
-      = MapsApi(admin_session).upload(__file__)\r\n\r\n@my_vcr.use_cassette()\r\ndef
+      = MapsApi(admin_session).upload(__file__)\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
       test_map_add_user(session, params):\r\n    r = MapsApi(session).add_user(params[\"MapFileName\"],
       params[\"MapUserName\"])\r\n    assert isinstance(r, Map)\r\n\r\n\r\n@my_vcr.use_cassette()\r\ndef
       test_map_delete_user(session, params):\r\n    r = MapsApi(session).delete_user(params[\"MapFileName\"],
-      params[\"MapUserName\"])\r\n    assert isinstance(r, Map)\r\n\r\n--5caeb39eeb2f7dac71f4c00a40fc6c13--\r\n"
+      params[\"MapUserName\"])\r\n    assert isinstance(r, Map)\r\n\r\n\r\ndef test_map_default_fields():\r\n
+      \   session_mock = Mock()\r\n    session_mock.version = Version(\"20.12 (build
+      29959)\")\r\n\r\n    assert MapsApi(session_mock)._default_fields() == [\"file_name\",
+      \"import_date\", ]\r\n\r\n--b7520398124bafa71455a9d1219d5c46--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -2598,11 +2855,14 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '1796'
+      - '2073'
       Content-Type:
-      - multipart/form-data; boundary=5caeb39eeb2f7dac71f4c00a40fc6c13
+      - multipart/form-data; boundary=b7520398124bafa71455a9d1219d5c46
+      Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4u6f94WiJpECxxnL_GX09gZX7yNCpj21cbVhnm5u-zuy78b4GxWUHE7Ia8c9QB20M2sDaZhLOoehe6I1o3HNjIoRPbtNx8JfR8mURlz64ECfrkfJv6vNUbEZGtVgNL6ziI74RabwjFyRUFD1HvZJbh3vxQcKDDGbQrQ2LJfQOwNCSXargkWx6a9oK4a_Bp7sSkpXs_SbBjHxQsHaTObMXsnEoQvzxdZ0c9q_urRNVu0BHjFn8Omyt30h2kBZT7WG2kyrRW7gQCabWtnPEs-pWxi_Mhl67dBGWSu9JNitDYbSFvBHJ4C7WXDhXV2GeakaiKM4WCxPyBKZzW3n5J5oAY3wbwQ8-vEZRkFgpIRbGv_94lPUwEs-vuT-44c8W3rCLUCDanntHq62aRGj_w9lcIjOHsukYSD12NDIcirO7hQVf4Mki_Snj9UngLSXJ_y7v7qjBePxR1v9Xf7T0-m_QfFbIbk_N0pjXXR1IuYyrmfmkGUFqYxuy5gYYZ6XLWbZ9CImP1vKY0602Ecc1XZMmwpXecKmQCkBzpjj37BstK_MDISL_euer84Q7KqI4C3S-nrSkYLOtvjsfobYeXPQBEgpsO4rhf3XsPpab5fBEq8DzufKe5Ijjo-mRP-HNl3lD4uDcWnejiyE2p2PXesGYQ-vjQrWqIs8wPHOT3seGyZYOsrBi6Mj0ze6f1JuhZC1evL4lMlvGZd-a7VQgPFqGoXlyiQR7CsmxoW0h1pfpm97pCHibDl71hbEiktg3ZdVZTVkTeMlwzNWA2ZMxgHnr3zqSoAz7USitsRYqBPySLzCg;
+        currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4tB6Hvx9OuZ_oh_g8MjLqIGHokTI6SGgrDOgwCiXxRhGWyez9jm_PWKOk5zOeFxmqkAP4hxk_8OPBEvoNW6TJ7dsJVLO6jeq8efXdW7AtlIhg
       User-Agent:
-      - python-ssaw/0.5
+      - python-requests/2.25.1
     method: POST
     uri: http://localhost:9707/primary/api/MapsApi/Upload
   response:
@@ -2618,7 +2878,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 20:42:55 GMT
+      - Wed, 26 May 2021 16:51:29 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
