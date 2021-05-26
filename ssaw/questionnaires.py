@@ -1,3 +1,7 @@
+import csv
+import zipfile
+from io import TextIOWrapper
+from tempfile import TemporaryDirectory
 from uuid import UUID
 
 from sgqlc.operation import Operation
@@ -5,7 +9,7 @@ from sgqlc.operation import Operation
 from .base import HQBase
 from .headquarters_schema import HeadquartersQuery
 from .interviews import InterviewsApi
-from .models import QuestionnaireDocument
+from .models import AssignmentWebLink, QuestionnaireDocument
 
 
 class QuestionnairesApi(HQBase):
@@ -61,3 +65,29 @@ class QuestionnairesApi(HQBase):
     def update_recordaudio(self, id: UUID, version: int, enabled: bool):
         path = self.url + '/{}/{}/recordAudio'.format(id, version)
         return self._make_call('post', path, json={"Enabled": enabled})
+
+    def download_web_links(self, id: UUID, version: int, path: str = None):
+        """Download links for the assignments in Web Mode.
+
+        :param id: questionnaire id
+        :param version: questionnaire version
+        :param path: optionally specify the download location
+
+        if `path` is specified, zip archive will be downloaded to the location.
+        Otherwise, list of ``AssignmentWebLink`` objects will be returned
+        """
+        common_args = {
+            "method": "get",
+            "path": f"{self._hq.baseurl}/{self.workspace}/api/LinksExport/Download/{id}${version}",
+            "stream": True,
+            "use_login_session": True,
+        }
+        if path:
+            return self._make_call(**common_args, filepath=path)
+
+        with TemporaryDirectory() as tempdir:
+            outfile = self._make_call(**common_args, filepath=tempdir)
+            with zipfile.ZipFile(outfile, "r") as zip_ref:
+                with zip_ref.open("interviews.tab") as infile:
+                    data = csv.DictReader(TextIOWrapper(infile, 'utf-8'), delimiter="\t")
+                    return [AssignmentWebLink(**row) for row in data]

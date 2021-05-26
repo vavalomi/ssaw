@@ -8,7 +8,7 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, Extra, Field
 
 from .headquarters_schema import Map
-from .utils import get_properties, to_camel, to_hex, to_qidentity
+from .utils import get_properties, parse_date, to_camel, to_hex, to_qidentity
 
 try:
     from typing import Literal
@@ -226,8 +226,8 @@ class ExportJob(object):
         )
         setattr(obj, "job_id", dict["JobId"])
         setattr(obj, "_export_status", dict["ExportStatus"])
-        setattr(obj, "start_date", dict["StartDate"])
-        setattr(obj, "complete_date", dict["CompleteDate"])
+        setattr(obj, "start_date", parse_date(dict["StartDate"]))
+        setattr(obj, "complete_date", parse_date(dict["CompleteDate"]))
         setattr(obj, "progress", dict["Progress"])
         if "ETA" in dict:
             setattr(obj, "eta", dict["ETA"])
@@ -700,3 +700,10 @@ class Version():
 
     def __eq__(self, other: "Version"):
         return self.build == other.build
+
+
+class AssignmentWebLink(BaseModelWithConfig):
+    link: str = Field(alias="assignment__link")
+    id: int = Field(alias="assignment__id")
+    email: Optional[str] = Field(alias="assignment__email")
+    password: Optional[str] = Field(alias="assignment__password")

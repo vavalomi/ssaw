@@ -1,6 +1,9 @@
 import json
 import os
 import re
+from urllib.parse import unquote
+
+from requests import Session
 
 from sgqlc.endpoint.requests import RequestsEndpoint
 from sgqlc.operation import Operation
@@ -28,8 +31,20 @@ class HQBase(object):
             path = self._apiprefix
         return self._hq.baseurl + path
 
-    def _make_call(self, method: str, path: str, filepath: str = None, parser=None, **kwargs):
-        response = self._hq.session.request(method=method, url=path, **kwargs)
+    def _make_call(self, method: str, path: str, filepath: str = None, parser=None, use_login_session=False, **kwargs):
+        if use_login_session:
+            with Session() as login_session:
+                response = login_session.request(method="post",
+                                                 url=f"{self._hq.baseurl}/Account/LogOn",
+                                                 data={"UserName": self._hq.session.auth[0],
+                                                       "Password": self._hq.session.auth[1]})
+                if response.status_code < 300:
+                    response = login_session.request(method=method, url=path, **kwargs)
+                else:
+                    self._process_status_code(response)
+
+        else:
+            response = self._hq.session.request(method=method, url=path, **kwargs)
         if response.status_code < 300:
             if method == 'get':
                 if 'application/json' in response.headers['Content-Type']:
@@ -38,7 +53,8 @@ class HQBase(object):
                     else:
                         return json.loads(response.content)
 
-                elif 'application/zip' in response.headers['Content-Type']:
+                elif ('application/zip' in response.headers['Content-Type']
+                      or 'application/octet-stream' in response.headers['Content-Type']):
                     return self._get_file_stream(filepath, response)
             else:
                 return json.loads(response.content) if response.content else True
@@ -90,14 +106,14 @@ class HQBase(object):
     def _get_file_stream(filepath, response):
         d = response.headers['content-disposition']
         fname = re.findall(
-            r"filename[ ]*=([^;]+)", d, flags=re.IGNORECASE)
+            r"filename\*=utf-8''(.+)", d, flags=re.IGNORECASE)
 
         if not fname:
             fname = re.findall(
-                r"filename\*=utf-8''(.+)", d, flags=re.IGNORECASE)
+                r"filename[ ]*=([^;]+)", d, flags=re.IGNORECASE)
 
         fname = fname[0].strip().strip('"')
-        outfile = os.path.join(filepath, fname)
+        outfile = os.path.join(filepath, unquote(fname))
 
         with open(outfile, 'wb') as f:
             for chunk in response.iter_content(chunk_size=1024):

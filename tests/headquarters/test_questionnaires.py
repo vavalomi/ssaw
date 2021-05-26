@@ -1,4 +1,6 @@
 import types
+from os.path import join
+from tempfile import gettempdir
 from uuid import UUID
 
 from pytest import fixture
@@ -7,6 +9,7 @@ from ssaw import QuestionnairesApi
 from ssaw.headquarters_schema import Interview, Questionnaire
 
 from . import my_vcr
+from ..utils import create_assignment
 
 
 @fixture
@@ -59,3 +62,15 @@ def test_questionnaire_interviews(session, params):
 def test_questionnaire_recordaudio(session, params):
     response = QuestionnairesApi(session).update_recordaudio(params['TemplateId'], params['TemplateVersion'], True)
     assert response is True
+
+
+@my_vcr.use_cassette()
+def test_questionnaire_download_weblinks(admin_session, params):
+    _ = create_assignment(admin_session, "inter1", params['QuestionnaireId'], identifying_data=[], webmode=True)
+    response = QuestionnairesApi(admin_session).download_web_links(params['TemplateId'], params['TemplateVersion'])
+    assert hasattr(response[0], "link")
+
+    tempdir = gettempdir()
+    response = QuestionnairesApi(admin_session).download_web_links(params['TemplateId'],
+                                                                   params['TemplateVersion'], path=tempdir)
+    assert response == join(tempdir, "Web ssaw package test questionnaire (ver. 1).zip")

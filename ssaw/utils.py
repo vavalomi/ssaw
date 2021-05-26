@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from functools import wraps
 
 from .exceptions import IncompleteQuestionnaireIdError
@@ -108,3 +109,10 @@ def filter_object(classname: str, where=None, **kwargs):
     else:
         if filter_args:
             return filter_type(**filter_args)
+
+
+def parse_date(date_string: str) -> datetime:
+    try:
+        return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S.%f")
+    except TypeError:
+        return date_string
