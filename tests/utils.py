@@ -30,12 +30,13 @@ def create_user(client, user_name=None, password="Validpassword1", **kwargs):
     return u
 
 
-def create_assignment(client, responsible, questionnaire_identity, identifying_data):
+def create_assignment(client, responsible, questionnaire_identity, identifying_data, **kwargs):
     newobj = Assignment(
         responsible=responsible,
         questionnaire_id=questionnaire_identity,
         quantity=5,
-        identifying_data=identifying_data)
+        identifying_data=identifying_data,
+        **kwargs)
 
     return AssignmentsApi(client).create(newobj)
 
