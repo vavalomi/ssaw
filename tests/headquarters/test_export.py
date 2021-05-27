@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from os.path import join
 from tempfile import gettempdir
 
@@ -25,22 +26,55 @@ def test_export_info(session):
 
 
 @my_vcr.use_cassette()
-def test_export_start_cancel(session, params):
+def test_export_start_cancel(session, params, capsys):
+    api = ExportApi(session)
     job = ExportJob(params['QuestionnaireId'], export_type="Paradata")
-    r = ExportApi(session).start(job)
+    r = api.start(job)
     assert isinstance(r, ExportJob), "Should get back the created job"
-    r = ExportApi(session).cancel(r.job_id)
+    r = api.cancel(r.job_id)
     assert r is None, 'Does not return anything'
+    captured = capsys.readouterr()
+    assert captured.out == "No running export process was found\n"
+
+    r = api.start(job, wait=True, show_progress=True)
+    captured = capsys.readouterr()
+    assert captured.out == "Generating...\n..\n"
 
 
 @my_vcr.use_cassette()
 def test_export_get(session, params):
     tempdir = gettempdir()
-    r = ExportApi(session).get(questionnaire_identity=params['QuestionnaireId'],
-                               export_path=tempdir, export_type='Tabular')
+    api = ExportApi(session)
+
+    r = api.get(questionnaire_identity=params['QuestionnaireId'],
+                export_path=tempdir, export_type='Tabular')
     assert r == join(tempdir, 'ssaw_1_Tabular_All.zip')
 
-    r = ExportApi(session).get(questionnaire_identity=params['QuestionnaireId'],
-                               export_path=tempdir, export_type='SPSS')
+    job = next(api.get_list(questionnaire_identity=params['QuestionnaireId'], export_type='Tabular'))
+
+    local_start_date = job.start_date.astimezone(datetime.now().astimezone().tzinfo)
+    age = (datetime.now().astimezone() - local_start_date).total_seconds() / 60  # age in minutes of the last export
+
+    r = api.get(questionnaire_identity=params['QuestionnaireId'],
+                export_path=tempdir, export_type='Tabular', limit_age=age - 1)
+    assert r is None
+
+    r = api.get(questionnaire_identity=params['QuestionnaireId'],
+                export_path=tempdir, export_type='Tabular', limit_date=local_start_date + timedelta(seconds=10))
+    assert r is None
+
+    r = api.get(questionnaire_identity=params['QuestionnaireId'],
+                export_path=tempdir, export_type='Tabular', limit_date=local_start_date - timedelta(seconds=10))
+    assert r == join(tempdir, 'ssaw_1_Tabular_All.zip')
+
+    r = api.get(questionnaire_identity=params['QuestionnaireId'],
+                export_path=tempdir, export_type='SPSS')
 
     assert r is None
+
+    r = api.get(questionnaire_identity=params['QuestionnaireId'],
+                export_path=tempdir, export_type='Paradata', generate=True)
+
+    assert r == join(tempdir, 'ssaw_1_Paradata_All.zip')
+
+    r = api.get

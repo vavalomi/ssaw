@@ -20,12 +20,12 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SQzW7CMBCE38XqMdRJIITkFvGjUrUSLXmBbbyAhbGjjQNFiHfvhjSVerM/745n
-        5iZe3ddaiTwJxPK7duS3HnzbiFzMCcGjEoFgRH7BF6ZxGEejMBlFkzKa5VGajyfPSZSm8YwH5+5U
-        G/TYz9rWmEBsyO0JG1YM+YuyGPiSyBEL8tqbtkd+v4k52AoNw4P3dS6lcRWYg2t8nqVhKmvSJ6Cr
-        hFrLcyzx4VcmrLBwF2scqE7vHogXaPowK23YyA5Mg0O+8lp3OTZAoMADL3+02HjtrAVN2HUhMjUG
-        FU6zLAOYqCnMUAGoKK7SOIZpuHuKeG1tPdJZ4+WvscIY5itypyFk6YZTUVVcQumOaAf0iTsu5vCP
-        bb0j2GNv8leDwDYGOoeduR6ubWVahe/ICR7o/gMAAP//AwAPN7jEygEAAA==
+        H4sIAAAAAAAAA1SQzW7CMBCE38XqMTTGAUJyQ/yoVK1ES15gGy9gYexo40AR4t27IU2l3uzP3tmZ
+        uYlX/7XWIk8isfyuPIVtgNDUIhdzQgioRSQYUVjwhamSajiQ44FKCznKpcqT6bNU03Sc8Me5P1UW
+        A3Z/XWNtJDbk94Q1K0peUcx6viTyxII89mbckd9vYg6uRMvwEEKVx7H1JdiDr0OepTKNKzInoGsM
+        lYnPKsaH37hdvPAXZz3oVu8eiReouzArY9nIDmyNfb7iWrU5NkCgIQAPfzRYB+OdA0PYdiEynYCW
+        kyzLAEZ6AlPUAHqoylQpmMjd05DH1i4gnQ1e/hqbWct8Rf7Uhyx8f5qVJZdQ+CO6Hn3ijos5/GPb
+        4An22Jn81SBwtYXWYWuug2tX2kbjO3KCB7r/AAAA//8DAHbikjbKAQAA
     headers:
       Content-Encoding:
       - gzip
@@ -34,9 +34,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 18:17:34 GMT
+      - Thu, 27 May 2021 04:02:37 GMT
       Location:
-      - http://localhost:9707/primary/api/v2/export/5
+      - http://localhost:9707/primary/api/v2/export/3
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -58,16 +58,16 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export/5
+    uri: http://localhost:9707/primary/api/v2/export/3
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1SQzW7CMBCE38XqMdRJIITkFvGjUrUSLXmBbbyAhbGjjQNFiHfvhjSVerM/745n
-        5iZe3ddaiTwJxPK7duS3HnzbiFzMCcGjEoFgRH7BF6ZxGEejMBlFkzKa5VGajyfPSZSm8YwH5+5U
-        G/TYz9rWmEBsyO0JG1YM+YuyGPiSyBEL8tqbtkd+v4k52AoNw4P3dS6lcRWYg2t8nqVhKmvSJ6Cr
-        hFrLcyzx4VcmrLBwF2scqE7vHogXaPowK23YyA5Mg0O+8lp3OTZAoMADL3+02HjtrAVN2HUhMjUG
-        FU6zLAOYqCnMUAGoKK7SOIZpuHuKeG1tPdJZ4+WvscIY5itypyFk6YZTUVVcQumOaAf0iTsu5vCP
-        bb0j2GNv8leDwDYGOoeduR6ubWVahe/ICR7o/gMAAP//AwAPN7jEygEAAA==
+        H4sIAAAAAAAAA1SQzW7CMBCE38XqMTTGAUJyQ/yoVK1ES15gGy9gYexo40AR4t27IU2l3uzP3tmZ
+        uYlX/7XWIk8isfyuPIVtgNDUIhdzQgioRSQYUVjwhamSajiQ44FKCznKpcqT6bNU03Sc8Me5P1UW
+        A3Z/XWNtJDbk94Q1K0peUcx6viTyxII89mbckd9vYg6uRMvwEEKVx7H1JdiDr0OepTKNKzInoGsM
+        lYnPKsaH37hdvPAXZz3oVu8eiReouzArY9nIDmyNfb7iWrU5NkCgIQAPfzRYB+OdA0PYdiEynYCW
+        kyzLAEZ6AlPUAHqoylQpmMjd05DH1i4gnQ1e/hqbWct8Rf7Uhyx8f5qVJZdQ+CO6Hn3ijos5/GPb
+        4An22Jn81SBwtYXWYWuug2tX2kbjO3KCB7r/AAAA//8DAHbikjbKAQAA
     headers:
       Content-Encoding:
       - gzip
@@ -76,7 +76,174 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 May 2021 18:17:34 GMT
+      - Thu, 27 May 2021 04:02:37 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ExportType": "Paradata", "QuestionnaireId": "9d3ad06999aa4d6a8edaad12c722a60f$1",
+      "InterviewStatus": "All"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '109'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-ssaw/0.5
+    method: POST
+    uri: http://localhost:9707/primary/api/v2/export
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1SQzW7CMBCE38XqMTTGAUJyQ/yoVK1ES15gGy9gYexo40AR4t27IU2l3uzP3tmZ
+        uYlX/7XWIk8isfyuPIVtgNDUIhdzQgioRSQYUVjwhamSajiQ44FKCznKpcqT6bNU03Sc8Me5P1UW
+        A3Z/XWNtJDbk94Q1K0peUcx6viTyxII89mbckd9vYg6uRMvwEEKVx7H1JdiDr0OepTKNKzInoGsM
+        lYnPKsaH37hdvPAXZz3oVu8eiReouzArY9nIDmyNfb7iWrU5NkCgIQAPfzRYB+OdA0PYdiEynYCW
+        kyzLAEZ6AlPUAHqoylQpmMjd05DH1i4gnQ1e/hqbWct8Rf7Uhyx8f5qVJZdQ+CO6Hn3ijos5/GPb
+        4An22Jn81SBwtYXWYWuug2tX2kbjO3KCB7r/AAAA//8DAHbikjbKAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 27 May 2021 04:02:37 GMT
+      Location:
+      - http://localhost:9707/primary/api/v2/export/3
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/primary/api/v2/export/3
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1SQzW7CMBCE38XqMTTGAUJyQ/yoVK1ES15gGy9gYexo40AR4t27IU2l3uzP3tmZ
+        uYlX/7XWIk8isfyuPIVtgNDUIhdzQgioRSQYUVjwhamSajiQ44FKCznKpcqT6bNU03Sc8Me5P1UW
+        A3Z/XWNtJDbk94Q1K0peUcx6viTyxII89mbckd9vYg6uRMvwEEKVx7H1JdiDr0OepTKNKzInoGsM
+        lYnPKsaH37hdvPAXZz3oVu8eiReouzArY9nIDmyNfb7iWrU5NkCgIQAPfzRYB+OdA0PYdiEynYCW
+        kyzLAEZ6AlPUAHqoylQpmMjd05DH1i4gnQ1e/hqbWct8Rf7Uhyx8f5qVJZdQ+CO6Hn3ijos5/GPb
+        4An22Jn81SBwtYXWYWuug2tX2kbjO3KCB7r/AAAA//8DAHbikjbKAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 27 May 2021 04:02:37 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/primary/api/v2/export/3
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1SQzW7CMBCE38XqMTSOkxKSG+JHpWolCnmBbbyAhbEj24EixLt3Q5pKvVmfd2dn
+        5sbe7NdKsjKN2OK7sS5sA4TWs5JtWmOU2bOIEXJhDgGJCi6SEX8ZibziWclFmU6esyzJRUKDM3tq
+        NAbsZ02rdcTWzu4delLkdKKaDnzhnHUkSGvvyhzp/8ZmYGrUBA8hNGUca1uDPlgfyiLnedw4dQJ3
+        jaFR8VnE+PAbp6QwtxejLchO7x6xV/B9mKXSZGQH2uOQr7o2XY41OJAQgJY/W/RBWWNAOey6YIVM
+        QfJxURQAmRzDBCWATESdCwFjvnvqwq5MQHdWePlrbKo18aWzpyFkZYfXtK6phMoe0Qxogzsq5vCP
+        bYN1sMfe5K+GA+M1dA47cz1cmVq3Ej+QEjzQ/QcAAP//AwBdEW3pygEAAA==
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 27 May 2021 04:02:38 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.5
+    method: GET
+    uri: http://localhost:9707/primary/api/v2/export/3
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA3SQwW7CMBBE/8XqEYhxAml8Q1BUqlaiJT+wjReIMHa0caAI8e/dkKZSD72tnmZ3
+        Z+YqXvznyggdD8TTV+UpbAKEphZazP2xshjQiIFgSGEBAZkrqcZDORmqNJeJlkrHj6MkGadqzMJ+
+        6T9tIkdyEicyYe2a/I6w5l+TjL/nM6FdYy2PRJ54mzWvpTuw4Crm4Aq0HVz4s7Me2LXYh1DpKLK+
+        ALv3ddBZKtOoovIIdImgKqOTivAeLIqjbWlR3AbiGeou7LIFOlCDffz8UrXG10BgIAB/e2+wDqV3
+        DkrCtiqRmRiMnGZZBpCYKTyiATBjVaRKwVRuH9omVi4gnUo8/xY6s5b5kvyxD5r7fpoVBTeR+wO6
+        Hn3gltvZ/2Gb4Al22Jn8uUHgagutw9ZcB1eusI3BN+QEd3T7BgAA//8DAKnuekvpAQAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 27 May 2021 04:02:40 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
