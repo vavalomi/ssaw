@@ -77,7 +77,7 @@ class ExportApi(HQBase):
         ret_list = self.get_list(**common_args, export_status="Completed", has_file="true")
 
         if limit_date is None:
-            limit_date = datetime(1970, 1, 1)
+            limit_date = datetime(2000, 1, 1)
 
         if limit_date.tzinfo is None:
             limit_date = limit_date.astimezone()  # interpret date as in local timezone
