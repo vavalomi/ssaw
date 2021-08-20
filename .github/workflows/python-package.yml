@@ -71,7 +71,7 @@ jobs:
           args: >
             -Dsonar.organization=vavalomi
             -Dsonar.projectKey=vavalomi_ssaw
-            -Dsonar.python.version=3.6, 3.7, 3.8, 3.9
+            -Dsonar.python.version="3.6, 3.7, 3.8, 3.9"
             -Dsonar.python.xunit.reportPath=pytests.xml
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=ssaw/
