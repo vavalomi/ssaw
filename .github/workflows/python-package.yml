@@ -66,7 +66,7 @@ jobs:
           verbose: true
 
       - name: Fix source path in coverage.xml
-        run: sed -i 's|'$GITHUB_WORKSPACE'|/github/workspace|' coverage.xml
+        run: sed -i 's|'$GITHUB_WORKSPACE'|/github/workspace|/g' coverage.xml
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
