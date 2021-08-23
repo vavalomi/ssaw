@@ -113,6 +113,6 @@ def filter_object(classname: str, where=None, **kwargs):
 
 def parse_date(date_string: str) -> datetime:
     try:
-        return datetime.strptime(f"{date_string}+0000", "%Y-%m-%dT%H:%M:%S.%f%z")
+        return datetime.strptime(f"{date_string[:24]}+0000", "%Y-%m-%dT%H:%M:%S.%f%z")
     except (TypeError, ValueError):
         return date_string

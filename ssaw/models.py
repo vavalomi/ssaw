@@ -1,7 +1,7 @@
 import datetime
 import re
 import sys
-from enum import Enum
+from enum import Enum, IntEnum
 from typing import Dict, List, Optional, Union
 from uuid import UUID, uuid4
 
@@ -63,7 +63,7 @@ class UserRole(Enum):
             return 0
 
 
-class InterviewAction(Enum):
+class InterviewParaAction(Enum):
     SUPERVISOR_ASSIGNED = "SupervisorAssigned"
     INTERVIEWER_ASSIGNED = "InterviewerAssigned"
     FIRST_ANSWER_SET = "FirstAnswerSet"
@@ -83,10 +83,39 @@ class InterviewAction(Enum):
     TRANSLATION_SWITCHED = "TranslationSwitched"
     OPENED_BY_SUPERVISOR = "OpenedBySupervisor"
     CLOSED_BY_SUPERVISOR = "ClosedBySupervisor"
+    INTERVIEW_MODE_CHANGED = 'InterviewModeChanged'
+    KEY_ASSIGNED = 'KeyAssigned'
+    ANSWER_SET = 'AnswerSet'
+    QUESTION_DECLARED_VALID = 'QuestionDeclaredValid'
+    RECIEVED_BY_SUPERVISOR = 'ReceivedBySupervisor'
 
     @property
     def code(self):
         return self.value.ordinal()
+
+
+class InterviewAction(IntEnum):
+    SupervisorAssigned = 0
+    InterviewerAssigned = 1
+    FirstAnswerSet = 2
+    Completed = 3
+    Restarted = 4
+    ApprovedBySupervisor = 5
+    ApprovedByHeadquarter = 6
+    RejectedBySupervisor = 7
+    RejectedByHeadquarter = 8
+    Deleted = 9
+    Restored = 10
+    UnapprovedByHeadquarter = 11
+    Created = 12
+    InterviewReceivedByTablet = 13
+    Resumed = 14
+    Paused = 15
+    TranslationSwitched = 16
+    OpenedBySupervisor = 17
+    ClosedBySupervisor = 18
+    InterviewSwitchedToCawiMode = 19
+    InterviewSwitchedToCapiMode = 20
 
 
 class Assignment(object):
@@ -393,8 +422,10 @@ class BaseModelWithConfig(BaseModel):
 
 
 class AssignmentHistoryItemAdditionalData(BaseModelWithConfig):
-    comment: str
-    responsible: str = Field(alias="NewResponsible")
+    comment: Optional[str] = ""
+    responsible: Optional[str]
+    new_responsible: Optional[str]
+    upgraded_from_id: Optional[int]
 
 
 ASSIGNMENT_ACTION_TYPES = {
@@ -425,11 +456,11 @@ class AssignmentHistoryItem(BaseModelWithConfig):
             "action": ASSIGNMENT_ACTION_TYPES[self.action],
             "originator": self.actor_name,
             "role": "",
-            "responsible__name": self.additional_data.responsible,
+            "responsible__name": self.additional_data.responsible or self.additional_data.new_responsible,
             "responsible__role": "",
             "old__value": "",
             "new__value": "",
-            "comment": self.additional_data.comment
+            "comment": self.additional_data.comment or "",
         }
 
 
@@ -490,26 +521,26 @@ class QuestionProperties(BaseModelWithConfig):
 
 
 class Question(BaseModelWithConfig):
-    condition_expression: str = ""
+    condition_expression: Optional[str]
     featured: bool = False
     hide_if_disabled: bool = False
-    instructions: str = ""
-    properties: QuestionProperties = None
+    instructions: Optional[str]
+    properties: Optional[QuestionProperties]
     public_key: UUID = Field(default_factory=uuid4)
-    parent_id: UUID = None
+    parent_id: Optional[UUID]
     question_scope: QuestionScope = QuestionScope.INTERVIEWER
-    question_text: str = ""
+    question_text: Optional[str]
     question_type: QuestionType = QuestionType.TEXT
-    stata_export_caption: str = ""
+    stata_export_caption: Optional[str]
     validation_conditions: List[ValidationCondition] = []
-    variable_label: Optional[str] = ""
+    variable_label: Optional[str]
     variable_name: str
 
 
 class TextQuestion(Question):
     obj_type: Literal["TextQuestion"] = Field(alias="$type")
-    mask: str = None
-    value: str = ""
+    mask: Optional[str]
+    value: Optional[str]
 
 
 class NumericQuestion(Question):
@@ -536,12 +567,12 @@ class SingleQuestion(Question):
                                                 default="SingleQuestion",
                                                 const="SingleQuestion")
     answers: List[Answer] = []
-    cascade_from_question_id: UUID = None
-    categories_id: UUID = None
+    cascade_from_question_id: Optional[UUID]
+    categories_id: Optional[UUID]
     is_filtered_combobox: bool = False
     show_as_list: bool = False
-    linked_to_question_id: UUID = None
-    linked_to_roster_id: UUID = None
+    linked_to_question_id: Optional[UUID]
+    linked_to_roster_id: Optional[UUID]
 
 
 class MultiOptionsQuestion(Question):
@@ -551,8 +582,8 @@ class MultiOptionsQuestion(Question):
     answers: List[Answer] = []
     are_answers_ordered: bool = False
     yes_no_view: bool = False
-    linked_to_question_id: UUID = None
-    linked_to_roster_id: UUID = None
+    linked_to_question_id: Optional[UUID]
+    linked_to_roster_id: Optional[UUID]
 
 
 class DateTimeQuestion(Question):
@@ -610,10 +641,10 @@ class Group(BaseModelWithConfig):
     is_plain_mode: bool = False
     is_roster: bool = False
     public_key: UUID = Field(default_factory=uuid4)
-    parent_id: UUID = None
+    parent_id: Optional[UUID]
     roster_size_source: RosterSource = RosterSource.FIXED
-    roster_size_question_id: UUID = None
-    roster_title_question_id: UUID = None
+    roster_size_question_id: Optional[UUID]
+    roster_title_question_id: Optional[UUID]
     title: str
     variable_name: str
     children: List[Union[StaticText, NumericQuestion, TextQuestion, TextListQuestion,
@@ -661,10 +692,10 @@ class User(BaseModelWithConfig):
     user_name: str
     password: str
     role: UserRole = UserRole.INTERVIEWER
-    supervisor: str = None
-    full_name: str = None
-    email: str = None
-    phone_number: str = None
+    supervisor: Optional[str]
+    full_name: Optional[str]
+    email: Optional[str]
+    phone_number: Optional[str]
 
 
 class Version():
@@ -676,7 +707,7 @@ class Version():
             self.minor = int(m.group(2))
             self.patch = int(m.group(3)[1:]) if m.group(3) else 0
             self.build = int(m.group(4))
-            self.version = version_string
+            self.version_string = version_string
         else:
             # dev version
             pattern = r"(\d{1,2})\.(\d{1,2})\.(\d+)\.(\d+)"
@@ -686,14 +717,14 @@ class Version():
                 self.minor = int(m.group(2))
                 self.patch = int(m.group(3))
                 self.build = int(m.group(4))
-                self.version = version_string
+                self.version_string = version_string
             else:
                 # somehow malformed version string, assume most recent
-                self.version = version_string
+                self.version_string = version_string
                 self.build = sys.maxsize
 
     def __repr__(self):
-        return self.version
+        return self.version_string
 
     def __lt__(self, other: "Version"):
         return self.build < other.build

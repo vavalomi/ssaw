@@ -76,7 +76,7 @@ class InterviewsApi(HQBase):
 
         yield from res.nodes
 
-    def get_info(self, interview_id: UUID) -> list:
+    def get_info(self, interview_id: UUID) -> InterviewAnswers:
         path = self.url + '/{}'.format(interview_id)
         ret = self._make_call('get', path)
         if "Answers" in ret:
