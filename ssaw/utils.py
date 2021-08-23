@@ -106,9 +106,8 @@ def filter_object(classname: str, where=None, **kwargs):
             return filter_type(and_=[where, filter_type(**filter_args)])
         else:
             return where
-    else:
-        if filter_args:
-            return filter_type(**filter_args)
+    elif filter_args:
+        return filter_type(**filter_args)
 
 
 def parse_date(date_string: str) -> datetime:

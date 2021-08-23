@@ -1,5 +1,5 @@
 from html import escape
-from typing import Generator
+from typing import Generator, Union
 from uuid import UUID
 
 from sgqlc.operation import Operation
@@ -23,7 +23,7 @@ class InterviewsApi(HQBase):
     @fix_qid(expects={'questionnaire_id': 'hex'})
     def get_list(self, fields: list = [], order=None,
                  skip: int = None, take: int = None, where: InterviewsFilter = None,
-                 include_calendar_events: bool = False, **kwargs
+                 include_calendar_events: Union[list, tuple, bool] = False, **kwargs
                  ) -> Generator[Interview, None, None]:
         """Get list of interviews
 

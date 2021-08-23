@@ -342,12 +342,11 @@ class InterviewAnswers(object):
                 ans_split = answer if type(answer) == list else answer.split(",")
                 if prefilling:
                     ans = str(ans_split)
+                elif self._variables[t[0]].yes_no_view:
+                    ans = ans = [{"value": i, "isProtected": False, "yes": (i in ans_split)}
+                                 for i in range(1, len(self._variables[t[0]].answers) + 1)]
                 else:
-                    if self._variables[t[0]].yes_no_view:
-                        ans = ans = [{"value": i, "isProtected": False, "yes": (i in ans_split)}
-                                     for i in range(1, len(self._variables[t[0]].answers) + 1)]
-                    else:
-                        ans = ans_split
+                    ans = ans_split
 
             elif q_type == QuestionType.SINGLE_SELECT and self._variables[t[0]].linked_to_roster_id and not prefilling:
                 if type(ans) != list:
@@ -405,12 +404,11 @@ class InterviewAnswers(object):
         if variable:
             if variable not in self._variables:
                 raise TypeError("variable not found")
+        elif question_id:
+            variable = self._public_ids.get(to_hex(question_id))
         else:
-            if question_id:
-                variable = self._public_ids.get(to_hex(question_id))
-            else:
-                raise TypeError(
-                    "either 'variable' or 'question_id' argument is required")
+            raise TypeError(
+                "either 'variable' or 'question_id' argument is required")
         return variable
 
 
@@ -484,8 +482,11 @@ class VariableType(Enum):
     STRING = 5
 
 
+JSON_TYPE_FIELD_NAME = "$type"
+
+
 class Variable(BaseModelWithConfig):
-    obj_type: Literal["Variable"] = Field(alias="$type")
+    obj_type: Literal["Variable"] = Field(alias=JSON_TYPE_FIELD_NAME)
     public_key: UUID = Field(default_factory=uuid4)
     name: str
     label: str = ""
@@ -506,7 +507,7 @@ class LookupTable(BaseModelWithConfig):
 
 
 class StaticText(BaseModelWithConfig):
-    obj_type: Literal["StaticText"] = Field(alias="$type")
+    obj_type: Literal["StaticText"] = Field(alias=JSON_TYPE_FIELD_NAME)
     public_key: UUID = Field(default_factory=uuid4)
     text: str
     attachment_name: str = ""
@@ -538,17 +539,17 @@ class Question(BaseModelWithConfig):
 
 
 class TextQuestion(Question):
-    obj_type: Literal["TextQuestion"] = Field(alias="$type")
+    obj_type: Literal["TextQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME)
     mask: Optional[str]
     value: Optional[str]
 
 
 class NumericQuestion(Question):
-    obj_type: Literal["NumericQuestion"] = Field(alias="$type",
+    obj_type: Literal["NumericQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                  default="NumericQuestion",
                                                  const="NumericQuestion")
     is_integer: bool = False
-    value: float = None
+    value: Optional[float]
 
     def __gt__(self, num):
         return self.value > num
@@ -563,7 +564,7 @@ class Answer(BaseModelWithConfig):
 
 
 class SingleQuestion(Question):
-    obj_type: Literal["SingleQuestion"] = Field(alias="$type",
+    obj_type: Literal["SingleQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                 default="SingleQuestion",
                                                 const="SingleQuestion")
     answers: List[Answer] = []
@@ -576,7 +577,7 @@ class SingleQuestion(Question):
 
 
 class MultiOptionsQuestion(Question):
-    obj_type: Literal["MultyOptionsQuestion"] = Field(alias="$type",
+    obj_type: Literal["MultyOptionsQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                       default="MultyOptionsQuestion",
                                                       const="MultyOptionsQuestion")
     answers: List[Answer] = []
@@ -587,42 +588,42 @@ class MultiOptionsQuestion(Question):
 
 
 class DateTimeQuestion(Question):
-    obj_type: Literal["DateTimeQuestion"] = Field(alias="$type")
+    obj_type: Literal["DateTimeQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME)
     is_timestamp: bool
 
 
 class TextListQuestion(Question):
-    obj_type: Literal["TextListQuestion"] = Field(alias="$type")
+    obj_type: Literal["TextListQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME)
     max_answer_count: int
 
 
 class GpsCoordinateQuestion(Question):
-    obj_type: Literal["GpsCoordinateQuestion"] = Field(alias="$type",
+    obj_type: Literal["GpsCoordinateQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                        default="GpsCoordinateQuestion",
                                                        const="GpsCoordinateQuestion")
     question_type: Literal[6]
 
 
 class QRBarcodeQuestion(Question):
-    obj_type: Literal["QRBarcodeQuestion"] = Field(alias="$type",
+    obj_type: Literal["QRBarcodeQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                    default="QRBarcodeQuestion",
                                                    const="QRBarcodeQuestion")
 
 
 class MultimediaQuestion(Question):
-    obj_type: Literal["MultimediaQuestion"] = Field(alias="$type",
+    obj_type: Literal["MultimediaQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                     default="MultimediaQuestion",
                                                     const="MultimediaQuestion")
 
 
 class AudioQuestion(Question):
-    obj_type: Literal["AudioQuestion"] = Field(alias="$type",
+    obj_type: Literal["AudioQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                default="AudioQuestion",
                                                const="AudioQuestion")
 
 
 class AreaQuestion(Question):
-    obj_type: Literal["AreaQuestion"] = Field(alias="$type",
+    obj_type: Literal["AreaQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                               default="AreaQuestion",
                                               const="AreaQuestion")
 
@@ -633,7 +634,7 @@ class RosterSource(Enum):
 
 
 class Group(BaseModelWithConfig):
-    obj_type: Literal["Group"] = Field(alias="$type")
+    obj_type: Literal["Group"] = Field(alias=JSON_TYPE_FIELD_NAME)
     description: str = ""
     display_mode: int = 0
     fixed_roster_titles: list = []

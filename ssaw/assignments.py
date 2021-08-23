@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Union
 
 from sgqlc.operation import Operation
 
@@ -45,7 +45,7 @@ class AssignmentsApi(HQBase):
                 yield Assignment.from_dict(item)
 
     def _get_list(self, fields: list = [], skip: int = None, take: int = None,
-                  where: AssignmentsFilter = None, include_calendar_events: bool = False, **kwargs
+                  where: AssignmentsFilter = None, include_calendar_events: Union[list, tuple, bool] = False, **kwargs
                   ) -> Iterator[GraphQLAssignment]:
 
         args = {

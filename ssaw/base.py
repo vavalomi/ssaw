@@ -45,20 +45,20 @@ class HQBase(object):
 
         else:
             response = self._hq.session.request(method=method, url=path, **kwargs)
-        if response.status_code < 300:
-            if method == 'get':
-                if 'application/json' in response.headers['Content-Type']:
-                    if parser:
-                        return parser(response.content)
-                    else:
-                        return json.loads(response.content)
 
-                elif ('application/zip' in response.headers['Content-Type']
-                      or 'application/octet-stream' in response.headers['Content-Type']):
-                    return self._get_file_stream(filepath, response)
-            else:
+        if response.status_code < 300:
+            if method != 'get':
                 return json.loads(response.content) if response.content else True
 
+            if 'application/json' in response.headers['Content-Type']:
+                if parser:
+                    return parser(response.content)
+                else:
+                    return json.loads(response.content)
+
+            elif ('application/zip' in response.headers['Content-Type']
+                  or 'application/octet-stream' in response.headers['Content-Type']):
+                return self._get_file_stream(filepath, response)
         else:
             self._process_status_code(response)
 
