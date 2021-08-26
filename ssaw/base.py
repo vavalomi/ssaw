@@ -33,34 +33,35 @@ class HQBase(object):
 
     def _make_call(self, method: str, path: str, filepath: str = None, parser=None, use_login_session=False, **kwargs):
         if use_login_session:
-            with Session() as login_session:
-                response = login_session.request(method="post",
-                                                 url=f"{self._hq.baseurl}/Account/LogOn",
-                                                 data={"UserName": self._hq.session.auth[0],
-                                                       "Password": self._hq.session.auth[1]})
-                if response.status_code < 300:
-                    response = login_session.request(method=method, url=path, **kwargs)
-                else:
-                    self._process_status_code(response)
-
+            response = self._make_call_with_login(method=method, path=path, **kwargs)
         else:
             response = self._hq.session.request(method=method, url=path, **kwargs)
 
-        if response.status_code < 300:
-            if method != 'get':
-                return json.loads(response.content) if response.content else True
-
-            if 'application/json' in response.headers['Content-Type']:
-                if parser:
-                    return parser(response.content)
-                else:
-                    return json.loads(response.content)
-
-            elif ('application/zip' in response.headers['Content-Type']
-                  or 'application/octet-stream' in response.headers['Content-Type']):
-                return self._get_file_stream(filepath, response)
-        else:
+        if response.status_code > 300:
             self._process_status_code(response)
+
+        if method != 'get':
+            return json.loads(response.content) if response.content else True
+
+        if 'application/json' in response.headers['Content-Type']:
+            return parser(response.content) if parser else json.loads(response.content)
+
+        elif any(w in response.headers['Content-Type'] for w in ['application/zip', 'application/octet-stream']):
+            return self._get_file_stream(filepath, response)
+
+        else:
+            return response.content
+
+    def _make_call_with_login(self, method: str, path: str, **kwargs):
+        with Session() as login_session:
+            response = login_session.request(method="post",
+                                             url=f"{self._hq.baseurl}/Account/LogOn",
+                                             data={"UserName": self._hq.session.auth[0],
+                                                   "Password": self._hq.session.auth[1]})
+            if response.status_code < 300:
+                return login_session.request(method=method, url=path, **kwargs)
+            else:
+                self._process_status_code(response)
 
     def _call_mutation(self, method_name: str, fields: list = [], **kwargs):
         op = Operation(HeadquartersMutation)

@@ -306,11 +306,11 @@ class InterviewAnswers(object):
             val = ans["Answer"]
             if val is None:
                 continue
-            id = to_hex(ans["QuestionId"]["Id"])
+            id_ = to_hex(ans["QuestionId"]["Id"])
             variable_name = ans["VariableName"]
             if variable_name not in self._variables:
-                self._variables[variable_name] = Question(variable_name=variable_name, public_key=id)
-                self._public_ids[id] = variable_name
+                self._variables[variable_name] = Question(variable_name=variable_name, public_key=id_)
+                self._public_ids[id_] = variable_name
             key = (variable_name, ) + tuple(ans["QuestionId"]["RosterVector"])
             self._data[key] = val
 
