@@ -7,7 +7,7 @@ from sgqlc.operation import Operation
 from .base import HQBase
 from .headquarters_schema import HeadquartersQuery, UsersFilterInput
 from .headquarters_schema import User as GraphQLUser, Viewer
-from .models import InterviewerAction, User
+from .models import InterviewerAction, User, UserRole
 from .utils import filter_object, order_object
 
 
@@ -72,9 +72,11 @@ class UsersApi(HQBase):
         path = self._url_users + '/{}/archive'.format(id)
         return self._make_call('patch', path)
 
-    def create(self, **kwargs):
+    def create(self, user_name: str, password: str, role: UserRole = UserRole.INTERVIEWER,
+               supervisor: str = "", full_name: str = "", email: str = "", phone_number: str = "") -> None:
 
-        user = User(**kwargs)
+        user = User(user_name=user_name, password=password, role=role, supervisor=supervisor,
+                    full_name=full_name, email=email, phone_number=phone_number)
         path = self._url_users
 
         return self._make_call("post", path, data=user.json(by_alias=True),

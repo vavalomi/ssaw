@@ -465,7 +465,7 @@ class AssignmentHistoryItem(BaseModelWithConfig):
 class ValidationCondition(BaseModelWithConfig):
     expression: str
     message: str
-    severity: int
+    severity: int = 0
 
 
 class Macro(BaseModelWithConfig):
@@ -492,7 +492,7 @@ class Variable(BaseModelWithConfig):
     label: str = ""
     type: VariableType
     expression: str
-    do_not_export: bool
+    do_not_export: bool = False
     variable_name: str
 
 
@@ -589,7 +589,7 @@ class MultiOptionsQuestion(Question):
 
 class DateTimeQuestion(Question):
     obj_type: Literal["DateTimeQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME)
-    is_timestamp: bool
+    is_timestamp: bool = False
 
 
 class TextListQuestion(Question):

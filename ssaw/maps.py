@@ -70,10 +70,10 @@ class MapsApi(HQBase):
                                    fields=self._default_fields())
 
     def upload(self, zip_file) -> bool:
-        """Upload a zip file with maps
+        """Upload a zip file with maps.
         Currently only works for the admin user!
 
-        :param file_name: Archive with extension with the maps
+        :param zip_file: Archive with extension with the maps
 
         :returns: `True` if successful, otherwise raises `NotAcceptableError`
         """
