@@ -30,6 +30,7 @@ def test_headquarters_graphql_error(session):
         next(MapsApi(session, workspace="dddd").get_list())
 
 
+@my_vcr.use_cassette()
 def test_headquarters_user_session_login(session, params):
     with raises(UnauthorizedError):
         QuestionnairesApi(session).download_web_links(params['TemplateId'], params['TemplateVersion'])
