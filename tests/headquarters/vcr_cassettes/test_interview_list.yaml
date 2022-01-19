@@ -1,8 +1,9 @@
 interactions:
 - request:
-    body: '{"query": "query {\ninterviews(take: 20, skip: 0, where: {questionnaireId:
-      {eq: \"9d3ad06999aa4d6a8edaad12c722a60f\"}}) {\nfilteredCount\nnodes {\nid\nquestionnaireId\nquestionnaireVersion\nassignmentId\nresponsibleId\nerrorsCount\nstatus\n}\n}\n}",
-      "variables": null, "operationName": null}'
+    body: '{"query": "query HeadquartersQuery($take: Int, $skip: Int) {\ninterviews(\ntake:
+      $take\nskip: $skip\nworkspace: \"primary\"\nwhere: {questionnaireId: {eq: \"9d3ad06999aa4d6a8edaad12c722a60f\"}}\n)
+      {\nnodes {\nid\nquestionnaireId\nquestionnaireVersion\nassignmentId\nresponsibleId\nerrorsCount\nstatus\n}\n}\n}",
+      "variables": {"take": 100, "skip": 0}, "operationName": null}'
     headers:
       Accept:
       - application/json; charset=utf-8
@@ -11,31 +12,162 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '291'
+      - '373'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.6.3
     method: POST
     uri: http://localhost:9707/graphql
   response:
     body:
-      string: '{"data":{"interviews":{"filteredCount":1000,"nodes":[{"id":"b2d3541ccb31415fa2be481c620a715f","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"7f373e95d620451290b226885a060dd3","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"5ac06b4d88bf4322bc08a2b88dfbf047","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"fe74e21dc5274dfea5e2d91e6bceba67","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"eae08a958f2e43398495c0bec267919a","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"29db85c5a4734c30b841f579df8a960d","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"57ecfdd045ac42f8a426f2bc08476178","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"4cc64cf7c8e44b409205066789a58898","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"d559399751854193a8732a23c58c5bc8","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"6042bd9d685a4e8d995e20f94f6a42ae","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"bb772f77cb1b4ad289937c51d51a995a","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"bdd6e842ab044ac2b7732b94047a7c23","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"9d6b4885ef7d4d9ea4ddeeaa10fde357","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"3be8652e72114bfe8e3034f60cfacf00","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"a34eb120d9934647a62e778f59fbd56d","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"03c13cd9e32d4dae9f66741cf6327960","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"1e03e83df1374b848980a84353ef174b","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"44770af5f37f4a0b9c2d98d71f0cbdd3","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"79e2df14a97b4d3595df6cdf09706942","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"},{"id":"3ea114da775341c8a0517a44cb1b92ca","questionnaireId":"9d3ad06999aa4d6a8edaad12c722a60f","questionnaireVersion":1,"assignmentId":3,"responsibleId":"ead9e932872947c3a49f2368bb0365e8","errorsCount":0,"status":"INTERVIEWERASSIGNED"}]}}}'
+      string: !!binary |
+        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
     headers:
+      Content-Encoding:
+      - gzip
       Content-Language:
       - en-US
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 26 Jan 2021 20:44:40 GMT
+      - Wed, 19 Jan 2022 18:56:42 GMT
       Server:
       - Kestrel
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
-      content-length:
-      - '4756'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query HeadquartersQuery($take: Int, $skip: Int) {\ninterviews(\ntake:
+      $take\nskip: $skip\nworkspace: \"primary\"\nwhere: {questionnaireId: {eq: \"9d3ad06999aa4d6a8edaad12c722a60f\"}}\n)
+      {\nnodes {\nid\nquestionnaireId\nquestionnaireVersion\nassignmentId\nresponsibleId\nerrorsCount\nstatus\n}\n}\n}",
+      "variables": {"take": 3, "skip": 100}, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '373'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.6.3
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA9yPvU7EMBCE32XrFP6LY6dDEKE0V9yho0AU63iDLIEDtgPFKe+OI6jgCaBYaWal
+        Gc13AY8Fob9AiIXSe6CPvLu4eKriof499ODm1lgxt7xFrhh26IUWxlaL2hInaOBtpVzCEiOGROMe
+        sl6iZ9pai6i8RkMe0XMxdUKgZvPP0JlSrhp63gDmHJ7iC8WyV8kGEuXXJebgnr/KFSlDNPHWOKU4
+        Q8ewXoeSBJp5ams5pbSkfL2ssUDPGsgFy1qhYDzcDcfzONwPx6vTabw9DDewNd+oWho0YhIau4rq
+        ZF3qLDHqlLKO/179h1Gd8bM3iJM1XKGyaKVhsiWq/XX9f0B93LbtEwAA//8DAFemkGbkAgAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 19 Jan 2022 18:56:42 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query": "query HeadquartersQuery($take: Int, $skip: Int) {\ninterviews(\ntake:
+      $take\nskip: $skip\nworkspace: \"primary\"\norder: [{createdDate: ASC}]\nwhere:
+      {questionnaireId: {eq: \"9d3ad06999aa4d6a8edaad12c722a60f\"}}\n) {\nnodes {\ncreatedDate\n}\n}\n}",
+      "variables": {"take": 2, "skip": 0}, "operationName": null}'
+    headers:
+      Accept:
+      - application/json; charset=utf-8
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '320'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python-ssaw/0.6.3
+    method: POST
+    uri: http://localhost:9707/graphql
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6pWSkksSVSyqlbKzCtJLSrLTC0vBvHy8lNSgYzoaqXkotTEktQUFyChZKVkZGBk
+        pGtgqGtoEWJkbGViaWVgrGdkbBylVKtDjFIzQ0ug0tja2loAAAAA//8DABF6Nct5AAAA
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 19 Jan 2022 18:56:42 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
     status:
       code: 200
       message: OK

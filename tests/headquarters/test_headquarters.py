@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pytest import raises
 
-from ssaw import Client, MapsApi, QuestionnairesApi, headquarters_schema as schema
+from ssaw import AssignmentsApi, Client, MapsApi, QuestionnairesApi, headquarters_schema as schema
 from ssaw.exceptions import GraphQLError, IncompleteQuestionnaireIdError, UnauthorizedError
 from ssaw.models import Group, QuestionnaireDocument
 from ssaw.utils import filter_object, fix_qid, get_properties, order_object, parse_qidentity
@@ -16,8 +16,11 @@ from . import my_vcr
 def test_headquarters_unathorized():
     s = Client('https://demo.mysurvey.solutions/', "aa", "")
 
-    with raises(UnauthorizedError):
+    with raises(UnauthorizedError):  # graphql endpoint
         next(QuestionnairesApi(s).get_list())
+
+    with raises(UnauthorizedError):  # rest endpoint
+        next(AssignmentsApi(s).get_list())
 
 
 @my_vcr.use_cassette()
@@ -25,6 +28,11 @@ def test_headquarters_graphql_error(session):
 
     with raises(GraphQLError):
         next(MapsApi(session, workspace="dddd").get_list())
+
+
+def test_headquarters_user_session_login(session, params):
+    with raises(UnauthorizedError):
+        QuestionnairesApi(session).download_web_links(params['TemplateId'], params['TemplateVersion'])
 
 
 def test_utils_parse_qidentity():

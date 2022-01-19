@@ -25,7 +25,7 @@ base_url = os.environ.get("base_url")
 designer_questionnaire_id = os.environ.get("designer_questionnaire_id")
 
 # just to a list with more than one page
-for _ in range(13):
+for _ in range(103):
     _ = import_questionnaire(base_url, designer_questionnaire_id)
 
 client = ssaw.Client(base_url,
@@ -39,7 +39,7 @@ inter1 = create_user(client, user_name="inter1", password="Validpassword1", role
 inter2 = create_user(client, user_name="inter2", password="Validpassword1", role="Interviewer", supervisor="super1")
 
 # just to a list with more than one page
-for _ in range(13):
+for _ in range(103):
     create_user(client, password="Validpassword1", role="Supervisor")
 
 

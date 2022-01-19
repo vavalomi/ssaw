@@ -1,7 +1,8 @@
 interactions:
 - request:
-    body: '{"query": "query {\nquestionnaires(workspace: \"primary\") {\nnodes {\nid\nquestionnaireId\nversion\ntitle\nvariable\ndefaultLanguageName\n}\n}\n}",
-      "variables": null, "operationName": null}'
+    body: '{"query": "query HeadquartersQuery($take: Int, $skip: Int) {\nquestionnaires(take:
+      $take, skip: $skip, workspace: \"primary\") {\nnodes {\nid\nquestionnaireId\nversion\ntitle\nvariable\n}\n}\n}",
+      "variables": {"take": 100, "skip": 0}, "operationName": null}'
     headers:
       Accept:
       - application/json; charset=utf-8
@@ -10,11 +11,11 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '190'
+      - '257'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python-ssaw/0.4.3
+      - python-ssaw/0.6.3
     method: POST
     uri: https://demo.mysurvey.solutions/graphql
   response:
@@ -32,7 +33,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 01 Mar 2021 19:27:39 GMT
+      - Wed, 19 Jan 2022 20:34:31 GMT
       Server:
       - Microsoft-IIS/10.0
       Strict-Transport-Security:
@@ -46,4 +47,38 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-ssaw/0.6.3
+    method: GET
+    uri: https://demo.mysurvey.solutions/primary/api/v1/assignments?offset=1&limit=10
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Language:
+      - en-US
+      Date:
+      - Wed, 19 Jan 2022 20:34:31 GMT
+      Server:
+      - Microsoft-IIS/10.0
+      Strict-Transport-Security:
+      - max-age=2592000
+      Transfer-Encoding:
+      - chunked
+      WWW-Authenticate:
+      - Basic realm="WB.Headquarters", charset="UTF-8"
+      X-Powered-By:
+      - ASP.NET
+    status:
+      code: 401
+      message: Unauthorized
 version: 1

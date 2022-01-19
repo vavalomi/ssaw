@@ -2,12 +2,9 @@ from html import escape
 from typing import Generator, Union
 from uuid import UUID
 
-from sgqlc.operation import Operation
-
 from .base import HQBase
 from .headquarters_schema import (
     CalendarEvent,
-    HeadquartersQuery,
     Interview,
     InterviewsFilter,
 )
@@ -22,7 +19,7 @@ class InterviewsApi(HQBase):
 
     @fix_qid(expects={'questionnaire_id': 'hex'})
     def get_list(self, fields: list = [], order=None,
-                 skip: int = None, take: int = None, where: InterviewsFilter = None,
+                 skip: int = 0, take: int = None, where: InterviewsFilter = None,
                  include_calendar_events: Union[list, tuple, bool] = False, **kwargs
                  ) -> Generator[Interview, None, None]:
         """Get list of interviews
@@ -43,10 +40,6 @@ class InterviewsApi(HQBase):
         }
         if order:
             interview_args["order"] = order_object("InterviewSort", order)
-        if skip:
-            interview_args["skip"] = skip
-        if take:
-            interview_args["take"] = take
 
         if where or kwargs:
             interview_args['where'] = filter_object("InterviewsFilter", where=where, **kwargs)
@@ -62,19 +55,16 @@ class InterviewsApi(HQBase):
                 'status',
             ]
 
-        op = Operation(HeadquartersQuery)
-        q = op.interviews(**interview_args)
+        op = self._graphql_query_operation('interviews', interview_args)
+        q = op.interviews
         q.nodes.__fields__(*fields)
         if include_calendar_events:
             if type(include_calendar_events) in [list, tuple]:
                 q.nodes.calendar_event.__fields__(*include_calendar_events)
             else:
                 q.nodes.calendar_event.__fields__()
-        cont = self._make_graphql_call(op)
 
-        res = (op + cont).interviews
-
-        yield from res.nodes
+        yield from self._get_full_list(op, 'interviews', skip=skip, take=take)
 
     def get_info(self, interview_id: UUID) -> InterviewAnswers:
         path = self.url + '/{}'.format(interview_id)
@@ -155,11 +145,10 @@ class InterviewsApi(HQBase):
 
         if variable:
             path = self.url + '/{}/comment-by-variable/{}'.format(interview_id, variable)
+        elif question_id:
+            path = self.url + '/{}/comment/{}'.format(interview_id, question_id)
         else:
-            if question_id:
-                path = self.url + '/{}/comment/{}'.format(interview_id, question_id)
-            else:
-                raise TypeError("comment() either 'variable' or 'question_id' argument is required")
+            raise TypeError("comment() either 'variable' or 'question_id' argument is required")
 
         self._make_call('post', path, params=params)
 

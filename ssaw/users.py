@@ -5,6 +5,7 @@ from uuid import UUID
 from sgqlc.operation import Operation
 
 from .base import HQBase
+from .headquarters import Client
 from .headquarters_schema import HeadquartersQuery, UsersFilterInput
 from .headquarters_schema import User as GraphQLUser, Viewer
 from .models import InterviewerAction, User, UserRole
@@ -16,28 +17,24 @@ class UsersApi(HQBase):
 
     _apiprefix = "/api/v1"
 
+    def __init__(self, client: Client) -> None:
+        super().__init__(client)
+
     def get_list(self, fields: list = [],
-                 order=None, skip: int = None, take: int = None,
+                 order=None, skip: int = 0, take: int = None,
                  where: UsersFilterInput = None, **kwargs) -> Generator[GraphQLUser, None, None]:
 
         q_args = {
         }
         if order:
             q_args["order"] = order_object("UsersSortInput", order)
-        if skip:
-            q_args["skip"] = skip
-        if take:
-            q_args["take"] = take
         if where or kwargs:
             q_args['where'] = filter_object("UsersFilterInput", where=where, **kwargs)
 
-        op = Operation(HeadquartersQuery)
-        q = op.users(**q_args)
-        q.nodes.__fields__(*fields)
-        cont = self._make_graphql_call(op)
-        res = (op + cont).users
+        op = self._graphql_query_operation('users', q_args)
+        op.users.nodes.__fields__(*fields)
 
-        yield from res.nodes
+        yield from self._get_full_list(op, 'users', skip=skip, take=take)
 
     def get_info(self, id):
         path = self._url_users + '/{}'.format(id)

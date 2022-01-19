@@ -10,11 +10,19 @@ from ssaw.utils import to_hex
 from . import my_vcr
 
 
-@my_vcr.use_cassette(decode_compressed_response=True)
+@my_vcr.use_cassette(decode_compressed_response=False)
 def test_interview_list(session, params):
-    r = InterviewsApi(session).get_list(questionnaire_id=to_hex(params['TemplateId']))
+    large_take = 103
+    r = InterviewsApi(session).get_list(take=large_take, questionnaire_id=to_hex(params['TemplateId']))
     assert isinstance(r, types.GeneratorType)
     assert isinstance(next(r), Interview), "There should be a list of Interview objects"
+    assert len(list(r)) == large_take - 1, "We have to have all items returned"
+
+    r = list(InterviewsApi(session).get_list(take=2,
+                                             order={'created_date': 'ASC'},
+                                             fields=['created_date'],
+                                             questionnaire_id=to_hex(params['TemplateId'])))
+    assert r[0].created_date < r[1].created_date
 
 
 @my_vcr.use_cassette()
@@ -92,6 +100,10 @@ def test_interview_comment(session, params):
 
     # no way to check comments for now, make sure there are no exceptions
     InterviewsApi(session).comment(params['InterviewId'], comment="aaa", variable="sex")
+    InterviewsApi(session).comment(params['InterviewId'], comment="aaa", question_id="fe9719791f0bde796f28d74e66d67d12")
+
+    with raises(NotAcceptableError):
+        InterviewsApi(session).comment(params['InterviewId'], comment="aaa", variable="sex", roster_vector=[1])
 
 
 @my_vcr.use_cassette()

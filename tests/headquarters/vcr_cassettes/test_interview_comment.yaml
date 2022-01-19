@@ -29,4 +29,76 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.6.3
+    method: POST
+    uri: http://localhost:9707/primary/api/v1/interviews/9f7f4d0143914027b32724a7b714f210/comment/fe9719791f0bde796f28d74e66d67d12?comment=aaa
+  response:
+    body:
+      string: ''
+    headers:
+      Cache-Control:
+      - no-store, no-cache
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '0'
+      Date:
+      - Wed, 19 Jan 2022 20:00:52 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-ssaw/0.6.3
+    method: POST
+    uri: http://localhost:9707/primary/api/v1/interviews/9f7f4d0143914027b32724a7b714f210/comment-by-variable/sex?comment=aaa&rosterVector=1
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA1IKyi8uSS1SyMxLyy/KTSzJzM9TALIUCktTi8GczGKgXHJ+UVFqcomegl8+XKYY
+        qK40LwWsughiSBlQTX6REgAAAP//AwD8EosvVAAAAA==
+    headers:
+      Cache-Control:
+      - no-store, no-cache
+      Content-Encoding:
+      - gzip
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 19 Jan 2022 20:00:52 GMT
+      Server:
+      - Kestrel
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 406
+      message: Not Acceptable
 version: 1

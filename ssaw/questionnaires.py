@@ -4,10 +4,7 @@ from io import TextIOWrapper
 from tempfile import TemporaryDirectory
 from uuid import UUID
 
-from sgqlc.operation import Operation
-
 from .base import HQBase
-from .headquarters_schema import HeadquartersQuery
 from .interviews import InterviewsApi
 from .models import AssignmentWebLink, QuestionnaireDocument
 
@@ -18,7 +15,7 @@ class QuestionnairesApi(HQBase):
     _apiprefix = "/api/v1/questionnaires"
 
     def get_list(self, fields: list = [], questionnaire_id: str = None, version: int = None,
-                 skip: int = None, take: int = None):
+                 skip: int = 0, take: int = None):
         if not fields:
             fields = [
                 "id",
@@ -35,20 +32,11 @@ class QuestionnairesApi(HQBase):
             q_args["id"] = questionnaire_id
         if version:
             q_args["version"] = version
-        if skip:
-            q_args["skip"] = skip
-        if take:
-            q_args["take"] = take
 
-        op = Operation(HeadquartersQuery)
-        q = op.questionnaires(**q_args)
-        q.nodes.__fields__(*fields)
+        op = self._graphql_query_operation('questionnaires', q_args)
+        op.questionnaires.nodes.__fields__(*fields)
 
-        cont = self._make_graphql_call(op)
-
-        res = (op + cont).questionnaires
-
-        yield from res.nodes
+        yield from self._get_full_list(op, 'questionnaires', skip=skip, take=take)
 
     def statuses(self):
         path = self.url + '/statuses'

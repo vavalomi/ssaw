@@ -16,6 +16,10 @@ def test_user_list(admin_session):
     response = UsersApi(admin_session).get_list()
     assert isinstance(response, GeneratorType)
     assert isinstance(next(response), GraphQLUser), "Should be list of User objects"
+    assert len(list(response)) == 109, "We have to have all items returned"
+
+    first_user = next(UsersApi(admin_session).get_list(order=['creation_date'], take=1))
+    assert first_user.role == 'ADMINISTRATOR'
 
 
 @my_vcr.use_cassette()

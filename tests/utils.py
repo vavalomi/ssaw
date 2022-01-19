@@ -6,8 +6,8 @@ import string
 import requests
 
 from ssaw import AssignmentsApi, UsersApi
-from ssaw.models import Assignment
 from ssaw.exceptions import NotAcceptableError
+from ssaw.models import Assignment
 
 
 def create_user(client, user_name=None, password="Validpassword1", **kwargs):
