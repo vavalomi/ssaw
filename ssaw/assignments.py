@@ -44,10 +44,12 @@ class AssignmentsApi(HQBase):
             for item in r['Assignments']:
                 yield Assignment.from_dict(item)
 
-    def _get_list(self, fields: list = [], skip: int = None, take: int = None,
+    def _get_list(self, fields: list = None, skip: int = None, take: int = None,
                   where: AssignmentsFilter = None, include_calendar_events: Union[list, tuple, bool] = False, **kwargs
                   ) -> Iterator[GraphQLAssignment]:
 
+        if fields is None:
+            fields = []
         args = {
             "workspace": self.workspace
         }
@@ -79,8 +81,7 @@ class AssignmentsApi(HQBase):
 
         :returns: Assignment object
         """
-        path = self.url + "/{}".format(id)
-        item = self._make_call("get", path)
+        item = self._make_call(method="get", path=f"{self.url}/{id}")
         return Assignment.from_dict(item)
 
     def create(self, obj: Assignment) -> Assignment:
@@ -99,16 +100,14 @@ class AssignmentsApi(HQBase):
 
         :param id: Assignment Id
         """
-        path = self.url + "/{}/archive".format(id)
-        self._make_call("patch", path)
+        self._make_call(method="patch", path=f"{self.url}/{id}/archive")
 
     def unarchive(self, id: int) -> None:
         """Unarchive assignment
 
         :param id: Assignment Id
         """
-        path = self.url + "/{}/unarchive".format(id)
-        self._make_call("patch", path)
+        self._make_call(method="patch", path=f"{self.url}/{id}/unarchive")
 
     def assign(self, id: int, responsible: str) -> Assignment:
         """Assign new responsible person for assignment
@@ -118,8 +117,9 @@ class AssignmentsApi(HQBase):
 
         :returns: Modified Assignment object
         """
-        path = self.url + "/{}/assign".format(id)
-        res = self._make_call("patch", path, json={"Responsible": responsible})
+        res = self._make_call(method="patch",
+                              path=f"{self.url}/{id}/assign",
+                              json={"Responsible": responsible})
         return Assignment.from_dict(res)
 
     def get_quantity_settings(self, id: int) -> bool:
@@ -129,8 +129,8 @@ class AssignmentsApi(HQBase):
 
         :returns: `True` if quantity can be edited, `False` otherwise
         """
-        path = self.url + "/{}/assignmentQuantitySettings".format(id)
-        res = self._make_call("get", path)
+        res = self._make_call(method="get",
+                              path=f"{self.url}/{id}/assignmentQuantitySettings")
         return res['CanChangeQuantity']
 
     def update_quantity(self, id: int, quantity: int) -> Assignment:
@@ -144,9 +144,11 @@ class AssignmentsApi(HQBase):
         """
         if not isinstance(quantity, int):
             raise TypeError('quantity must be a number')
-        path = self.url + "/{}/changequantity".format(id)
-        headers = {"Content-Type": "application/json-patch+json"}
-        res = self._make_call("patch", path, data=str(quantity), headers=headers)
+
+        res = self._make_call(method="patch",
+                              path=f"{self.url}/{id}/changequantity",
+                              data=str(quantity),
+                              headers={"Content-Type": "application/json-patch+json"})
         return Assignment.from_dict(res)
 
     def close(self, id: int) -> None:
@@ -154,18 +156,16 @@ class AssignmentsApi(HQBase):
 
         :param id: Assignment Id
         """
-        path = self.url + "/{}/close".format(id)
-        self._make_call("post", path)
+        self._make_call(method="post", path=f"{self.url}/{id}/close".format(id))
 
     def get_history(self, id: int) -> Iterator[dict]:
         page_size = 10
         start = 0
         total_count = 11
         params = {
-            'start': start,
-            'length': page_size
+            'length': page_size,
         }
-        path = self.url + "/{}/history".format(id)
+        path = f"{self.url}/{id}/history"
         while start < total_count:
             params['start'] = start
             r = self._make_call('get', path, params=params)
@@ -182,8 +182,7 @@ class AssignmentsApi(HQBase):
 
         :returns: `True` if audio recording is enabled, `False` otherwise
         """
-        path = self.url + "/{}/recordAudio".format(id)
-        res = self._make_call("get", path)
+        res = self._make_call(method="get", path=f"{self.url}/{id}/recordAudio")
         return res['Enabled']
 
     def update_recordaudio(self, id: int, enabled: bool) -> None:
@@ -194,8 +193,10 @@ class AssignmentsApi(HQBase):
         """
         if not isinstance(enabled, bool):
             raise TypeError('enabled must be either True or False')
-        path = self.url + "/{}/recordAudio".format(id)
-        self._make_call("patch", path, json={'Enabled': enabled})
+
+        self._make_call(method="patch",
+                        path=f"{self.url}/{id}/recordAudio",
+                        json={'Enabled': enabled})
 
     def get_calendar_event(self, id: int) -> CalendarEvent:
         """Get calendar event associated with the assignment
@@ -213,7 +214,7 @@ class AssignmentsApi(HQBase):
         :param start_timezone: timezone string for the start date
         :param comment: add comment to the calendar event
 
-        :returns: :class:`CalendarEvent' object
+        :returns: :class:`CalendarEvent` object
         """
         assignment = self._get_assignment_by_id(fields=["id"], id=id, include_calendar_events=["public_key"])
 

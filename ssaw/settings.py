@@ -24,4 +24,4 @@ class SettingsApi(HQBase):
 
     @property
     def _route_globalnotice(self):
-        return self.url + '/globalnotice'
+        return f"{self.url}/globalnotice"

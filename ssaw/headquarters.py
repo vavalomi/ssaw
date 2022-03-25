@@ -17,7 +17,7 @@ class Client(object):
     def __init__(self, url: str, api_user: str, api_password: str, workspace: str = "primary"):
         session = Session()
         session.auth = (api_user, api_password)
-        signature = "python-{}/{}".format(__title__, __version__)
+        signature = f"python-{__title__}/{__version__}"
         session.headers.update({"User-Agent": signature})
         self.baseurl = url.rstrip("/")
         self.session = session
@@ -25,6 +25,6 @@ class Client(object):
 
     @property
     def version(self) -> Version:
-        res = self.session.get("{}/.version".format(self.baseurl))
+        res = self.session.get(f"{self.baseurl}/.version")
         if res.status_code == 200:
             return Version(res.text)

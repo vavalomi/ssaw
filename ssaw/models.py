@@ -8,7 +8,7 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, Extra, Field
 
 from .headquarters_schema import Map
-from .utils import get_properties, parse_date, to_camel, to_hex, to_qidentity
+from .utils import get_properties, parse_date, to_hex, to_pascal, to_qidentity
 
 try:
     from typing import Literal
@@ -414,7 +414,7 @@ class InterviewAnswers(object):
 
 class BaseModelWithConfig(BaseModel):
     class Config:
-        alias_generator = to_camel
+        alias_generator = to_pascal
         allow_population_by_field_name = True
         extra = Extra.allow
 

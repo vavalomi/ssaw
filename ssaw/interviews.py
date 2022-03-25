@@ -1,5 +1,5 @@
 from html import escape
-from typing import Generator, Union
+from typing import Iterator, Union
 from uuid import UUID
 
 from .base import HQBase
@@ -18,10 +18,10 @@ class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects={'questionnaire_id': 'hex'})
-    def get_list(self, fields: list = [], order=None,
+    def get_list(self, fields: list = None, order=None,
                  skip: int = 0, take: int = None, where: InterviewsFilter = None,
                  include_calendar_events: Union[list, tuple, bool] = False, **kwargs
-                 ) -> Generator[Interview, None, None]:
+                 ) -> Iterator[Interview]:
         """Get list of interviews
 
         :param fields: list of fields to return, of ommited, all fields wll be returned
@@ -67,7 +67,7 @@ class InterviewsApi(HQBase):
         yield from self._get_full_list(op, 'interviews', skip=skip, take=take)
 
     def get_info(self, interview_id: UUID) -> InterviewAnswers:
-        path = self.url + '/{}'.format(interview_id)
+        path = f"{self.url}/{interview_id}"
         ret = self._make_call('get', path)
         if "Answers" in ret:
             obj = InterviewAnswers()
@@ -95,7 +95,7 @@ class InterviewsApi(HQBase):
         :param start_timezone: timezone string for the start date
         :param comment: add comment to the calendar event
 
-        :returns: :class:`CalendarEvent' object
+        :returns: :class:`CalendarEvent` object
         """
         interview = self._get_interview_by_key(fields=["id"],
                                                key=interview_key,
@@ -138,15 +138,15 @@ class InterviewsApi(HQBase):
                               responsibleid=responsibleid, responsiblename=responsiblename)
 
     @fix_qid(expects={'interview_id': 'string', 'question_id': 'hex'})
-    def comment(self, interview_id, comment, question_id: str = None, variable: str = None, roster_vector: list = []):
+    def comment(self, interview_id, comment, question_id: str = None, variable: str = None, roster_vector: list = None):
         params = {'comment': escape(comment)}
         if roster_vector:
             params['rosterVector'] = roster_vector
 
         if variable:
-            path = self.url + '/{}/comment-by-variable/{}'.format(interview_id, variable)
+            path = f"{self.url}/{interview_id}/comment-by-variable/{variable}"
         elif question_id:
-            path = self.url + '/{}/comment/{}'.format(interview_id, question_id)
+            path = f"{self.url}/{interview_id}/comment/{question_id}"
         else:
             raise TypeError("comment() either 'variable' or 'question_id' argument is required")
 
@@ -154,7 +154,7 @@ class InterviewsApi(HQBase):
 
     @fix_qid(expects={'interview_id': 'string'})
     def history(self, interview_id):
-        path = self.url + '/{}/history'.format(interview_id)
+        path = f"{self.url}/{interview_id}/history"
         ret = self._make_call('get', path)
         yield from ret["Records"]
 
@@ -171,12 +171,12 @@ class InterviewsApi(HQBase):
         return self._change_status(action='reject', interviewid=interviewid, comment=comment)
 
     def _change_status(self, interviewid, action, comment=None):
-        path = self.url + '/{}/{}'.format(interviewid, action)
+        path = f"{self.url}/{interviewid}/{action}"
         params = {'comment': escape(comment)} if comment else {}
         return self._make_call('patch', path, params=params)
 
     def _reassign(self, interviewid, action, responsibleid, responsiblename=''):
-        path = self.url + '/{}/{}'.format(interviewid, action)
+        path = f"{self.url}/{interviewid}/{action}"
         payload = {
             'ResponsibleId': responsibleid,
             'ResponsibleName': responsiblename

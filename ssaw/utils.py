@@ -31,7 +31,7 @@ def to_hex(q_id):
 
 
 def to_qidentity(q_id, q_version):
-    return "{}${}".format(to_hex(q_id), q_version)
+    return f"{to_hex(q_id)}${q_version}"
 
 
 def parse_qidentity(q_identity):
@@ -48,8 +48,14 @@ def parse_qidentity(q_identity):
     return to_qidentity(q_id, q_version)
 
 
+def to_pascal(string: str) -> str:
+    return "".join(word.capitalize() for word in string.split("_"))
+
+
 def to_camel(string: str) -> str:
-    return ''.join(word.capitalize() for word in string.split('_'))
+    init, *temp = string.split("_")
+
+    return "".join([init.lower(), *map(str.title, temp)])
 
 
 def get_properties(obj, types: list = [], properties: list = [], groups: bool = False, items: bool = True) -> dict:

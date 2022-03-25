@@ -29,7 +29,7 @@ class HQBase(object):
 
     @property
     def url(self) -> str:
-        return self._hq.baseurl + '/' + self.workspace + self._apiprefix
+        return self._hq.baseurl + ('/' + self.workspace if self.workspace else "") + self._apiprefix
 
     def _make_call(self, method: str, path: str, filepath: str = None, parser=None, use_login_session=False, **kwargs):
         if use_login_session:
@@ -67,7 +67,9 @@ class HQBase(object):
             else:
                 self._process_status_code(response)
 
-    def _call_mutation(self, method_name: str, fields: list = [], **kwargs):
+    def _call_mutation(self, method_name: str, fields: list = None, **kwargs):
+        if fields is None:
+            fields = []
         op = Operation(HeadquartersMutation)
         func = getattr(op, method_name)
         kwargs["workspace"] = self.workspace
@@ -100,13 +102,14 @@ class HQBase(object):
             returned_count += page_size
             local_take = returned_count + GRAPHQL_PAGE_SIZE if take is None else take
 
-    def _make_graphql_call(self, query, variables: dict = {}, **kwargs):
+    def _make_graphql_call(self, query, variables: dict = None, **kwargs):
+
         if "session" not in kwargs:
             kwargs["session"] = self._hq.session
-        endpoint = RequestsEndpoint(self._hq.baseurl + '/graphql', **kwargs)
-
+        endpoint = RequestsEndpoint(f"{self._hq.baseurl}/graphql", **kwargs)
         cont = endpoint(query, variables=variables)
-        errors = cont.get('errors')
+
+        errors = cont.get("errors")
         if not errors:
             return cont
 

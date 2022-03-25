@@ -14,7 +14,7 @@ class QuestionnairesApi(HQBase):
 
     _apiprefix = "/api/v1/questionnaires"
 
-    def get_list(self, fields: list = [], questionnaire_id: str = None, version: int = None,
+    def get_list(self, fields: list = None, questionnaire_id: str = None, version: int = None,
                  skip: int = 0, take: int = None):
         if not fields:
             fields = [
@@ -39,20 +39,21 @@ class QuestionnairesApi(HQBase):
         yield from self._get_full_list(op, 'questionnaires', skip=skip, take=take)
 
     def statuses(self):
-        path = self.url + '/statuses'
-        return self._make_call('get', path)
+        return self._make_call(method="get", path=f"{self.url}/statuses")
 
     def document(self, id: UUID, version: int) -> QuestionnaireDocument:
-        path = self.url + '/{}/{}/document'.format(id, version)
-        return self._make_call('get', path, parser=QuestionnaireDocument.parse_raw)
+        return self._make_call(method="get",
+                               path=f"{self.url}/{id}/{version}/document",
+                               parser=QuestionnaireDocument.parse_raw)
 
     def interviews(self, id: UUID, version: int):
         api = InterviewsApi(client=self._hq)
         return api.get_list(questionnaire_id=id, questionnaire_version=version)
 
     def update_recordaudio(self, id: UUID, version: int, enabled: bool):
-        path = self.url + '/{}/{}/recordAudio'.format(id, version)
-        return self._make_call('post', path, json={"Enabled": enabled})
+        return self._make_call(method="post",
+                               path=f"{self.url}/{id}/{version}/recordAudio",
+                               json={"Enabled": enabled})
 
     def download_web_links(self, id: UUID, version: int, path: str = None):
         """Download links for the assignments in Web Mode.

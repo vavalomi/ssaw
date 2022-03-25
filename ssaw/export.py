@@ -1,5 +1,6 @@
 import time
 from datetime import datetime, timedelta, timezone
+from typing import Iterator, Literal, Union
 
 from .base import HQBase
 from .models import ExportJob
@@ -9,11 +10,34 @@ from .utils import parse_qidentity
 class ExportApi(HQBase):
     """ Set of functions to access and generate export files. """
 
+    EXPORT_STATUS = Literal['Created', 'Running', 'Completed', 'Fail', 'Canceled']
+    EXPORT_TYPE = Literal['Tabular', 'STATA', 'SPSS', 'Binary', 'DDI', 'Paradata']
+    INTERVIEW_STATUS = Literal['All', 'SupervisorAssigned', 'InterviewerAssigned', 'Completed',
+                               'RejectedBySupervisor', 'ApprovedBySupervisor', 'RejectedByHeadquarters',
+                               'ApprovedByHeadquarters']
+
     _apiprefix: str = "/api/v2/export"
 
-    def get_list(self, export_type=None, interview_status=None,
-                 questionnaire_identity=None, export_status=None,
-                 has_file=None):
+    def get_list(self,
+                 questionnaire_identity: Union[str, tuple] = None,
+                 export_type: EXPORT_TYPE = None,
+                 interview_status: INTERVIEW_STATUS = None,
+                 export_status: EXPORT_STATUS = None,
+                 has_file: bool = None) -> Iterator[ExportJob]:
+        """
+        Get list of all previosly executed export jobs
+
+        :param questionnaire_identity: Questionnaire and version
+
+        :param export_type: Format of the export data
+
+        :param interview_status: What interviews to include in the export
+
+        :param export_status: Status of the export job
+
+        :param has_file: Whether the job has export file to download
+        """
+
         path = self.url
         params = {
             "exportType": export_type,
@@ -59,7 +83,7 @@ class ExportApi(HQBase):
             if job:
                 return self._make_call('get', job.download_link, filepath=export_path, stream=True)
         except StopIteration:
-            pass
+            print("No suitable export results were found")
 
         if not generate:
             return
@@ -94,8 +118,8 @@ class ExportApi(HQBase):
                 return job
 
     def get_info(self, job_id: int) -> ExportJob:
-        path = self.url + '/{}'.format(job_id)
-        return ExportJob.from_dict(self._make_call('get', path))
+        return ExportJob.from_dict(
+            self._make_call(method="get", path=f"{self.url}/{job_id}"))
 
     def start(self, export_job: ExportJob, wait: bool = False, show_progress: bool = False) -> ExportJob:
         """Start new export job
@@ -126,7 +150,6 @@ class ExportApi(HQBase):
     def cancel(self, job_id: int) -> None:
         response = self.get_info(job_id)
         if response.export_status == "Running":
-            path = self.url + '{}'.format(job_id)
-            _ = self._make_call('delete', path)
+            _ = self._make_call(method="delete", path=f"{self.url}/{job_id}")
         else:
             print('No running export process was found')
