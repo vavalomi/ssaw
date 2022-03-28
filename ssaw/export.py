@@ -1,10 +1,15 @@
 import time
 from datetime import datetime, timedelta, timezone
-from typing import Iterator, Literal, Union
+from typing import Iterator, Union
 
 from .base import HQBase
 from .models import ExportJob
 from .utils import parse_qidentity
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 
 class ExportApi(HQBase):
