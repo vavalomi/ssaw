@@ -10,7 +10,9 @@ The next step is to import the module and initialize connection with the server:
     import ssaw
 
     client = ssaw.Client('https://demo.mysurvey.solutions',
-        'api_user', 'api_password')
+        token='your token goes here')
+
+# see https://docs.mysurvey.solutions/headquarters/accounts/token-based-authentication/
 
 Now we're ready to interact with the Survey Solutions server.
 
