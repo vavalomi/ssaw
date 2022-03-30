@@ -2,6 +2,7 @@ import csv
 import zipfile
 from io import TextIOWrapper
 from tempfile import TemporaryDirectory
+from typing import List, Optional
 from uuid import UUID
 
 from .base import HQBase
@@ -14,8 +15,8 @@ class QuestionnairesApi(HQBase):
 
     _apiprefix = "/api/v1/questionnaires"
 
-    def get_list(self, fields: list = None, questionnaire_id: str = None, version: int = None,
-                 skip: int = 0, take: int = None):
+    def get_list(self, fields: Optional[List[str]] = None, questionnaire_id: Optional[str] = None,
+                 version: Optional[int] = None, skip: int = 0, take: Optional[int] = None):
         if not fields:
             fields = [
                 "id",
@@ -42,20 +43,19 @@ class QuestionnairesApi(HQBase):
         return self._make_call(method="get", path=f"{self.url}/statuses")
 
     def document(self, id: UUID, version: int) -> QuestionnaireDocument:
-        return self._make_call(method="get",
-                               path=f"{self.url}/{id}/{version}/document",
-                               parser=QuestionnaireDocument.parse_raw)
+        return QuestionnaireDocument.parse_obj(
+            self._make_call(method="get", path=f"{self.url}/{id}/{version}/document"))
 
     def interviews(self, id: UUID, version: int):
         api = InterviewsApi(client=self._hq)
         return api.get_list(questionnaire_id=id, questionnaire_version=version)
 
     def update_recordaudio(self, id: UUID, version: int, enabled: bool):
-        return self._make_call(method="post",
-                               path=f"{self.url}/{id}/{version}/recordAudio",
-                               json={"Enabled": enabled})
+        _ = self._make_call(method="post",
+                            path=f"{self.url}/{id}/{version}/recordAudio",
+                            json={"Enabled": enabled})
 
-    def download_web_links(self, id: UUID, version: int, path: str = None):
+    def download_web_links(self, id: UUID, version: int, path: Optional[str] = None):
         """Download links for the assignments in Web Mode.
 
         :param id: questionnaire id
@@ -79,4 +79,4 @@ class QuestionnairesApi(HQBase):
             with zipfile.ZipFile(outfile, "r") as zip_ref:
                 with zip_ref.open("interviews.tab") as infile:
                     data = csv.DictReader(TextIOWrapper(infile, 'utf-8'), delimiter="\t")
-                    return [AssignmentWebLink(**row) for row in data]
+                    return [AssignmentWebLink.parse_obj(row) for row in data]

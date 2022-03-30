@@ -4,9 +4,9 @@ from uuid import UUID
 from pytest import raises
 
 from ssaw import AssignmentsApi, Client, MapsApi, QuestionnairesApi, headquarters_schema as schema
-from ssaw.exceptions import GraphQLError, IncompleteQuestionnaireIdError, UnauthorizedError
+from ssaw.exceptions import GraphQLError, UnauthorizedError
 from ssaw.models import Group, QuestionnaireDocument
-from ssaw.utils import filter_object, fix_qid, get_properties, order_object, parse_qidentity
+from ssaw.utils import filter_object, fix_qid, get_properties, order_object
 
 
 from . import my_vcr
@@ -36,20 +36,6 @@ def test_headquarters_user_session_login(session, params):
         QuestionnairesApi(session).download_web_links(params['TemplateId'], params['TemplateVersion'])
 
 
-def test_utils_parse_qidentity():
-
-    random_guid = "f6a5bd80-fdb4-40b6-8759-0f7531c4a3df"
-    qidentity = f"{random_guid}$1"
-    a = parse_qidentity(qidentity)
-    assert a == qidentity.replace("-", ""), "UUID in hex format $ version"
-
-    with raises(IncompleteQuestionnaireIdError):
-        parse_qidentity(random_guid)
-
-    a = parse_qidentity((random_guid, 1))
-    assert a == "{}${}".format(UUID(random_guid).hex, 1)
-
-
 def test_utils_fix_qid():
 
     random_guid = "f6a5bd80-fdb4-40b6-8759-0f7531c4a3df"
@@ -72,69 +58,69 @@ def test_utils_fix_qid():
 
 def test_utils_order_object():
     # params as list of field names
-    obj = order_object(classname="MapsSort", params=["file_name"])
+    obj = order_object(order_type=schema.MapsSort, params=["file_name"])
     assert isinstance(obj[0], schema.MapsSort), "result must be a list of MapsSort objects"
     assert obj[0].file_name == "ASC"
 
     # params as tuple of field names
-    obj = order_object(classname="MapsSort", params=("file_name", "size"))
+    obj = order_object(order_type=schema.MapsSort, params=("file_name", "size"))
     assert obj[0].file_name == "ASC"
     assert obj[1].size == "ASC"
 
     # params as tuple of tuples
-    obj = order_object(classname="MapsSort", params=(("file_name", "DESC"),))
+    obj = order_object(order_type=schema.MapsSort, params=(("file_name", "DESC"),))
     assert obj[0].file_name == "DESC"
 
     # mix of field name and tuples
-    obj = order_object(classname="MapsSort", params=("size", ("file_name", "DESC")))
+    obj = order_object(order_type=schema.MapsSort, params=("size", ("file_name", "DESC")))
     assert obj[0].size == "ASC"
     assert obj[1].file_name == "DESC"
 
     # params as dictionary
-    obj = order_object(classname="MapsSort", params={"size": "ASC", "file_name": "DESC"})
+    obj = order_object(order_type=schema.MapsSort, params={"size": "ASC", "file_name": "DESC"})
     assert obj[0].size == "ASC"
     assert obj[1].file_name == "DESC"
 
     # must be one of list, tuple or dict
     with raises(TypeError):
-        _ = order_object(classname="MapsSort", params="size")
+        _ = order_object(order_type=schema.MapsSort, params="size")
 
     # element must be string or tuple
     with raises(TypeError):
-        _ = order_object(classname="MapsSort", params=["size", 4])
+        _ = order_object(order_type=schema.MapsSort, params=["size", 4])
 
 
 def test_utils_filter_object():
-    obj = filter_object(classname="InterviewsFilter", not_answered_count=3)
+    obj = filter_object(filter_type=schema.InterviewsFilter, not_answered_count=3)
     assert isinstance(obj, schema.InterviewsFilter)
     assert obj.not_answered_count.eq == 3
 
     # two parameters
-    obj = filter_object(classname="InterviewsFilter", not_answered_count=3, key="aaa")
+    obj = filter_object(filter_type=schema.InterviewsFilter, not_answered_count=3, key="aaa")
     assert obj.key.eq == "aaa"
 
     # only where, just return what received
     where = schema.InterviewsFilter(key=schema.StringOperationFilterInput(eq="aaa"))
-    obj = filter_object(classname="InterviewsFilter", where=where)
+    obj = filter_object(filter_type=schema.InterviewsFilter, where=where)
     assert obj == where
 
     # mixing keyword and where params
-    obj = filter_object(classname="InterviewsFilter", not_answered_count=3,
+    obj = filter_object(filter_type=schema.InterviewsFilter, not_answered_count=3,
                         where=schema.InterviewsFilter(key=schema.StringOperationFilterInput(eq="aaa")))
     assert obj.and_[0].key.eq == "aaa"
     assert obj.and_[1].not_answered_count.eq == 3
 
     # always search user names in case-insensitive (lower) form
-    obj = filter_object(classname="InterviewsFilter", responsible_name="AAA")
+    obj = filter_object(filter_type=schema.InterviewsFilter, responsible_name="AAA")
     assert obj.responsible_name.eq == "aaa"
 
     # non-existant filter field
     with raises(KeyError):
-        _ = filter_object(classname="InterviewsFilter", something="something")
+        _ = filter_object(filter_type=schema.InterviewsFilter, something="something")
 
     # wrong type of the where parameter
     with raises(TypeError):
-        _ = filter_object(classname="InterviewsFilter", where="something")
+        _ = filter_object(filter_type=schema.InterviewsFilter, where="something")
 
 
 def test_get_properties():

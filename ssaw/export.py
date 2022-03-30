@@ -1,9 +1,9 @@
 import time
 from datetime import datetime, timedelta, timezone
-from typing import Iterator, Union
+from typing import Iterator, Optional, Union
 
 from .base import HQBase
-from .models import ExportJob
+from .models import ExportJob, ExportJobResult, QuestionnaireIdentity
 from .utils import parse_qidentity
 
 try:
@@ -24,11 +24,11 @@ class ExportApi(HQBase):
     _apiprefix: str = "/api/v2/export"
 
     def get_list(self,
-                 questionnaire_identity: Union[str, tuple] = None,
-                 export_type: EXPORT_TYPE = None,
-                 interview_status: INTERVIEW_STATUS = None,
-                 export_status: EXPORT_STATUS = None,
-                 has_file: bool = None) -> Iterator[ExportJob]:
+                 questionnaire_identity: Optional[QuestionnaireIdentity] = None,
+                 export_type: Optional[EXPORT_TYPE] = None,
+                 interview_status: Optional[INTERVIEW_STATUS] = None,
+                 export_status: Optional[EXPORT_STATUS] = None,
+                 has_file: Optional[bool] = None) -> Iterator[ExportJobResult]:
         """
         Get list of all previosly executed export jobs
 
@@ -53,12 +53,13 @@ class ExportApi(HQBase):
         }
         r = self._make_call('get', path, params=params)
         for item in r:
-            yield ExportJob.from_dict(item)
+            yield ExportJobResult.parse_obj(item)
 
-    def get(self, questionnaire_identity: str,
+    def get(self, questionnaire_identity: QuestionnaireIdentity,
             export_type: str = "Tabular", interview_status="All",
             export_path: str = "",
-            generate: bool = False, limit_age: int = None, limit_date: datetime = None, show_progress: bool = False):
+            generate: bool = False, limit_age: Optional[int] = None,
+            limit_date: Optional[datetime] = None, show_progress: bool = False):
         """Downloads latest available export file
 
         :param questionnaire_identity: Questionnaire id in format QuestionnaireGuid$Version
@@ -76,9 +77,8 @@ class ExportApi(HQBase):
         :param limit_date: only return export file if created after the limit_date
         """
 
-        qid = parse_qidentity(questionnaire_identity)
         common_args = {
-            "questionnaire_identity": qid,
+            "questionnaire_identity": parse_qidentity(questionnaire_identity),
             "export_type": export_type,
             "interview_status": interview_status,
         }
@@ -86,24 +86,24 @@ class ExportApi(HQBase):
         try:
             job = self._get_first_suitable(common_args, limit_age, limit_date)
             if job:
-                return self._make_call('get', job.download_link, filepath=export_path, stream=True)
+                return self._make_call(method="get", path=job.links.download, filepath=export_path, stream=True)
         except StopIteration:
             print("No suitable export results were found")
 
         if not generate:
             return
 
-        job = self.start(ExportJob(**common_args), wait=True, show_progress=show_progress)
+        job = self.start(ExportJob.parse_obj(common_args), wait=True, show_progress=show_progress)
         if job.has_export_file:
-            response = self._make_call('get', job.download_link, filepath=export_path, stream=True)
+            response = self._make_call(method="get", path=job.links.download, filepath=export_path, stream=True)
 
         if show_progress:
             print(f"Archive was downloaded to {response}")
 
         return response
 
-    def _get_first_suitable(self, common_args, limit_age=None, limit_date=None):
-        ret_list = self.get_list(**common_args, export_status="Completed", has_file="true")
+    def _get_first_suitable(self, common_args, limit_age=None, limit_date=None) -> Union[ExportJobResult, None]:
+        ret_list = self.get_list(**common_args, export_status="Completed", has_file=True)
 
         if limit_date is None:
             limit_date = datetime(2000, 1, 1)
@@ -122,20 +122,20 @@ class ExportApi(HQBase):
             if job.start_date > limit_date:
                 return job
 
-    def get_info(self, job_id: int) -> ExportJob:
-        return ExportJob.from_dict(
+    def get_info(self, job_id: int) -> ExportJobResult:
+        return ExportJobResult.parse_obj(
             self._make_call(method="get", path=f"{self.url}/{job_id}"))
 
-    def start(self, export_job: ExportJob, wait: bool = False, show_progress: bool = False) -> ExportJob:
+    def start(self, export_job: ExportJob, wait: bool = False, show_progress: bool = False) -> ExportJobResult:
         """Start new export job
 
-        :param export_job: ``ExportJob`` object
+        :param export_job: ``ExportJobResult`` object
         :param wait: if ``True`` will wait for the process to complete, otherwise, exit right away
 
-        :returns: ``ExportJob`` object
+        :returns: ``ExportJobResult`` object
         """
         path = self.url
-        job = ExportJob.from_dict(self._make_call("post", path, json=export_job.to_json()))
+        job = ExportJobResult.parse_obj(self._make_call("post", path, json=export_job.json()))
         if wait:
             job = self.get_info(job.job_id)
 

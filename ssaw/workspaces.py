@@ -1,9 +1,9 @@
-from typing import List
+from typing import Iterator, List, Optional
 
 from .base import HQBase
 from .exceptions import FeatureNotSupported
 from .headquarters import Client
-from .models import Version
+from .models import Version, Workspace, WorkspaceStatus, WorkspacesList
 from .utils import fix_qid
 
 
@@ -19,7 +19,7 @@ class WorkspacesApi(HQBase):
         super().__init__(client)
 
     @fix_qid(expects={'user_id': 'string'})
-    def get_list(self, user_id: str = None, include_disabled: bool = False):
+    def get_list(self, user_id: Optional[str] = None, include_disabled: bool = False) -> Iterator[Workspace]:
         path = self.url
         length = 10
         start = 0
@@ -32,42 +32,39 @@ class WorkspacesApi(HQBase):
         }
         while start < total_count:
             params['start'] = start
-            r = self._make_call('get', path, params=params)
-            if r.get("TotalCount"):
-                total_count = r['TotalCount']
-                yield from r['Workspaces']
+            r = WorkspacesList.parse_obj(self._make_call('get', path, params=params))
+            if r.total_count:
+                total_count = r.total_count
+                yield from r.workspaces
             else:
                 yield from ()
             start += length
 
-    def get_info(self, name: str):
-        path = self.url + '/{}'.format(name)
-        return self._make_call('get', path)
+    def get_info(self, name: str) -> Workspace:
+        return Workspace.parse_obj(self._make_call(method="get", path=f"{self.url}/{name}"))
 
-    def create(self, name: str, display_name: str):
-        path = self.url
-        return self._make_call('post', path, json={'Name': name, 'DisplayName': display_name})
+    def create(self, name: str, display_name: str) -> Workspace:
+        return Workspace.parse_obj(
+            self._make_call(method="post",
+                            path=self.url,
+                            json={'Name': name, 'DisplayName': display_name}))
 
     def update(self, name: str, display_name: str):
-        path = self.url + '/{}'.format(name)
-        return self._make_call('patch', path, json={'DisplayName': display_name})
+        _ = self._make_call(method="patch",
+                            path=f"{self.url}/{name}",
+                            json={'DisplayName': display_name})
 
     def delete(self, name: str):
-        path = self.url + '/{}'.format(name)
-        _ = self._make_call('delete', path)
-
-        return True
+        _ = self._make_call(method="delete", path=f"{self.url}/{name}")
 
     def enable(self, name: str):
-        path = self.url + '/{}/enable'.format(name)
-        return self._make_call('post', path)
+        _ = self._make_call(method="post", path=f"{self.url}/{name}/enable")
 
     def disable(self, name: str):
-        path = self.url + '/{}/disable'.format(name)
-        return self._make_call('post', path)
+        _ = self._make_call(method="post", path=f"{self.url}/{name}/disable")
 
-    def assign(self, user_ids: List[str], workspaces: List[str], supervisors: List[str] = None, mode: str = "add"):
-        path = self.url + '/assign'
+    def assign(self, user_ids: List[str], workspaces: List[str],
+               supervisors: Optional[List[str]] = None, mode: str = "add"):
 
         if not isinstance(user_ids, list):
             user_ids = [user_ids]
@@ -83,8 +80,7 @@ class WorkspacesApi(HQBase):
             "Workspaces": [{"workspace": w, "supervisorId": s} for w, s in zip(workspaces, supervisors)],
             "Mode": mode
         }
-        return self._make_call('post', path, json=data)
+        _ = self._make_call(method="post", path=f"{self.url}/assign", json=data)
 
-    def status(self, name: str):
-        path = self.url + '/status/{}'.format(name)
-        return self._make_call('get', path)
+    def status(self, name: str) -> WorkspaceStatus:
+        return WorkspaceStatus.parse_obj(self._make_call(method="get", path=f"{self.url}/status/{name}"))

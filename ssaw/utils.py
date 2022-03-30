@@ -1,9 +1,11 @@
 import uuid
 from datetime import datetime
 from functools import wraps
+from typing import List, Optional, Type, TypeVar, Union
+
+from sgqlc.types import Input
 
 from .exceptions import IncompleteQuestionnaireIdError
-from .headquarters_schema import headquarters_schema as schema
 
 
 def fix_qid(expects: dict = {'questionnaire_id': 'hex'}):
@@ -30,7 +32,7 @@ def to_hex(q_id):
     return uuid.UUID(str(q_id)).hex
 
 
-def to_qidentity(q_id, q_version):
+def to_qidentity(q_id: str, q_version: int) -> str:
     return f"{to_hex(q_id)}${q_version}"
 
 
@@ -58,7 +60,8 @@ def to_camel(string: str) -> str:
     return "".join([init.lower(), *map(str.title, temp)])
 
 
-def get_properties(obj, types: list = [], properties: list = [], groups: bool = False, items: bool = True) -> dict:
+def get_properties(obj, types: Optional[list] = None, properties: Optional[list] = None,
+                   groups: bool = False, items: bool = True) -> dict:
     ret = {}
     if type(obj).__name__ in ["Group", "QuestionnaireDocument"]:
         if groups:
@@ -67,7 +70,7 @@ def get_properties(obj, types: list = [], properties: list = [], groups: bool = 
             ret.update(get_properties(ch, types, properties, groups, items))
     elif items:
         type_name = type(obj).__name__
-        if type_name in types or not types:
+        if not types or type_name in types:
             if properties:
                 ret[obj.variable_name] = {p: getattr(obj, p) for p in properties if hasattr(obj, p)}
             else:
@@ -75,7 +78,10 @@ def get_properties(obj, types: list = [], properties: list = [], groups: bool = 
     return ret
 
 
-def order_object(classname: str, params):
+InputType = TypeVar("InputType", bound=Input)
+
+
+def order_object(order_type: Type[InputType], params: Union[dict, list, tuple, str]) -> List[InputType]:
     if type(params) in [list, tuple]:
         d = {}
         for item in params:
@@ -89,35 +95,32 @@ def order_object(classname: str, params):
     elif type(params) is not dict:
         raise TypeError("Argument must be dict, list, or tuple")
 
-    return [getattr(schema, classname)(**{item[0]: item[1]}) for item in params.items()]
+    return [order_type(**{item[0]: item[1]}) for item in params.items()]
 
 
-def filter_object(classname: str, where=None, **kwargs):
-    filter_type = getattr(schema, classname)
+def filter_object(filter_type: Type[InputType], where: Optional[InputType] = None, **kwargs) -> InputType:
+
     if where and type(where) is not filter_type:
-        raise TypeError(f"where parameter must be an object of type {classname}")
+        raise TypeError(f"where parameter must be an object of type {filter_type}")
 
     fields = [item for item in getattr(filter_type, "__field_names__") if item not in ["and_", "or_"]]
     filter_args = {}
     for key, value in kwargs.items():
         if key not in fields:
-            raise KeyError(f"{classname} does not contain field {key}")
-        field_type = getattr(getattr(schema, classname), key).type
+            raise KeyError(f"{filter_type} does not contain field {key}")
+        field_type = getattr(filter_type, key).type
         if key in ["responsible_name", "supervisor_name"]:
             value = value.lower()
         filter_args[key] = field_type(eq=value)
 
-    if where:
-        if filter_args:
-            return filter_type(and_=[where, filter_type(**filter_args)])
-        else:
-            return where
-    elif filter_args:
+    if not where:
         return filter_type(**filter_args)
+    if filter_args:
+        return filter_type(and_=[where, filter_type(**filter_args)])
+    else:
+        return where
 
 
-def parse_date(date_string: str) -> datetime:
-    try:
+def parse_date(date_string: str) -> Union[datetime, None]:
+    if date_string:
         return datetime.strptime(f"{date_string[:24]}+0000", "%Y-%m-%dT%H:%M:%S.%f%z")
-    except (TypeError, ValueError):
-        return date_string

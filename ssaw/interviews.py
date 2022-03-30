@@ -1,11 +1,12 @@
 from html import escape
-from typing import Iterator, Union
+from typing import Iterator, Optional, Union
 from uuid import UUID
 
 from .base import HQBase
 from .headquarters_schema import (
     CalendarEvent,
     Interview,
+    InterviewSort,
     InterviewsFilter,
 )
 from .models import InterviewAnswers
@@ -18,8 +19,9 @@ class InterviewsApi(HQBase):
     _apiprefix = "/api/v1/interviews"
 
     @fix_qid(expects={'questionnaire_id': 'hex'})
-    def get_list(self, fields: list = None, order=None,
-                 skip: int = 0, take: int = None, where: InterviewsFilter = None,
+    def get_list(self, fields: Optional[list] = None, order=None,
+                 skip: int = 0, take: Optional[int] = None,
+                 where: Optional[InterviewsFilter] = None,
                  include_calendar_events: Union[list, tuple, bool] = False, **kwargs
                  ) -> Iterator[Interview]:
         """Get list of interviews
@@ -39,10 +41,10 @@ class InterviewsApi(HQBase):
             "workspace": self.workspace
         }
         if order:
-            interview_args["order"] = order_object("InterviewSort", order)
+            interview_args["order"] = order_object(InterviewSort, order)
 
         if where or kwargs:
-            interview_args['where'] = filter_object("InterviewsFilter", where=where, **kwargs)
+            interview_args['where'] = filter_object(InterviewsFilter, where=where, **kwargs)
 
         if not fields:
             fields = [
@@ -87,7 +89,7 @@ class InterviewsApi(HQBase):
         return interview.calendar_event
 
     def set_calendar_event(self, interview_key: str, new_start: str,
-                           start_timezone: str, comment: str = None) -> CalendarEvent:
+                           start_timezone: str, comment: Optional[str] = None) -> CalendarEvent:
         """Add new calendar event to the interview, or update the existing one
 
         :param interview_key: key of the interview to update

@@ -62,7 +62,7 @@ def test_questionnaire_interviews(session, params):
 @my_vcr.use_cassette()
 def test_questionnaire_recordaudio(session, params):
     response = QuestionnairesApi(session).update_recordaudio(params['TemplateId'], params['TemplateVersion'], True)
-    assert response is True
+    assert response is None
 
 
 @my_vcr.use_cassette()

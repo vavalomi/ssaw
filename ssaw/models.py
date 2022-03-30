@@ -1,14 +1,14 @@
-import datetime
 import re
 import sys
+from datetime import datetime
 from enum import Enum, IntEnum
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Tuple, Union
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, Extra, Field, validator
 
 from .headquarters_schema import Map
-from .utils import get_properties, parse_date, to_hex, to_pascal, to_qidentity
+from .utils import get_properties, parse_date, to_hex, to_pascal
 
 try:
     from typing import Literal
@@ -116,169 +116,6 @@ class InterviewAction(IntEnum):
     ClosedBySupervisor = 18
     InterviewSwitchedToCawiMode = 19
     InterviewSwitchedToCapiMode = 20
-
-
-class Assignment(object):
-    def __init__(self, responsible: str, quantity: int, questionnaire_id,
-                 identifying_data=None, email: str = "", password: str = "", webmode: bool = False,
-                 audio_recording_enabled: bool = False, comments: str = "", protected_variables: list = None):
-        """An assignment.
-
-            :param responsible: responsible username
-            :param quantity: [description]
-            :param questionnaire_id: [description]
-            :param email: [description], defaults to ""
-            :param password: [description], defaults to ""
-            :param webmode: [description], defaults to False
-            :param audio_recording_enabled: [description], defaults to False
-            :param comments: [description], defaults to ""
-        """
-
-        self.responsible = responsible
-        self.quantity = quantity
-        self.questionnaire_id = questionnaire_id
-        self.identifying_data = identifying_data
-        self.email = email
-        self.password = password
-        self.webmode = webmode
-        self.audio_recording_enabled = audio_recording_enabled
-        self.comments = comments
-        self.protected_variables = protected_variables
-
-    def __str__(self):
-        return(str(self.__dict__))
-
-    @classmethod
-    def from_dict(cls, dict):
-        obj = cls(
-            responsible=dict["ResponsibleName"],
-            quantity=dict["Quantity"],
-            questionnaire_id=dict["QuestionnaireId"],
-            identifying_data=dict["IdentifyingData"] if "IdentifyingData" in dict else [
-            ],
-            email=dict["Email"],
-            password=dict["Password"],
-            webmode=dict["WebMode"]
-        )
-        setattr(obj, "id", dict["Id"])
-        setattr(obj, "responsible_id", dict["ResponsibleId"])
-        setattr(obj, "interviews_count", dict["InterviewsCount"])
-        setattr(obj, "archived", dict["Archived"])
-        setattr(obj, "created_utc", dict["CreatedAtUtc"])
-        setattr(obj, "updated_utc", dict["UpdatedAtUtc"])
-        if "IsAudioRecordingEnabled" in dict:
-            setattr(obj, "audio_recording_enabled",
-                    dict["IsAudioRecordingEnabled"])
-        return obj
-
-    def to_json(self):
-        return {
-            "Responsible": self.responsible,
-            "Quantity": self.quantity,
-            "QuestionnaireId": self.questionnaire_id,
-            "Email": self.email,
-            "Password": self.password,
-            "WebMode": self.webmode,
-            "IsAudioRecordingEnabled": self.audio_recording_enabled,
-            "Comments": self.comments,
-            "IdentifyingData": self.identifying_data,
-            "ProtectedVariables": self.protected_variables
-        }
-
-
-class ExportJob(object):
-    def __init__(self,
-                 questionnaire_identity: str,
-                 export_type="Tabular",
-                 interview_status="All",
-                 from_date=None,
-                 to_date=None,
-                 access_token: str = None,
-                 storage_type: str = None):
-        """ExportJob object.
-
-        :param questionnaire_identity: [description]
-        :param export_type: [description], default to "Tabular"
-        :param interview_status: [description], defaults to "All"
-        :param from_date: [description], defaults to None
-        :param to_date: [description], defaults to None
-        :param access_token: [description], defaults to None
-        :param storage_type: [description], defaults to None
-        """
-
-        if type(questionnaire_identity) is tuple:
-            (questionnaire_id, questionnaire_version) = questionnaire_identity
-            questionnaire_identity = to_qidentity(
-                questionnaire_id, questionnaire_version)
-
-        self.questionnaire_identity = questionnaire_identity
-        self.export_type = export_type
-        self.interview_status = interview_status
-        self.from_date = from_date
-        self.to_date = to_date
-        self.access_token = access_token
-        self.storage_type = storage_type
-        self._export_status: str
-        self._has_export_file: bool
-        self._cancel_link: str
-        self._download_link: str
-
-    @property
-    def export_status(self) -> str:
-        return self._export_status
-
-    @property
-    def has_export_file(self) -> bool:
-        return self._has_export_file
-
-    @property
-    def cancel_link(self) -> str:
-        return self._cancel_link
-
-    @property
-    def download_link(self) -> str:
-        return self._download_link
-
-    def __str__(self) -> str:
-        return(str(self.__dict__))
-
-    @classmethod
-    def from_dict(cls, dict):
-        obj = cls(
-            export_type=dict["ExportType"],
-            questionnaire_identity=dict["QuestionnaireId"],
-            interview_status=dict["InterviewStatus"],
-            from_date=dict["From"] if "From" in dict else None,
-            to_date=dict["To"] if "To" in dict else None,
-            access_token=dict["AccessToken"] if "AccessToken" in dict else None,
-            storage_type=dict["StorageType"] if "StorageType" in dict else None
-        )
-        setattr(obj, "job_id", dict["JobId"])
-        setattr(obj, "_export_status", dict["ExportStatus"])
-        setattr(obj, "start_date", parse_date(dict["StartDate"]))
-        setattr(obj, "complete_date", parse_date(dict["CompleteDate"]))
-        setattr(obj, "progress", dict["Progress"])
-        if "ETA" in dict:
-            setattr(obj, "eta", dict["ETA"])
-        if "Links" in dict:
-            if "Cancel" in dict["Links"]:
-                setattr(obj, "_cancel_link", dict["Links"]["Cancel"])
-            if "Download" in dict["Links"]:
-                setattr(obj, "_download_link", dict["Links"]["Download"])
-        setattr(obj, "_has_export_file", dict["HasExportFile"])
-        return obj
-
-    def to_json(self):
-        ret = {
-            "ExportType": self.export_type,
-            "QuestionnaireId": self.questionnaire_identity,
-            "InterviewStatus": self.interview_status,
-            "From": self.from_date,
-            "To": self.to_date,
-            "AccessToken": self.access_token,
-            "StorageType": self.storage_type,
-        }
-        return {k: v for k, v in ret.items() if v is not None}
 
 
 class InterviewAnswers(object):
@@ -400,7 +237,7 @@ class InterviewAnswers(object):
             key += tuple(roster_vector) if type(roster_vector) == list else tuple([roster_vector, ])
         return key
 
-    def _get_variable(self, variable: str = None, question_id: str = None):
+    def _get_variable(self, variable: Optional[str] = None, question_id: Optional[str] = None):
         if variable:
             if variable not in self._variables:
                 raise TypeError("variable not found")
@@ -443,7 +280,7 @@ ASSIGNMENT_ACTION_TYPES = {
 class AssignmentHistoryItem(BaseModelWithConfig):
     action: str
     actor_name: str
-    utc_date: datetime.datetime
+    utc_date: datetime
     additional_data: AssignmentHistoryItemAdditionalData
 
     def to_datarow(self):
@@ -547,7 +384,7 @@ class TextQuestion(Question):
 class NumericQuestion(Question):
     obj_type: Literal["NumericQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                  default="NumericQuestion",
-                                                 const="NumericQuestion")
+                                                 const=True)
     is_integer: bool = False
     value: Optional[float]
 
@@ -566,7 +403,7 @@ class Answer(BaseModelWithConfig):
 class SingleQuestion(Question):
     obj_type: Literal["SingleQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                 default="SingleQuestion",
-                                                const="SingleQuestion")
+                                                const=True)
     answers: List[Answer] = []
     cascade_from_question_id: Optional[UUID]
     categories_id: Optional[UUID]
@@ -579,7 +416,7 @@ class SingleQuestion(Question):
 class MultiOptionsQuestion(Question):
     obj_type: Literal["MultyOptionsQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                       default="MultyOptionsQuestion",
-                                                      const="MultyOptionsQuestion")
+                                                      const=True)
     answers: List[Answer] = []
     are_answers_ordered: bool = False
     yes_no_view: bool = False
@@ -600,32 +437,32 @@ class TextListQuestion(Question):
 class GpsCoordinateQuestion(Question):
     obj_type: Literal["GpsCoordinateQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                        default="GpsCoordinateQuestion",
-                                                       const="GpsCoordinateQuestion")
+                                                       const=True)
     question_type: Literal[6]
 
 
 class QRBarcodeQuestion(Question):
     obj_type: Literal["QRBarcodeQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                    default="QRBarcodeQuestion",
-                                                   const="QRBarcodeQuestion")
+                                                   const=True)
 
 
 class MultimediaQuestion(Question):
     obj_type: Literal["MultimediaQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                     default="MultimediaQuestion",
-                                                    const="MultimediaQuestion")
+                                                    const=True)
 
 
 class AudioQuestion(Question):
     obj_type: Literal["AudioQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                default="AudioQuestion",
-                                               const="AudioQuestion")
+                                               const=True)
 
 
 class AreaQuestion(Question):
     obj_type: Literal["AreaQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                               default="AreaQuestion",
-                                              const="AreaQuestion")
+                                              const=True)
 
 
 class RosterSource(Enum):
@@ -664,7 +501,7 @@ class QuestionnaireDocument(BaseModelWithConfig):
     attachments: List[Attachment]
     categories: List[Category]
     children: List[Group]
-    creation_date: datetime.datetime
+    creation_date: datetime
     lookup_tables: Dict[UUID, LookupTable]
     macros: Dict[UUID, Macro]
     public_key: UUID = Field(default_factory=uuid4)
@@ -686,7 +523,7 @@ class QuestionnaireDocument(BaseModelWithConfig):
 
 class InterviewerAction(BaseModelWithConfig):
     message: str
-    time: datetime.datetime
+    time: datetime
 
 
 class User(BaseModelWithConfig):
@@ -734,8 +571,103 @@ class Version():
         return self.build == other.build
 
 
+class Assignment(BaseModelWithConfig):
+    responsible: str
+    quantity: int
+    questionnaire_id: str
+    identifying_data: Optional[list[dict]]
+    email: Optional[str]
+    password: Optional[str]
+    web_mode: Optional[bool] = False
+    is_audio_recording_enabled: Optional[bool] = False
+    comments: Optional[str]
+    protected_variables: Optional[List[str]]
+
+
+class AssignmentResult(Assignment):
+    id: int
+    responsible_id: UUID
+    responsible: str = Field(alias="ResponsibleName")
+    interviews_count: int
+    archived: bool
+    created_at_utc: datetime
+    updated_at_utc: Optional[datetime]
+    received_by_tablet_at_utc: Optional[datetime]
+
+
+class AssignmentList(BaseModelWithConfig):
+    order: Optional[str]
+    limit: int
+    total_count: int
+    offset: int
+    assignments: List[AssignmentResult]
+
+
 class AssignmentWebLink(BaseModelWithConfig):
     link: str = Field(alias="assignment__link")
     id: int = Field(alias="assignment__id")
     email: Optional[str] = Field(alias="assignment__email")
     password: Optional[str] = Field(alias="assignment__password")
+
+
+class ExportJobLinks(BaseModelWithConfig):
+    cancel: Optional[str]
+    download: Optional[str]
+
+
+class ExportJob(BaseModelWithConfig):
+    export_type: Literal["Tabular", "STATA", "SPSS", "Binary", "DDI", "Paradata"]
+    questionnaire_id: str
+    interview_status: Optional[Literal["All", "SupervisorAssigned", "InterviewerAssigned",
+                                       "RejectedBySupervisor", "Completed", "ApprovedBySupervisor",
+                                       "RejectedByHeadquarters", "ApprovedByHeadquarters"]] = "All"
+    from_date: Optional[datetime] = Field(alias="From")
+    to_date: Optional[datetime] = Field(alias="To")
+    access_token: Optional[str]
+    refresh_token: Optional[str]
+    storage_type: Optional[Literal["Dropbox", "OneDrive", "GoogleDrive"]]
+    translation_id: Optional[UUID]
+    include_meta: Optional[bool] = False
+
+
+class ExportJobResult(ExportJob):
+    job_id: int
+    export_status: Literal["Created", "Running", "Completed", "Fail", "Canceled"]
+    start_date: datetime
+    complete_date: Optional[datetime]
+    progress: int
+    eta: Optional[str] = Field(alias="ETA")
+    error: Optional[str]
+    links: ExportJobLinks
+    has_export_file: bool
+
+    @validator("start_date", "complete_date", "from_date", "to_date", pre=True, check_fields=False)
+    def time_validate(cls, v):
+        return parse_date(v)
+
+
+class Workspace(BaseModelWithConfig):
+    name: str
+    display_name: str
+    disabled_at_utc: Optional[datetime]
+
+
+class WorkspacesList(BaseModelWithConfig):
+    order: Optional[str]
+    limit: int
+    total_count: int
+    offset: int
+    workspaces: List[Workspace]
+
+
+class WorkspaceStatus(BaseModelWithConfig):
+    can_be_deleted: bool
+    workspace_name: str
+    workspace_display_name: str
+    existing_questionnaires_count: int
+    interviewers_count: int
+    supervisors_count: int
+    maps_count: int
+
+
+QuestionnaireIdentity = Union[str, Tuple[str, int]]

@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=true
+    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=True
   response:
     body:
       string: !!binary |
@@ -2412,7 +2412,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=true
+    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=True
   response:
     body:
       string: !!binary |
@@ -2453,7 +2453,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=true
+    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=True
   response:
     body:
       string: !!binary |
@@ -2494,7 +2494,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=true
+    uri: http://localhost:9707/primary/api/v2/export?exportType=Tabular&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=True
   response:
     body:
       string: !!binary |
@@ -4854,7 +4854,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export?exportType=SPSS&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=true
+    uri: http://localhost:9707/primary/api/v2/export?exportType=SPSS&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=True
   response:
     body:
       string: !!binary |
@@ -4889,7 +4889,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.5
     method: GET
-    uri: http://localhost:9707/primary/api/v2/export?exportType=Paradata&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=true
+    uri: http://localhost:9707/primary/api/v2/export?exportType=Paradata&interviewStatus=All&questionnaireIdentity=9d3ad06999aa4d6a8edaad12c722a60f%241&exportStatus=Completed&hasFile=True
   response:
     body:
       string: !!binary |

@@ -1,18 +1,15 @@
-import json
 import os
 import re
+from typing import Dict, List, Optional, Union
 from urllib.parse import unquote
 
-from requests import Session
+from requests import Response, Session
 
 from sgqlc.endpoint.requests import RequestsEndpoint
 from sgqlc.operation import Operation
 from sgqlc.types import Arg, Int, Variable
 
-from .exceptions import (
-    ForbiddenError, GraphQLError,
-    NotAcceptableError, NotFoundError, UnauthorizedError
-)
+from .exceptions import ForbiddenError, GraphQLError, NotAcceptableError, NotFoundError, UnauthorizedError
 from .headquarters import Client
 from .headquarters_schema import HeadquartersMutation, HeadquartersQuery
 
@@ -21,53 +18,53 @@ GRAPHQL_PAGE_SIZE = 100
 
 
 class HQBase(object):
-    _apiprefix: str = ""
+    _apiprefix: str = "/"
 
-    def __init__(self, client: Client, workspace: str = None) -> None:
+    def __init__(self, client: Client, workspace: Optional[str] = None) -> None:
         self._hq = client
         self.workspace = client.workspace if workspace is None else workspace
 
     @property
     def url(self) -> str:
-        return self._hq.baseurl + ('/' + self.workspace if self.workspace else "") + self._apiprefix
+        return (f"{self._hq.baseurl}/{self.workspace}{self._apiprefix}" if self.workspace else
+                f"{self._hq.baseurl}{self._apiprefix}")
 
-    def _make_call(self, method: str, path: str, filepath: str = None, parser=None, use_login_session=False, **kwargs):
+    def _make_call(self, method: str, path: str, filepath: Optional[str] = None,
+                   use_login_session: bool = False, **kwargs) -> Union[Dict[str, dict], str, None]:
+
         if use_login_session:
             response = self._make_call_with_login(method=method, path=path, **kwargs)
         else:
             response = self._hq.session.request(method=method, url=path, **kwargs)
 
-        if response.status_code > 300:
-            self._process_status_code(response)
+        self._process_status_code(response)
 
-        if method != 'get':
-            return json.loads(response.content) if response.content else True
+        if 'Content-Type' in response.headers:
+            if 'application/json' in response.headers['Content-Type']:
+                return response.json()
 
-        if 'application/json' in response.headers['Content-Type']:
-            return parser(response.content) if parser else json.loads(response.content)
+            elif any(w in response.headers['Content-Type'] for w in ['application/zip', 'application/octet-stream']):
+                return self._get_file_stream(filepath, response)
+            else:
+                return response.text
 
-        elif any(w in response.headers['Content-Type'] for w in ['application/zip', 'application/octet-stream']):
-            return self._get_file_stream(filepath, response)
+    def _make_call_with_login(self, method: str, path: str, **kwargs) -> Response:
+        if self._hq.session.auth is None:
+            raise UnauthorizedError
 
-        else:
-            return response.content
-
-    def _make_call_with_login(self, method: str, path: str, **kwargs):
         url = f"{self._hq.baseurl}/Account/LogOn"
         with Session() as login_session:
             response = login_session.request(method="post",
                                              url=url,
                                              data={"UserName": self._hq.session.auth[0],
                                                    "Password": self._hq.session.auth[1]})
-            if response.status_code < 300:
-                if response.url == url:  # unsuccessful logon will return 200 but will not get redirected
-                    raise UnauthorizedError()
-                else:
-                    return login_session.request(method=method, url=path, **kwargs)
+            self._process_status_code(response)
+            if response.url == url:  # unsuccessful logon will return 200 but will not get redirected
+                raise UnauthorizedError()
             else:
-                self._process_status_code(response)
+                return login_session.request(method=method, url=path, **kwargs)
 
-    def _call_mutation(self, method_name: str, fields: list = None, **kwargs):
+    def _call_mutation(self, method_name: str, fields: Optional[List[str]] = None, **kwargs):
         if fields is None:
             fields = []
         op = Operation(HeadquartersMutation)
@@ -86,7 +83,7 @@ class HQBase(object):
 
         return op
 
-    def _get_full_list(self, op: Operation, selector_name: str, skip: int = 0, take: int = None):
+    def _get_full_list(self, op: Operation, selector_name: str, skip: int = 0, take: Optional[int] = None):
         query = bytes(op).decode('utf-8')
 
         returned_count = 0
@@ -102,7 +99,7 @@ class HQBase(object):
             returned_count += page_size
             local_take = returned_count + GRAPHQL_PAGE_SIZE if take is None else take
 
-    def _make_graphql_call(self, query, variables: dict = None, **kwargs):
+    def _make_graphql_call(self, query, variables: Optional[dict] = None, **kwargs):
 
         if "session" not in kwargs:
             kwargs["session"] = self._hq.session
@@ -137,7 +134,7 @@ class HQBase(object):
             response.raise_for_status()
 
     @staticmethod
-    def _get_file_stream(filepath, response):
+    def _get_file_stream(filepath, response) -> str:
         d = response.headers['content-disposition']
         fname = re.findall(
             r"filename\*=utf-8''(.+)", d, flags=re.IGNORECASE)

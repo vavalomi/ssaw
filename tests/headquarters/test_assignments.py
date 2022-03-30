@@ -4,7 +4,7 @@ from pytest import raises
 
 from ssaw import AssignmentsApi
 from ssaw.exceptions import NotFoundError
-from ssaw.models import Assignment
+from ssaw.models import AssignmentResult
 
 from . import my_vcr
 from ..utils import create_assignment
@@ -14,7 +14,7 @@ from ..utils import create_assignment
 def test_assignment_list(session, params):
     response = AssignmentsApi(session).get_list(params['TemplateId'], params['TemplateVersion'])
     assert isinstance(response, GeneratorType), "Should be a generator"
-    assert isinstance(next(response), Assignment), "Should be list of Assignment objects"
+    assert isinstance(next(response), AssignmentResult), "Should be list of Assignment objects"
 
 
 @my_vcr.use_cassette()
@@ -23,7 +23,7 @@ def test_assignment_details(session):
 
     response = AssignmentsApi(session).get_info(2)
 
-    assert isinstance(response, Assignment)
+    assert isinstance(response, AssignmentResult)
     assert response.id == 2, "The ID should be in the response"
 
 

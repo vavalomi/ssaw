@@ -8,6 +8,7 @@ from ssaw import ExportApi
 from ssaw.exceptions import NotFoundError
 from ssaw.models import ExportJob
 
+
 from . import my_vcr
 
 
@@ -28,7 +29,7 @@ def test_export_info(session):
 @my_vcr.use_cassette()
 def test_export_start_cancel(session, params, capsys):
     api = ExportApi(session)
-    job = ExportJob(params['QuestionnaireId'], export_type="Paradata")
+    job = ExportJob(questionnaire_id=params['QuestionnaireId'], export_type="Paradata")
     r = api.start(job)
     assert isinstance(r, ExportJob), "Should get back the created job"
     r = api.cancel(r.job_id)
@@ -56,7 +57,7 @@ def test_export_get(session, params):
     age = (datetime.now().astimezone() - local_start_date).total_seconds() / 60  # age in minutes of the last export
 
     r = api.get(questionnaire_identity=params['QuestionnaireId'],
-                export_path=tempdir, export_type='Tabular', limit_age=age - 1)
+                export_path=tempdir, export_type='Tabular', limit_age=int(age) - 1)
     assert r is None
 
     r = api.get(questionnaire_identity=params['QuestionnaireId'],
@@ -76,5 +77,3 @@ def test_export_get(session, params):
                 export_path=tempdir, export_type='Paradata', generate=True)
 
     assert r == join(tempdir, 'ssaw_1_Paradata_All.zip')
-
-    r = api.get

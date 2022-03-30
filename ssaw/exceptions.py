@@ -6,7 +6,7 @@ class NotFoundError(Exception):
         super().__init__(self.message)
 
 
-class IncompleteQuestionnaireIdError(Exception):
+class IncompleteQuestionnaireIdError(TypeError):
     def __init__(self):
         self.expression = 'Invalid questionnaire id'
         self.message = 'Both questionnaire guid and version number must be specified'
