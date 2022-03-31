@@ -9,6 +9,7 @@ from .headquarters_schema import (
     ListFilterInputTypeOfUserMapFilterInput,
     Map,
     MapsFilter,
+    MapsSort,
     StringOperationFilterInput,
     UserMapFilterInput
 )
@@ -41,7 +42,7 @@ class MapsApi(HQBase):
         if kwargs:
             maps_args["where"] = MapsFilter(**kwargs)
         if order:
-            maps_args["order"] = order_object("MapsSort", order)
+            maps_args["order"] = order_object(MapsSort, order)
         if skip:
             maps_args["skip"] = skip
         if take:
@@ -77,7 +78,7 @@ class MapsApi(HQBase):
 
         :returns: `True` if successful, otherwise raises `NotAcceptableError`
         """
-        ret = self._make_call(method="post", path=f"{self.url}/api/MapsApi/Upload",
+        ret = self._make_call(method="post", path=f"{self.url}api/MapsApi/Upload",
                               files={'file': open(zip_file, 'rb')}, use_login_session=True)
         if ret["isSuccess"]:
             return True
