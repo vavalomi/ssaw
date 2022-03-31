@@ -575,7 +575,7 @@ class Assignment(BaseModelWithConfig):
     responsible: str
     quantity: int
     questionnaire_id: str
-    identifying_data: Optional[list[dict]]
+    identifying_data: Optional[List[dict]]
     email: Optional[str]
     password: Optional[str]
     web_mode: Optional[bool] = False
