@@ -91,9 +91,17 @@ class UsersApi(HQBase):
         return (op + cont).viewer
 
     def lock(self, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        """Lock user given either the username or guid.
+
+        Currently only works for the admin user!
+        """
         self._lock_unlock(lock=True, user_name=user_name, user_id=user_id)
 
     def unlock(self, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        """Unlock user given either the username or guid.
+
+        Currently only works for the admin user!
+        """
         self._lock_unlock(lock=False, user_name=user_name, user_id=user_id)
 
     def _lock_unlock(self, lock: bool, user_name: Optional[str] = None, user_id: Optional[str] = None):
@@ -118,6 +126,10 @@ class UsersApi(HQBase):
             raise ValueError("either user_name or user_id must be provided")
 
     def change_password(self, password: str, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        """Change password for a user.
+
+        Currently only works for the admin user!
+        """
         if user_name:
             try:
                 user_id = next(self.get_list(fields=["id"], user_name=user_name, take=1)).id

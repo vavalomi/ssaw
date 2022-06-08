@@ -12,6 +12,7 @@
 #
 import os
 import sys
+from datetime import datetime
 
 src = os.path.abspath('..')
 sys.path.insert(0, src)
@@ -26,6 +27,7 @@ project = about['__title__']
 author = about['__author__']
 version = about['__version__']
 release = about['__version__']
+copyright = f"{datetime.now().year} {author}"
 
 
 # -- General configuration ---------------------------------------------------
@@ -73,7 +75,7 @@ html_theme_options = {
     'analytics_id': 'UA-129284684-2',
     'github_button': True,
     'fixed_sidebar': True,
-    'extra_nav_links': {'Survey Solutions Documentation': 'https://support.mysurvey.solutions'}
+    'extra_nav_links': {'Survey Solutions Documentation': 'https://docs.mysurvey.solutions'}
 }
 
 html_static_path = ['_static']

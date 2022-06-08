@@ -14,7 +14,6 @@ Table of Contents
     ssaw.settings
     ssaw.users
     ssaw.workspaces
-    ssaw.models
 
 Indices and tables
 ==================
