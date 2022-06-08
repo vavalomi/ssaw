@@ -9,7 +9,7 @@ from .headquarters_schema import (
     InterviewSort,
     InterviewsFilter,
 )
-from .models import InterviewAnswers
+from .models import InteriviewHistoryItem, InterviewAnswers
 from .utils import filter_object, fix_qid, order_object
 
 
@@ -158,7 +158,8 @@ class InterviewsApi(HQBase):
     def history(self, interview_id):
         path = f"{self.url}/{interview_id}/history"
         ret = self._make_call('get', path)
-        yield from ret["Records"]
+        for item in ret["Records"]:
+            yield InteriviewHistoryItem.parse_obj(item)
 
     def hqapprove(self, interviewid, comment=''):
         return self._change_status(action='hqapprove', interviewid=interviewid, comment=comment)

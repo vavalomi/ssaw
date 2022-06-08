@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from pytest import raises
 
 from ssaw import MapsApi
-from ssaw.exceptions import NotAcceptableError
+from ssaw.exceptions import GraphQLError, NotAcceptableError
 from ssaw.headquarters_schema import Map
 from ssaw.models import Version
 
@@ -37,12 +37,23 @@ def test_map_delete(session, params):
 
 
 @my_vcr.use_cassette()
-def test_map_upload(admin_session, params):
+def test_map_upload_old(admin_session, params):
     r = MapsApi(admin_session).upload(params["MapsArchive"])
     assert r is True
 
     with raises(NotAcceptableError):
         _ = MapsApi(admin_session).upload(__file__)
+
+
+@my_vcr.use_cassette()
+def test_map_upload(session, params):
+    r = MapsApi(session).upload(params["MapsArchive"])
+    assert len(r) == 2
+    assert r[0].file_name == "map.tpk"
+
+    with raises(GraphQLError) as e_info:
+        _ = MapsApi(session).upload(__file__)
+    assert "Error occurred. File is not a .zip archive" in str(e_info.value)
 
 
 @my_vcr.use_cassette()

@@ -5,6 +5,7 @@ from pytest import raises
 from ssaw import InterviewsApi, UsersApi
 from ssaw.exceptions import NotAcceptableError, NotFoundError
 from ssaw.headquarters_schema import Interview
+from ssaw.models import InteriviewHistoryItem
 from ssaw.utils import to_hex
 
 from . import my_vcr
@@ -39,7 +40,7 @@ def test_interview_history(session, params):
 
     r = InterviewsApi(session).history(params['InterviewId'])
     assert isinstance(r, types.GeneratorType)
-    assert 'Action' in next(r).keys(), "The actions should be in the response"
+    assert isinstance(next(r), InteriviewHistoryItem), "Should be list of InterviewHistoryItem objects"
 
 
 @my_vcr.use_cassette()

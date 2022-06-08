@@ -52,8 +52,9 @@ class ExportApi(HQBase):
             "hasFile": has_file,
         }
         r = self._make_call('get', path, params=params)
-        for item in r:
-            yield ExportJobResult.parse_obj(item)
+        if r:
+            for item in r:
+                yield ExportJobResult.parse_obj(item)
 
     def get(self, questionnaire_identity: QuestionnaireIdentity,
             export_type: str = "Tabular", interview_status="All",
@@ -97,10 +98,10 @@ class ExportApi(HQBase):
         if job.has_export_file:
             response = self._make_call(method="get", path=job.links.download, filepath=export_path, stream=True)
 
-        if show_progress:
-            print(f"Archive was downloaded to {response}")
+            if show_progress:
+                print(f"Archive was downloaded to {response}")
 
-        return response
+            return response
 
     def _get_first_suitable(self, common_args, limit_age=None, limit_date=None) -> Union[ExportJobResult, None]:
         ret_list = self.get_list(**common_args, export_status="Completed", has_file=True)
@@ -135,7 +136,9 @@ class ExportApi(HQBase):
         :returns: ``ExportJobResult`` object
         """
         path = self.url
-        job = ExportJobResult.parse_obj(self._make_call("post", path, json=export_job.json()))
+        job = ExportJobResult.parse_obj(
+            self._make_call("post", path, json=export_job.dict(by_alias=True, exclude_none=True))
+        )
         if wait:
             job = self.get_info(job.job_id)
 

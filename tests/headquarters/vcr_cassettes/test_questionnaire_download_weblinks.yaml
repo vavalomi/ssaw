@@ -1,8 +1,8 @@
 interactions:
 - request:
     body: '{"Responsible": "inter1", "Quantity": 5, "QuestionnaireId": "9d3ad06999aa4d6a8edaad12c722a60f$1",
-      "Email": "", "Password": "", "WebMode": true, "IsAudioRecordingEnabled": false,
-      "Comments": "", "IdentifyingData": [], "ProtectedVariables": null}'
+      "IdentifyingData": [], "WebMode": false, "IsAudioRecordingEnabled": false, "webmode":
+      true}'
     headers:
       Accept:
       - '*/*'
@@ -11,24 +11,26 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '244'
+      - '189'
       Content-Type:
       - application/json
       User-Agent:
-      - python-ssaw/0.5
+      - python-ssaw/0.7
     method: POST
     uri: http://localhost:9707/primary/api/v1/assignments
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4xQS2+CQBD+L5seocCCINzQerDRpg+1SZseBnbQTXExu4vGGP97Z2Nt2ltvs7Pf
-        a74TK42Ra7VFZVlxYlNBg2yOUq3vwAIr3j88WrIiH3rsGc2uU0ZWLboVa1LApobKx2GS+UkUgw8C
-        uR8Bz6tEJNDEOftDe4AtElEqizqir6cejZWdUiD1RTMXMYgwzfMcIBEpDFEAiIjXGeeQhs2No00d
-        fy/xYMZd74KHTgoouT2yYuCxUtcbuUcSbKA16LGxRrAoSru0NbnwkEd+OPB5uojSYpAW4fA2yeJs
-        wN9IfrkT/wdPtiBbQtH4CMYcOi0ur1es5p2gc63u0bVQo4s0Oi6AmrDf6qpvWzrIlL2QHWGITt1P
-        lMNc4589tkItG1mDK+vFgu3NlUo2P3XMpPok8421uyII2q6GdtMZW+RZmAU7Lbegj8FvQlDej1bJ
-        LJ4HJKotO38BAAD//wMAZkv50hACAAA=
+        H4sIAAAAAAAAA4xQyU7DMBD9F4tjQhw3dZZbKT2UpWIrIBCHaTxpLVKnsp2iCvHvjFWKyg3JB3v8
+        tnmfbOScXpo1Gs+qTzZVdNHNTpvlOXhg1etbRENWFVnE7tBtOuP0osUwYk3TLLAueIySZ3GWiTwu
+        yzKLh2maKllLIVPJ/tBmsEYiauPRpvR126PzujMGtN1rlmoAikvSAciUhAIVgEpFnQsBkjcngTYN
+        /K3GDzfu+hCcBymg5H7HqmHERrZe6S2SYAOtw4iNLYJHNfJzX5OL4ELEXMa8eOCyopMWp/kgz3Lx
+        QvLzjfo/eLIG3bLK9G0bsRtw7qOz6vB+wsV1p2hlb3sMTdQYYp3tHoDa8D8Oe+zUjXqlO8KQAPU/
+        MQFzWOErYo9odaNrCIXde/C9O7L5reRKm3cKvfJ+UyVJ29XQrjrnqzLnebKxeg12lxwTktvL2cXg
+        +a5MSNR69vUNAAD//wMARI3cMBQCAAA=
     headers:
+      Cache-Control:
+      - no-store, no-cache
       Content-Encoding:
       - gzip
       Content-Language:
@@ -36,9 +38,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Location:
-      - http://localhost:9707/primary/api/v1/assignments/98
+      - http://localhost:9707/primary/api/v1/assignments/84
       Server:
       - Kestrel
       Transfer-Encoding:
@@ -49,7 +51,7 @@ interactions:
       code: 201
       message: Created
 - request:
-    body: UserName=random_string&Password=random_string
+    body: UserName=admin&Password=Qwerty1234
     headers:
       Accept:
       - '*/*'
@@ -62,7 +64,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.25.1
+      - python-ssaw/0.7
     method: POST
     uri: http://localhost:9707/Account/LogOn
   response:
@@ -75,8 +77,11 @@ interactions:
       - en-US
       Content-Length:
       - '0'
+      Content-Security-Policy:
+      - 'font-src ''self'' data:; img-src ''self'' data: blob:; default-src * data:
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' blob:'
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       Location:
@@ -86,9 +91,15 @@ interactions:
       Server:
       - Kestrel
       Set-Cookie:
-      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4s6X1GmPw9RBh0x1fnaNX-0wMVPsPnoydjSqQhyfZicrvvs1mLqAxn1XnEa5fiv0c1EtY8vW-s_2qpCju9HZfKQ3n_wgAsC2elmNFm6DmalMQ9o4xkBtDRzcx8o1PyK2pwke48C_LJCb2PLAbVWFmEZvTo3BJXsSfBC2bFKQ0lFSu1lvQMPCvgCOB73lUv22FOeC91uzrtTx-_IO4ameN2V6YpKmQzJVkghiXJW2LruStEMXubLUzWw9RHJxKEcuSQcKLnAg9T6C5rsx6FlqRUJ3PqrkT-weIRFcG11vaLOwCR4eUFq68PZYoNM0XM0c-JEx3NoySlz4qLVuquIw9fQHYN5STYl6c9GP0u6lWokV2Rpk33Kcn7SdsBj46Re0EYDTJFcJnr8CmrftnccDOlXsPrI7rarDC4zvzahmtx7_uQXb9-lnWsEL7dLKUSHUlPw48squjlvBd6j4L_-LKcs3aRGXLEHn1If4Lcrs4ZTHlVzR8Yr6tkkOf9acM9Bi3VB0ll9C-R7RJ1JoYfEtErQLG8IIZtMQMX-__2bfyziU_LCH6duTFUOGaxwSQHoD8afBjgh-qFHN7Z9A872dZ0V_s3hVVwEv4OK2bbx6XvIvMfxRtWY7fFPXuyv-KEjoAl93pBjVu7LEAAH-S4oWILYxI49Q1qYximwsfFOJmYyG2Te5QgaKfFTusLh_6wCcGUzIwai_LIJrXAH6tygzIHHLWPJ3h8P9_Olg6na1QvMDutkMXlRYpHYFFgvQlEOgapMFL8QbjsWjiNxs8lkzmT9O2Ek9F84Ongr-nyCgorAhQ;
-        expires=Thu, 27 May 2021 16:56:08 GMT; path=/; samesite=lax; httponly
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx5ggjCMpemGj-sW-CpPnD0D726ZKUJv47l3RZ7OV0v1SmlrDiL1BFvyteSDG6ucWEZd3PHxPkhMrMImZk6gv_whIbiJgwurzIhomnFyLiPTAfSTieDo3gkpyxLiIdl_GxXHVoSMx3CDXXKZeDky9RJ2UeClVQuLQmzn1B-DeM9_mMiPSBvTSG_T3pm07QH8npe4UgT6WABcySDfzQhA7Gv0jo2BogYlWUeYv5ueJVOLTU8fDy9T_3zHfIJazIX8SBmZwkOWEZf95Ya8Its6jQm8XVR7ugcX-IZWi6Fps7diSYyI_fApsZy66h_TjN2k5ri3VEqUIs2F3YbeSGaO-DyOLhUu0RJ24hk18pPpfjrbdfoCWphceUfnFcAWSJHSqOZh99ZrdSvOC9J8JkRAqoX4nxX3Kbit85-Vbp5R5NpftWxT6nny_je1UyDXIYhILvv_GpfOSPwcS5WBRt1b3w4jatZI7BCpkZV2KyBqJpjxRguWxfxN60N7I_e6Ff5NyZbJgOrWWqEVPRgX3F8AE35IRjI1gq9Zgd78RNvY-bopmGrXqkw5layKbbrK3p3o7sCX3OCywhMrz4_rcqYDovudXEgi4T_AgoW0vvPuiCeE55EvEDwUsUpCQF2-kuqGfQsVU4PP4wlMkHcLgz2FeZJH3P1dCgBCkCG8LY3twLjaqwC3AMbqof-ikdUcPftUh-_rPtq2j3LtogiND_EgTE2UyHZzvaCu3pm3frrdQXUsY6f-L9lMMnzfFX_doIPZ6tFGMlIQwKkUOPWvcxArReHBuRmcW-4jc5hqHUskiOaasQ;
+        expires=Thu, 09 Jun 2022 06:06:18 GMT; path=/; samesite=lax; httponly
       - ShowCaptcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '1'
     status:
       code: 302
       message: Found
@@ -102,74 +113,91 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4s6X1GmPw9RBh0x1fnaNX-0wMVPsPnoydjSqQhyfZicrvvs1mLqAxn1XnEa5fiv0c1EtY8vW-s_2qpCju9HZfKQ3n_wgAsC2elmNFm6DmalMQ9o4xkBtDRzcx8o1PyK2pwke48C_LJCb2PLAbVWFmEZvTo3BJXsSfBC2bFKQ0lFSu1lvQMPCvgCOB73lUv22FOeC91uzrtTx-_IO4ameN2V6YpKmQzJVkghiXJW2LruStEMXubLUzWw9RHJxKEcuSQcKLnAg9T6C5rsx6FlqRUJ3PqrkT-weIRFcG11vaLOwCR4eUFq68PZYoNM0XM0c-JEx3NoySlz4qLVuquIw9fQHYN5STYl6c9GP0u6lWokV2Rpk33Kcn7SdsBj46Re0EYDTJFcJnr8CmrftnccDOlXsPrI7rarDC4zvzahmtx7_uQXb9-lnWsEL7dLKUSHUlPw48squjlvBd6j4L_-LKcs3aRGXLEHn1If4Lcrs4ZTHlVzR8Yr6tkkOf9acM9Bi3VB0ll9C-R7RJ1JoYfEtErQLG8IIZtMQMX-__2bfyziU_LCH6duTFUOGaxwSQHoD8afBjgh-qFHN7Z9A872dZ0V_s3hVVwEv4OK2bbx6XvIvMfxRtWY7fFPXuyv-KEjoAl93pBjVu7LEAAH-S4oWILYxI49Q1qYximwsfFOJmYyG2Te5QgaKfFTusLh_6wCcGUzIwai_LIJrXAH6tygzIHHLWPJ3h8P9_Olg6na1QvMDutkMXlRYpHYFFgvQlEOgapMFL8QbjsWjiNxs8lkzmT9O2Ek9F84Ongr-nyCgorAhQ
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx5ggjCMpemGj-sW-CpPnD0D726ZKUJv47l3RZ7OV0v1SmlrDiL1BFvyteSDG6ucWEZd3PHxPkhMrMImZk6gv_whIbiJgwurzIhomnFyLiPTAfSTieDo3gkpyxLiIdl_GxXHVoSMx3CDXXKZeDky9RJ2UeClVQuLQmzn1B-DeM9_mMiPSBvTSG_T3pm07QH8npe4UgT6WABcySDfzQhA7Gv0jo2BogYlWUeYv5ueJVOLTU8fDy9T_3zHfIJazIX8SBmZwkOWEZf95Ya8Its6jQm8XVR7ugcX-IZWi6Fps7diSYyI_fApsZy66h_TjN2k5ri3VEqUIs2F3YbeSGaO-DyOLhUu0RJ24hk18pPpfjrbdfoCWphceUfnFcAWSJHSqOZh99ZrdSvOC9J8JkRAqoX4nxX3Kbit85-Vbp5R5NpftWxT6nny_je1UyDXIYhILvv_GpfOSPwcS5WBRt1b3w4jatZI7BCpkZV2KyBqJpjxRguWxfxN60N7I_e6Ff5NyZbJgOrWWqEVPRgX3F8AE35IRjI1gq9Zgd78RNvY-bopmGrXqkw5layKbbrK3p3o7sCX3OCywhMrz4_rcqYDovudXEgi4T_AgoW0vvPuiCeE55EvEDwUsUpCQF2-kuqGfQsVU4PP4wlMkHcLgz2FeZJH3P1dCgBCkCG8LY3twLjaqwC3AMbqof-ikdUcPftUh-_rPtq2j3LtogiND_EgTE2UyHZzvaCu3pm3frrdQXUsY6f-L9lMMnzfFX_doIPZ6tFGMlIQwKkUOPWvcxArReHBuRmcW-4jc5hqHUskiOaasQ
       User-Agent:
-      - python-requests/2.25.1
+      - python-ssaw/0.7
     method: GET
     uri: http://localhost:9707/administration/Workspaces
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA61Ze2/buhX/P0C/A8sLzAkWSbaT2E5iGUsf67qtD7Tp7oa7i4ASj2TWsqiIkp2k
-        63ffISnJlmM36ZYAtizyd87hIc+TGT9/9eHl5b8+vibTYp5M9sb6QRKWxj6F1PnymeoxYHyyR/Bv
-        PIeCkXDKcgWFT8sickZ0fWpaFJkD16VY+PSfzpcL56WcZ6wQQQKUhDItIEW6t6994DG0KFM2B58u
-        BCwzmRdr4KXgxdTnsBAhOOblkIhUFIIljgpZAn7P7dasEpHOSA6J3xHIoEOK2wzw95zF4GVp3CFK
-        3IHyO73T/g1+OmSaQ+R3PDGPPcFRnihuvYgtNLUzvXYqnKtpJ+SZEbL+tyaQZVkCTiHLcOoY8iyH
-        ELWXCvhK7qh7g5+H5VqclfsEYk9QjZNHqGtxTyb2+PgGPw+LtbgnE9vHzes/YpMt7snE9lCL3iO0
-        tbinEjsc3AwHDwo1qCcT2b8ZPmxMBvV/i/yxEMve+j5OJTD5VeYzlbEQ1NizI2b22d6zvbEKc5EV
-        NijQAm4K7ytbMDtKq0VyGZZzlOOGUs4EEJ/Qq+LOp+SPJIUlecUK2D9wYyguxRzuZAofogiD4f4B
-        Aug5wWA39T16/qySqr+XIuVy6b788P7Pb98gw290AXmA6r2THOhZxBIFhzSWMk7gIhN/g1t6Rmk9
-        8o5lCkdfMAVf8gRndIxVZ543xwnXYlgmFC543iK6T7FcLiuCChwg5COuGDEe43MMq6rIMVzL1MPZ
-        Zb2VON2exUkTU99AoaVsIccVeb9C8BaDeK6D+idQsszxVJCUlVxIJN1CVsO8C435hHaQc02RZf+A
-        XGnJZ7SP8f7EPXKP+w7j3FFLFseQO1yDWSFzLUKVmU4jwC9zlir9U9Gz3+gSgs8ynEGhMYlM448y
-        QUOM6e/fz7WF6NMSEdnXFiIjMpfaEshz3yedMuUQiRRN8oB8W9mzhbiJ1Jlov2NyZuegOv7vaHOe
-        NS+0Lmulzx2H/N2gyfSaOM5k3ABadlKx1OZimdn3M4IyOofrQwrHvlGW6+20I9702mO5Oxx1gfWD
-        7in0+u5XZY4tVG1YqNzTAIZBMMAkHx3XMEjbMEjdbn/YPUJjOB2OoIFtcAPlsnAUjE7CKOqNTmpY
-        tLG2KHdHI+iF7DgKglEjVPA2TPCtQmesDZsxl0Vdxo5HPRYFDbfZfAM238otK9qwrHD7g/4RHw6P
-        jvohq2G5bMNyiUL5CS5/cAQwaGDlBqx0T0/7o4gFxz121KxNXbdh6hrXhqsbsH6XD4IaZh1zBSum
-        W1UoZ21YOXPDiI9O4JgPTofDGrYQbdhCbOV2tyH0buoenRwDhyA65sPKkL53nu1pl/E88tfPH95/
-        JIhOAhbOSCHRLBm3tinujFuTKJdz0vmTZaoDTqex9qsrjJ7WITC2sqsrtPioTENNt89xBN2NbPMM
-        V08iWD/OW65Wx3mVh5g5fmzEnUlDZlxqzyYmk3UoeofywmmZzhyMl3OZukHY7w8YHLs4Q036opit
-        tMKUMOVTVdxipTvZwWQBqEaOkbobdaMBj36Gy9eNlfBe9zTiA45abGVRJbXtPOqFHAXdE85Hg59k
-        Mr2+WpTgokWH3V4Pfob6UZth9FdTgN3Uu8+jRezZ3mUcSH5LwoQprF6whwAnZYuA5XXpoFGQT5qo
-        bqoFhFQk1KKJfTgixfytoH6NxA1wrF8yXIDEdkSjRWzzZFVUjLloeOnGhmEiQcKkFJzQterIZIcX
-        mLI40Z9CxpirCRYbJM5lmQEnkcxJAAVmVUw9gcBZLlSWsFudStYYrQmslml1pBu12JhVe7uqhM4W
-        UvD97sE5rTkw9MYFOBnTPRvSeGyTS1AWBfq5razsC92QXykTYsbF4gTQSLTnVsN6W+x4PczyWLeY
-        v1hqtKhcMAduMtwX4D41RdOmMmYpWLGktWiVOzJNbunk0gpfnQx6PeIeojdVpj55PF0HE32pTeqn
-        COeC/2+EgcRNnP+IduzZjd4cvn/0gbaobZtVWUCFTmQsae1qG4XZF4Um/46laAK64NFLumcEHkpe
-        t8HNd23cL/GYIcQafGpOg2jvVofarOf40EYvcSqv239j78ZEsErbbeK18dQuuTImwetd2NR/b6+u
-        +FpKlMna5tX88KEvQhLR9gjcBbZjv1ZtCCWmDfHp2lCrS2G4l4nQgW6NXan3+96u16zMOJ2Yxw4G
-        G+t5JVicSlWIUJnaGlNu3LAzA5ixYzppfj6O7cVOKQ3z9bHJ2svPr/uSBQkUb9NIrrjbMSJSbUG2
-        2MBtneGGobQfTK6ke6W+99p17PXPXMTTYnXLtFqw7q2wtaoaDnd+q8p8AbeukkmpJSqrES64imhX
-        QcLSWaPAXyDJ6ER/N0uqhdQr4rnMsPxJCV1lqEfF7ZqwCrIbEbeerdNWHbZNpJ0y7JqyMsM+OS9h
-        R/itdbAaTsyjFc1Clts0bMKXVnBvi6M1y7TBrh1UtniFdYhGun0lLAxlqSNT+729q+ts7/t+I+fC
-        0nroJNje0wk+ZRS11m8j3Doba0mrcfu+GQ9NFPTcjUC1Cm0t1GatYFBjD4mbftJbr12qErYqaNtV
-        8/0odN4GzCXH+ukbHlpa7fCZPvtDqq3GXCR0/n3Tj9oOakYyoR+Lnv5uLg1U5/uqtDbBWsdirBsv
-        skybhFZzr7olGUdS6pKmMgj79ojiie7IB/pup3bZdoz/Qyiz23OCzVaPbPqwvh7B5Sc8QAc1BZcr
-        c4yJl5irftXj5AVOkDd6RtvCIblIEvJJi1HkE6BtLoC7bbZqk69miZ2IxwJZFl4CMUvQvvRDs3R/
-        kD4fpZ91P73Ta3cmkwevTLYXGGbsP9vndgZsdGTTA0zeYOht7n/wcPHctxQNbSXbaphSHgMTxmx9
-        HCnX/iLzM/JLFI3O6eQ9LEmlI7lYMJHoeH9GrLZ9QvaDUuCpHfV6o9MDsqOIeqBoeXDX1ynq32PP
-        mnDjpQ/dPOpLJwVJRHxf15rVFdNCV55TeKGbF391M4lp5HViCgL14vaSxe/ZHPY7usXpHPzW/d1c
-        PlVkrtlCt+4RfEID7Idn+n7yOwGM4VYQijRdtUmRPtErad41dK25fuAW1TTdD3Sak3ud+uN4bel8
-        f57Vlt51jYmnd1GHbvvvsP8CADzvth8bAAA=
+        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
+        fHED3h4AAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Language:
       - en-US
+      Content-Security-Policy:
+      - 'font-src ''self'' data:; img-src ''self'' data: blob:; default-src * data:
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' blob:'
       Content-Type:
       - text/html; charset=utf-8
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Server:
       - Kestrel
       Set-Cookie:
-      - currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4txfC-W6qoXJdO_Xct6hqTxMqeFKMvVw_orQw6UB3ovZrvz4gkp8QA13bsrjuMbwtVQbEjGpyo0DUOqCNuMb-Bq80aEg5pTeWloTGMEkqhvjQ;
-        expires=Wed, 02 Jun 2021 16:56:08 GMT; path=/
+      - currentWorkspace=CfDJ8DLYOuOc8VVBi5LXUfPgJx4f2VfN69k2A0Xa0aRTQDfNPZWsnuPeqXrZIdU542ZNFkyeojxN_ujztF8yzfymrzmtUOeplkDC1XULM3PHbf9_2woWcevbb9ajEPS9rN4HMQ;
+        expires=Wed, 15 Jun 2022 06:06:18 GMT; path=/; httponly
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '1'
     status:
       code: 200
       message: OK
@@ -183,35 +211,77 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4s6X1GmPw9RBh0x1fnaNX-0wMVPsPnoydjSqQhyfZicrvvs1mLqAxn1XnEa5fiv0c1EtY8vW-s_2qpCju9HZfKQ3n_wgAsC2elmNFm6DmalMQ9o4xkBtDRzcx8o1PyK2pwke48C_LJCb2PLAbVWFmEZvTo3BJXsSfBC2bFKQ0lFSu1lvQMPCvgCOB73lUv22FOeC91uzrtTx-_IO4ameN2V6YpKmQzJVkghiXJW2LruStEMXubLUzWw9RHJxKEcuSQcKLnAg9T6C5rsx6FlqRUJ3PqrkT-weIRFcG11vaLOwCR4eUFq68PZYoNM0XM0c-JEx3NoySlz4qLVuquIw9fQHYN5STYl6c9GP0u6lWokV2Rpk33Kcn7SdsBj46Re0EYDTJFcJnr8CmrftnccDOlXsPrI7rarDC4zvzahmtx7_uQXb9-lnWsEL7dLKUSHUlPw48squjlvBd6j4L_-LKcs3aRGXLEHn1If4Lcrs4ZTHlVzR8Yr6tkkOf9acM9Bi3VB0ll9C-R7RJ1JoYfEtErQLG8IIZtMQMX-__2bfyziU_LCH6duTFUOGaxwSQHoD8afBjgh-qFHN7Z9A872dZ0V_s3hVVwEv4OK2bbx6XvIvMfxRtWY7fFPXuyv-KEjoAl93pBjVu7LEAAH-S4oWILYxI49Q1qYximwsfFOJmYyG2Te5QgaKfFTusLh_6wCcGUzIwai_LIJrXAH6tygzIHHLWPJ3h8P9_Olg6na1QvMDutkMXlRYpHYFFgvQlEOgapMFL8QbjsWjiNxs8lkzmT9O2Ek9F84Ongr-nyCgorAhQ;
-        currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4txfC-W6qoXJdO_Xct6hqTxMqeFKMvVw_orQw6UB3ovZrvz4gkp8QA13bsrjuMbwtVQbEjGpyo0DUOqCNuMb-Bq80aEg5pTeWloTGMEkqhvjQ
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx5ggjCMpemGj-sW-CpPnD0D726ZKUJv47l3RZ7OV0v1SmlrDiL1BFvyteSDG6ucWEZd3PHxPkhMrMImZk6gv_whIbiJgwurzIhomnFyLiPTAfSTieDo3gkpyxLiIdl_GxXHVoSMx3CDXXKZeDky9RJ2UeClVQuLQmzn1B-DeM9_mMiPSBvTSG_T3pm07QH8npe4UgT6WABcySDfzQhA7Gv0jo2BogYlWUeYv5ueJVOLTU8fDy9T_3zHfIJazIX8SBmZwkOWEZf95Ya8Its6jQm8XVR7ugcX-IZWi6Fps7diSYyI_fApsZy66h_TjN2k5ri3VEqUIs2F3YbeSGaO-DyOLhUu0RJ24hk18pPpfjrbdfoCWphceUfnFcAWSJHSqOZh99ZrdSvOC9J8JkRAqoX4nxX3Kbit85-Vbp5R5NpftWxT6nny_je1UyDXIYhILvv_GpfOSPwcS5WBRt1b3w4jatZI7BCpkZV2KyBqJpjxRguWxfxN60N7I_e6Ff5NyZbJgOrWWqEVPRgX3F8AE35IRjI1gq9Zgd78RNvY-bopmGrXqkw5layKbbrK3p3o7sCX3OCywhMrz4_rcqYDovudXEgi4T_AgoW0vvPuiCeE55EvEDwUsUpCQF2-kuqGfQsVU4PP4wlMkHcLgz2FeZJH3P1dCgBCkCG8LY3twLjaqwC3AMbqof-ikdUcPftUh-_rPtq2j3LtogiND_EgTE2UyHZzvaCu3pm3frrdQXUsY6f-L9lMMnzfFX_doIPZ6tFGMlIQwKkUOPWvcxArReHBuRmcW-4jc5hqHUskiOaasQ;
+        currentWorkspace=CfDJ8DLYOuOc8VVBi5LXUfPgJx4f2VfN69k2A0Xa0aRTQDfNPZWsnuPeqXrZIdU542ZNFkyeojxN_ujztF8yzfymrzmtUOeplkDC1XULM3PHbf9_2woWcevbb9ajEPS9rN4HMQ
       User-Agent:
-      - python-requests/2.25.1
+      - python-ssaw/0.7
     method: GET
     uri: http://localhost:9707/primary/api/LinksExport/Download/9d3ad06999aa4d6a8edaad12c722a60f$1
   response:
     body:
       string: !!binary |
-        UEsDBBQAAAAIAASHulLplTGRBgEAAAgEAAAOACQAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGACX
-        0TUGUFLXAZXRNQZQUtcBiNE1BlBS1wGV0slOwzAQgOFzkHiWFMdx4t4SmgUnqUqdxfRSGRpRi2xK
-        LCreHoRqRI9znJG+y8wvl0W9D3076OOxU8OHJf8t1OlmbHupupvN9DNcxvl0f3fWelrbdje+ye48
-        LnpNvZVnT7Pq5fxlN+3r06Db+VO1F7tEhYi2VWVzLWdt+diyQH4bJSWnVBjvAv2BFDwTYW48AXr0
-        7HtpliLjPaDfeCwud2JnvA/0YcoqznlhPAV6EWV1WlF69XQF9E0TkxwT8z/6APS52zjsJXCMR9D7
-        ZYd9LlhivAP0DMcBClxiPLS/hLnUSR4D46H9IRwRviv2xkP7K1KM8Kb+ux+0v4CFNc4d0w/97e8b
-        UEsBAi0AFAAAAAgABIe6UumVMZEGAQAACAQAAA4AJAAAAAAAAAAAAAAAAAAAAGludGVydmlld3Mu
-        dGFiCgAgAAAAAAABABgAl9E1BlBS1wGV0TUGUFLXAYjRNQZQUtcBUEsFBgAAAAABAAEAYAAAAFYB
-        AAAAAA==
+        UEsDBBQAAAAIAMkwyFSZcWq1aQAAAIgAAAAOACQAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGAC0
+        5Kfe/XrYAbPkp979etgBqeSn3v162AFLLC7OTM/LTc0riY/PyczL5kxEEshMQeGm5iZm5qCIFAA5
+        5flFKbxcGSUlBVb6+jn5yYk5GfnFJVaW5gbm+gVFmbmJRZX64alJnnklqUVlmanl+oHefl7GEUGW
+        +sEliUUlnBYmnJy8XABQSwECLQAUAAAACADJMMhUmXFqtWkAAACIAAAADgAkAAAAAAAAAAAAAAAA
+        AAAAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGAC05Kfe/XrYAbPkp979etgBqeSn3v162AFQSwUG
+        AAAAAAEAAQBgAAAAuQAAAAAA
     headers:
+      Cache-Control:
+      - no-store, no-cache
       Content-Disposition:
       - attachment; filename="Web ssaw package test questionnaire (ver. 1).zip"; filename*=UTF-8''Web%20ssaw%20package%20test%20questionnaire%20%28ver.%201%29.zip
       Content-Language:
       - en-US
       Content-Length:
-      - '460'
+      - '303'
       Content-Type:
       - application/octet-stream
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx5ggjCMpemGj-sW-CpPnD0D726ZKUJv47l3RZ7OV0v1SmlrDiL1BFvyteSDG6ucWEZd3PHxPkhMrMImZk6gv_whIbiJgwurzIhomnFyLiPTAfSTieDo3gkpyxLiIdl_GxXHVoSMx3CDXXKZeDky9RJ2UeClVQuLQmzn1B-DeM9_mMiPSBvTSG_T3pm07QH8npe4UgT6WABcySDfzQhA7Gv0jo2BogYlWUeYv5ueJVOLTU8fDy9T_3zHfIJazIX8SBmZwkOWEZf95Ya8Its6jQm8XVR7ugcX-IZWi6Fps7diSYyI_fApsZy66h_TjN2k5ri3VEqUIs2F3YbeSGaO-DyOLhUu0RJ24hk18pPpfjrbdfoCWphceUfnFcAWSJHSqOZh99ZrdSvOC9J8JkRAqoX4nxX3Kbit85-Vbp5R5NpftWxT6nny_je1UyDXIYhILvv_GpfOSPwcS5WBRt1b3w4jatZI7BCpkZV2KyBqJpjxRguWxfxN60N7I_e6Ff5NyZbJgOrWWqEVPRgX3F8AE35IRjI1gq9Zgd78RNvY-bopmGrXqkw5layKbbrK3p3o7sCX3OCywhMrz4_rcqYDovudXEgi4T_AgoW0vvPuiCeE55EvEDwUsUpCQF2-kuqGfQsVU4PP4wlMkHcLgz2FeZJH3P1dCgBCkCG8LY3twLjaqwC3AMbqof-ikdUcPftUh-_rPtq2j3LtogiND_EgTE2UyHZzvaCu3pm3frrdQXUsY6f-L9lMMnzfFX_doIPZ6tFGMlIQwKkUOPWvcxArReHBuRmcW-4jc5hqHUskiOaasQ;
+        currentWorkspace=CfDJ8DLYOuOc8VVBi5LXUfPgJx4f2VfN69k2A0Xa0aRTQDfNPZWsnuPeqXrZIdU542ZNFkyeojxN_ujztF8yzfymrzmtUOeplkDC1XULM3PHbf9_2woWcevbb9ajEPS9rN4HMQ
+      User-Agent:
+      - python-ssaw/0.7
+    method: GET
+    uri: http://localhost:9707/primary/api/LinksExport/Download/9d3ad06999aa4d6a8edaad12c722a60f$1
+  response:
+    body:
+      string: !!binary |
+        UEsDBBQAAAAIAMkwyFSZcWq1aQAAAIgAAAAOACQAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGADc
+        ErHe/XrYAdsSsd79etgB1hKx3v162AFLLC7OTM/LTc0riY/PyczL5kxEEshMQeGm5iZm5qCIFAA5
+        5flFKbxcGSUlBVb6+jn5yYk5GfnFJVaW5gbm+gVFmbmJRZX64alJnnklqUVlmanl+oHefl7GEUGW
+        +sEliUUlnBYmnJy8XABQSwECLQAUAAAACADJMMhUmXFqtWkAAACIAAAADgAkAAAAAAAAAAAAAAAA
+        AAAAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGADcErHe/XrYAdsSsd79etgB1hKx3v162AFQSwUG
+        AAAAAAEAAQBgAAAAuQAAAAAA
+    headers:
+      Cache-Control:
+      - no-store, no-cache
+      Content-Disposition:
+      - attachment; filename="Web ssaw package test questionnaire (ver. 1).zip"; filename*=UTF-8''Web%20ssaw%20package%20test%20questionnaire%20%28ver.%201%29.zip
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '303'
+      Content-Type:
+      - application/octet-stream
+      Date:
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Server:
       - Kestrel
     status:
@@ -231,7 +301,7 @@ interactions:
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.25.1
+      - python-ssaw/0.7
     method: POST
     uri: http://localhost:9707/Account/LogOn
   response:
@@ -244,8 +314,11 @@ interactions:
       - en-US
       Content-Length:
       - '0'
+      Content-Security-Policy:
+      - 'font-src ''self'' data:; img-src ''self'' data: blob:; default-src * data:
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' blob:'
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Expires:
       - Thu, 01 Jan 1970 00:00:00 GMT
       Location:
@@ -255,9 +328,15 @@ interactions:
       Server:
       - Kestrel
       Set-Cookie:
-      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4tfVCsQ-ZTA0XiP9zMkvbEV68Yr330GjraRQ0xQVaF5VyHo9Tci1MdeWqs4RQjcqjUJX95BWzFlOyUR3ZyTpqS3PYeaGBdzsbWP29GKWlJHBLUH8m-dx6gqxaCs8j8HDXhIm4HzD8c8kXkZu-k1oOzKPBk_2gTikntJBw9parM3e_YmTNuikMRstK5Wd4B1jnLjDKcBLP_z3ZO_kb87UyXqGiQ0svPAzUy_jZ7FjNjSHt1F3RMSIGlsM4QIPcxtA6CW1rbSkw2A7vmJg0rAAAJlNG8W4Ff9TYL4l-hGkwWkMO8vTiznuU0R1o5CBBATApAujXuB3l7ZyCe72L-29GdbvGdg3F7hjCJDSUTG2YCGZ89Dw9naaIZpCJmP-oJFfLtHWKK1iTZ8CfwxkfTOiNmqekH4rWQT-xMUQFa94MQMLvhmIklTdW5rls6QDERaE9roKfTr4RprhIj8mtnH6cATw57glrsipw5-ocrdvkRCLdsc44i_dA4sK-fE-0LOh8FkDNk1Caq2rcFiAdDlDq7ICdagJOi5o4wwkYAhWuUzA-ATmWAX1sLfh8D8LJqcBddqMeLAPHQz_WT2XbQRB0OrYDdYQZEfmk0yXFah0_XzdQ3_1UmYOBGoZEno8jC1wZCa5sd18z0iDIm0ioJwQIENUEHk1lYiBaKML7uj4D1qV2Rdf-RQrSVBtPuy4YIt8E0Y_QpycwLAEUMkjAFceiPDaUSVX77Q1OamhrB9KXVFuqPPekkeVXAFrY2ow0_xZUCt4GXKPUdH_ATTS9cs0vsT18s3JAJVGWkAnKRVtFbcwQ;
-        expires=Thu, 27 May 2021 16:56:08 GMT; path=/; samesite=lax; httponly
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx6tF1CQ_FTVIzpkfLxNO3NxlLuvH69r5-yuyhKRxknm-Qai5MGbqT2JS1-HERynxe8Ih4iAtT07cmnKWOJrmuNAp7Vk8sBoHf9pAvUup7KsdOe6OxTckda_TouUxs5-0-r6Zy7ySS4sUxw6kYZEAOLM6hyDetOpwpi6SxcCuCN2MR-ZmGfRVhO7kcSf3Knk2Ewuwo94NHXJ0Fez0gmUNc85Sq8zvbTLSvppUzv15BvhaprGQtwE3DTj-OgICd1gYJSIXTWx6Y-WONDXzw4KI5qxbBxqKMi_2gmf69kMj9y-t0-PYf7nLvJwCPP-SLUimbD7-zXJWKexRGZVfly30GWJHuDkDSLzppq2UNh3uzFCFGhM2SXWc3HZa_y0ipNcDNuaHE3JXrdaU5VfpQOxK76-G9h8neYE_hINHEg9bIyZwDlWYdRJuRZ1WeGq43fd8vkGtO6IJMOAphh1x26TbEdsKuWBEbpi-NF1B1NfEWBKSroIaeRko7w1CFb1VZpTggKgNAzUiAxRLJ4IjxH_eBkNnn0urJxMfVhxu0Y05EvyhmrUsH3g51RrT1SlEOJU5vIRZKKyA3AXO53cveNQ4VskfVNICMiFwv93K28iA9rfBCjjk7DwWCt2nLj-BznQaaxq5j1jVP5fjK7yHYrEDhEakNjvxb_rvJbtGGgEOi2-NEa5gghXuA8syfDcnkfBr2JEb2eQTKBxE89R8ZEup8ogTcLj0K-t-AZdXuoi757AZ3F0sj3taSiqzo9k3PUhtp6_7h4YIAadtfUwEl8FgEWx94VPa7pTgiFUjNXeIwuSVQ;
+        expires=Thu, 09 Jun 2022 06:06:18 GMT; path=/; samesite=lax; httponly
       - ShowCaptcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '1'
     status:
       code: 302
       message: Found
@@ -271,74 +350,91 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4tfVCsQ-ZTA0XiP9zMkvbEV68Yr330GjraRQ0xQVaF5VyHo9Tci1MdeWqs4RQjcqjUJX95BWzFlOyUR3ZyTpqS3PYeaGBdzsbWP29GKWlJHBLUH8m-dx6gqxaCs8j8HDXhIm4HzD8c8kXkZu-k1oOzKPBk_2gTikntJBw9parM3e_YmTNuikMRstK5Wd4B1jnLjDKcBLP_z3ZO_kb87UyXqGiQ0svPAzUy_jZ7FjNjSHt1F3RMSIGlsM4QIPcxtA6CW1rbSkw2A7vmJg0rAAAJlNG8W4Ff9TYL4l-hGkwWkMO8vTiznuU0R1o5CBBATApAujXuB3l7ZyCe72L-29GdbvGdg3F7hjCJDSUTG2YCGZ89Dw9naaIZpCJmP-oJFfLtHWKK1iTZ8CfwxkfTOiNmqekH4rWQT-xMUQFa94MQMLvhmIklTdW5rls6QDERaE9roKfTr4RprhIj8mtnH6cATw57glrsipw5-ocrdvkRCLdsc44i_dA4sK-fE-0LOh8FkDNk1Caq2rcFiAdDlDq7ICdagJOi5o4wwkYAhWuUzA-ATmWAX1sLfh8D8LJqcBddqMeLAPHQz_WT2XbQRB0OrYDdYQZEfmk0yXFah0_XzdQ3_1UmYOBGoZEno8jC1wZCa5sd18z0iDIm0ioJwQIENUEHk1lYiBaKML7uj4D1qV2Rdf-RQrSVBtPuy4YIt8E0Y_QpycwLAEUMkjAFceiPDaUSVX77Q1OamhrB9KXVFuqPPekkeVXAFrY2ow0_xZUCt4GXKPUdH_ATTS9cs0vsT18s3JAJVGWkAnKRVtFbcwQ
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx6tF1CQ_FTVIzpkfLxNO3NxlLuvH69r5-yuyhKRxknm-Qai5MGbqT2JS1-HERynxe8Ih4iAtT07cmnKWOJrmuNAp7Vk8sBoHf9pAvUup7KsdOe6OxTckda_TouUxs5-0-r6Zy7ySS4sUxw6kYZEAOLM6hyDetOpwpi6SxcCuCN2MR-ZmGfRVhO7kcSf3Knk2Ewuwo94NHXJ0Fez0gmUNc85Sq8zvbTLSvppUzv15BvhaprGQtwE3DTj-OgICd1gYJSIXTWx6Y-WONDXzw4KI5qxbBxqKMi_2gmf69kMj9y-t0-PYf7nLvJwCPP-SLUimbD7-zXJWKexRGZVfly30GWJHuDkDSLzppq2UNh3uzFCFGhM2SXWc3HZa_y0ipNcDNuaHE3JXrdaU5VfpQOxK76-G9h8neYE_hINHEg9bIyZwDlWYdRJuRZ1WeGq43fd8vkGtO6IJMOAphh1x26TbEdsKuWBEbpi-NF1B1NfEWBKSroIaeRko7w1CFb1VZpTggKgNAzUiAxRLJ4IjxH_eBkNnn0urJxMfVhxu0Y05EvyhmrUsH3g51RrT1SlEOJU5vIRZKKyA3AXO53cveNQ4VskfVNICMiFwv93K28iA9rfBCjjk7DwWCt2nLj-BznQaaxq5j1jVP5fjK7yHYrEDhEakNjvxb_rvJbtGGgEOi2-NEa5gghXuA8syfDcnkfBr2JEb2eQTKBxE89R8ZEup8ogTcLj0K-t-AZdXuoi757AZ3F0sj3taSiqzo9k3PUhtp6_7h4YIAadtfUwEl8FgEWx94VPa7pTgiFUjNXeIwuSVQ
       User-Agent:
-      - python-requests/2.25.1
+      - python-ssaw/0.7
     method: GET
     uri: http://localhost:9707/administration/Workspaces
   response:
     body:
       string: !!binary |
-        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
-        f57Vlt51jYmnd1GHbvvvsP8CADzvth8bAAA=
+        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
+        fHED3h4AAA==
     headers:
       Content-Encoding:
       - gzip
       Content-Language:
       - en-US
+      Content-Security-Policy:
+      - 'font-src ''self'' data:; img-src ''self'' data: blob:; default-src * data:
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' blob:'
       Content-Type:
       - text/html; charset=utf-8
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Server:
       - Kestrel
       Set-Cookie:
-      - currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4vdz_hWbmrpWz2BTmUlog_OUUzEobpS-kQzKRquPo6lPL4-MnpsVvCoJ9DMDDo9RSTDAFC6euRuL_8MZ_n8gqOYnM97RB0ZkITxA72n0CujCg;
-        expires=Wed, 02 Jun 2021 16:56:08 GMT; path=/
+      - currentWorkspace=CfDJ8DLYOuOc8VVBi5LXUfPgJx70EWBYTNX_GW1vDD2U15mFuHDL8STWvEdNvrrj14CWhRAoQKrAkm1Lic87jW-7-yF-zYGNtEy_Fppq2WM5luIrOLBYNJD1xpDYp5z6Q9a59w;
+        expires=Wed, 15 Jun 2022 06:06:18 GMT; path=/; httponly
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '1'
     status:
       code: 200
       message: OK
@@ -352,35 +448,77 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - .AspNetCore.Identity.Application=CfDJ8IVQse0EKkFNiwdW9ojBC4tfVCsQ-ZTA0XiP9zMkvbEV68Yr330GjraRQ0xQVaF5VyHo9Tci1MdeWqs4RQjcqjUJX95BWzFlOyUR3ZyTpqS3PYeaGBdzsbWP29GKWlJHBLUH8m-dx6gqxaCs8j8HDXhIm4HzD8c8kXkZu-k1oOzKPBk_2gTikntJBw9parM3e_YmTNuikMRstK5Wd4B1jnLjDKcBLP_z3ZO_kb87UyXqGiQ0svPAzUy_jZ7FjNjSHt1F3RMSIGlsM4QIPcxtA6CW1rbSkw2A7vmJg0rAAAJlNG8W4Ff9TYL4l-hGkwWkMO8vTiznuU0R1o5CBBATApAujXuB3l7ZyCe72L-29GdbvGdg3F7hjCJDSUTG2YCGZ89Dw9naaIZpCJmP-oJFfLtHWKK1iTZ8CfwxkfTOiNmqekH4rWQT-xMUQFa94MQMLvhmIklTdW5rls6QDERaE9roKfTr4RprhIj8mtnH6cATw57glrsipw5-ocrdvkRCLdsc44i_dA4sK-fE-0LOh8FkDNk1Caq2rcFiAdDlDq7ICdagJOi5o4wwkYAhWuUzA-ATmWAX1sLfh8D8LJqcBddqMeLAPHQz_WT2XbQRB0OrYDdYQZEfmk0yXFah0_XzdQ3_1UmYOBGoZEno8jC1wZCa5sd18z0iDIm0ioJwQIENUEHk1lYiBaKML7uj4D1qV2Rdf-RQrSVBtPuy4YIt8E0Y_QpycwLAEUMkjAFceiPDaUSVX77Q1OamhrB9KXVFuqPPekkeVXAFrY2ow0_xZUCt4GXKPUdH_ATTS9cs0vsT18s3JAJVGWkAnKRVtFbcwQ;
-        currentWorkspace=CfDJ8IVQse0EKkFNiwdW9ojBC4vdz_hWbmrpWz2BTmUlog_OUUzEobpS-kQzKRquPo6lPL4-MnpsVvCoJ9DMDDo9RSTDAFC6euRuL_8MZ_n8gqOYnM97RB0ZkITxA72n0CujCg
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx6tF1CQ_FTVIzpkfLxNO3NxlLuvH69r5-yuyhKRxknm-Qai5MGbqT2JS1-HERynxe8Ih4iAtT07cmnKWOJrmuNAp7Vk8sBoHf9pAvUup7KsdOe6OxTckda_TouUxs5-0-r6Zy7ySS4sUxw6kYZEAOLM6hyDetOpwpi6SxcCuCN2MR-ZmGfRVhO7kcSf3Knk2Ewuwo94NHXJ0Fez0gmUNc85Sq8zvbTLSvppUzv15BvhaprGQtwE3DTj-OgICd1gYJSIXTWx6Y-WONDXzw4KI5qxbBxqKMi_2gmf69kMj9y-t0-PYf7nLvJwCPP-SLUimbD7-zXJWKexRGZVfly30GWJHuDkDSLzppq2UNh3uzFCFGhM2SXWc3HZa_y0ipNcDNuaHE3JXrdaU5VfpQOxK76-G9h8neYE_hINHEg9bIyZwDlWYdRJuRZ1WeGq43fd8vkGtO6IJMOAphh1x26TbEdsKuWBEbpi-NF1B1NfEWBKSroIaeRko7w1CFb1VZpTggKgNAzUiAxRLJ4IjxH_eBkNnn0urJxMfVhxu0Y05EvyhmrUsH3g51RrT1SlEOJU5vIRZKKyA3AXO53cveNQ4VskfVNICMiFwv93K28iA9rfBCjjk7DwWCt2nLj-BznQaaxq5j1jVP5fjK7yHYrEDhEakNjvxb_rvJbtGGgEOi2-NEa5gghXuA8syfDcnkfBr2JEb2eQTKBxE89R8ZEup8ogTcLj0K-t-AZdXuoi757AZ3F0sj3taSiqzo9k3PUhtp6_7h4YIAadtfUwEl8FgEWx94VPa7pTgiFUjNXeIwuSVQ;
+        currentWorkspace=CfDJ8DLYOuOc8VVBi5LXUfPgJx70EWBYTNX_GW1vDD2U15mFuHDL8STWvEdNvrrj14CWhRAoQKrAkm1Lic87jW-7-yF-zYGNtEy_Fppq2WM5luIrOLBYNJD1xpDYp5z6Q9a59w
       User-Agent:
-      - python-requests/2.25.1
+      - python-ssaw/0.7
     method: GET
     uri: http://localhost:9707/primary/api/LinksExport/Download/9d3ad06999aa4d6a8edaad12c722a60f$1
   response:
     body:
       string: !!binary |
-        UEsDBBQAAAAIAASHulLplTGRBgEAAAgEAAAOACQAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGACM
-        tz8GUFLXAYq3PwZQUtcBfrc/BlBS1wGV0slOwzAQgOFzkHiWFMdx4t4SmgUnqUqdxfRSGRpRi2xK
-        LCreHoRqRI9znJG+y8wvl0W9D3076OOxU8OHJf8t1OlmbHupupvN9DNcxvl0f3fWelrbdje+ye48
-        LnpNvZVnT7Pq5fxlN+3r06Db+VO1F7tEhYi2VWVzLWdt+diyQH4bJSWnVBjvAv2BFDwTYW48AXr0
-        7HtpliLjPaDfeCwud2JnvA/0YcoqznlhPAV6EWV1WlF69XQF9E0TkxwT8z/6APS52zjsJXCMR9D7
-        ZYd9LlhivAP0DMcBClxiPLS/hLnUSR4D46H9IRwRviv2xkP7K1KM8Kb+ux+0v4CFNc4d0w/97e8b
-        UEsBAi0AFAAAAAgABIe6UumVMZEGAQAACAQAAA4AJAAAAAAAAAAAAAAAAAAAAGludGVydmlld3Mu
-        dGFiCgAgAAAAAAABABgAjLc/BlBS1wGKtz8GUFLXAX63PwZQUtcBUEsFBgAAAAABAAEAYAAAAFYB
-        AAAAAA==
+        UEsDBBQAAAAIAMkwyFSZcWq1aQAAAIgAAAAOACQAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGABk
+        Nbbe/XrYAWQ1tt79etgBXzW23v162AFLLC7OTM/LTc0riY/PyczL5kxEEshMQeGm5iZm5qCIFAA5
+        5flFKbxcGSUlBVb6+jn5yYk5GfnFJVaW5gbm+gVFmbmJRZX64alJnnklqUVlmanl+oHefl7GEUGW
+        +sEliUUlnBYmnJy8XABQSwECLQAUAAAACADJMMhUmXFqtWkAAACIAAAADgAkAAAAAAAAAAAAAAAA
+        AAAAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGABkNbbe/XrYAWQ1tt79etgBXzW23v162AFQSwUG
+        AAAAAAEAAQBgAAAAuQAAAAAA
     headers:
+      Cache-Control:
+      - no-store, no-cache
       Content-Disposition:
       - attachment; filename="Web ssaw package test questionnaire (ver. 1).zip"; filename*=UTF-8''Web%20ssaw%20package%20test%20questionnaire%20%28ver.%201%29.zip
       Content-Language:
       - en-US
       Content-Length:
-      - '460'
+      - '303'
       Content-Type:
       - application/octet-stream
       Date:
-      - Wed, 26 May 2021 16:56:08 GMT
+      - Wed, 08 Jun 2022 06:06:18 GMT
+      Server:
+      - Kestrel
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - .AspNetCore.Identity.Application=CfDJ8DLYOuOc8VVBi5LXUfPgJx6tF1CQ_FTVIzpkfLxNO3NxlLuvH69r5-yuyhKRxknm-Qai5MGbqT2JS1-HERynxe8Ih4iAtT07cmnKWOJrmuNAp7Vk8sBoHf9pAvUup7KsdOe6OxTckda_TouUxs5-0-r6Zy7ySS4sUxw6kYZEAOLM6hyDetOpwpi6SxcCuCN2MR-ZmGfRVhO7kcSf3Knk2Ewuwo94NHXJ0Fez0gmUNc85Sq8zvbTLSvppUzv15BvhaprGQtwE3DTj-OgICd1gYJSIXTWx6Y-WONDXzw4KI5qxbBxqKMi_2gmf69kMj9y-t0-PYf7nLvJwCPP-SLUimbD7-zXJWKexRGZVfly30GWJHuDkDSLzppq2UNh3uzFCFGhM2SXWc3HZa_y0ipNcDNuaHE3JXrdaU5VfpQOxK76-G9h8neYE_hINHEg9bIyZwDlWYdRJuRZ1WeGq43fd8vkGtO6IJMOAphh1x26TbEdsKuWBEbpi-NF1B1NfEWBKSroIaeRko7w1CFb1VZpTggKgNAzUiAxRLJ4IjxH_eBkNnn0urJxMfVhxu0Y05EvyhmrUsH3g51RrT1SlEOJU5vIRZKKyA3AXO53cveNQ4VskfVNICMiFwv93K28iA9rfBCjjk7DwWCt2nLj-BznQaaxq5j1jVP5fjK7yHYrEDhEakNjvxb_rvJbtGGgEOi2-NEa5gghXuA8syfDcnkfBr2JEb2eQTKBxE89R8ZEup8ogTcLj0K-t-AZdXuoi757AZ3F0sj3taSiqzo9k3PUhtp6_7h4YIAadtfUwEl8FgEWx94VPa7pTgiFUjNXeIwuSVQ;
+        currentWorkspace=CfDJ8DLYOuOc8VVBi5LXUfPgJx70EWBYTNX_GW1vDD2U15mFuHDL8STWvEdNvrrj14CWhRAoQKrAkm1Lic87jW-7-yF-zYGNtEy_Fppq2WM5luIrOLBYNJD1xpDYp5z6Q9a59w
+      User-Agent:
+      - python-ssaw/0.7
+    method: GET
+    uri: http://localhost:9707/primary/api/LinksExport/Download/9d3ad06999aa4d6a8edaad12c722a60f$1
+  response:
+    body:
+      string: !!binary |
+        UEsDBBQAAAAIAMkwyFSZcWq1aQAAAIgAAAAOACQAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGADv
+        srfe/XrYAe6yt979etgB5rK33v162AFLLC7OTM/LTc0riY/PyczL5kxEEshMQeGm5iZm5qCIFAA5
+        5flFKbxcGSUlBVb6+jn5yYk5GfnFJVaW5gbm+gVFmbmJRZX64alJnnklqUVlmanl+oHefl7GEUGW
+        +sEliUUlnBYmnJy8XABQSwECLQAUAAAACADJMMhUmXFqtWkAAACIAAAADgAkAAAAAAAAAAAAAAAA
+        AAAAaW50ZXJ2aWV3cy50YWIKACAAAAAAAAEAGADvsrfe/XrYAe6yt979etgB5rK33v162AFQSwUG
+        AAAAAAEAAQBgAAAAuQAAAAAA
+    headers:
+      Cache-Control:
+      - no-store, no-cache
+      Content-Disposition:
+      - attachment; filename="Web ssaw package test questionnaire (ver. 1).zip"; filename*=UTF-8''Web%20ssaw%20package%20test%20questionnaire%20%28ver.%201%29.zip
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '303'
+      Content-Type:
+      - application/octet-stream
+      Date:
+      - Wed, 08 Jun 2022 06:06:18 GMT
       Server:
       - Kestrel
     status:

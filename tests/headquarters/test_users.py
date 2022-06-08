@@ -5,6 +5,7 @@ from types import GeneratorType
 from pytest import raises
 
 from ssaw import UsersApi
+from ssaw.exceptions import GraphQLError
 from ssaw.headquarters_schema import User as GraphQLUser
 
 from . import my_vcr
@@ -90,3 +91,31 @@ def test_user_viewer(session):
     res = UsersApi(session).viewer("inter1", "Validpassword1")
     assert res.role == "INTERVIEWER"
     assert res.id == "f6aefcabe847413aade21a29b4d4af39"
+
+
+@my_vcr.use_cassette(filter_post_data_parameters=["UserName", "Password"])
+def test_user_lock_unlock(session, admin_session):
+    with raises(GraphQLError) as e_info:
+        UsersApi(session).lock("inter1")
+    assert "The current user is not authorized to access this resource" in str(e_info.value)
+
+    api = UsersApi(admin_session)
+    with raises(ValueError):
+        api.lock()
+
+    api.lock("inter1")
+    assert next(api.get_list(fields=["is_locked"], user_name="inter1")).is_locked is True
+    api.unlock(user_id="0ab27c3a-217f-46f7-8aed-ffa7cd88a412")
+    assert next(api.get_list(fields=["is_locked"], user_name="inter1")).is_locked is False
+
+
+@my_vcr.use_cassette(filter_post_data_parameters=["UserName", "Password"])
+def test_user_change_password(session, admin_session):
+    with raises(GraphQLError) as e_info:
+        UsersApi(session).change_password(user_name="inter1", password="123")
+    assert "The current user is not authorized to access this resource" in str(e_info.value)
+
+    UsersApi(admin_session).change_password(user_name="inter1", password="Password12345")
+
+    with raises(GraphQLError) as e_info:
+        UsersApi(session).viewer("inter1", "Password12345")

@@ -1,16 +1,21 @@
-from typing import Generator
+import json
+import ntpath
+from typing import Iterator, List, Optional
 
 from sgqlc.operation import Operation
+from sgqlc.types import Arg, Variable, non_null
 
 from .base import HQBase
-from .exceptions import NotAcceptableError
+from .exceptions import GraphQLError, NotAcceptableError, UnauthorizedError
 from .headquarters_schema import (
+    HeadquartersMutation,
     HeadquartersQuery,
     ListFilterInputTypeOfUserMapFilterInput,
     Map,
     MapsFilter,
     MapsSort,
     StringOperationFilterInput,
+    Upload,
     UserMapFilterInput
 )
 from .models import Version
@@ -20,8 +25,9 @@ from .utils import order_object
 class MapsApi(HQBase):
     """ Set of functions to access and manipulate Maps. """
 
-    def get_list(self, filter_user: str = None, fields: list = [],
-                 order: list = None, skip: int = None, take: int = None, **kwargs) -> Generator[Map, None, None]:
+    def get_list(self, filter_user: Optional[str] = None, fields: Optional[List[str]] = None,
+                 order: Optional[list] = None, skip: Optional[int] = None,
+                 take: Optional[int] = None, **kwargs) -> Iterator[Map]:
         """Get list of maps
 
         :param filter_user: List only maps linked to the user
@@ -70,16 +76,58 @@ class MapsApi(HQBase):
                                    file_name=file_name,
                                    fields=self._default_fields())
 
-    def upload(self, zip_file) -> bool:
+    def upload(self, zip_file, fields: Optional[List[str]] = None) -> bool:
         """Upload a zip file with maps.
-        Currently only works for the admin user!
+        For versions before 22.06 only works for the admin user!
 
-        :param zip_file: Archive with extension with the maps
+        :param zip_file: Archive with the maps
 
-        :returns: `True` if successful, otherwise raises `NotAcceptableError`
+        :returns: `True` if successful, otherwise raises `GraphQLError` or `NotAcceptableError`
         """
-        ret = self._make_call(method="post", path=f"{self.url}api/MapsApi/Upload",
-                              files={'file': open(zip_file, 'rb')}, use_login_session=True)
+        files = {"file": (ntpath.basename(zip_file), open(zip_file, 'rb'), 'application/zip')}
+
+        if self._hq.version < Version("22.06 (build 33000)"):
+            ret = self._make_call(method="post",
+                                  path=f"{self.url}api/MapsApi/Upload",
+                                  files=files,
+                                  use_login_session=True)
+
+        else:
+            if not fields:
+                fields = self._default_fields()
+            op = Operation(HeadquartersMutation, variables={'file': Arg(non_null(Upload)), })
+            op.upload_map(file=Variable('file')).__fields__(*fields)
+
+            operations = {
+                "query": bytes(op).decode('utf-8'),
+                "variables": {"file": None},
+            }
+
+            data = {
+                "operations": json.dumps(operations),
+                "map": '{ "file": ["variables.file"] }',
+            }
+            cont = self._make_call(method="post",
+                                   path=f"{self._hq.baseurl}/graphql",
+                                   data=data,
+                                   files=files)
+
+            errors = cont.get("errors")
+
+            if not errors:
+
+                ret = (op + cont)
+                return ret.upload_map
+
+            try:
+                rc = errors[0]['extensions']['code']
+            except KeyError:
+                rc = None
+            if rc == 'AUTH_NOT_AUTHENTICATED':
+                raise UnauthorizedError()
+            else:
+                raise GraphQLError(errors[0]['message'])
+
         if ret["isSuccess"]:
             return True
         else:

@@ -39,7 +39,8 @@ class UsersApi(HQBase):
         yield from self._get_full_list(op, 'users', skip=skip, take=take)
 
     def get_info(self, id):
-        return self._make_call(method="get", path=f"{self._url_users}/{id}")
+        r = self._make_call(method="get", path=f"{self._url_users}/{id}")
+        return r
 
     def get_actions_log(
             self, id: UUID, start: Optional[datetime] = None,
@@ -88,6 +89,52 @@ class UsersApi(HQBase):
             cont = self._make_graphql_call(op)
 
         return (op + cont).viewer
+
+    def lock(self, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        self._lock_unlock(lock=True, user_name=user_name, user_id=user_id)
+
+    def unlock(self, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        self._lock_unlock(lock=False, user_name=user_name, user_id=user_id)
+
+    def _lock_unlock(self, lock: bool, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        if user_name:
+            try:
+                user_id = next(self.get_list(fields=["id"], user_name=user_name, take=1)).id
+            except StopIteration:
+                raise ValueError("user_name was not found")
+        if user_id:
+            payload = {
+                "userId": user_id,
+                "isLockedByHeadquarters": lock,
+                "isLockedBySupervisor": lock
+            }
+            return self._make_call(
+                method="post",
+                path=f"{self._hq.baseurl}/users/Manage",
+                json=payload,
+                use_login_session=True
+            )
+        else:
+            raise ValueError("either user_name or user_id must be provided")
+
+    def change_password(self, password: str, user_name: Optional[str] = None, user_id: Optional[str] = None):
+        if user_name:
+            try:
+                user_id = next(self.get_list(fields=["id"], user_name=user_name, take=1)).id
+            except StopIteration:
+                raise ValueError("user_name was not found")
+        if user_id:
+            payload = {
+                "userId": user_id,
+                "password": password,
+                "confirmPassword": password
+            }
+            return self._make_call(
+                method="post",
+                path=f"{self._hq.baseurl}/users/ChangePassword",
+                json=payload,
+                use_login_session=True
+            )
 
     def _list_users(self, path):
         page_size = 10

@@ -54,15 +54,21 @@ class HQBase(object):
 
         url = f"{self._hq.baseurl}/Account/LogOn"
         with Session() as login_session:
+            login_session.headers.update({"User-Agent": self._hq.session.headers["User-Agent"]})
             response = login_session.request(method="post",
                                              url=url,
                                              data={"UserName": self._hq.session.auth[0],
                                                    "Password": self._hq.session.auth[1]})
             self._process_status_code(response)
-            if response.url == url:  # unsuccessful logon will return 200 but will not get redirected
+            if response.url == url:
                 raise UnauthorizedError()
-            else:
-                return login_session.request(method=method, url=path, **kwargs)
+
+            # navigate to the page first to retrieve the CSRF token
+            _ = login_session.request(method="get", url=path)
+            if "CSRF-TOKEN" in login_session.cookies:
+                login_session.headers.update({"X-CSRF-TOKEN": login_session.cookies["CSRF-TOKEN"]})
+
+            return login_session.request(method=method, url=path, **kwargs)
 
     def _call_mutation(self, method_name: str, fields: Optional[List[str]] = None, **kwargs):
         if fields is None:

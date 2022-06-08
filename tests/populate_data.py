@@ -82,5 +82,5 @@ params = {
 json.dump(params, open("params.json", mode="w"))
 
 # generate export so that we have something in the list
-job = ssaw.models.ExportJob(params['QuestionnaireId'])
+job = ssaw.models.ExportJob(questionnaire_id=params['QuestionnaireId'])
 r = ssaw.ExportApi(client).start(job)

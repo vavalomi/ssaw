@@ -98,7 +98,7 @@ class AssignmentsApi(HQBase):
 
         :returns: Newly created Assignment object
         """
-        res = self._make_call(method="post", path=self.url, json=obj.json())
+        res = self._make_call(method="post", path=self.url, json=obj.dict(by_alias=True, exclude_none=True))
         return AssignmentResult.parse_obj(res["Assignment"])
 
     def archive(self, id: int) -> None:

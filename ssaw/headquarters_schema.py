@@ -15,7 +15,7 @@ class Any(sgqlc.types.Scalar):
 
 class ApplyPolicy(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('BEFORE_RESOLVER', 'AFTER_RESOLVER')
+    __choices__ = ('AFTER_RESOLVER', 'BEFORE_RESOLVER')
 
 
 Boolean = sgqlc.types.Boolean
@@ -30,14 +30,14 @@ class Decimal(sgqlc.types.Scalar):
 
 class EntityType(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('SECTION', 'QUESTION', 'STATICTEXT', 'VARIABLE', 'ROSTER')
+    __choices__ = ('QUESTION', 'ROSTER', 'SECTION', 'STATICTEXT', 'VARIABLE')
 
 
 Float = sgqlc.types.Float
 
 class GeoJSONObjectType(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection', 'Feature', 'FeatureCollection')
+    __choices__ = ('Feature', 'FeatureCollection', 'GeometryCollection', 'LineString', 'MultiLineString', 'MultiPoint', 'MultiPolygon', 'Point', 'Polygon')
 
 
 ID = sgqlc.types.ID
@@ -46,17 +46,17 @@ Int = sgqlc.types.Int
 
 class InterviewActionFlags(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('CANBEREASSIGNED', 'CANBEDELETED', 'CANBEAPPROVED', 'CANBEUNAPPROVEDBYHQ', 'CANBEREJECTED', 'CANBERESTARTED', 'CANBEOPENED', 'CANCHANGETOCAPI', 'CANCHANGETOCAWI')
+    __choices__ = ('CANBEAPPROVED', 'CANBEDELETED', 'CANBEOPENED', 'CANBEREASSIGNED', 'CANBEREJECTED', 'CANBERESTARTED', 'CANBEUNAPPROVEDBYHQ', 'CANCHANGETOCAPI', 'CANCHANGETOCAWI')
 
 
 class InterviewMode(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('UNKNOWN', 'CAPI', 'CAWI')
+    __choices__ = ('CAPI', 'CAWI', 'UNKNOWN')
 
 
 class InterviewStatus(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('RESTORED', 'CREATED', 'SUPERVISORASSIGNED', 'INTERVIEWERASSIGNED', 'REJECTEDBYSUPERVISOR', 'READYFORINTERVIEW', 'SENTTOCAPI', 'RESTARTED', 'COMPLETED', 'APPROVEDBYSUPERVISOR', 'REJECTEDBYHEADQUARTERS', 'APPROVEDBYHEADQUARTERS', 'DELETED')
+    __choices__ = ('APPROVEDBYHEADQUARTERS', 'APPROVEDBYSUPERVISOR', 'COMPLETED', 'CREATED', 'DELETED', 'INTERVIEWERASSIGNED', 'READYFORINTERVIEW', 'REJECTEDBYHEADQUARTERS', 'REJECTEDBYSUPERVISOR', 'RESTARTED', 'RESTORED', 'SENTTOCAPI', 'SUPERVISORASSIGNED')
 
 
 class Long(sgqlc.types.Scalar):
@@ -65,12 +65,12 @@ class Long(sgqlc.types.Scalar):
 
 class QuestionScope(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('INTERVIEWER', 'SUPERVISOR', 'HEADQUARTER', 'HIDDEN')
+    __choices__ = ('HEADQUARTER', 'HIDDEN', 'INTERVIEWER', 'SUPERVISOR')
 
 
 class QuestionType(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('SINGLEOPTION', 'MULTYOPTION', 'NUMERIC', 'DATETIME', 'GPSCOORDINATES', 'TEXT', 'TEXTLIST', 'QRBARCODE', 'MULTIMEDIA', 'AREA', 'AUDIO')
+    __choices__ = ('AREA', 'AUDIO', 'DATETIME', 'GPSCOORDINATES', 'MULTIMEDIA', 'MULTYOPTION', 'NUMERIC', 'QRBARCODE', 'SINGLEOPTION', 'TEXT', 'TEXTLIST')
 
 
 class SortEnumType(sgqlc.types.Enum):
@@ -80,18 +80,22 @@ class SortEnumType(sgqlc.types.Enum):
 
 String = sgqlc.types.String
 
+class UUID(sgqlc.types.Scalar):
+    __schema__ = headquarters_schema
+
+
+class Upload(sgqlc.types.Scalar):
+    __schema__ = headquarters_schema
+
+
 class UserRoles(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('ADMINISTRATOR', 'SUPERVISOR', 'INTERVIEWER', 'HEADQUARTER', 'OBSERVER', 'APIUSER')
-
-
-class Uuid(sgqlc.types.Scalar):
-    __schema__ = headquarters_schema
+    __choices__ = ('ADMINISTRATOR', 'APIUSER', 'HEADQUARTER', 'INTERVIEWER', 'OBSERVER', 'SUPERVISOR')
 
 
 class VariableType(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('LONGINTEGER', 'DOUBLE', 'BOOLEAN', 'DATETIME', 'STRING')
+    __choices__ = ('BOOLEAN', 'DATETIME', 'DOUBLE', 'LONGINTEGER', 'STRING')
 
 
 
@@ -138,18 +142,18 @@ class ComparableDateTimeOperationFilterInput(sgqlc.types.Input):
 class ComparableGuidOperationFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
-    eq = sgqlc.types.Field(Uuid, graphql_name='eq')
-    neq = sgqlc.types.Field(Uuid, graphql_name='neq')
-    in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Uuid)), graphql_name='in')
-    nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Uuid)), graphql_name='nin')
-    gt = sgqlc.types.Field(Uuid, graphql_name='gt')
-    ngt = sgqlc.types.Field(Uuid, graphql_name='ngt')
-    gte = sgqlc.types.Field(Uuid, graphql_name='gte')
-    ngte = sgqlc.types.Field(Uuid, graphql_name='ngte')
-    lt = sgqlc.types.Field(Uuid, graphql_name='lt')
-    nlt = sgqlc.types.Field(Uuid, graphql_name='nlt')
-    lte = sgqlc.types.Field(Uuid, graphql_name='lte')
-    nlte = sgqlc.types.Field(Uuid, graphql_name='nlte')
+    eq = sgqlc.types.Field(UUID, graphql_name='eq')
+    neq = sgqlc.types.Field(UUID, graphql_name='neq')
+    in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(UUID)), graphql_name='in')
+    nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(UUID)), graphql_name='nin')
+    gt = sgqlc.types.Field(UUID, graphql_name='gt')
+    ngt = sgqlc.types.Field(UUID, graphql_name='ngt')
+    gte = sgqlc.types.Field(UUID, graphql_name='gte')
+    ngte = sgqlc.types.Field(UUID, graphql_name='ngte')
+    lt = sgqlc.types.Field(UUID, graphql_name='lt')
+    nlt = sgqlc.types.Field(UUID, graphql_name='nlt')
+    lte = sgqlc.types.Field(UUID, graphql_name='lte')
+    nlte = sgqlc.types.Field(UUID, graphql_name='nlte')
 
 
 class ComparableInt32OperationFilterInput(sgqlc.types.Input):
@@ -493,12 +497,13 @@ class UserRolesOperationFilterInput(sgqlc.types.Input):
 
 class UsersFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'user_name', 'full_name', 'is_archived', 'creation_date', 'email', 'phone_number', 'id', 'role')
+    __field_names__ = ('and_', 'or_', 'user_name', 'full_name', 'is_archived', 'is_locked', 'creation_date', 'email', 'phone_number', 'id', 'role')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('UsersFilterInput')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('UsersFilterInput')), graphql_name='or')
     user_name = sgqlc.types.Field(StringOperationFilterInput, graphql_name='userName')
     full_name = sgqlc.types.Field(StringOperationFilterInput, graphql_name='fullName')
     is_archived = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isArchived')
+    is_locked = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isLocked')
     creation_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='creationDate')
     email = sgqlc.types.Field(StringOperationFilterInput, graphql_name='email')
     phone_number = sgqlc.types.Field(StringOperationFilterInput, graphql_name='phoneNumber')
@@ -508,10 +513,15 @@ class UsersFilterInput(sgqlc.types.Input):
 
 class UsersSortInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('user_name', 'creation_date', 'full_name')
+    __field_names__ = ('user_name', 'creation_date', 'full_name', 'role', 'email', 'phone_number', 'is_locked', 'is_archived')
     user_name = sgqlc.types.Field(SortEnumType, graphql_name='userName')
     creation_date = sgqlc.types.Field(SortEnumType, graphql_name='creationDate')
     full_name = sgqlc.types.Field(SortEnumType, graphql_name='fullName')
+    role = sgqlc.types.Field(SortEnumType, graphql_name='role')
+    email = sgqlc.types.Field(SortEnumType, graphql_name='email')
+    phone_number = sgqlc.types.Field(SortEnumType, graphql_name='phoneNumber')
+    is_locked = sgqlc.types.Field(SortEnumType, graphql_name='isLocked')
+    is_archived = sgqlc.types.Field(SortEnumType, graphql_name='isArchived')
 
 
 
@@ -527,7 +537,7 @@ class Assignment(sgqlc.types.Type):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     interviews_needed = sgqlc.types.Field(Int, graphql_name='interviewsNeeded')
     received_by_tablet_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc')
-    responsible_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='responsibleId')
+    responsible_id = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='responsibleId')
     web_mode = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='webMode')
     calendar_event = sgqlc.types.Field('CalendarEvent', graphql_name='calendarEvent')
 
@@ -537,11 +547,11 @@ class CalendarEvent(sgqlc.types.Type):
     __field_names__ = ('assignment_id', 'comment', 'creator_user_id', 'interview_id', 'interview_key', 'is_completed', 'public_key', 'start_timezone', 'start_utc', 'update_date_utc')
     assignment_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='assignmentId')
     comment = sgqlc.types.Field(String, graphql_name='comment')
-    creator_user_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='creatorUserId')
-    interview_id = sgqlc.types.Field(Uuid, graphql_name='interviewId')
+    creator_user_id = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='creatorUserId')
+    interview_id = sgqlc.types.Field(UUID, graphql_name='interviewId')
     interview_key = sgqlc.types.Field(String, graphql_name='interviewKey')
     is_completed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isCompleted')
-    public_key = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='publicKey')
+    public_key = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='publicKey')
     start_timezone = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='startTimezone')
     start_utc = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='startUtc')
     update_date_utc = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='updateDateUtc')
@@ -563,9 +573,9 @@ class Entity(sgqlc.types.Type):
     options = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(CategoricalOption))), graphql_name='options')
     question_text = sgqlc.types.Field(String, graphql_name='questionText')
     scope = sgqlc.types.Field(QuestionScope, graphql_name='scope')
-    type = sgqlc.types.Field(sgqlc.types.non_null(QuestionType), graphql_name='type')
+    type = sgqlc.types.Field(QuestionType, graphql_name='type')
     variable = sgqlc.types.Field(String, graphql_name='variable')
-    variable_type = sgqlc.types.Field(sgqlc.types.non_null(VariableType), graphql_name='variableType')
+    variable_type = sgqlc.types.Field(VariableType, graphql_name='variableType')
 
 
 class Feature(sgqlc.types.Type):
@@ -595,18 +605,18 @@ class GeoBounds(sgqlc.types.Type):
 
 class HeadquartersMutation(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('update_calendar_event', 'delete_calendar_event', 'add_assignment_calendar_event', 'add_interview_calendar_event', 'delete_map', 'delete_user_from_map', 'add_user_to_map')
+    __field_names__ = ('update_calendar_event', 'delete_calendar_event', 'add_assignment_calendar_event', 'add_interview_calendar_event', 'delete_map', 'delete_user_from_map', 'add_user_to_map', 'upload_map')
     update_calendar_event = sgqlc.types.Field(CalendarEvent, graphql_name='updateCalendarEvent', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
         ('comment', sgqlc.types.Arg(String, graphql_name='comment', default=None)),
         ('new_start', sgqlc.types.Arg(sgqlc.types.non_null(DateTime), graphql_name='newStart', default=None)),
-        ('public_key', sgqlc.types.Arg(sgqlc.types.non_null(Uuid), graphql_name='publicKey', default=None)),
+        ('public_key', sgqlc.types.Arg(sgqlc.types.non_null(UUID), graphql_name='publicKey', default=None)),
         ('start_timezone', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='startTimezone', default=None)),
 ))
     )
     delete_calendar_event = sgqlc.types.Field(CalendarEvent, graphql_name='deleteCalendarEvent', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
-        ('public_key', sgqlc.types.Arg(sgqlc.types.non_null(Uuid), graphql_name='publicKey', default=None)),
+        ('public_key', sgqlc.types.Arg(sgqlc.types.non_null(UUID), graphql_name='publicKey', default=None)),
 ))
     )
     add_assignment_calendar_event = sgqlc.types.Field(CalendarEvent, graphql_name='addAssignmentCalendarEvent', args=sgqlc.types.ArgDict((
@@ -620,7 +630,7 @@ class HeadquartersMutation(sgqlc.types.Type):
     add_interview_calendar_event = sgqlc.types.Field(CalendarEvent, graphql_name='addInterviewCalendarEvent', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
         ('comment', sgqlc.types.Arg(String, graphql_name='comment', default=None)),
-        ('interview_id', sgqlc.types.Arg(sgqlc.types.non_null(Uuid), graphql_name='interviewId', default=None)),
+        ('interview_id', sgqlc.types.Arg(sgqlc.types.non_null(UUID), graphql_name='interviewId', default=None)),
         ('new_start', sgqlc.types.Arg(sgqlc.types.non_null(DateTime), graphql_name='newStart', default=None)),
         ('start_timezone', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='startTimezone', default=None)),
 ))
@@ -640,6 +650,11 @@ class HeadquartersMutation(sgqlc.types.Type):
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
         ('file_name', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='fileName', default=None)),
         ('user_name', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='userName', default=None)),
+))
+    )
+    upload_map = sgqlc.types.Field(sgqlc.types.list_of('Map'), graphql_name='uploadMap', args=sgqlc.types.ArgDict((
+        ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
+        ('file', sgqlc.types.Arg(sgqlc.types.non_null(Upload), graphql_name='file', default=None)),
 ))
     )
 
@@ -674,13 +689,13 @@ class HeadquartersQuery(sgqlc.types.Type):
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
         ('skip', sgqlc.types.Arg(Int, graphql_name='skip', default=None)),
         ('take', sgqlc.types.Arg(Int, graphql_name='take', default=None)),
-        ('id', sgqlc.types.Arg(Uuid, graphql_name='id', default=None)),
+        ('id', sgqlc.types.Arg(UUID, graphql_name='id', default=None)),
         ('version', sgqlc.types.Arg(Long, graphql_name='version', default=None)),
 ))
     )
     questions = sgqlc.types.Field(sgqlc.types.list_of(Entity), graphql_name='questions', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(Uuid), graphql_name='id', default=None)),
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(UUID), graphql_name='id', default=None)),
         ('version', sgqlc.types.Arg(sgqlc.types.non_null(Long), graphql_name='version', default=None)),
         ('language', sgqlc.types.Arg(String, graphql_name='language', default=None)),
         ('where', sgqlc.types.Arg(QuestionFilter, graphql_name='where', default=None)),
@@ -688,7 +703,7 @@ class HeadquartersQuery(sgqlc.types.Type):
     )
     questionnaire_items = sgqlc.types.Field(sgqlc.types.list_of('QuestionnaireItem'), graphql_name='questionnaireItems', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(Uuid), graphql_name='id', default=None)),
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(UUID), graphql_name='id', default=None)),
         ('version', sgqlc.types.Arg(sgqlc.types.non_null(Long), graphql_name='version', default=None)),
         ('language', sgqlc.types.Arg(String, graphql_name='language', default=None)),
         ('where', sgqlc.types.Arg(QuestionnaireItemsFilter, graphql_name='where', default=None)),
@@ -704,7 +719,7 @@ class HeadquartersQuery(sgqlc.types.Type):
     )
     map_report = sgqlc.types.Field('MapReportHolder', graphql_name='mapReport', args=sgqlc.types.ArgDict((
         ('workspace', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='workspace', default='primary')),
-        ('questionnaire_id', sgqlc.types.Arg(sgqlc.types.non_null(Uuid), graphql_name='questionnaireId', default=None)),
+        ('questionnaire_id', sgqlc.types.Arg(sgqlc.types.non_null(UUID), graphql_name='questionnaireId', default=None)),
         ('questionnaire_version', sgqlc.types.Arg(Long, graphql_name='questionnaireVersion', default=None)),
         ('variable', sgqlc.types.Arg(String, graphql_name='variable', default=None)),
         ('zoom', sgqlc.types.Arg(sgqlc.types.non_null(Int), graphql_name='zoom', default=None)),
@@ -772,7 +787,7 @@ class Interview(sgqlc.types.Type):
     status = sgqlc.types.Field(sgqlc.types.non_null(InterviewStatus), graphql_name='status')
     interview_mode = sgqlc.types.Field(sgqlc.types.non_null(InterviewMode), graphql_name='interviewMode')
     responsible_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='responsibleName')
-    responsible_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='responsibleId')
+    responsible_id = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='responsibleId')
     responsible_role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='responsibleRole')
     supervisor_name = sgqlc.types.Field(String, graphql_name='supervisorName')
     was_completed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='wasCompleted')
@@ -782,7 +797,7 @@ class Interview(sgqlc.types.Type):
     update_date_utc = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='updateDateUtc')
     received_by_interviewer_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByInterviewerAtUtc')
     errors_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='errorsCount')
-    questionnaire_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='questionnaireId')
+    questionnaire_id = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='questionnaireId')
     questionnaire_variable = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='questionnaireVariable')
     questionnaire_version = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='questionnaireVersion')
     identifying_data = sgqlc.types.Field(sgqlc.types.list_of(IdentifyingEntity), graphql_name='identifyingData')
@@ -793,11 +808,12 @@ class Interview(sgqlc.types.Type):
 
 class Map(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('file_name', 'size', 'import_date', 'import_date_utc', 'users', 'x_max_val', 'y_max_val', 'x_min_val', 'y_min_val', 'wkid', 'max_scale', 'min_scale')
+    __field_names__ = ('file_name', 'size', 'import_date', 'import_date_utc', 'uploaded_by', 'users', 'x_max_val', 'y_max_val', 'x_min_val', 'y_min_val', 'wkid', 'max_scale', 'min_scale', 'shape_type', 'shapes_count')
     file_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='fileName')
     size = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='size')
     import_date = sgqlc.types.Field(DateTime, graphql_name='importDate') # before 21.05
     import_date_utc = sgqlc.types.Field(DateTime, graphql_name='importDateUtc')
+    uploaded_by = sgqlc.types.Field(UUID, graphql_name='uploadedBy')
     users = sgqlc.types.Field(sgqlc.types.list_of('UserMap'), graphql_name='users')
     x_max_val = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='xMaxVal')
     y_max_val = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='yMaxVal')
@@ -806,6 +822,8 @@ class Map(sgqlc.types.Type):
     wkid = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='wkid')
     max_scale = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='maxScale')
     min_scale = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='minScale')
+    shape_type = sgqlc.types.Field(String, graphql_name='shapeType')
+    shapes_count = sgqlc.types.Field(Int, graphql_name='shapesCount')
 
 
 class MapReport(sgqlc.types.Type):
@@ -826,7 +844,7 @@ class Questionnaire(sgqlc.types.Type):
     __schema__ = headquarters_schema
     __field_names__ = ('variable', 'questionnaire_id', 'version', 'id', 'title', 'default_language_name', 'translations')
     variable = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='variable')
-    questionnaire_id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='questionnaireId')
+    questionnaire_id = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='questionnaireId')
     version = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='version')
     id = sgqlc.types.Field(ID, graphql_name='id')
     title = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='title')
@@ -852,7 +870,7 @@ class QuestionnaireItem(sgqlc.types.Type):
 class Translation(sgqlc.types.Type):
     __schema__ = headquarters_schema
     __field_names__ = ('id', 'name')
-    id = sgqlc.types.Field(sgqlc.types.non_null(Uuid), graphql_name='id')
+    id = sgqlc.types.Field(sgqlc.types.non_null(UUID), graphql_name='id')
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 

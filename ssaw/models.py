@@ -94,6 +94,42 @@ class InterviewParaAction(Enum):
         return self.value.ordinal()
 
 
+class InterviewHistoryAction(IntEnum):
+    SupervisorAssigned = 0
+    InterviewerAssigned = 1
+    AnswerSet = 2
+    AnswerRemoved = 3
+    CommentSet = 4
+    Completed = 5
+    Restarted = 6
+    ApproveBySupervisor = 7
+    ApproveByHeadquarter = 8
+    RejectedBySupervisor = 9
+    RejectedByHeadquarter = 10
+    Deleted = 11
+    Restored = 12
+    QuestionEnabled = 13
+    QuestionDisabled = 14
+    GroupEnabled = 15
+    GroupDisabled = 16
+    QuestionDeclaredValid = 17
+    QuestionDeclaredInvalid = 18
+    UnapproveByHeadquarters = 19
+    ReceivedByInterviewer = 20
+    ReceivedBySupervisor = 21
+    VariableSet = 22
+    VariableEnabled = 23
+    VariableDisabled = 24
+    Paused = 25
+    Resumed = 26
+    KeyAssigned = 27
+    TranslationSwitched = 28
+    OpenedBySupervisor = 29
+    ClosedBySupervisor = 30
+    InterviewModeChanged = 31
+    InterviewCreated = 32
+
+
 class InterviewAction(IntEnum):
     SupervisorAssigned = 0
     InterviewerAssigned = 1
@@ -107,7 +143,7 @@ class InterviewAction(IntEnum):
     Deleted = 9
     Restored = 10
     UnapprovedByHeadquarter = 11
-    Created = 12
+    InterviewCreated = 12
     InterviewReceivedByTablet = 13
     Resumed = 14
     Paused = 15
@@ -281,7 +317,7 @@ class AssignmentHistoryItem(BaseModelWithConfig):
     action: str
     actor_name: str
     utc_date: datetime
-    additional_data: AssignmentHistoryItemAdditionalData
+    additional_data: Optional[AssignmentHistoryItemAdditionalData]
 
     def to_datarow(self):
         return {
@@ -291,12 +327,37 @@ class AssignmentHistoryItem(BaseModelWithConfig):
             "action": ASSIGNMENT_ACTION_TYPES[self.action],
             "originator": self.actor_name,
             "role": "",
-            "responsible__name": self.additional_data.responsible or self.additional_data.new_responsible,
+            "responsible__name":
+                (self.additional_data.responsible or self.additional_data.new_responsible)
+                if self.additional_data else "",
             "responsible__role": "",
             "old__value": "",
             "new__value": "",
-            "comment": self.additional_data.comment or "",
+            "comment": self.additional_data.comment if self.additional_data else "",
         }
+
+
+class InterviewHistoryItemParameter(BaseModelWithConfig):
+    question: Optional[str]
+    answer: Optional[str]
+    roster: Optional[List[int]]
+    comment: Optional[str]
+    mode: Optional[str]
+    responsible: Optional[str]
+    key: Optional[str]
+
+    @validator('roster', pre=True)
+    def split_str(cls, v):
+        return v.split(',') if v and isinstance(v, str) else []
+
+
+class InteriviewHistoryItem(BaseModelWithConfig):
+    index: int
+    action: str
+    originator_name: Optional[str]
+    originator_role: Optional[str]
+    parameters: Optional[InterviewHistoryItemParameter]
+    timestamp: datetime
 
 
 class ValidationCondition(BaseModelWithConfig):
@@ -565,7 +626,16 @@ class Version():
         return self.version_string
 
     def __lt__(self, other: "Version"):
-        return self.build < other.build
+        if self.major != other.major:
+            return self.major < other.major
+
+        if self.minor != other.minor:
+            return self.minor < other.minor
+
+        if self.patch != other.patch:
+            return self.patch < other.patch
+        else:
+            return self.build < other.build
 
     def __eq__(self, other: "Version"):
         return self.build == other.build
@@ -616,7 +686,7 @@ class ExportJobLinks(BaseModelWithConfig):
 
 
 class ExportJob(BaseModelWithConfig):
-    export_type: Literal["Tabular", "STATA", "SPSS", "Binary", "DDI", "Paradata"]
+    export_type: Optional[Literal["Tabular", "STATA", "SPSS", "Binary", "DDI", "Paradata"]] = "Tabular"
     questionnaire_id: str
     interview_status: Optional[Literal["All", "SupervisorAssigned", "InterviewerAssigned",
                                        "RejectedBySupervisor", "Completed", "ApprovedBySupervisor",
@@ -627,7 +697,7 @@ class ExportJob(BaseModelWithConfig):
     refresh_token: Optional[str]
     storage_type: Optional[Literal["Dropbox", "OneDrive", "GoogleDrive"]]
     translation_id: Optional[UUID]
-    include_meta: Optional[bool] = False
+    include_meta: Optional[bool]
 
 
 class ExportJobResult(ExportJob):
