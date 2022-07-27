@@ -33,7 +33,7 @@ class AssignmentsApi(HQBase):
         """
         path = self.url
         limit = 10
-        offset = 1
+        offset = 0
         total_count = 11
         params = {
             'offset': offset,
