@@ -444,8 +444,7 @@ class TextQuestion(Question):
 
 class NumericQuestion(Question):
     obj_type: Literal["NumericQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                                 default="NumericQuestion",
-                                                 const=True)
+                                                 default="NumericQuestion")
     is_integer: bool = False
     value: Optional[float]
 
@@ -463,8 +462,7 @@ class Answer(BaseModelWithConfig):
 
 class SingleQuestion(Question):
     obj_type: Literal["SingleQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                                default="SingleQuestion",
-                                                const=True)
+                                                default="SingleQuestion")
     answers: List[Answer] = []
     cascade_from_question_id: Optional[UUID]
     categories_id: Optional[UUID]
@@ -476,8 +474,7 @@ class SingleQuestion(Question):
 
 class MultiOptionsQuestion(Question):
     obj_type: Literal["MultyOptionsQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                                      default="MultyOptionsQuestion",
-                                                      const=True)
+                                                      default="MultyOptionsQuestion")
     answers: List[Answer] = []
     are_answers_ordered: bool = False
     yes_no_view: bool = False
@@ -497,33 +494,28 @@ class TextListQuestion(Question):
 
 class GpsCoordinateQuestion(Question):
     obj_type: Literal["GpsCoordinateQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                                       default="GpsCoordinateQuestion",
-                                                       const=True)
+                                                       default="GpsCoordinateQuestion")
     question_type: Literal[6]
 
 
 class QRBarcodeQuestion(Question):
     obj_type: Literal["QRBarcodeQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                                   default="QRBarcodeQuestion",
-                                                   const=True)
+                                                   default="QRBarcodeQuestion")
 
 
 class MultimediaQuestion(Question):
     obj_type: Literal["MultimediaQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                                    default="MultimediaQuestion",
-                                                    const=True)
+                                                    default="MultimediaQuestion")
 
 
 class AudioQuestion(Question):
     obj_type: Literal["AudioQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                               default="AudioQuestion",
-                                               const=True)
+                                               default="AudioQuestion")
 
 
 class AreaQuestion(Question):
     obj_type: Literal["AreaQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
-                                              default="AreaQuestion",
-                                              const=True)
+                                              default="AreaQuestion")
 
 
 class RosterSource(Enum):
