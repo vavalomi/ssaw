@@ -36,7 +36,7 @@ jobs:
           pytest --cov=ssaw --cov-report=xml --junitxml=pytests.xml
 
       - name: Persist code coverage results
-        if: ${{ matrix.python-version == '3.13' 
+        if: ${{ matrix.python-version == '3.13' }}
         uses: actions/upload-artifact@v4
         with:
           name: coverage
