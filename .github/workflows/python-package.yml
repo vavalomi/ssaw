@@ -65,23 +65,3 @@ jobs:
           files: coverage.xml
           fail_ci_if_error: true
           verbose: true
-
-      - name: Fix source path in coverage.xml
-        run: sed -i 's|'$GITHUB_WORKSPACE'|/github/workspace|' coverage.xml
-
-      - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.organization=vavalomi
-            -Dsonar.projectKey=vavalomi_ssaw
-            -Dsonar.python.version=3.6
-            -Dsonar.python.xunit.reportPath=pytests.xml
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.sources=ssaw/
-            -Dsonar.tests=tests/
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.verbose=true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
