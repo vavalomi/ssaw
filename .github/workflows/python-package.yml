@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -36,6 +36,7 @@ jobs:
           pytest --cov=ssaw --cov-report=xml --junitxml=pytests.xml
 
       - name: Persist code coverage results
+        if: ${{ matrix.python-version == '3.13' 
         uses: actions/upload-artifact@v4
         with:
           name: coverage
@@ -49,7 +50,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -59,9 +60,9 @@ jobs:
           name: coverage
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
-          file: coverage.xml
+          files: coverage.xml
           fail_ci_if_error: true
           verbose: true
 
