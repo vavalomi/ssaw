@@ -106,22 +106,21 @@ class ExportApi(HQBase):
     def _get_first_suitable(self, common_args, limit_age=None, limit_date=None) -> Union[ExportJobResult, None]:
         ret_list = self.get_list(**common_args, export_status="Completed", has_file=True)
 
+        # start_date is returned in UTC, convert creation_limit as well
         if limit_date is None:
-            limit_date = datetime(2000, 1, 1)
+            limit_date = datetime(2000, 1, 1, tzinfo=timezone.utc)
+        elif limit_date.tzinfo:
+            limit_date = limit_date.astimezone(timezone.utc)
         else:
-            limit_date = limit_date.replace(tzinfo=None)
-
-        if limit_date.tzinfo:
-            # start_date is returned in UTC, convert creation_limit as well
-            limit_date = limit_date.astimezone(timezone(timedelta(0)))
+            limit_date = limit_date.replace(tzinfo=timezone.utc)
 
         if limit_age:
-            limit1 = datetime.now() - timedelta(minutes=limit_age)
+            limit1 = datetime.now(timezone.utc) - timedelta(minutes=limit_age)
             if limit1 > limit_date:
                 limit_date = limit1
 
         for job in ret_list:
-            if job.start_date > limit_date:
+            if job.start_date.replace(tzinfo=timezone.utc) > limit_date:
                 return job
 
     def get_info(self, job_id: int) -> ExportJobResult:

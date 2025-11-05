@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from os.path import join
 from tempfile import gettempdir
 
@@ -53,8 +53,8 @@ def test_export_get(session, params):
 
     job = next(api.get_list(questionnaire_identity=params['QuestionnaireId'], export_type='Tabular'))
 
-    local_start_date = job.start_date.astimezone(datetime.now().astimezone().tzinfo)
-    age = (datetime.now().astimezone() - local_start_date).total_seconds() / 60  # age in minutes of the last export
+    local_start_date = job.start_date.replace(tzinfo=timezone.utc)
+    age = (datetime.now(timezone.utc) - local_start_date).total_seconds() / 60  # age in minutes of the last export
 
     r = api.get(questionnaire_identity=params['QuestionnaireId'],
                 export_path=tempdir, export_type='Tabular', limit_age=int(age) - 1)
