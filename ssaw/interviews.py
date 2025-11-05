@@ -9,7 +9,7 @@ from .headquarters_schema import (
     InterviewSort,
     InterviewsFilter,
 )
-from .models import InteriviewHistoryItem, InterviewAnswers
+from .models import InteriviewHistoryItem, InterviewAnswers, InterviewAnswersData
 from .utils import filter_object, fix_qid, order_object
 
 
@@ -72,9 +72,7 @@ class InterviewsApi(HQBase):
         path = f"{self.url}/{interview_id}"
         ret = self._make_call('get', path)
         if "Answers" in ret:
-            obj = InterviewAnswers()
-            obj.from_dict(ret["Answers"])
-            return obj
+            return InterviewAnswers(interview_answers=[InterviewAnswersData(**ans) for ans in ret["Answers"]])
 
     def delete(self, interviewid: UUID, comment: str = None):
         return self._change_status(action='delete', interviewid=interviewid, comment=comment)
@@ -159,7 +157,7 @@ class InterviewsApi(HQBase):
         path = f"{self.url}/{interview_id}/history"
         ret = self._make_call('get', path)
         for item in ret["Records"]:
-            yield InteriviewHistoryItem.parse_obj(item)
+            yield InteriviewHistoryItem.model_validate(item)
 
     def hqapprove(self, interviewid, comment=''):
         return self._change_status(action='hqapprove', interviewid=interviewid, comment=comment)

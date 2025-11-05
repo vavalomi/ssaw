@@ -6,5 +6,6 @@ my_vcr = vcr.VCR(
     cassette_library_dir='tests/headquarters/vcr_cassettes',
     path_transformer=vcr.VCR.ensure_suffix('.yaml'),
     record_mode='once',
-    filter_headers=[('authorization', None)]
+    filter_headers=[('authorization', None)],
+    decode_compressed_response=True,
 )

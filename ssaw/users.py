@@ -55,7 +55,7 @@ class UsersApi(HQBase):
                                    path=f"{self._url_interviewers}/{id}/actions-log",
                                    params=params)
         for ac in response:
-            yield InterviewerAction.parse_obj(ac)
+            yield InterviewerAction.model_validate(ac)
 
     def list_supervisors(self):
         path = self._url_supervisors
@@ -77,7 +77,7 @@ class UsersApi(HQBase):
                     full_name=full_name, email=email, phone_number=phone_number)
 
         return self._make_call(method="post", path=self._url_users,
-                               data=user.json(by_alias=True),
+                               data=user.model_dump_json(by_alias=True),
                                headers={"content-type": "application/json"})
 
     def viewer(self, username: Optional[str] = None, password: Optional[str] = None) -> Viewer:

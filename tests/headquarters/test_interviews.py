@@ -11,7 +11,7 @@ from ssaw.utils import to_hex
 from . import my_vcr
 
 
-@my_vcr.use_cassette(decode_compressed_response=False)
+@my_vcr.use_cassette(decode_compressed_response=True)
 def test_interview_list(session, params):
     large_take = 103
     r = InterviewsApi(session).get_list(take=large_take, questionnaire_id=to_hex(params['TemplateId']))

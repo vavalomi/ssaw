@@ -24,13 +24,13 @@ def test_workspaces_list(session):
 @my_vcr.use_cassette()
 def test_workspaces_info(session):
     response = WorkspacesApi(session).get_info('primary')
-    assert response == Workspace.construct(display_name='Default Workspace', name='primary', disabled_at_utc=None)
+    assert response == Workspace.model_construct(display_name='Default Workspace', name='primary', disabled_at_utc=None)
 
 
 @my_vcr.use_cassette()
 def test_workspaces_create(admin_session, session):
     response = WorkspacesApi(admin_session).create('new', 'this is new')
-    assert response == Workspace.construct(display_name='this is new', name='new', disabled_at_utc=None)
+    assert response == Workspace.model_construct(display_name='this is new', name='new', disabled_at_utc=None)
     with raises(ForbiddenError):
         _ = WorkspacesApi(session).create('cannot', 'cannot create as api user')
 

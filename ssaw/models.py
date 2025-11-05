@@ -2,13 +2,13 @@ import re
 import sys
 from datetime import datetime
 from enum import Enum, IntEnum
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Annotated, Dict, List, Optional, Tuple, Union
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, Extra, Field, validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .headquarters_schema import Map
-from .utils import get_properties, parse_date, to_hex, to_pascal
+from .utils import get_properties, to_hex, to_pascal
 
 try:
     from typing import Literal
@@ -61,6 +61,14 @@ class UserRole(Enum):
             return 5
         else:
             return 0
+
+
+class BaseModelWithConfig(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_pascal,
+        populate_by_name=True,
+        extra='allow'
+    )
 
 
 class InterviewParaAction(Enum):
@@ -154,38 +162,38 @@ class InterviewAction(IntEnum):
     InterviewSwitchedToCapiMode = 20
 
 
+class InterviewAnswersDataQuestionId(BaseModelWithConfig):
+    id: UUID = Field(default_factory=uuid4)
+    roster_vector: Optional[List[int]]
+
+
+class InterviewAnswersData(BaseModelWithConfig):
+    variable_name: str
+    question_id: InterviewAnswersDataQuestionId
+    answer: str
+
+
 class InterviewAnswers(object):
-    def __init__(self, questionnaire_document=None):
+    def __init__(self, interview_answers: List[InterviewAnswersData] = [], questionnaire_document=None):
         self._variables = {}
         self._public_ids = {}
         self._groups = {}
         self._data = {}
         self._raw_data = []
+        self.answers = interview_answers
         if questionnaire_document:
             self._variables = get_properties(questionnaire_document)
             self._public_ids = {var.public_key.hex: variable_name for variable_name, var in self._variables.items()}
             self._groups = get_properties(questionnaire_document, groups=True, items=False)
+        for ans in self.answers:
+            if self._get_variable(question_id=ans.question_id.id) is None:
+                key = (ans.variable_name, ) + tuple(ans.question_id.roster_vector)
+                self._data[key] = ans.answer
+                id_ = to_hex(ans.question_id.id)
+                self._public_ids[id_] = ans.variable_name
 
     def __iter__(self):
-        return iter(self._raw_data)
-
-    def __str__(self) -> str:
-        return(str(self._raw_data))
-
-    def from_dict(self, answers: list):
-
-        self._raw_data = answers
-        for ans in self._raw_data:
-            val = ans["Answer"]
-            if val is None:
-                continue
-            id_ = to_hex(ans["QuestionId"]["Id"])
-            variable_name = ans["VariableName"]
-            if variable_name not in self._variables:
-                self._variables[variable_name] = Question(variable_name=variable_name, public_key=id_)
-                self._public_ids[id_] = variable_name
-            key = (variable_name, ) + tuple(ans["QuestionId"]["RosterVector"])
-            self._data[key] = val
+        return iter(self.answers)
 
     def dict(self, prefilling: bool = True) -> list:
         ret = []
@@ -198,7 +206,7 @@ class InterviewAnswers(object):
             q_type = self._variables[t[0]].question_type
 
             if q_type == QuestionType.LIST:
-                ans_split = answer if type(answer) == list else answer.split("|")
+                ans_split = answer if isinstance(answer, list) else answer.split("|")
                 if prefilling:
                     ans = str(ans_split)
                 else:
@@ -212,7 +220,7 @@ class InterviewAnswers(object):
                     ]
 
             elif q_type == QuestionType.MULTI_SELECT:
-                ans_split = answer if type(answer) == list else answer.split(",")
+                ans_split = answer if isinstance(answer, list) else answer.split(",")
                 if prefilling:
                     ans = str(ans_split)
                 elif self._variables[t[0]].yes_no_view:
@@ -222,14 +230,11 @@ class InterviewAnswers(object):
                     ans = ans_split
 
             elif q_type == QuestionType.SINGLE_SELECT and self._variables[t[0]].linked_to_roster_id and not prefilling:
-                if type(ans) != list:
+                if ~isinstance(ans, list):
                     ans = [answer, ]
             ret.append({"Identity": identity, "Answer": ans})
 
         return ret
-
-    def answer_variables(self) -> list:
-        return [t[0] for t in self._data]
 
     def get_answer(self, variable: str = None, question_id: str = None, roster_vector: list = None):
         key = self._get_key(variable=variable, question_id=question_id, roster_vector=roster_vector)
@@ -270,12 +275,12 @@ class InterviewAnswers(object):
     def _get_key(self, roster_vector: list = [], **kwargs):
         key = (self._get_variable(**kwargs), )
         if roster_vector:
-            key += tuple(roster_vector) if type(roster_vector) == list else tuple([roster_vector, ])
+            key += tuple(roster_vector) if isinstance(roster_vector, list) else tuple([roster_vector, ])
         return key
 
     def _get_variable(self, variable: Optional[str] = None, question_id: Optional[str] = None):
         if variable:
-            if variable not in self._variables:
+            if variable not in self._public_ids.values():
                 raise TypeError("variable not found")
         elif question_id:
             variable = self._public_ids.get(to_hex(question_id))
@@ -285,18 +290,11 @@ class InterviewAnswers(object):
         return variable
 
 
-class BaseModelWithConfig(BaseModel):
-    class Config:
-        alias_generator = to_pascal
-        allow_population_by_field_name = True
-        extra = Extra.allow
-
-
 class AssignmentHistoryItemAdditionalData(BaseModelWithConfig):
     comment: Optional[str] = ""
-    responsible: Optional[str]
+    responsible: Optional[str] = ""
     new_responsible: Optional[str]
-    upgraded_from_id: Optional[int]
+    upgraded_from_id: Optional[int] = ""
 
 
 ASSIGNMENT_ACTION_TYPES = {
@@ -346,7 +344,8 @@ class InterviewHistoryItemParameter(BaseModelWithConfig):
     responsible: Optional[str]
     key: Optional[str]
 
-    @validator('roster', pre=True)
+    @field_validator('roster')
+    @classmethod
     def split_str(cls, v):
         return v.split(',') if v and isinstance(v, str) else []
 
@@ -356,8 +355,12 @@ class InteriviewHistoryItem(BaseModelWithConfig):
     action: str
     originator_name: Optional[str]
     originator_role: Optional[str]
-    parameters: Optional[InterviewHistoryItemParameter]
+    parameters: Optional[InterviewHistoryItemParameter] = None
     timestamp: datetime
+
+    @field_validator('parameters', mode='before')
+    def check_empty(cls, value):
+        return value or None
 
 
 class ValidationCondition(BaseModelWithConfig):
@@ -383,15 +386,21 @@ class VariableType(Enum):
 JSON_TYPE_FIELD_NAME = "$type"
 
 
-class Variable(BaseModelWithConfig):
-    obj_type: Literal["Variable"] = Field(alias=JSON_TYPE_FIELD_NAME)
+class GroupMember(BaseModelWithConfig):
+    obj_type: str
     public_key: UUID = Field(default_factory=uuid4)
+    variable_name: str
+
+    model_config = ConfigDict(discriminator='obj_type')
+
+
+class Variable(GroupMember):
+    obj_type: Literal["Variable"] = Field(alias=JSON_TYPE_FIELD_NAME)
     name: str
     label: str = ""
     type: VariableType
     expression: str
     do_not_export: bool = False
-    variable_name: str
 
 
 class Category(BaseModelWithConfig):
@@ -404,14 +413,12 @@ class LookupTable(BaseModelWithConfig):
     file_name: str
 
 
-class StaticText(BaseModelWithConfig):
+class StaticText(GroupMember):
     obj_type: Literal["StaticText"] = Field(alias=JSON_TYPE_FIELD_NAME)
-    public_key: UUID = Field(default_factory=uuid4)
     text: str
     attachment_name: str = ""
     hide_if_disabled: bool = False
     validation_conditions: List[ValidationCondition] = []
-    variable_name: str
 
 
 class QuestionProperties(BaseModelWithConfig):
@@ -419,34 +426,32 @@ class QuestionProperties(BaseModelWithConfig):
     use_formatting: bool = False
 
 
-class Question(BaseModelWithConfig):
-    condition_expression: Optional[str]
+class Question(GroupMember):
+    condition_expression: Optional[str] = None
     featured: bool = False
     hide_if_disabled: bool = False
-    instructions: Optional[str]
-    properties: Optional[QuestionProperties]
-    public_key: UUID = Field(default_factory=uuid4)
-    parent_id: Optional[UUID]
+    instructions: Optional[str] = None
+    properties: Optional[QuestionProperties] = None
+    parent_id: Optional[UUID] = None
     question_scope: QuestionScope = QuestionScope.INTERVIEWER
-    question_text: Optional[str]
+    question_text: Optional[str] = None
     question_type: QuestionType = QuestionType.TEXT
-    stata_export_caption: Optional[str]
+    stata_export_caption: Optional[str] = None
     validation_conditions: List[ValidationCondition] = []
-    variable_label: Optional[str]
-    variable_name: str
+    variable_label: Optional[str] = None
 
 
 class TextQuestion(Question):
     obj_type: Literal["TextQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME)
-    mask: Optional[str]
-    value: Optional[str]
+    mask: Optional[str] = ""
+    value: Optional[str] = ""
 
 
 class NumericQuestion(Question):
     obj_type: Literal["NumericQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                  default="NumericQuestion")
     is_integer: bool = False
-    value: Optional[float]
+    value: Optional[float] = None
 
     def __gt__(self, num):
         return self.value > num
@@ -464,12 +469,12 @@ class SingleQuestion(Question):
     obj_type: Literal["SingleQuestion"] = Field(alias=JSON_TYPE_FIELD_NAME,
                                                 default="SingleQuestion")
     answers: List[Answer] = []
-    cascade_from_question_id: Optional[UUID]
-    categories_id: Optional[UUID]
+    cascade_from_question_id: Optional[UUID] = ""
+    categories_id: Optional[UUID] = ""
     is_filtered_combobox: bool = False
     show_as_list: bool = False
-    linked_to_question_id: Optional[UUID]
-    linked_to_roster_id: Optional[UUID]
+    linked_to_question_id: Optional[UUID] = ""
+    linked_to_roster_id: Optional[UUID] = ""
 
 
 class MultiOptionsQuestion(Question):
@@ -523,7 +528,7 @@ class RosterSource(Enum):
     OTHER = 0
 
 
-class Group(BaseModelWithConfig):
+class Group(GroupMember):
     obj_type: Literal["Group"] = Field(alias=JSON_TYPE_FIELD_NAME)
     description: str = ""
     display_mode: int = 0
@@ -531,17 +536,20 @@ class Group(BaseModelWithConfig):
     is_flat_mode: bool = False
     is_plain_mode: bool = False
     is_roster: bool = False
-    public_key: UUID = Field(default_factory=uuid4)
-    parent_id: Optional[UUID]
+    parent_id: Optional[UUID] = ""
     roster_size_source: RosterSource = RosterSource.FIXED
-    roster_size_question_id: Optional[UUID]
-    roster_title_question_id: Optional[UUID]
+    roster_size_question_id: Optional[UUID] = ""
+    roster_title_question_id: Optional[UUID] = ""
     title: str
-    variable_name: str
-    children: List[Union[StaticText, NumericQuestion, TextQuestion, TextListQuestion,
-                         SingleQuestion, MultiOptionsQuestion, DateTimeQuestion,
-                         Variable, AreaQuestion, AudioQuestion, GpsCoordinateQuestion,
-                         MultimediaQuestion, QRBarcodeQuestion, "Group"]] = []
+    children: List['GroupMemberUnion'] = []
+
+
+GroupMemberUnion = Annotated[
+    Union[StaticText, NumericQuestion, TextQuestion, TextListQuestion, SingleQuestion,
+          MultiOptionsQuestion, DateTimeQuestion, Variable, AreaQuestion, AudioQuestion,
+          GpsCoordinateQuestion, MultimediaQuestion, QRBarcodeQuestion, Group],
+    Field(discriminator='obj_type')
+]
 
 
 class Attachment(BaseModelWithConfig):
@@ -562,16 +570,15 @@ class QuestionnaireDocument(BaseModelWithConfig):
     translations: list
     variable_name: str
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        def attach_parent_id(obj):
+    def model_post_init(self, __context):
+        def attach_parent_id(obj, parent_id=None):
+            obj.parent_id = parent_id
             if hasattr(obj, "children"):
-                for ch in obj.children:
-                    ch.parent_id = obj.public_key.hex
-                    attach_parent_id(ch)
+                for child in obj.children:
+                    attach_parent_id(child, obj.public_key)
 
-        attach_parent_id(self)
+        for child in self.children:
+            attach_parent_id(child, self.public_key)
 
 
 class InterviewerAction(BaseModelWithConfig):
@@ -637,13 +644,13 @@ class Assignment(BaseModelWithConfig):
     responsible: str
     quantity: int
     questionnaire_id: str
-    identifying_data: Optional[List[dict]]
-    email: Optional[str]
-    password: Optional[str]
+    identifying_data: Optional[List[dict]] = []
+    email: Optional[str] = ""
+    password: Optional[str] = ""
     web_mode: Optional[bool] = False
     is_audio_recording_enabled: Optional[bool] = False
-    comments: Optional[str]
-    protected_variables: Optional[List[str]]
+    comments: Optional[str] = ""
+    protected_variables: Optional[List[str]] = []
 
 
 class AssignmentResult(Assignment):
@@ -683,13 +690,13 @@ class ExportJob(BaseModelWithConfig):
     interview_status: Optional[Literal["All", "SupervisorAssigned", "InterviewerAssigned",
                                        "RejectedBySupervisor", "Completed", "ApprovedBySupervisor",
                                        "RejectedByHeadquarters", "ApprovedByHeadquarters"]] = "All"
-    from_date: Optional[datetime] = Field(alias="From")
-    to_date: Optional[datetime] = Field(alias="To")
-    access_token: Optional[str]
-    refresh_token: Optional[str]
-    storage_type: Optional[Literal["Dropbox", "OneDrive", "GoogleDrive"]]
-    translation_id: Optional[UUID]
-    include_meta: Optional[bool]
+    from_date: Optional[datetime] = Field(alias="From", default="")
+    to_date: Optional[datetime] = Field(alias="To", default="")
+    access_token: Optional[str] = ""
+    refresh_token: Optional[str] = ""
+    storage_type: Optional[Literal["Dropbox", "OneDrive", "GoogleDrive"]] = "OneDrive"
+    translation_id: Optional[UUID] = ""
+    include_meta: Optional[bool] = False
 
 
 class ExportJobResult(ExportJob):
@@ -702,10 +709,6 @@ class ExportJobResult(ExportJob):
     error: Optional[str]
     links: ExportJobLinks
     has_export_file: bool
-
-    @validator("start_date", "complete_date", "from_date", "to_date", pre=True, check_fields=False)
-    def time_validate(cls, v):
-        return parse_date(v)
 
 
 class Workspace(BaseModelWithConfig):

@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-ssaw/0.4.3
     method: GET
-    uri: http://localhost:9707/primary/api/v1/assignments?offset=1&limit=10&questionnaireId=9d3ad06999aa4d6a8edaad12c722a60f%241
+    uri: http://localhost:9707/primary/api/v1/assignments?offset=0&limit=10&questionnaireId=9d3ad06999aa4d6a8edaad12c722a60f%241
   response:
     body:
       string: !!binary |

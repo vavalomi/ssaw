@@ -43,7 +43,7 @@ class QuestionnairesApi(HQBase):
         return self._make_call(method="get", path=f"{self.url}/statuses")
 
     def document(self, id: UUID, version: int) -> QuestionnaireDocument:
-        return QuestionnaireDocument.parse_obj(
+        return QuestionnaireDocument.model_validate(
             self._make_call(method="get", path=f"{self.url}/{id}/{version}/document"))
 
     def interviews(self, id: UUID, version: int):
@@ -79,4 +79,4 @@ class QuestionnairesApi(HQBase):
             with zipfile.ZipFile(outfile, "r") as zip_ref:
                 with zip_ref.open("interviews.tab") as infile:
                     data = csv.DictReader(TextIOWrapper(infile, 'utf-8'), delimiter="\t")
-                    return [AssignmentWebLink.parse_obj(row) for row in data]
+                    return [AssignmentWebLink.model_validate(row) for row in data]

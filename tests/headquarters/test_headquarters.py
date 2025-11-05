@@ -1,4 +1,3 @@
-import json
 from uuid import UUID
 
 from pytest import raises
@@ -462,8 +461,8 @@ def test_get_properties():
   "IsCoverPageSupported": false
 }
     """
-    Group.update_forward_refs()
-    q = QuestionnaireDocument(**json.loads(questionnaire_document))
+    Group.model_rebuild()
+    q = QuestionnaireDocument.model_validate_json(questionnaire_document)
 
     vars_only = set(get_properties(q, groups=False).keys())
     all = set(get_properties(q, groups=True).keys())

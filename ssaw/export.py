@@ -54,7 +54,7 @@ class ExportApi(HQBase):
         r = self._make_call('get', path, params=params)
         if r:
             for item in r:
-                yield ExportJobResult.parse_obj(item)
+                yield ExportJobResult.model_validate(item)
 
     def get(self, questionnaire_identity: QuestionnaireIdentity,
             export_type: str = "Tabular", interview_status="All",
@@ -94,7 +94,7 @@ class ExportApi(HQBase):
         if not generate:
             return
 
-        job = self.start(ExportJob.parse_obj(common_args), wait=True, show_progress=show_progress)
+        job = self.start(ExportJob.model_validate(common_args), wait=True, show_progress=show_progress)
         if job.has_export_file:
             response = self._make_call(method="get", path=job.links.download, filepath=export_path, stream=True)
 
@@ -108,23 +108,24 @@ class ExportApi(HQBase):
 
         if limit_date is None:
             limit_date = datetime(2000, 1, 1)
+        else:
+            limit_date = limit_date.replace(tzinfo=None)
 
-        if limit_date.tzinfo is None:
-            limit_date = limit_date.astimezone()  # interpret date as in local timezone
+        if limit_date.tzinfo:
+            # start_date is returned in UTC, convert creation_limit as well
+            limit_date = limit_date.astimezone(timezone(timedelta(0)))
 
         if limit_age:
-            limit1 = datetime.now().astimezone() - timedelta(minutes=limit_age)
+            limit1 = datetime.now() - timedelta(minutes=limit_age)
             if limit1 > limit_date:
                 limit_date = limit1
 
-        # start_date is returned in UTC, convert creation_limit as well
-        limit_date = limit_date.astimezone(timezone(timedelta(0)))
         for job in ret_list:
             if job.start_date > limit_date:
                 return job
 
     def get_info(self, job_id: int) -> ExportJobResult:
-        return ExportJobResult.parse_obj(
+        return ExportJobResult.model_validate(
             self._make_call(method="get", path=f"{self.url}/{job_id}"))
 
     def start(self, export_job: ExportJob, wait: bool = False, show_progress: bool = False) -> ExportJobResult:
@@ -136,7 +137,7 @@ class ExportApi(HQBase):
         :returns: ``ExportJobResult`` object
         """
         path = self.url
-        job = ExportJobResult.parse_obj(
+        job = ExportJobResult.model_validate(
             self._make_call("post", path, json=export_job.dict(by_alias=True, exclude_none=True))
         )
         if wait:
@@ -145,11 +146,15 @@ class ExportApi(HQBase):
             if show_progress:
                 print("Generating...")
 
-            while job.export_status != "Completed":
+            attempts = 0
+            while job.export_status != "Completed" and attempts < 20:
                 time.sleep(1)
                 if show_progress:
                     print(".", end="", flush=True)
                 job = self.get_info(job.job_id)
+                if job.export_status == "Fail":
+                    return job
+                attempts += 1
             if show_progress:
                 print()
 

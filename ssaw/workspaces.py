@@ -32,7 +32,7 @@ class WorkspacesApi(HQBase):
         }
         while start < total_count:
             params['start'] = start
-            r = WorkspacesList.parse_obj(self._make_call('get', path, params=params))
+            r = WorkspacesList.model_validate(self._make_call('get', path, params=params))
             if r.total_count:
                 total_count = r.total_count
                 yield from r.workspaces
@@ -41,10 +41,10 @@ class WorkspacesApi(HQBase):
             start += length
 
     def get_info(self, name: str) -> Workspace:
-        return Workspace.parse_obj(self._make_call(method="get", path=f"{self.url}/{name}"))
+        return Workspace.model_validate(self._make_call(method="get", path=f"{self.url}/{name}"))
 
     def create(self, name: str, display_name: str) -> Workspace:
-        return Workspace.parse_obj(
+        return Workspace.model_validate(
             self._make_call(method="post",
                             path=self.url,
                             json={'Name': name, 'DisplayName': display_name}))
@@ -83,4 +83,4 @@ class WorkspacesApi(HQBase):
         _ = self._make_call(method="post", path=f"{self.url}/assign", json=data)
 
     def status(self, name: str) -> WorkspaceStatus:
-        return WorkspaceStatus.parse_obj(self._make_call(method="get", path=f"{self.url}/status/{name}"))
+        return WorkspaceStatus.model_validate(self._make_call(method="get", path=f"{self.url}/status/{name}"))

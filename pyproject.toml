@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ssaw"
+version = "0.7"
+description = "Survey Solutions API Wrapper"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE.txt" }
+authors = [
+  { name = "Zurab Sajaia", email = "zsajaia@hotmail.com" },
+]
+keywords = ["Survey Solutions"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+dependencies = [
+  "pydantic",
+  "requests",
+  "sgqlc",
+]
+
+[project.optional-dependencies]
+test =  [
+  "flake8",
+  "flake8-import-order",
+  "pytest",
+  "pytest-cov",
+  "pytest-order",
+  "python-dotenv",
+  "sphinx",
+  "vcrpy",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/vavalomi/ssaw"
+"Bug Tracker" = "https://github.com/vavalomi/ssaw/issues"

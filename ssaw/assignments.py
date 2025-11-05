@@ -45,7 +45,7 @@ class AssignmentsApi(HQBase):
 
         while offset < total_count:
             params['offset'] = offset
-            r = AssignmentList.parse_obj(self._make_call('get', path, params=params))
+            r = AssignmentList.model_validate(self._make_call('get', path, params=params))
             total_count = r.total_count
             offset += limit
             yield from r.assignments
@@ -89,7 +89,7 @@ class AssignmentsApi(HQBase):
 
         :returns: Assignment object
         """
-        return AssignmentResult.parse_obj(self._make_call(method="get", path=f"{self.url}/{id}"))
+        return AssignmentResult.model_validate(self._make_call(method="get", path=f"{self.url}/{id}"))
 
     def create(self, obj: Assignment) -> AssignmentResult:
         """Create new assignment
@@ -98,8 +98,8 @@ class AssignmentsApi(HQBase):
 
         :returns: Newly created Assignment object
         """
-        res = self._make_call(method="post", path=self.url, json=obj.dict(by_alias=True, exclude_none=True))
-        return AssignmentResult.parse_obj(res["Assignment"])
+        res = self._make_call(method="post", path=self.url, json=obj.model_dump(by_alias=True, exclude_none=True))
+        return AssignmentResult.model_validate(res["Assignment"])
 
     def archive(self, id: int) -> None:
         """Archive assignment
@@ -126,7 +126,7 @@ class AssignmentsApi(HQBase):
         res = self._make_call(method="patch",
                               path=f"{self.url}/{id}/assign",
                               json={"Responsible": responsible})
-        return AssignmentResult.parse_obj(res)
+        return AssignmentResult.model_validate(res)
 
     def get_quantity_settings(self, id: int) -> bool:
         """Checi if quantity may be edited for the assignment
@@ -155,7 +155,7 @@ class AssignmentsApi(HQBase):
                               path=f"{self.url}/{id}/changequantity",
                               data=str(quantity),
                               headers={"Content-Type": "application/json-patch+json"})
-        return AssignmentResult.parse_obj(res)
+        return AssignmentResult.model_validate(res)
 
     def close(self, id: int) -> None:
         """Close assignment by setting Size to the number of collected interviews
@@ -178,7 +178,7 @@ class AssignmentsApi(HQBase):
             total_count = r['RecordsFiltered']
             start += page_size
             for item in r['History']:
-                yield AssignmentHistoryItem.parse_obj(item)
+                yield AssignmentHistoryItem.model_validate(item)
 
     def get_recordaudio(self, id: int) -> bool:
         """Get status of audio recording for the assignment
