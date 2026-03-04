@@ -43,7 +43,8 @@ class HQBase(object):
             if 'application/json' in response.headers['Content-Type']:
                 return response.json()
 
-            elif any(w in response.headers['Content-Type'] for w in ['application/zip', 'application/octet-stream']):
+            elif any(w in response.headers['Content-Type']
+                     for w in ['application/zip', 'application/octet-stream', 'application/pdf']):
                 return self._get_file_stream(filepath, response)
             else:
                 return response.text

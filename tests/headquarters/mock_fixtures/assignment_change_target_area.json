@@ -1,0 +1,20 @@
+{
+  "Id": 4,
+  "ResponsibleId": "33333333-3333-3333-3333-333333333333",
+  "ResponsibleName": "inter1",
+  "QuestionnaireId": "44444444444444444444444444444444$1",
+  "InterviewsCount": 2,
+  "Quantity": 5,
+  "Archived": false,
+  "CreatedAtUtc": "2024-01-01T12:00:00Z",
+  "UpdatedAtUtc": "2024-01-15T10:30:00Z",
+  "Email": null,
+  "Password": null,
+  "TargetArea": "North Region",
+  "WebMode": false,
+  "ReceivedByTabletAtUtc": null,
+  "IsAudioRecordingEnabled": false,
+  "IdentifyingData": [],
+  "Comments": null,
+  "ProtectedVariables": []
+}

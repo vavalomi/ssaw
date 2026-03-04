@@ -7,7 +7,7 @@ from uuid import UUID
 
 from .base import HQBase
 from .interviews import InterviewsApi
-from .models import AssignmentWebLink, QuestionnaireDocument
+from .models import AssignmentWebLink, CriticalityLevel, QuestionnaireDocument
 
 
 class QuestionnairesApi(HQBase):
@@ -54,6 +54,31 @@ class QuestionnairesApi(HQBase):
         _ = self._make_call(method="post",
                             path=f"{self.url}/{id}/{version}/recordAudio",
                             json={"Enabled": enabled})
+
+    def get_criticality_level(self, id: UUID, version: int) -> str:
+        """Get the criticality level setting for a questionnaire.
+
+        :param id: Questionnaire id
+        :param version: Questionnaire version
+
+        :returns: Current :class:`CriticalityLevel<ssaw.models.CriticalityLevel>` value as a string
+        """
+        r = self._make_call(method="get", path=f"{self.url}/{id}/{version}/criticalityLevel")
+        return r.get("CriticalityLevel") or r.get("Enabled")
+
+    def set_criticality_level(self, id: UUID, version: int, level: CriticalityLevel) -> None:
+        """Set the criticality level for a questionnaire.
+
+        :param id: Questionnaire id
+        :param version: Questionnaire version
+        :param level: :class:`CriticalityLevel<ssaw.models.CriticalityLevel>` value
+        """
+        level_value = level.value if isinstance(level, CriticalityLevel) else level
+        self._make_call(
+            method="post",
+            path=f"{self.url}/{id}/{version}/criticalityLevel",
+            json={"CriticalityLevel": level_value},
+        )
 
     def download_web_links(self, id: UUID, version: int, path: Optional[str] = None):
         """Download links for the assignments in Web Mode.

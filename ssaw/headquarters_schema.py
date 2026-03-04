@@ -15,7 +15,7 @@ class Any(sgqlc.types.Scalar):
 
 class ApplyPolicy(sgqlc.types.Enum):
     __schema__ = headquarters_schema
-    __choices__ = ('AFTER_RESOLVER', 'BEFORE_RESOLVER')
+    __choices__ = ('AFTER_RESOLVER', 'BEFORE_RESOLVER', 'VALIDATION')
 
 
 Boolean = sgqlc.types.Boolean
@@ -104,15 +104,16 @@ class VariableType(sgqlc.types.Enum):
 ########################################################################
 class AssignmentsFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'id', 'questionnaire_id', 'archived', 'responsible_id', 'web_mode', 'received_by_tablet_at_utc')
+    __field_names__ = ('and_', 'or_', 'id', 'questionnaire_id', 'archived', 'responsible_id', 'web_mode', 'received_by_tablet_at_utc', 'target_area')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('AssignmentsFilter')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('AssignmentsFilter')), graphql_name='or')
-    id = sgqlc.types.Field('ComparableInt32OperationFilterInput', graphql_name='id')
+    id = sgqlc.types.Field('IntOperationFilterInput', graphql_name='id')
     questionnaire_id = sgqlc.types.Field('QuestionnaireIdentity', graphql_name='questionnaireId')
     archived = sgqlc.types.Field('BooleanOperationFilterInput', graphql_name='archived')
-    responsible_id = sgqlc.types.Field('ComparableGuidOperationFilterInput', graphql_name='responsibleId')
+    responsible_id = sgqlc.types.Field('UuidOperationFilterInput', graphql_name='responsibleId')
     web_mode = sgqlc.types.Field('BooleanOperationFilterInput', graphql_name='webMode')
-    received_by_tablet_at_utc = sgqlc.types.Field('ComparableNullableOfDateTimeOperationFilterInput', graphql_name='receivedByTabletAtUtc')
+    received_by_tablet_at_utc = sgqlc.types.Field('DateTimeOperationFilterInput', graphql_name='receivedByTabletAtUtc')
+    target_area = sgqlc.types.Field('StringOperationFilterInput', graphql_name='targetArea')
 
 
 class BooleanOperationFilterInput(sgqlc.types.Input):
@@ -122,75 +123,7 @@ class BooleanOperationFilterInput(sgqlc.types.Input):
     neq = sgqlc.types.Field(Boolean, graphql_name='neq')
 
 
-class ComparableDateTimeOperationFilterInput(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
-    eq = sgqlc.types.Field(DateTime, graphql_name='eq')
-    neq = sgqlc.types.Field(DateTime, graphql_name='neq')
-    in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(DateTime)), graphql_name='in')
-    nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(DateTime)), graphql_name='nin')
-    gt = sgqlc.types.Field(DateTime, graphql_name='gt')
-    ngt = sgqlc.types.Field(DateTime, graphql_name='ngt')
-    gte = sgqlc.types.Field(DateTime, graphql_name='gte')
-    ngte = sgqlc.types.Field(DateTime, graphql_name='ngte')
-    lt = sgqlc.types.Field(DateTime, graphql_name='lt')
-    nlt = sgqlc.types.Field(DateTime, graphql_name='nlt')
-    lte = sgqlc.types.Field(DateTime, graphql_name='lte')
-    nlte = sgqlc.types.Field(DateTime, graphql_name='nlte')
-
-
-class ComparableGuidOperationFilterInput(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
-    eq = sgqlc.types.Field(UUID, graphql_name='eq')
-    neq = sgqlc.types.Field(UUID, graphql_name='neq')
-    in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(UUID)), graphql_name='in')
-    nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(UUID)), graphql_name='nin')
-    gt = sgqlc.types.Field(UUID, graphql_name='gt')
-    ngt = sgqlc.types.Field(UUID, graphql_name='ngt')
-    gte = sgqlc.types.Field(UUID, graphql_name='gte')
-    ngte = sgqlc.types.Field(UUID, graphql_name='ngte')
-    lt = sgqlc.types.Field(UUID, graphql_name='lt')
-    nlt = sgqlc.types.Field(UUID, graphql_name='nlt')
-    lte = sgqlc.types.Field(UUID, graphql_name='lte')
-    nlte = sgqlc.types.Field(UUID, graphql_name='nlte')
-
-
-class ComparableInt32OperationFilterInput(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
-    eq = sgqlc.types.Field(Int, graphql_name='eq')
-    neq = sgqlc.types.Field(Int, graphql_name='neq')
-    in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name='in')
-    nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name='nin')
-    gt = sgqlc.types.Field(Int, graphql_name='gt')
-    ngt = sgqlc.types.Field(Int, graphql_name='ngt')
-    gte = sgqlc.types.Field(Int, graphql_name='gte')
-    ngte = sgqlc.types.Field(Int, graphql_name='ngte')
-    lt = sgqlc.types.Field(Int, graphql_name='lt')
-    nlt = sgqlc.types.Field(Int, graphql_name='nlt')
-    lte = sgqlc.types.Field(Int, graphql_name='lte')
-    nlte = sgqlc.types.Field(Int, graphql_name='nlte')
-
-
-class ComparableInt64OperationFilterInput(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
-    eq = sgqlc.types.Field(Long, graphql_name='eq')
-    neq = sgqlc.types.Field(Long, graphql_name='neq')
-    in_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Long)), graphql_name='in')
-    nin = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Long)), graphql_name='nin')
-    gt = sgqlc.types.Field(Long, graphql_name='gt')
-    ngt = sgqlc.types.Field(Long, graphql_name='ngt')
-    gte = sgqlc.types.Field(Long, graphql_name='gte')
-    ngte = sgqlc.types.Field(Long, graphql_name='ngte')
-    lt = sgqlc.types.Field(Long, graphql_name='lt')
-    nlt = sgqlc.types.Field(Long, graphql_name='nlt')
-    lte = sgqlc.types.Field(Long, graphql_name='lte')
-    nlte = sgqlc.types.Field(Long, graphql_name='nlte')
-
-
-class ComparableNullableOfDateTimeOperationFilterInput(sgqlc.types.Input):
+class DateTimeOperationFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
     eq = sgqlc.types.Field(DateTime, graphql_name='eq')
@@ -207,7 +140,7 @@ class ComparableNullableOfDateTimeOperationFilterInput(sgqlc.types.Input):
     nlte = sgqlc.types.Field(DateTime, graphql_name='nlte')
 
 
-class ComparableNullableOfDecimalOperationFilterInput(sgqlc.types.Input):
+class DecimalOperationFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
     eq = sgqlc.types.Field(Decimal, graphql_name='eq')
@@ -224,7 +157,7 @@ class ComparableNullableOfDecimalOperationFilterInput(sgqlc.types.Input):
     nlte = sgqlc.types.Field(Decimal, graphql_name='nlte')
 
 
-class ComparableNullableOfDoubleOperationFilterInput(sgqlc.types.Input):
+class FloatOperationFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
     eq = sgqlc.types.Field(Float, graphql_name='eq')
@@ -241,7 +174,23 @@ class ComparableNullableOfDoubleOperationFilterInput(sgqlc.types.Input):
     nlte = sgqlc.types.Field(Float, graphql_name='nlte')
 
 
-class ComparableNullableOfInt32OperationFilterInput(sgqlc.types.Input):
+class IdentifyEntityValueFilter(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('and_', 'or_', 'answer_code', 'value', 'value_lower_case', 'entity', 'value_bool', 'value_date', 'value_double', 'value_long', 'is_enabled')
+    and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('IdentifyEntityValueFilter')), graphql_name='and')
+    or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('IdentifyEntityValueFilter')), graphql_name='or')
+    answer_code = sgqlc.types.Field(DecimalOperationFilterInput, graphql_name='answerCode')
+    value = sgqlc.types.Field('StringOperationFilterInput', graphql_name='value')
+    value_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='valueLowerCase')
+    entity = sgqlc.types.Field('QuestionnaireItemsFilter', graphql_name='entity')
+    value_bool = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='valueBool')
+    value_date = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='valueDate')
+    value_double = sgqlc.types.Field(FloatOperationFilterInput, graphql_name='valueDouble')
+    value_long = sgqlc.types.Field('LongOperationFilterInput', graphql_name='valueLong')
+    is_enabled = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isEnabled')
+
+
+class IntOperationFilterInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
     eq = sgqlc.types.Field(Int, graphql_name='eq')
@@ -256,39 +205,6 @@ class ComparableNullableOfInt32OperationFilterInput(sgqlc.types.Input):
     nlt = sgqlc.types.Field(Int, graphql_name='nlt')
     lte = sgqlc.types.Field(Int, graphql_name='lte')
     nlte = sgqlc.types.Field(Int, graphql_name='nlte')
-
-
-class ComparableNullableOfInt64OperationFilterInput(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
-    eq = sgqlc.types.Field(Long, graphql_name='eq')
-    neq = sgqlc.types.Field(Long, graphql_name='neq')
-    in_ = sgqlc.types.Field(sgqlc.types.list_of(Long), graphql_name='in')
-    nin = sgqlc.types.Field(sgqlc.types.list_of(Long), graphql_name='nin')
-    gt = sgqlc.types.Field(Long, graphql_name='gt')
-    ngt = sgqlc.types.Field(Long, graphql_name='ngt')
-    gte = sgqlc.types.Field(Long, graphql_name='gte')
-    ngte = sgqlc.types.Field(Long, graphql_name='ngte')
-    lt = sgqlc.types.Field(Long, graphql_name='lt')
-    nlt = sgqlc.types.Field(Long, graphql_name='nlt')
-    lte = sgqlc.types.Field(Long, graphql_name='lte')
-    nlte = sgqlc.types.Field(Long, graphql_name='nlte')
-
-
-class IdentifyEntityValueFilter(sgqlc.types.Input):
-    __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'answer_code', 'value', 'value_lower_case', 'entity', 'value_bool', 'value_date', 'value_double', 'value_long', 'is_enabled')
-    and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('IdentifyEntityValueFilter')), graphql_name='and')
-    or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('IdentifyEntityValueFilter')), graphql_name='or')
-    answer_code = sgqlc.types.Field(ComparableNullableOfDecimalOperationFilterInput, graphql_name='answerCode')
-    value = sgqlc.types.Field('StringOperationFilterInput', graphql_name='value')
-    value_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='valueLowerCase')
-    entity = sgqlc.types.Field('QuestionnaireItemsFilter', graphql_name='entity')
-    value_bool = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='valueBool')
-    value_date = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='valueDate')
-    value_double = sgqlc.types.Field(ComparableNullableOfDoubleOperationFilterInput, graphql_name='valueDouble')
-    value_long = sgqlc.types.Field(ComparableNullableOfInt64OperationFilterInput, graphql_name='valueLong')
-    is_enabled = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isEnabled')
 
 
 class InterviewModeOperationFilterInput(sgqlc.types.Input):
@@ -329,25 +245,27 @@ class InterviewStatusOperationFilterInput(sgqlc.types.Input):
 
 class InterviewsFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('and_', 'or_', 'status', 'interview_mode', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'key', 'not_answered_count', 'client_key', 'assignment_id', 'created_date', 'responsible_name', 'supervisor_name', 'responsible_role', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'identifying_data')
+    __field_names__ = ('and_', 'or_', 'status', 'interview_mode', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'key', 'not_answered_count', 'client_key', 'assignment_id', 'created_date', 'responsible_name', 'responsible_name_lower_case', 'supervisor_name', 'supervisor_name_lower_case', 'responsible_role', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'identifying_data')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewsFilter')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('InterviewsFilter')), graphql_name='or')
     status = sgqlc.types.Field(InterviewStatusOperationFilterInput, graphql_name='status')
     interview_mode = sgqlc.types.Field(InterviewModeOperationFilterInput, graphql_name='interviewMode')
-    questionnaire_id = sgqlc.types.Field(ComparableGuidOperationFilterInput, graphql_name='questionnaireId')
+    questionnaire_id = sgqlc.types.Field('UuidOperationFilterInput', graphql_name='questionnaireId')
     questionnaire_variable = sgqlc.types.Field('StringOperationFilterInput', graphql_name='questionnaireVariable')
-    questionnaire_version = sgqlc.types.Field(ComparableInt64OperationFilterInput, graphql_name='questionnaireVersion')
+    questionnaire_version = sgqlc.types.Field('LongOperationFilterInput', graphql_name='questionnaireVersion')
     key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='key')
-    not_answered_count = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='notAnsweredCount')
+    not_answered_count = sgqlc.types.Field(IntOperationFilterInput, graphql_name='notAnsweredCount')
     client_key = sgqlc.types.Field('StringOperationFilterInput', graphql_name='clientKey')
-    assignment_id = sgqlc.types.Field(ComparableNullableOfInt32OperationFilterInput, graphql_name='assignmentId')
-    created_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='createdDate')
-    responsible_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleNameLowerCase')
-    supervisor_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorNameLowerCase')
+    assignment_id = sgqlc.types.Field(IntOperationFilterInput, graphql_name='assignmentId')
+    created_date = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='createdDate')
+    responsible_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleName')
+    responsible_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='responsibleNameLowerCase')
+    supervisor_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorName')
+    supervisor_name_lower_case = sgqlc.types.Field('StringOperationFilterInput', graphql_name='supervisorNameLowerCase')
     responsible_role = sgqlc.types.Field('UserRolesOperationFilterInput', graphql_name='responsibleRole')
-    update_date_utc = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='updateDateUtc')
-    received_by_interviewer_at_utc = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='receivedByInterviewerAtUtc')
-    errors_count = sgqlc.types.Field(ComparableInt32OperationFilterInput, graphql_name='errorsCount')
+    update_date_utc = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='updateDateUtc')
+    received_by_interviewer_at_utc = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='receivedByInterviewerAtUtc')
+    errors_count = sgqlc.types.Field(IntOperationFilterInput, graphql_name='errorsCount')
     identifying_data = sgqlc.types.Field('ListFilterInputTypeOfIdentifyEntityValueFilterInput', graphql_name='identifyingData')
 
 
@@ -369,6 +287,23 @@ class ListFilterInputTypeOfUserMapFilterInput(sgqlc.types.Input):
     any = sgqlc.types.Field(Boolean, graphql_name='any')
 
 
+class LongOperationFilterInput(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
+    eq = sgqlc.types.Field(Long, graphql_name='eq')
+    neq = sgqlc.types.Field(Long, graphql_name='neq')
+    in_ = sgqlc.types.Field(sgqlc.types.list_of(Long), graphql_name='in')
+    nin = sgqlc.types.Field(sgqlc.types.list_of(Long), graphql_name='nin')
+    gt = sgqlc.types.Field(Long, graphql_name='gt')
+    ngt = sgqlc.types.Field(Long, graphql_name='ngt')
+    gte = sgqlc.types.Field(Long, graphql_name='gte')
+    ngte = sgqlc.types.Field(Long, graphql_name='ngte')
+    lt = sgqlc.types.Field(Long, graphql_name='lt')
+    nlt = sgqlc.types.Field(Long, graphql_name='nlt')
+    lte = sgqlc.types.Field(Long, graphql_name='lte')
+    nlte = sgqlc.types.Field(Long, graphql_name='nlte')
+
+
 class MapReportFilter(sgqlc.types.Input):
     __schema__ = headquarters_schema
     __field_names__ = ('and_', 'or_', 'interview_filter')
@@ -383,8 +318,8 @@ class MapsFilter(sgqlc.types.Input):
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('MapsFilter')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('MapsFilter')), graphql_name='or')
     file_name = sgqlc.types.Field('StringOperationFilterInput', graphql_name='fileName')
-    import_date_utc = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='importDateUtc')
-    size = sgqlc.types.Field(ComparableInt64OperationFilterInput, graphql_name='size')
+    import_date_utc = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='importDateUtc')
+    size = sgqlc.types.Field(LongOperationFilterInput, graphql_name='size')
     users = sgqlc.types.Field(ListFilterInputTypeOfUserMapFilterInput, graphql_name='users')
 
 
@@ -420,8 +355,8 @@ class QuestionnaireIdentity(sgqlc.types.Input):
     __field_names__ = ('and_', 'or_', 'id', 'version')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('QuestionnaireIdentity')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('QuestionnaireIdentity')), graphql_name='or')
-    id = sgqlc.types.Field(ComparableGuidOperationFilterInput, graphql_name='id')
-    version = sgqlc.types.Field(ComparableInt64OperationFilterInput, graphql_name='version')
+    id = sgqlc.types.Field('UuidOperationFilterInput', graphql_name='id')
+    version = sgqlc.types.Field(LongOperationFilterInput, graphql_name='version')
 
 
 class QuestionnaireItemsFilter(sgqlc.types.Input):
@@ -433,7 +368,7 @@ class QuestionnaireItemsFilter(sgqlc.types.Input):
     variable = sgqlc.types.Field('StringOperationFilterInput', graphql_name='variable')
     scope = sgqlc.types.Field(NullableOfQuestionScopeOperationFilterInput, graphql_name='scope')
     identifying = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='identifying')
-    included_in_reporting_at_utc = sgqlc.types.Field(ComparableNullableOfDateTimeOperationFilterInput, graphql_name='includedInReportingAtUtc')
+    included_in_reporting_at_utc = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='includedInReportingAtUtc')
 
 
 class RoleFilterInput(sgqlc.types.Input):
@@ -481,7 +416,7 @@ class UserMapFilterInput(sgqlc.types.Input):
     __field_names__ = ('and_', 'or_', 'id', 'user_name', 'map')
     and_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('UserMapFilterInput')), graphql_name='and')
     or_ = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('UserMapFilterInput')), graphql_name='or')
-    id = sgqlc.types.Field(ComparableInt32OperationFilterInput, graphql_name='id')
+    id = sgqlc.types.Field(IntOperationFilterInput, graphql_name='id')
     user_name = sgqlc.types.Field(StringOperationFilterInput, graphql_name='userName')
     map = sgqlc.types.Field(MapsFilter, graphql_name='map')
 
@@ -504,24 +439,40 @@ class UsersFilterInput(sgqlc.types.Input):
     full_name = sgqlc.types.Field(StringOperationFilterInput, graphql_name='fullName')
     is_archived = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isArchived')
     is_locked = sgqlc.types.Field(BooleanOperationFilterInput, graphql_name='isLocked')
-    creation_date = sgqlc.types.Field(ComparableDateTimeOperationFilterInput, graphql_name='creationDate')
+    creation_date = sgqlc.types.Field(DateTimeOperationFilterInput, graphql_name='creationDate')
     email = sgqlc.types.Field(StringOperationFilterInput, graphql_name='email')
     phone_number = sgqlc.types.Field(StringOperationFilterInput, graphql_name='phoneNumber')
-    id = sgqlc.types.Field(ComparableGuidOperationFilterInput, graphql_name='id')
+    id = sgqlc.types.Field('UuidOperationFilterInput', graphql_name='id')
     role = sgqlc.types.Field(RoleFilterInput, graphql_name='role')
 
 
 class UsersSortInput(sgqlc.types.Input):
     __schema__ = headquarters_schema
-    __field_names__ = ('user_name', 'creation_date', 'full_name', 'role', 'email', 'phone_number', 'is_locked', 'is_archived')
+    __field_names__ = ('user_name', 'creation_date', 'full_name', 'email', 'phone_number', 'is_locked', 'is_archived')
     user_name = sgqlc.types.Field(SortEnumType, graphql_name='userName')
     creation_date = sgqlc.types.Field(SortEnumType, graphql_name='creationDate')
     full_name = sgqlc.types.Field(SortEnumType, graphql_name='fullName')
-    role = sgqlc.types.Field(SortEnumType, graphql_name='role')
     email = sgqlc.types.Field(SortEnumType, graphql_name='email')
     phone_number = sgqlc.types.Field(SortEnumType, graphql_name='phoneNumber')
     is_locked = sgqlc.types.Field(SortEnumType, graphql_name='isLocked')
     is_archived = sgqlc.types.Field(SortEnumType, graphql_name='isArchived')
+
+
+class UuidOperationFilterInput(sgqlc.types.Input):
+    __schema__ = headquarters_schema
+    __field_names__ = ('eq', 'neq', 'in_', 'nin', 'gt', 'ngt', 'gte', 'ngte', 'lt', 'nlt', 'lte', 'nlte')
+    eq = sgqlc.types.Field(UUID, graphql_name='eq')
+    neq = sgqlc.types.Field(UUID, graphql_name='neq')
+    in_ = sgqlc.types.Field(sgqlc.types.list_of(UUID), graphql_name='in')
+    nin = sgqlc.types.Field(sgqlc.types.list_of(UUID), graphql_name='nin')
+    gt = sgqlc.types.Field(UUID, graphql_name='gt')
+    ngt = sgqlc.types.Field(UUID, graphql_name='ngt')
+    gte = sgqlc.types.Field(UUID, graphql_name='gte')
+    ngte = sgqlc.types.Field(UUID, graphql_name='ngte')
+    lt = sgqlc.types.Field(UUID, graphql_name='lt')
+    nlt = sgqlc.types.Field(UUID, graphql_name='nlt')
+    lte = sgqlc.types.Field(UUID, graphql_name='lte')
+    nlte = sgqlc.types.Field(UUID, graphql_name='nlte')
 
 
 
@@ -530,10 +481,11 @@ class UsersSortInput(sgqlc.types.Input):
 ########################################################################
 class Assignment(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('archived', 'created_at_utc', 'email', 'id', 'interviews_needed', 'received_by_tablet_at_utc', 'responsible_id', 'web_mode', 'calendar_event')
+    __field_names__ = ('archived', 'created_at_utc', 'email', 'target_area', 'id', 'interviews_needed', 'received_by_tablet_at_utc', 'responsible_id', 'web_mode', 'calendar_event')
     archived = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='archived')
     created_at_utc = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='createdAtUtc')
     email = sgqlc.types.Field(String, graphql_name='email')
+    target_area = sgqlc.types.Field(String, graphql_name='targetArea')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     interviews_needed = sgqlc.types.Field(Int, graphql_name='interviewsNeeded')
     received_by_tablet_at_utc = sgqlc.types.Field(DateTime, graphql_name='receivedByTabletAtUtc')
@@ -782,7 +734,7 @@ class Interview(sgqlc.types.Type):
     __schema__ = headquarters_schema
     __field_names__ = ('action_flags', 'assignment_id', 'id', 'status', 'interview_mode', 'responsible_name', 'responsible_id', 'responsible_role', 'supervisor_name', 'was_completed', 'created_date', 'key', 'client_key', 'update_date_utc', 'received_by_interviewer_at_utc', 'errors_count', 'questionnaire_id', 'questionnaire_variable', 'questionnaire_version', 'identifying_data', 'not_answered_count', 'calendar_event', 'cawi_link')
     action_flags = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(InterviewActionFlags))), graphql_name='actionFlags')
-    assignment_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='assignmentId')
+    assignment_id = sgqlc.types.Field(Int, graphql_name='assignmentId')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     status = sgqlc.types.Field(sgqlc.types.non_null(InterviewStatus), graphql_name='status')
     interview_mode = sgqlc.types.Field(sgqlc.types.non_null(InterviewMode), graphql_name='interviewMode')
@@ -808,10 +760,9 @@ class Interview(sgqlc.types.Type):
 
 class Map(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('file_name', 'size', 'import_date', 'import_date_utc', 'uploaded_by', 'users', 'x_max_val', 'y_max_val', 'x_min_val', 'y_min_val', 'wkid', 'max_scale', 'min_scale', 'shape_type', 'shapes_count')
+    __field_names__ = ('file_name', 'size', 'import_date_utc', 'uploaded_by', 'users', 'x_max_val', 'y_max_val', 'x_min_val', 'y_min_val', 'wkid', 'max_scale', 'min_scale', 'shape_type', 'shapes_count')
     file_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='fileName')
     size = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='size')
-    import_date = sgqlc.types.Field(DateTime, graphql_name='importDate') # before 21.05
     import_date_utc = sgqlc.types.Field(DateTime, graphql_name='importDateUtc')
     uploaded_by = sgqlc.types.Field(UUID, graphql_name='uploadedBy')
     users = sgqlc.types.Field(sgqlc.types.list_of('UserMap'), graphql_name='users')
@@ -876,7 +827,7 @@ class Translation(sgqlc.types.Type):
 
 class User(sgqlc.types.Type):
     __schema__ = headquarters_schema
-    __field_names__ = ('id', 'role', 'user_name', 'full_name', 'email', 'phone_number', 'creation_date', 'is_locked', 'is_archived', 'workspaces')
+    __field_names__ = ('id', 'role', 'user_name', 'full_name', 'email', 'phone_number', 'creation_date', 'is_locked', 'is_archived', 'is_relink_allowed', 'workspaces')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='role')
     user_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userName')
@@ -886,6 +837,7 @@ class User(sgqlc.types.Type):
     creation_date = sgqlc.types.Field(Date, graphql_name='creationDate')
     is_locked = sgqlc.types.Field(Boolean, graphql_name='isLocked')
     is_archived = sgqlc.types.Field(Boolean, graphql_name='isArchived')
+    is_relink_allowed = sgqlc.types.Field(Boolean, graphql_name='isRelinkAllowed')
     workspaces = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='workspaces')
 
 
@@ -910,6 +862,20 @@ class Viewer(sgqlc.types.Type):
     role = sgqlc.types.Field(sgqlc.types.non_null(UserRoles), graphql_name='role')
     user_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userName')
     workspaces = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='workspaces')
+
+
+class __AppliedDirective(sgqlc.types.Type):
+    __schema__ = headquarters_schema
+    __field_names__ = ('name', 'args')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    args = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null('__DirectiveArgument'))), graphql_name='args')
+
+
+class __DirectiveArgument(sgqlc.types.Type):
+    __schema__ = headquarters_schema
+    __field_names__ = ('name', 'value')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='value')
 
 
 

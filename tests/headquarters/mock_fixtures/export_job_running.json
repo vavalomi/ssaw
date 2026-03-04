@@ -1,0 +1,21 @@
+{
+    "JobId": 42,
+    "ExportStatus": "Running",
+    "StartDate": "2026-01-01T00:00:00Z",
+    "CompleteDate": null,
+    "Progress": 10,
+    "ETA": null,
+    "Error": null,
+    "Links": {"Cancel": "/api/v2/export/42/cancel", "Download": null},
+    "HasExportFile": false,
+    "ExportType": "SPSS",
+    "QuestionnaireId": "5a99cf9de0e24e4f9da98af998129868$1",
+    "InterviewStatus": "All",
+    "From": null,
+    "To": null,
+    "AccessToken": null,
+    "RefreshToken": null,
+    "StorageType": null,
+    "TranslationId": null,
+    "IncludeMeta": false
+}

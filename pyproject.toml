@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ssaw"
-version = "0.8"
+version = "0.9"
 description = "Survey Solutions API Wrapper"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -21,6 +21,11 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 
@@ -31,15 +36,20 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test =  [
+test = [
   "flake8",
   "flake8-import-order",
+  "pre-commit",
   "pytest",
   "pytest-cov",
   "pytest-order",
   "python-dotenv",
-  "sphinx",
+  "responses",
   "vcrpy",
+]
+docs = [
+  "sphinx",
+  "sphinx-autodoc-typehints",
 ]
 
 [project.urls]

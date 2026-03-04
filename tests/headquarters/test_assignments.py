@@ -1,13 +1,16 @@
 from types import GeneratorType
 
 from pytest import raises
+import responses as resp  # noqa: I201
 
 from ssaw import AssignmentsApi
 from ssaw.exceptions import NotFoundError
 from ssaw.models import AssignmentResult
 
-from . import my_vcr
+from . import load_fixture, my_vcr
 from ..utils import create_assignment
+
+_WS = "primary"
 
 
 @my_vcr.use_cassette()
@@ -125,3 +128,40 @@ def test_assignment_set_get_delete_calendar_event(session):
 
     with raises(ValueError):
         api.delete_calendar_event(-1)
+
+
+# ---------------------------------------------------------------------------
+# responses-based tests – no live server required
+# ---------------------------------------------------------------------------
+
+@resp.activate
+def test_assignment_change_target_area(responses_client):
+    """change_target_area() POSTs and returns an updated AssignmentResult."""
+    assignment_id = 4
+    fixture = load_fixture("assignment_change_target_area.json")
+    resp.add(
+        resp.POST,
+        f"http://localhost:9707/{_WS}/api/v1/assignments/{assignment_id}/changeTargetArea",
+        json=fixture,
+        status=200,
+    )
+
+    result = AssignmentsApi(responses_client).change_target_area(assignment_id, "North Region")
+
+    assert isinstance(result, AssignmentResult)
+    assert result.id == fixture["Id"]
+    assert result.target_area == "North Region"
+
+
+@resp.activate
+def test_assignment_change_target_area_not_found(responses_client):
+    """change_target_area() raises NotFoundError for a non-existent assignment."""
+    resp.add(
+        resp.POST,
+        f"http://localhost:9707/{_WS}/api/v1/assignments/9999/changeTargetArea",
+        body="Assignment not found",
+        status=404,
+    )
+
+    with raises(NotFoundError):
+        AssignmentsApi(responses_client).change_target_area(9999, "Some Area")

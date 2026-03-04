@@ -37,3 +37,12 @@ def admin_session():
 @pytest.fixture(scope="session")
 def params():
     return json.load(open("tests/params.json", mode="r"))
+
+
+_MOCK_BASE_URL = "http://localhost:9707"
+
+
+@pytest.fixture
+def responses_client():
+    """Client configured against a mock URL, for use with the responses library."""
+    return Client(_MOCK_BASE_URL, api_user="api_user", api_password="Validpassword1")

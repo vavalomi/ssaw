@@ -98,7 +98,8 @@ class AssignmentsApi(HQBase):
 
         :returns: Newly created Assignment object
         """
-        res = self._make_call(method="post", path=self.url, json=obj.model_dump(by_alias=True, exclude_none=True))
+        res = self._make_call(method="post", path=self.url,
+                              json=obj.model_dump(mode='json', by_alias=True, exclude_none=True))
         return AssignmentResult.model_validate(res["Assignment"])
 
     def archive(self, id: int) -> None:
@@ -202,6 +203,22 @@ class AssignmentsApi(HQBase):
         self._make_call(method="patch",
                         path=f"{self.url}/{id}/recordAudio",
                         json={'Enabled': enabled})
+
+    def change_target_area(self, id: int, target_area: str) -> AssignmentResult:
+        """Change the target area for an assignment.
+
+        :param id: Assignment id
+        :param target_area: Name of the new target area
+
+        :returns: Updated :class:`AssignmentResult<ssaw.models.AssignmentResult>` object
+        """
+        return AssignmentResult.model_validate(
+            self._make_call(
+                method="post",
+                path=f"{self.url}/{id}/changeTargetArea",
+                json=target_area,
+            )
+        )
 
     def get_calendar_event(self, id: int) -> CalendarEvent:
         """Get calendar event associated with the assignment

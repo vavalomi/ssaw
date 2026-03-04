@@ -16,7 +16,15 @@ except ImportError:
     from typing_extensions import Literal
 
 
-__all__ = ["Assignment", "ExportJob", "Map", ]
+__all__ = ["Assignment", "CriticalityLevel", "ExportJob", "InterviewStatistics", "Map", ]
+
+
+class CriticalityLevel(str, Enum):
+    """Criticality level for questionnaire validation errors."""
+    UNKNOWN = "Unknown"
+    IGNORE = "Ignore"
+    WARN = "Warn"
+    BLOCK = "Block"
 
 
 class QuestionType(Enum):
@@ -307,7 +315,8 @@ ASSIGNMENT_ACTION_TYPES = {
     "AudioRecordingChanged": 6,
     "Reassigned": 7,
     "QuantityChanged": 8,
-    "WebModeChanged": 9
+    "WebModeChanged": 9,
+    "TargetAreaChanged": 10,
 }
 
 
@@ -581,6 +590,32 @@ class QuestionnaireDocument(BaseModelWithConfig):
             attach_parent_id(child, self.public_key)
 
 
+class InterviewStatistics(BaseModelWithConfig):
+    """Statistics for a single interview."""
+
+    answered: int
+    not_answered: int
+    flagged: int
+    not_flagged: int
+    valid: int
+    invalid: int
+    with_comments: int
+    for_interviewer: int
+    for_supervisor: int
+    interview_id: UUID
+    interview_key: Optional[str] = None
+    status: Optional[str] = None
+    responsible_id: Optional[UUID] = None
+    responsible_name: Optional[str] = None
+    number_of_interviewers: int = 0
+    number_rejections_by_supervisor: int = 0
+    number_rejections_by_hq: int = 0
+    interview_duration: Optional[str] = None
+    assignment_id: Optional[int] = None
+    updated_at_utc: Optional[datetime] = None
+    web_interview_url: Optional[str] = None
+
+
 class InterviewerAction(BaseModelWithConfig):
     message: str
     time: datetime
@@ -651,6 +686,7 @@ class Assignment(BaseModelWithConfig):
     is_audio_recording_enabled: Optional[bool] = False
     comments: Optional[str] = ""
     protected_variables: Optional[List[str]] = []
+    target_area: Optional[str] = None
 
 
 class AssignmentResult(Assignment):
@@ -685,18 +721,21 @@ class ExportJobLinks(BaseModelWithConfig):
 
 
 class ExportJob(BaseModelWithConfig):
-    export_type: Optional[Literal["Tabular", "STATA", "SPSS", "Binary", "DDI", "Paradata"]] = "Tabular"
+    export_type: Optional[
+        Literal["Tabular", "STATA", "SPSS", "Binary", "DDI", "Paradata", "AudioAudit"]
+    ] = "Tabular"
     questionnaire_id: str
     interview_status: Optional[Literal["All", "SupervisorAssigned", "InterviewerAssigned",
                                        "RejectedBySupervisor", "Completed", "ApprovedBySupervisor",
                                        "RejectedByHeadquarters", "ApprovedByHeadquarters"]] = "All"
-    from_date: Optional[datetime] = Field(alias="From", default="")
-    to_date: Optional[datetime] = Field(alias="To", default="")
-    access_token: Optional[str] = ""
-    refresh_token: Optional[str] = ""
-    storage_type: Optional[Literal["Dropbox", "OneDrive", "GoogleDrive"]] = "OneDrive"
-    translation_id: Optional[UUID] = ""
+    from_date: Optional[datetime] = Field(alias="From", default=None)
+    to_date: Optional[datetime] = Field(alias="To", default=None)
+    access_token: Optional[str] = None
+    refresh_token: Optional[str] = None
+    storage_type: Optional[Literal["Dropbox", "OneDrive", "GoogleDrive"]] = None
+    translation_id: Optional[UUID] = None
     include_meta: Optional[bool] = False
+    parada_reduced: Optional[bool] = None
 
 
 class ExportJobResult(ExportJob):
@@ -715,6 +754,7 @@ class Workspace(BaseModelWithConfig):
     name: str
     display_name: str
     disabled_at_utc: Optional[datetime]
+    created_at_utc: Optional[datetime] = None
 
 
 class WorkspacesList(BaseModelWithConfig):

@@ -9,7 +9,7 @@ from .headquarters_schema import (
     InterviewSort,
     InterviewsFilter,
 )
-from .models import InteriviewHistoryItem, InterviewAnswers, InterviewAnswersData
+from .models import InteriviewHistoryItem, InterviewAnswers, InterviewAnswersData, InterviewStatistics
 from .utils import filter_object, fix_qid, order_object
 
 
@@ -76,6 +76,35 @@ class InterviewsApi(HQBase):
 
     def delete(self, interviewid: UUID, comment: str = None):
         return self._change_status(action='delete', interviewid=interviewid, comment=comment)
+
+    @fix_qid(expects={'interview_id': 'string'})
+    def get_pdf(self, interview_id: UUID, path: str = "") -> str:
+        """Download interview transcript as a PDF file.
+
+        :param interview_id: Interview id
+        :param path: Directory path to save the PDF file. If empty string,
+            saves to the current working directory.
+
+        :returns: Path to the downloaded PDF file
+        """
+        return self._make_call(
+            method="get",
+            path=f"{self.url}/{interview_id}/pdf",
+            filepath=path,
+            stream=True,
+        )
+
+    @fix_qid(expects={'interview_id': 'string'})
+    def get_stats(self, interview_id: UUID) -> InterviewStatistics:
+        """Get statistics for a single interview.
+
+        :param interview_id: Interview id
+
+        :returns: :class:`InterviewStatistics<ssaw.models.InterviewStatistics>` object
+        """
+        return InterviewStatistics.model_validate(
+            self._make_call(method="get", path=f"{self.url}/{interview_id}/stats")
+        )
 
     def get_calendar_event(self, interview_key: str) -> CalendarEvent:
         """Get calendar event associated with the interview

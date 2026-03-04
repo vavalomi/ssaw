@@ -1,0 +1,23 @@
+{
+  "Answered": 10,
+  "NotAnswered": 5,
+  "Flagged": 1,
+  "NotFlagged": 14,
+  "Valid": 12,
+  "Invalid": 3,
+  "WithComments": 2,
+  "ForInterviewer": 8,
+  "ForSupervisor": 4,
+  "InterviewId": "11111111-1111-1111-1111-111111111111",
+  "InterviewKey": "11-22-33-44",
+  "Status": "Completed",
+  "ResponsibleId": "22222222-2222-2222-2222-222222222222",
+  "ResponsibleName": "interviewer1",
+  "NumberOfInterviewers": 1,
+  "NumberRejectionsBySupervisor": 0,
+  "NumberRejectionsByHq": 0,
+  "InterviewDuration": null,
+  "AssignmentId": 1,
+  "UpdatedAtUtc": "2024-01-15T10:30:00Z",
+  "WebInterviewUrl": null
+}

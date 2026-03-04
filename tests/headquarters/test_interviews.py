@@ -1,14 +1,17 @@
 import types
 
 from pytest import raises
+import responses as resp  # noqa: I201
 
 from ssaw import InterviewsApi, UsersApi
 from ssaw.exceptions import NotAcceptableError, NotFoundError
 from ssaw.headquarters_schema import Interview
-from ssaw.models import InteriviewHistoryItem
+from ssaw.models import InteriviewHistoryItem, InterviewStatistics
 from ssaw.utils import to_hex
 
-from . import my_vcr
+from . import load_fixture, my_vcr
+
+_WS = "primary"
 
 
 @my_vcr.use_cassette(decode_compressed_response=True)
@@ -124,3 +127,72 @@ def test_interview_set_get_delete_calendar_event(session):
 
     with raises(ValueError):
         api.delete_calendar_event("random string")
+
+
+# ---------------------------------------------------------------------------
+# responses-based tests – no live server required
+# ---------------------------------------------------------------------------
+
+_INTERVIEW_ID = "11111111-1111-1111-1111-111111111111"
+
+
+@resp.activate
+def test_interview_get_stats(responses_client):
+    """get_stats() returns an InterviewStatistics object with correct values."""
+    fixture = load_fixture("interview_stats.json")
+    resp.add(
+        resp.GET,
+        f"http://localhost:9707/{_WS}/api/v1/interviews/{_INTERVIEW_ID}/stats",
+        json=fixture,
+        status=200,
+    )
+
+    result = InterviewsApi(responses_client).get_stats(_INTERVIEW_ID)
+
+    assert isinstance(result, InterviewStatistics)
+    assert result.answered == fixture["Answered"]
+    assert result.not_answered == fixture["NotAnswered"]
+    assert result.valid == fixture["Valid"]
+    assert result.invalid == fixture["Invalid"]
+    assert str(result.interview_id) == _INTERVIEW_ID
+
+
+@resp.activate
+def test_interview_get_stats_not_found(responses_client):
+    """get_stats() raises NotFoundError when the interview does not exist."""
+    missing_id = "99999999-9999-9999-9999-999999999999"
+    resp.add(
+        resp.GET,
+        f"http://localhost:9707/{_WS}/api/v1/interviews/{missing_id}/stats",
+        body="Interview not found",
+        status=404,
+    )
+
+    with raises(NotFoundError):
+        InterviewsApi(responses_client).get_stats(missing_id)
+
+
+@resp.activate
+def test_interview_get_pdf(responses_client, tmp_path):
+    """get_pdf() downloads a binary PDF and returns its path."""
+    import os
+    pdf_content = b"%PDF-1.4 synthetic test content"
+    filename = f"interview_{_INTERVIEW_ID}.pdf"
+    resp.add(
+        resp.GET,
+        f"http://localhost:9707/{_WS}/api/v1/interviews/{_INTERVIEW_ID}/pdf",
+        body=pdf_content,
+        headers={
+            "Content-Type": "application/pdf",
+            "Content-Disposition": f'attachment; filename="{filename}"',
+        },
+        status=200,
+    )
+
+    result = InterviewsApi(responses_client).get_pdf(_INTERVIEW_ID, path=str(tmp_path))
+
+    assert result is not None
+    assert result.endswith(".pdf")
+    assert os.path.exists(result)
+    with open(result, "rb") as fh:
+        assert fh.read() == pdf_content

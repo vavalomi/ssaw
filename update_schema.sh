@@ -5,4 +5,4 @@ python3 \
     http://localhost:9707/graphql \
     headquarters_schema.json
 
-sgqlc-codegen schema headquarters_schema.json ssaw/headquarters_schema.py
+python3 -m sgqlc.codegen schema headquarters_schema.json ssaw/headquarters_schema.py

@@ -1,15 +1,20 @@
+import json
 import types
 from os.path import join
 from tempfile import gettempdir
 from uuid import UUID
 
 from pytest import fixture
+import responses as resp  # noqa: I201
 
 from ssaw import QuestionnairesApi
 from ssaw.headquarters_schema import Interview, Questionnaire
+from ssaw.models import CriticalityLevel
 
-from . import my_vcr
+from . import load_fixture, my_vcr
 from ..utils import create_assignment
+
+_WS = "primary"
 
 
 @fixture
@@ -75,3 +80,58 @@ def test_questionnaire_download_weblinks(admin_session, params):
     response = QuestionnairesApi(admin_session).download_web_links(params['TemplateId'],
                                                                    params['TemplateVersion'], path=tempdir)
     assert response == join(tempdir, "Web ssaw package test questionnaire (ver. 1).zip")
+
+
+# ---------------------------------------------------------------------------
+# responses-based tests – no live server required
+# ---------------------------------------------------------------------------
+
+_Q_ID = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+_Q_VERSION = 1
+
+
+@resp.activate
+def test_questionnaire_get_criticality_level(responses_client):
+    """get_criticality_level() returns the current level string."""
+    fixture = load_fixture("criticality_level.json")
+    resp.add(
+        resp.GET,
+        f"http://localhost:9707/{_WS}/api/v1/questionnaires/{_Q_ID}/{_Q_VERSION}/criticalityLevel",
+        json=fixture,
+        status=200,
+    )
+
+    result = QuestionnairesApi(responses_client).get_criticality_level(_Q_ID, _Q_VERSION)
+
+    assert result == CriticalityLevel.WARN.value
+
+
+@resp.activate
+def test_questionnaire_set_criticality_level(responses_client):
+    """set_criticality_level() sends the correct JSON payload."""
+    resp.add(
+        resp.POST,
+        f"http://localhost:9707/{_WS}/api/v1/questionnaires/{_Q_ID}/{_Q_VERSION}/criticalityLevel",
+        status=204,
+    )
+
+    QuestionnairesApi(responses_client).set_criticality_level(_Q_ID, _Q_VERSION, CriticalityLevel.BLOCK)
+
+    assert len(resp.calls) == 1
+    sent = json.loads(resp.calls[0].request.body)
+    assert sent["CriticalityLevel"] == CriticalityLevel.BLOCK.value
+
+
+@resp.activate
+def test_questionnaire_set_criticality_level_str(responses_client):
+    """set_criticality_level() also accepts a plain string for the level."""
+    resp.add(
+        resp.POST,
+        f"http://localhost:9707/{_WS}/api/v1/questionnaires/{_Q_ID}/{_Q_VERSION}/criticalityLevel",
+        status=204,
+    )
+
+    QuestionnairesApi(responses_client).set_criticality_level(_Q_ID, _Q_VERSION, "Ignore")
+
+    sent = json.loads(resp.calls[0].request.body)
+    assert sent["CriticalityLevel"] == "Ignore"
