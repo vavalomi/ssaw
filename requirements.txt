@@ -1,5 +1,5 @@
 pydantic==2.12.3
-requests==2.32.5
+requests==2.33.0
 sgqlc==17.1
 
 # testing requirements
